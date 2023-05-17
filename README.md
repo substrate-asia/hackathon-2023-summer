@@ -43,8 +43,8 @@ Bounty奖项列表
 ## Workshop 及 Office Hour 时间表
 - 开幕式：2023年5月20日
 
-  1. 2023上半年波卡最新进展 Jimmy Parity工程师
-  2. 2023夏季黑客松赛事规则详解 周俊 Parity工程师
+  1. 2023上半年波卡最新进展 周俊 Parity工程师
+  2. 2023夏季黑客松赛事规则详解 Jimmy Parity工程师
 
 - Workshop#1：
 - Workshop#2：

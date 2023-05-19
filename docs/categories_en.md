@@ -199,6 +199,11 @@ We thought of thinking from the following perspectives, but if you have other pe
 
     You only need to enter your password once when you start using the app. In the next session, you will be able to interact with the application without entering a password. Huge improvements to the user experience. A Burner wallet can obtain a private key in local storage, or create a temporary wallet via GET.
 
+### substrate pallets tool suite
+Reference example: Substrate Open Runtime Module Library
+
+https://github.com/open-web3-stack/open-runtime-module-library
+
 ### Governance Tools
 
 inspiration:

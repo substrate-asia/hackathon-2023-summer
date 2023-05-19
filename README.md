@@ -7,6 +7,7 @@
 - 开幕式：2023年5月20日
 - 1场线上直播组队：2023年6月3日
 - 4场线上 Workshop&OfficeHour：2023年6月10日 - 2023年7月1日
+- 导师带队：2023年6月19日 - 2023年6月21日
 - 活动报名截止&代码提交截止：2023年7月4日上午11:59
 - 初选审核：2023年7月5日 - 2023年7月6日
 - 晋级战队公示：2023年7月7日
@@ -125,7 +126,7 @@ Bounty奖项列表
 
 * email: hackathon.asia@parity.io
 
-* wechat: 15810880107
+* wechat: oneblockEmma
 
 * [黑客松比赛 Discord](https://discord.gg/KsCEKvqU4p)
 

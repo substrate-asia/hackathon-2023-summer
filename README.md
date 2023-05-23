@@ -93,7 +93,7 @@ Bounty奖项列表
           L substrate/       // substrate 相关代码
           L ui/              // 前端相关代码
           L 。。。            // 其他档案
-        L docs/              // 文档，视频和PPT等大文件不要直接上传，放链接地址
+        L docs/              // 存放文档。视频和PPT等大文件不要直接上传，放链接地址即可
         L README.md
     ```
 

@@ -1,6 +1,12 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@headlessui/vue':
+    specifier: ^1.7.13
+    version: 1.7.13(vue@3.2.47)
+  '@heroicons/vue':
+    specifier: ^2.0.18
+    version: 2.0.18(vue@3.2.47)
   '@holoflows/kit':
     specifier: ^0.9.0
     version: 0.9.0(webextension-polyfill@0.10.0)
@@ -939,6 +945,23 @@ packages:
     resolution: {integrity: sha512-5D2qVpZrgpjtqU4eNOcWGp1gnUCgjfM+vKGE2y03kKN6z5EBhtx0qdRFbg8QuNNj8wXNoX93KJoYb+NqoxswmQ==}
     engines: {node: '>=14.0.0', npm: '>=7.0.0'}
     dev: true
+
+  /@headlessui/vue@1.7.13(vue@3.2.47):
+    resolution: {integrity: sha512-obG5TdPdBDfs+jiA1mY29LPFqyJl93Q90EL86ontfRe1B6XvbjPkx+x1aAC5DA18bXbb0Juni1ayDbXo0w1u0A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /@heroicons/vue@2.0.18(vue@3.2.47):
+    resolution: {integrity: sha512-BcTC9nq2TkwNSfQuqo96J7ehx4etezypc2YeTq7KsXWxrcrerhkgjLrxGRBnStN0wrXo0Gv4BInybqz5uBG6Cw==}
+    peerDependencies:
+      vue: '>= 3'
+    dependencies:
+      vue: 3.2.47
+    dev: false
 
   /@holoflows/kit@0.9.0(webextension-polyfill@0.10.0):
     resolution: {integrity: sha512-OB6bXgSl2KyG8SJWlSmBce2jKqH5t5EnPfvxK/sEogulY4FWeiGhNnojgyyYvdqNr5OTZqhmX7HGdRzuWO65Ig==}

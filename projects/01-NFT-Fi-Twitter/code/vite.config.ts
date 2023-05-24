@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
-
 import { dirname, relative } from 'node:path'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -25,10 +26,25 @@ export const sharedConfig: UserConfig = {
   },
   plugins: [
     Vue(),
+    // https://github.com/hannoeru/vite-plugin-pages
+    Pages({
+      extensions: ['vue', 'md'],
+      dirs: [
+        { dir: r('src/options/pages'), baseRoute: 'options' },
+        { dir: r('src/popup/pages'), baseRoute: 'popup' },
+        { dir: r('src/contentScripts/pages'), baseRoute: 'contentScripts' },
+      ],
+    }),
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
+    Layouts({
+      layoutsDirs: r('src/layouts'),
+    }),
 
     AutoImport({
       imports: [
         'vue',
+        'vue-router',
         {
           'webextension-polyfill': [
             ['*', 'browser'],
@@ -41,6 +57,7 @@ export const sharedConfig: UserConfig = {
     // https://github.com/antfu/unplugin-vue-components
     Components({
       dirs: [r('src/components')],
+      directoryAsNamespace: true,
       // generate `components.d.ts` for ts support with Volar
       dts: r('src/components.d.ts'),
       resolvers: [

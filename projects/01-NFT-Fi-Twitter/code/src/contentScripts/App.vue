@@ -6,9 +6,10 @@ const [show, toggle] = useToggle(false)
 </script>
 
 <template>
-  <div class="fixed right-0 bottom-0 m-5 z-100 flex items-end font-sans select-none leading-1em">
+  <div class="flex font-sans m-5 right-0 bottom-0 leading-1em z-100 fixed items-end select-none">
+    <Web3Inject />
     <div
-      class="bg-white text-gray-800 rounded-lg shadow w-max h-min"
+      class="bg-white rounded-lg h-min shadow w-max text-gray-800"
       p="x-4 y-2"
       m="y-auto r-2"
       transition="opacity duration-300"
@@ -20,11 +21,11 @@ const [show, toggle] = useToggle(false)
       <SharedSubtitle />
     </div>
     <button
-      class="flex w-10 h-10 rounded-full shadow cursor-pointer border-none"
+      class="border-none rounded-full cursor-pointer flex h-10 shadow w-10"
       bg="teal-600 hover:teal-700"
       @click="toggle()"
     >
-      <pixelarticons-power class="block m-auto text-white text-lg" />
+      <pixelarticons-power class="m-auto text-white text-lg block" />
     </button>
   </div>
 </template>

@@ -1,9 +1,0 @@
-<script setup lang="ts">
-console.log('====> index home here :')
-</script>
-
-<template>
-  <div>
-    options Home
-  </div>
-</template>

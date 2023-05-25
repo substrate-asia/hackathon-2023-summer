@@ -56,17 +56,18 @@ Bounty奖项列表
 
 以下信息也可见于[这微信页](https://mp.weixin.qq.com/s/KGkTkcRh7dO1UmB8REKMtw)。
 
-### 1. 填写注册信息
+### 1. 填写谷歌表单
+
+参赛者可以通过以下链接提交报名完善信息，无论您是团队还是个人参赛，每个参赛队员都需要填写此表。
+
+🚩谷歌表单：https://forms.gle/bfQCm1JUKDwBqXSW9
+
+### 2. 填写注册信息
 
 参赛者通过报名链接填写信息，提交电子邮件进行注册。在 Dorahacks 网站上点击“立即注册”按钮，申请一个免费的 Dorahacks 帐户用于参加黑客松。每队至少应有一名队员报名并填写所需信息，可以选择只填写注册所需的信息。参加本次黑客松即表示同意赞助商收集和保存参赛者个人信息，用于运营和宣传黑客松。
 
 🚩报名链接: https://dorahacks.io/hackathon/polkadot-hackathon-2023-summer/detail
 
-### 2. 填写谷歌表单
-
-参赛者可以通过以下链接提交报名完善信息，无论您是团队还是个人参赛，每个参赛队员都需要填写此表。
-
-🚩谷歌表单：https://forms.gle/bfQCm1JUKDwBqXSW9
 
 ### 3. 加入微信群/Discord 群
 

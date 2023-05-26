@@ -2,7 +2,7 @@
 import { onMessage } from 'webext-bridge/content-script'
 import { createApp } from 'vue'
 import App from './App.vue'
-import { setupApp } from '~/logic/common-setup'
+import { patchPortalRoot, setupApp } from '~/logic/common-setup'
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
@@ -17,6 +17,7 @@ import { setupApp } from '~/logic/common-setup'
   const container = document.createElement('div')
   container.id = __NAME__
   const root = document.createElement('div')
+  patchPortalRoot(container, root)
   const styleEl = document.createElement('link')
   const shadowDOM = container.attachShadow?.({ mode: __DEV__ ? 'open' : 'closed' }) || container
   styleEl.setAttribute('rel', 'stylesheet')

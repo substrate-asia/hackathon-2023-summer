@@ -13,3 +13,59 @@ export function setupApp(app: App) {
   // example: app.use(i18n)
   // example excluding content-script context: if (context !== 'content-script') app.use(i18n)
 }
+
+/**
+ *
+ * @param shadowRootContainer - The HTML element that is the shadowRoot's parent
+ * @param portalRoot - The HTML element that you want Modals to be teleported to
+ * @returns
+ */
+export function patchPortalRoot(
+  shadowRootContainer: HTMLElement,
+  portalRoot?: HTMLElement,
+) {
+  const elementById = Document.prototype.getElementById
+
+  const element = portalRoot || shadowRootContainer.shadowRoot?.children[0]
+  if (!element)
+    return
+
+  Document.prototype.getElementById = function (elementId: string) {
+    if (elementId === 'headlessui-portal-root') {
+      const d = document.createElement('div')
+      d.id = 'headlessui-portal-root'
+      element.appendChild(d)
+      return d
+    }
+    return elementById.call(this, elementId)
+  }
+
+  const activeElementDescriptorGetter = Object.getOwnPropertyDescriptor(
+    Document.prototype,
+    'activeElement',
+  )?.get
+
+  Object.defineProperty(Document.prototype, 'activeElement', {
+    get() {
+      const activeElement = activeElementDescriptorGetter?.call(this)
+      if (activeElement === shadowRootContainer)
+        return shadowRootContainer.shadowRoot?.activeElement
+    },
+  })
+
+  const targetGetter = Object.getOwnPropertyDescriptor(
+    Event.prototype,
+    'target',
+  )?.get
+
+  Object.defineProperty(Event.prototype, 'target', {
+    get() {
+      const target = targetGetter?.call(this)
+
+      if (target === shadowRootContainer && this.path)
+        return this.path[0]
+
+      return target
+    },
+  })
+}

@@ -18,7 +18,7 @@ export async function getManifest() {
       default_popup: './dist/popup/index.html',
     },
     options_ui: {
-      page: './dist/options/index.html',
+      page: './dist/options/index.html#/options/',
       open_in_tab: true,
     },
     background: isFirefox
@@ -43,7 +43,8 @@ export async function getManifest() {
     content_scripts: [
       {
         matches: [
-          '<all_urls>',
+          // '<all_urls>',
+          'http://localhost/*',
         ],
         js: [
           'dist/contentScripts/index.global.js',

@@ -70,7 +70,7 @@ const activityItems = [
 const sidebarOpen = ref(false)
 
 const router = useRouter()
-router.push('/options/onboarding/create-password')
+// router.push('/options/onboarding/create-password')
 </script>
 
 <template>

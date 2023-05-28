@@ -17,8 +17,9 @@ const isShowNotMatch = computed(() => !isMatch.value && password2.value !== '')
 const isAgree = ref(false)
 const isValid = computed(() => password1.value && isMatch.value && isAgree.value && isStrong.value)
 
+const router = useRouter()
 const doSubmit = async () => {
-  console.log('====> doSubmit :')
+  router.push('/options/onboarding/review-recovery-phrase')
 }
 </script>
 

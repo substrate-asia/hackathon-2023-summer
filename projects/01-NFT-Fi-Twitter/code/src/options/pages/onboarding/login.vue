@@ -5,9 +5,9 @@ console.log('====> login :')
 <template>
   <div class="flex flex-col min-h-full flex-1 py-12 px-6 justify-center lg:px-8">
     <div class="mt-1/10 sm:mx-auto sm:max-w-sm sm:w-full">
-      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
+      <img class="rounded-full mx-auto h-20 w-auto" src="https://avatars.githubusercontent.com/u/109504677?v=4" alt="Web3Hacker.World">
       <h2 class="font-bold mt-10 text-center text-white tracking-tight text-2xl leading-9">
-        Sign in to your account
+        On board to Web3
       </h2>
     </div>
 

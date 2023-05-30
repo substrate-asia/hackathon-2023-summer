@@ -15,4 +15,6 @@ type Account interface {
 	NodeKind(wallet string) (kind int, err error)
 	//读取钱包地址
 	GetAddress() string
+	//元数据上链
+	StoreMeta(miner, distributor map[string][]string) (string, error)
 }

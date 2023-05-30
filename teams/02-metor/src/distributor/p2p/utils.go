@@ -10,6 +10,7 @@ import (
 	"github.com/multiformats/go-multihash"
 	"github.com/samirshao/itools/ilog"
 	"io"
+	"math/rand"
 	"os"
 )
 
@@ -93,6 +94,19 @@ func toPeerID(src string) (peer.ID, error) {
 	return peerID, nil
 }
 
-func GetMiners(count int) {
-
+// find some miner
+func GetMiners(count int) []string {
+	miners := make([]string, 0, count)
+	Core.peerStore.Store.Range(func(key, value any) bool {
+		peerAttr := value.(PeerAttr)
+		if peerAttr.Kind == kindMiner {
+			miners = append(miners, key.(string))
+		}
+		return true
+	})
+	//打乱顺序
+	rand.Shuffle(len(miners), func(i, j int) {
+		miners[i], miners[j] = miners[j], miners[i]
+	})
+	return miners
 }

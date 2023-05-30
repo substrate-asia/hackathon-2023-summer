@@ -2,7 +2,6 @@ package chain
 
 import (
 	"crypto/ecdsa"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
@@ -147,83 +146,4 @@ func (_this *Evm) NodeKind(wallet string) (kind int, err error) {
 // 读取钱包地址
 func (_this *Evm) GetAddress() string {
 	return crypto.PubkeyToAddress(*_this.PubKey).Hex()
-}
-
-func LoadKeystore() {
-	KeystorePwdPath := "./keystore/password.txt"
-	KeystoreFilePath := "./keystore/UTC--*"
-
-	if !ifile.IsExist(KeystorePwdPath) {
-		ilog.Logger.Fatalln("No wallet detected")
-		return
-	}
-
-	fs, _ := filepath.Glob(KeystoreFilePath)
-	if len(fs) == 0 {
-		ilog.Logger.Fatalln("No wallet detected")
-		return
-	}
-
-	ksData, err := os.ReadFile(fs[0])
-	if err != nil {
-		ilog.Logger.Fatalln("read keystore err >>>>> ", err)
-		return
-	}
-
-	ksPwd, err := os.ReadFile(KeystorePwdPath)
-	if err != nil {
-		ilog.Logger.Fatalln("read keystore password err >>>>> ", err)
-		return
-	}
-
-	var fromKey *keystore.Key
-	fromKey, err = keystore.DecryptKey(ksData, string(ksPwd))
-	if err != nil {
-		ilog.Logger.Fatalln("can not decrypt keystore >>>>> ", err)
-		return
-	}
-
-	WalletAddr := fromKey.Address.String()
-	fmt.Println("钱包地址：", WalletAddr)
-
-	//私钥
-	prikey := fromKey.PrivateKey
-
-	//公钥
-	pubkey := fromKey.PrivateKey.Public()
-	ecdsaPubkey, ok := pubkey.(*ecdsa.PublicKey)
-	if !ok {
-		ilog.Logger.Error("公钥错误")
-		return
-	}
-	//输出公钥字符串，和钱包地址一致
-	address := crypto.PubkeyToAddress(*ecdsaPubkey).Hex()
-	fmt.Println("公钥明文", address)
-
-	//私钥签名
-	data := []byte("Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!")
-	hash := crypto.Keccak256Hash(data)
-	signature, err := crypto.Sign(hash.Bytes(), prikey)
-	if err != nil {
-		ilog.Logger.Error("签名错误", err)
-		return
-	}
-	encSign := hex.EncodeToString(signature)
-	fmt.Println("签名", encSign)
-
-	decSign, err := hex.DecodeString(encSign)
-	if err != nil {
-		ilog.Logger.Error("签名解密错误", err)
-		return
-	}
-
-	//公钥提取签名
-	pubKey, err := crypto.SigToPub(hash.Bytes(), decSign)
-	if err != nil {
-		ilog.Logger.Error("签名错误", err)
-		return
-	}
-	address = crypto.PubkeyToAddress(*pubKey).Hex()
-	fmt.Println("验签公钥", address)
-
 }

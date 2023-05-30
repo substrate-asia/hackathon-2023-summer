@@ -28,3 +28,7 @@ message FindPeerResp {
   //路由节点
   repeated Peer route = 3;
 }
+
+message SaveChunkReq {
+  bytes chunk = 1;
+}

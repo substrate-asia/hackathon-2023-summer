@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { english, generateMnemonic } from 'viem/accounts'
+import { storageOnboard } from '~/logic/storage'
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Confirm Secret Recovery Phrase')
 
-const mnemonicRealStr = generateMnemonic(english)
-const mnemonicRealArrWithBlank = ref(mnemonicRealStr.split(' '))
-console.log('====> mnemonicRealArrWithBlank.value :', mnemonicRealStr.split(' '))
-mnemonicRealArrWithBlank.value[1] = ''
-mnemonicRealArrWithBlank.value[4] = ''
-mnemonicRealArrWithBlank.value[8] = ''
+const mnemonicRealStr = computed(() => storageOnboard.value.mnemonicStr)
+const mnemonicRealArrWithBlank = ref([])
 
-const isValid = computed(() => mnemonicRealArrWithBlank.value.join(' ') === mnemonicRealStr)
+watch(mnemonicRealStr, () => {
+  mnemonicRealArrWithBlank.value = mnemonicRealStr.value.split(' ')
+  mnemonicRealArrWithBlank.value[1] = ''
+  mnemonicRealArrWithBlank.value[4] = ''
+  mnemonicRealArrWithBlank.value[8] = ''
+})
+
+const isValid = computed(() => mnemonicRealArrWithBlank.value.join(' ') === mnemonicRealStr.value)
 const router = useRouter()
 const doSubmit = async () => {
   router.push('/options/onboarding/completion')

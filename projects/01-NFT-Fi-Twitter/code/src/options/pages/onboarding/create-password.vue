@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { storageOnboard } from '~/logic/storage'
+
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Create Password')
 const isShowPwd1 = ref(false)
@@ -19,6 +21,7 @@ const isValid = computed(() => password1.value && isMatch.value && isAgree.value
 
 const router = useRouter()
 const doSubmit = async () => {
+  storageOnboard.value.password = password1
   router.push('/options/onboarding/review-recovery-phrase')
 }
 </script>

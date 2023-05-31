@@ -23,6 +23,7 @@ export const sharedConfig: UserConfig = {
   define: {
     __DEV__: isDev,
     __NAME__: JSON.stringify(packageJson.name),
+    global: 'window',
   },
   plugins: [
     Vue(),

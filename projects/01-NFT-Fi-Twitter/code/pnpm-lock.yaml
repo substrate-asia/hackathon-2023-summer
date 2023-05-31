@@ -10,9 +10,24 @@ dependencies:
   '@holoflows/kit':
     specifier: ^0.9.0
     version: 0.9.0(webextension-polyfill@0.10.0)
+  '@metamask/browser-passworder':
+    specifier: ^4.1.0
+    version: 4.1.0
   '@wagmi/core':
     specifier: ^1.0.6
     version: 1.0.6(react@18.2.0)(typescript@4.9.5)(viem@0.3.36)
+  buffer:
+    specifier: ^6.0.3
+    version: 6.0.3
+  events:
+    specifier: ^3.3.0
+    version: 3.3.0
+  process:
+    specifier: ^0.11.10
+    version: 0.11.10
+  util:
+    specifier: ^0.12.5
+    version: 0.12.5
   viem:
     specifier: ^0.3.36
     version: 0.3.36(typescript@4.9.5)
@@ -1111,6 +1126,11 @@ packages:
   /@mdn/browser-compat-data@5.2.42:
     resolution: {integrity: sha512-CD/2ai1W45cDN/zN2AcYduDavU+nq9aStyQizi4MHxnwkRvS/H24WIjgc1qD8CISoqXa8AAIe+A+zpWxwV7a2Q==}
     dev: true
+
+  /@metamask/browser-passworder@4.1.0:
+    resolution: {integrity: sha512-FBvah1mPte5HudQdkgqAh2+Zc75T9kYxey+dCtHIj9gKohkHDcIA1bTOPLk0bBH+6PnOzYNPG8devvH04GOmPA==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /@metamask/safe-event-emitter@2.0.0:
     resolution: {integrity: sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==}
@@ -7298,7 +7318,6 @@ packages:
   /process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
-    dev: true
 
   /progress@2.0.3:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}

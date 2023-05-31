@@ -1,3 +1,6 @@
+/* eslint-disable unicorn/prefer-node-protocol */
+import { Buffer } from 'buffer'
+
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
@@ -5,6 +8,8 @@ import generatedRoutes from 'virtual:generated-pages'
 import App from './App.vue'
 import { setupApp } from '~/logic/common-setup'
 import '../styles'
+
+window.Buffer = Buffer
 
 const routes = setupLayouts(generatedRoutes)
 

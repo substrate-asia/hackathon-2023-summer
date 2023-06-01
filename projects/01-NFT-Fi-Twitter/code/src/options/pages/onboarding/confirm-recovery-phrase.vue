@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { storageOnboard } from '~/logic/storage'
+import { sendMessage } from 'webext-bridge/options'
+import * as passworder from '@metamask/browser-passworder'
+import { encryptedMnemonic } from '~/logic/storage'
+
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Confirm Secret Recovery Phrase')
 
-const mnemonicRealStr = computed(() => storageOnboard.value.mnemonicStr)
 const mnemonicRealArrWithBlank = ref([])
-
-watch(mnemonicRealStr, () => {
+const mnemonicRealStr = ref('')
+const password = ref('')
+onMounted(async () => {
+  const rz = await sendMessage('getStoreInMemory', { keys: ['password', 'mnemonicStr'] }, 'background')
+  mnemonicRealStr.value = rz.mnemonicStr
+  password.value = rz.password
   mnemonicRealArrWithBlank.value = mnemonicRealStr.value.split(' ')
   mnemonicRealArrWithBlank.value[1] = ''
   mnemonicRealArrWithBlank.value[4] = ''
@@ -16,6 +22,8 @@ watch(mnemonicRealStr, () => {
 const isValid = computed(() => mnemonicRealArrWithBlank.value.join(' ') === mnemonicRealStr.value)
 const router = useRouter()
 const doSubmit = async () => {
+  const secrets = { mnemonic: mnemonicRealStr.value }
+  encryptedMnemonic.value = await passworder.encrypt(password.value, secrets)
   router.push('/options/onboarding/completion')
 }
 </script>
@@ -33,7 +41,7 @@ const doSubmit = async () => {
       </div>
     </div>
     <div>
-      <button class="rounded-md flex  font-semibold  bg-indigo-500 shadow-sm  mt-10 text-sm w-full py-1.5 px-3  leading-6 justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 " :disabled="!isValid" @click="doSubmit">
+      <button class="rounded-md flex  font-semibold  bg-indigo-500 shadow-sm  mt-10 text-sm w-full py-1.5 px-3  leading-6 justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40 " :disabled="isValid" @click="doSubmit">
         Confirm
       </button>
     </div>

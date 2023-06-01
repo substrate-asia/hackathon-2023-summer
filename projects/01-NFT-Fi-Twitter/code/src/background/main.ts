@@ -1,3 +1,4 @@
+import { isInternalEndpoint } from 'webext-bridge'
 import { onMessage, sendMessage } from 'webext-bridge/background'
 import type { Tabs } from 'webextension-polyfill'
 
@@ -51,4 +52,28 @@ onMessage('get-current-tab', async () => {
       title: undefined,
     }
   }
+})
+
+let memoryStoreMap = {
+  password: '',
+  mnemonicStr: '',
+}
+
+onMessage('storeInMemory', async (msg) => {
+  if (!isInternalEndpoint(msg.sender))
+    return false
+
+  memoryStoreMap = {
+    ...memoryStoreMap,
+    ...msg.data,
+  }
+})
+
+onMessage('getStoreInMemory', async (msg) => {
+  if (!isInternalEndpoint(msg.sender))
+    return false
+
+  const data = {}
+  msg.data.keys.map(key => data[key] = memoryStoreMap[key])
+  return data
 })

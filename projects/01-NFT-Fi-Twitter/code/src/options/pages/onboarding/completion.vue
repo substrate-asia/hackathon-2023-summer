@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const emit = defineEmits(['setTitle'])
+const emit = defineEmits(['setTitle', 'showFirework'])
 emit('setTitle', 'Wallet creation successful')
-
+emit('showFirework')
 const router = useRouter()
 const doSubmit = async () => {
   router.push('/options/')
@@ -9,9 +9,8 @@ const doSubmit = async () => {
 </script>
 
 <template>
-  <div class="space-y-6 text-white">
+  <div class="space-y-6 text-white z-30 relative">
     <div text-lg text-center>
-      <openmoji-sparkler w-30 h-30 mx-auto mb-10 />
       You’ve successfully protected your wallet. Keep your Secret Recovery Phrase safe and secret -- it’s your responsibility!
     </div>
     <div text-lg>

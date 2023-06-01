@@ -1,14 +1,18 @@
 <script setup lang="ts">
+import { sendMessage } from 'webext-bridge/options'
 import * as passworder from '@metamask/browser-passworder'
-import { storageOnboard } from '~/logic/storage'
+import { encryptedMnemonic } from '~/logic/storage'
 
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Confirm Secret Recovery Phrase')
 
-const mnemonicRealStr = computed(() => storageOnboard.value.mnemonicStr)
 const mnemonicRealArrWithBlank = ref([])
-
-watch(mnemonicRealStr, () => {
+const mnemonicRealStr = ref('')
+const password = ref('')
+onMounted(async () => {
+  const rz = await sendMessage('getStoreInMemory', { keys: ['password', 'mnemonicStr'] }, 'background')
+  mnemonicRealStr.value = rz.mnemonicStr
+  password.value = rz.password
   mnemonicRealArrWithBlank.value = mnemonicRealStr.value.split(' ')
   mnemonicRealArrWithBlank.value[1] = ''
   mnemonicRealArrWithBlank.value[4] = ''
@@ -19,11 +23,8 @@ const isValid = computed(() => mnemonicRealArrWithBlank.value.join(' ') === mnem
 const router = useRouter()
 const doSubmit = async () => {
   const secrets = { mnemonic: mnemonicRealStr.value }
-  const password = storageOnboard.value.password
-
-  const blob = await passworder.encrypt(password, secrets)
-  console.log('====> blob :', blob)
-  // router.push('/options/onboarding/completion')
+  encryptedMnemonic.value = await passworder.encrypt(password.value, secrets)
+  router.push('/options/onboarding/completion')
 }
 </script>
 

@@ -1,1 +1,0 @@
-export { ChainService } from "./chain_service"

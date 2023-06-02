@@ -1,8 +1,0 @@
-.idea
-.DS_Store
-go.sum
-test.go
-build
-logs
-cellular
-chunks

@@ -6,15 +6,29 @@
 
 ## 项目整体简介
 
-This is a storage chain, and you don't need a powerful server to run it. Divided into on-chain and off-chain, metadata is stored on the chain to implement punishment and incentives. Under the chain are storage nodes and verification nodes. We are lightweight enough that storage nodes can be combined with any blockchain.
 
 - 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
+  -  
+  - Why  do this project ?
+    - Existing decentralized storage programs not only have high requirements on hardware, but also the participation process is very complicated and requires certain professional knowledge to participate. There is a certain threshold, and it is very unfriendly to novices. For example, FilCoin decentralized storage has very high hardware requirements, and the participation process is very complicated.
+      We hope to build a decentralized storage program that has a low threshold for participation, and users can participate as long as they have free storage space and a set of common hardware devices.
 - 项目介绍
+  -
+  This is a storage chain, and you don't need a powerful server to run it. 
+  Divided into on-chain and off-chain,metadata is stored on the chain to implement punishment and incentives.
+  Under the chain are storage nodes and verification nodes. We are lightweight enough that storage nodes can be combined with any blockchain.
+
+ 
 - 项目Demo
+  - 
 - 技术架构
+  -
+  
 - 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
+  - 
 - 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
   框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
+  
 
 ## 黑客松期间计划完成的事项
 

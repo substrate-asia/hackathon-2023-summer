@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/prefer-node-protocol */
 import { Buffer } from 'buffer'
+import { sendMessage } from 'webext-bridge/options'
 
 import { createApp } from 'vue'
 
@@ -10,5 +11,5 @@ import '../styles'
 window.Buffer = Buffer
 
 const app = createApp(App)
-setupApp(app)
+setupApp(app, { sendMessage })
 app.mount('#app')

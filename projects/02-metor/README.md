@@ -17,40 +17,22 @@
   Divided into on-chain and off-chain,metadata is stored on the chain to implement punishment and incentives.
   Under the chain are storage nodes and verification nodes. We are lightweight enough that storage nodes can be combined with any blockchain.
 
- 
-- 项目Demo
-  - 
-- 技术架构
-  -
   
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
-  - 
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
-  框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
+- 技术架构
+ 1. The client node splits the file through the erasure code
+ 2. Match storage nodes on the chain
+ 3. Send and store point-to-point fragmented data
+ 4. Smart contract records metadata
+ 5. The verification node verifies the storage status of the storage node through the space-time proof
+ 6. The smart contract completes the economic model
  
 
 ## 黑客松期间计划完成的事项
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
-
-**区块链端**
-
-- `pallet-nft`
-    - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-    - [ ] NFT 转帐函数 (`fn transfer()`)
-    - [ ] NFT 销毁函数 (`fn burn_token()`)
-
-**客户端**
-
-- web 端
-    - [ ] 用户注册页面
-    - [ ] NFT 产品创建流程
-    - [ ] NFT 产品购买流程
-
-- hybrid (react-native)
-    - [ ] 用户注册页面
-    - [ ] NFT 产品创建流程
-    - [ ] NFT 产品购买流程
+ 1. Smart contract (pledge, space purchase, metadata storage, economic model)
+ 2. Client (erasure code, metadata model, file distribution, file retrieval, p2p, RPC)
+ 3. Storage nodes (p2p, file storage, proof of space)
+ 4. Verification node (p2p, space-time proof)
 
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
@@ -61,7 +43,7 @@
 
 ## 队员信息
 
-包含参赛者名称及介绍
-在团队中担任的角色
-GitHub 帐号
-微信账号（如有请留下，方便及时联系）
+| name  | role                        | github    | wechat     |
+|-------|-----------------------------|-----------|------------|
+| samir | distributor miner validator | samirshao | inasmaker  |
+| mayue | smart contract              | KavenLE          | Y_M_Y_KING |

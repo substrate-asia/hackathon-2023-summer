@@ -1,6 +1,10 @@
 import type { App } from 'vue'
+import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
 
-export function setupApp(app: App) {
+export function setupApp(app: App, opts = { }) {
+  const { routeMode = 'webHash' } = opts
   // Inject a globally available `$app` object in template
   app.config.globalProperties.$app = {
     context: '',
@@ -8,6 +12,19 @@ export function setupApp(app: App) {
 
   // Provide access to `app` in script setup with `const app = inject('app')`
   app.provide('app', app.config.globalProperties.$app)
+
+  // route
+  const routeModeMap = {
+    memory: createMemoryHistory,
+    web: createWebHistory,
+    webHash: createWebHashHistory,
+  }
+  const routes = setupLayouts(generatedRoutes)
+  const router = createRouter({
+    history: routeModeMap[routeMode](),
+    routes,
+  })
+  app.use(router)
 
   // Here you can install additional plugins for all contexts: popup, options page and content-script.
   // example: app.use(i18n)

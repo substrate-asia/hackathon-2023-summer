@@ -1,6 +1,11 @@
 import type { App } from 'vue'
+import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
+import { encryptedMnemonic } from '~/logic/storage'
 
-export function setupApp(app: App) {
+export function setupApp(app: App, opts = { }) {
+  const { routeMode = 'webHash', sendMessage } = opts
   // Inject a globally available `$app` object in template
   app.config.globalProperties.$app = {
     context: '',
@@ -8,6 +13,42 @@ export function setupApp(app: App) {
 
   // Provide access to `app` in script setup with `const app = inject('app')`
   app.provide('app', app.config.globalProperties.$app)
+
+  // route
+  const routeModeMap = {
+    memory: createMemoryHistory,
+    web: createWebHistory,
+    webHash: createWebHashHistory,
+  }
+  const routes = setupLayouts(generatedRoutes)
+  const router = createRouter({
+    history: routeModeMap[routeMode](),
+    routes,
+  })
+  const hasLogin = ref(false)
+  router.beforeEach(async (to, from) => {
+    console.log('====> to :', to, hasLogin.value, encryptedMnemonic.value)
+
+    if (to.fullPath.startsWith('/options/onboarding'))
+      return true
+
+    // no mnemonic, just create or import new one
+    if (!encryptedMnemonic.value)
+      return { name: 'options-onboarding' }
+
+    // check login status
+    if (!hasLogin.value) {
+      const rz = await sendMessage('getStoreInMemory', { keys: ['password', 'mnemonicStr'] }, 'background')
+      if (!rz.mnemonicStr)
+        return { name: 'options-onboarding-login' }
+
+      hasLogin.value = true
+    }
+    // ...
+    // explicitly return false to cancel the navigation
+    // return false
+  })
+  app.use(router)
 
   // Here you can install additional plugins for all contexts: popup, options page and content-script.
   // example: app.use(i18n)

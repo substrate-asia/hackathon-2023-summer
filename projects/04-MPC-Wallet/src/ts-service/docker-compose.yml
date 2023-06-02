@@ -1,0 +1,51 @@
+version: "3"
+
+#声明一个名为network的networks,subnet为network的子网址,默认网关是178.5.0.1
+networks:
+  ts-service-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '178.5.0.0/24'
+
+services:
+  ts-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        CNF_VAR: docker
+    container_name: ts-service
+    restart: always
+    volumes:
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+      - "8100:8100"
+    depends_on:
+      - mysql
+    networks:
+      ts-service-network:
+        ipv4_address: 178.5.0.10
+
+  mysql:
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+    container_name: mysql
+    image: mysql:8.0.29
+    ports:
+      - "3306:3306"
+    volumes:
+      - /usr/local/mysql/conf:/etc/mysql/conf.d
+      - /usr/local/mysql/data:/var/lib/mysql
+    command:
+       --default-authentication-plugin=mysql_native_password
+       --character-set-server=utf8mb4
+       --collation-server=utf8mb4_general_ci
+       --explicit_defaults_for_timestamp=true
+       --lower_case_table_names=1
+       --max_allowed_packet=128M
+    networks:
+      ts-service-network:
+        ipv4_address: 178.5.0.14

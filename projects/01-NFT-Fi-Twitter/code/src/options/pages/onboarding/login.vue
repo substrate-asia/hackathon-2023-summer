@@ -36,7 +36,7 @@ const doSubmit = async () => {
           <div class="flex items-center justify-between">
             <label for="password" class="font-medium text-sm text-white leading-6 block">Password</label>
             <div class="text-sm">
-              <router-link to="/options/onboarding/import-wallet" class="font-semibold text-indigo-400 hover:text-indigo-300">
+              <router-link to="/options/onboarding/create-password?isImportWallet=yes" class="font-semibold text-indigo-400 hover:text-indigo-300">
                 Forgot password?
               </router-link>
             </div>

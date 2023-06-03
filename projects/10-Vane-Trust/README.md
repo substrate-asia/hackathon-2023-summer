@@ -1,6 +1,6 @@
 #### Vane-Trust is a trust leverager tool for solo online retailers and businesses.
 
-*Digital experienced re-imagined*
+*Digital experience re-imagined*
 
 
 ## Problem statements

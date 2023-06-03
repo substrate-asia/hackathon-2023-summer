@@ -1,11 +1,10 @@
 <script setup lang="ts">
+import { sendMessage } from 'webext-bridge/options'
 import { useClipboard } from '@vueuse/core'
 import { english, generateMnemonic } from 'viem/accounts'
-import { storageOnboard } from '~/logic/storage'
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Write down your Secret Recovery Phrase')
 
-const password = computed(() => storageOnboard.value.password)
 const mnemonicRealStr = generateMnemonic(english)
 const mnemonicRealArr = mnemonicRealStr.split(' ')
 const mnemonicFakeArr = generateMnemonic(english).split(' ')
@@ -14,12 +13,9 @@ const isShow = ref(false)
 
 const { text, copy, copied, isSupported } = useClipboard({ source: mnemonicRealStr })
 
-onMounted(() => {
-  console.log('====> password :', password)
-})
 const router = useRouter()
 const doSubmit = async () => {
-  storageOnboard.value.mnemonicStr = mnemonicRealStr
+  await sendMessage('storeInMemory', { mnemonicStr: mnemonicRealStr }, 'background')
   router.push('/options/onboarding/confirm-recovery-phrase')
 }
 </script>

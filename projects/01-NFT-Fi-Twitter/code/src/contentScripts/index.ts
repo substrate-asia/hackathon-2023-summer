@@ -26,6 +26,6 @@ import { patchPortalRoot, setupApp } from '~/logic/common-setup'
   shadowDOM.appendChild(root)
   document.body.appendChild(container)
   const app = createApp(App)
-  setupApp(app)
+  setupApp(app, { routeMode: 'memory' })
   app.mount(root)
 })()

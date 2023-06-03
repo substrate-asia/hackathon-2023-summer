@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { storageOnboard } from '~/logic/storage'
+import { sendMessage } from 'webext-bridge/options'
 
 const emit = defineEmits(['setTitle'])
 emit('setTitle', 'Create Password')
@@ -7,7 +7,7 @@ const isShowPwd1 = ref(false)
 const isShowPwd2 = ref(false)
 
 const password1 = ref('eF*;CTYW8d9(43U')
-const password2 = ref('')
+const password2 = ref('eF*;CTYW8d9(43U')
 const hasLowercase = computed(() => (new RegExp('(?=.*[a-z])')).test(password1.value))
 const hasUppercase = computed(() => (new RegExp('(?=.*[A-Z])')).test(password1.value))
 const hasNumber = computed(() => (new RegExp('(?=.*[0-9])')).test(password1.value))
@@ -16,12 +16,12 @@ const isLongEnough = computed(() => (new RegExp('(?=.{15,})')).test(password1.va
 const isStrong = computed(() => hasLowercase.value && hasUppercase.value && hasNumber.value && hasSpecial.value && isLongEnough.value)
 const isMatch = computed(() => password1.value === password2.value)
 const isShowNotMatch = computed(() => !isMatch.value && password2.value !== '')
-const isAgree = ref(false)
+const isAgree = ref(true)
 const isValid = computed(() => password1.value && isMatch.value && isAgree.value && isStrong.value)
 
 const router = useRouter()
 const doSubmit = async () => {
-  storageOnboard.value.password = password1
+  await sendMessage('storeInMemory', { password: password1.value }, 'background')
   router.push('/options/onboarding/review-recovery-phrase')
 }
 </script>

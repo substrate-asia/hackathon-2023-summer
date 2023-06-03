@@ -1,0 +1,36 @@
+//protoc --gofast_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/proto/files.proto
+//protoc --go_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/proto/files.proto
+syntax = "proto3";
+
+option go_package = "./rpc/proto/filespb";
+package filespb;
+
+service FilesSrv {
+//  rpc Upload(stream Chunk) returns (UploadStatus) {}
+  rpc Add (AddReq) returns (AddResp) {}
+  rpc Get (GetReq) returns (GetResp) {}
+}
+
+message Chunk {
+  bytes content = 1;
+}
+
+message AddReq {
+  string filepath = 1;
+}
+
+message AddResp {
+  string hash = 1;
+}
+
+message GetReq {
+  string cid = 1;
+}
+
+message GetResp {
+  string path = 1;
+}
+
+message ReadReq {
+  string cid = 1;
+}

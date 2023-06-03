@@ -1,5 +1,5 @@
 <script setup lang="ts">
-console.log('====> login :')
+console.log('====> should finish all onboard module today 0603!!!')
 </script>
 
 <template>

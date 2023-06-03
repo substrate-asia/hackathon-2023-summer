@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import * as passworder from '@metamask/browser-passworder'
+import { sendMessage } from 'webext-bridge/options'
 import { encryptedMnemonic } from '~/logic/storage'
 
 const password = ref('')
-
+const hasError = ref(false)
+const router = useRouter()
 const doSubmit = async () => {
   try {
     const rz = await passworder.decrypt(password.value, encryptedMnemonic.value)
-    console.log('====> rz :', rz)
+    await sendMessage('storeInMemory', { mnemonicStr: rz.mnemonic }, 'background')
+    hasError.value = false
+    router.push('/options')
   }
   catch (err) {
-    console.log('====> err :', err)
+    if (err)
+      hasError.value = true
   }
 }
-console.log('====> should finish all onboard module today 0603!!!')
 </script>
 
 <template>
@@ -32,12 +36,17 @@ console.log('====> should finish all onboard module today 0603!!!')
           <div class="flex items-center justify-between">
             <label for="password" class="font-medium text-sm text-white leading-6 block">Password</label>
             <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+              <router-link to="/options/onboarding/import-wallet" class="font-semibold text-indigo-400 hover:text-indigo-300">
+                Forgot password?
+              </router-link>
             </div>
           </div>
           <div class="mt-2">
-            <input id="password" v-model="password" name="password" type="password" autocomplete="current-password" required="" class="rounded-md bg-white/5 border-0 shadow-sm ring-inset text-white w-full py-1.5 px-2 ring-1 ring-white/10 block sm:text-sm sm:leading-6 focus:ring-inset focus:ring-2 focus:ring-indigo-500">
+            <input id="password" v-model="password" name="password" type="password" autocomplete="current-password" required="" class="rounded-md bg-white/5 border-0 shadow-sm ring-inset text-white  w-full py-1.5 px-3 ring-1  block sm:text-sm sm:leading-6  focus:ring-1 focus:ring-indigo-500" :class="hasError ? 'text-red-900 ring-red-300' : 'ring-white/10'">
           </div>
+          <p v-show="hasError" class="mt-2 text-sm text-red-600">
+            Password not correct!
+          </p>
         </div>
         <div>
           <button :disabled="!password" class="rounded-md flex font-semibold bg-indigo-500 shadow-sm text-sm text-white w-full py-1.5 px-3 leading-6 justify-center hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:opacity-40" @click="doSubmit">

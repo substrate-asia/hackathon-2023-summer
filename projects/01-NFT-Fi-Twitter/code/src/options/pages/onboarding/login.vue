@@ -1,4 +1,18 @@
 <script setup lang="ts">
+import * as passworder from '@metamask/browser-passworder'
+import { encryptedMnemonic } from '~/logic/storage'
+
+const password = ref('')
+
+const doSubmit = async () => {
+  try {
+    const rz = await passworder.decrypt(password.value, encryptedMnemonic.value)
+    console.log('====> rz :', rz)
+  }
+  catch (err) {
+    console.log('====> err :', err)
+  }
+}
 console.log('====> should finish all onboard module today 0603!!!')
 </script>
 
@@ -13,24 +27,24 @@ console.log('====> should finish all onboard module today 0603!!!')
     </div>
 
     <div class="mt-10 sm:mx-auto sm:max-w-sm sm:w-full">
-      <form class="space-y-6" action="#" method="POST">
+      <div class="space-y-6">
         <div>
           <div class="flex items-center justify-between">
             <label for="password" class="font-medium text-sm text-white leading-6 block">Password</label>
-            <div class="text-sm hidden">
+            <div class="text-sm">
               <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
             </div>
           </div>
           <div class="mt-2">
-            <input id="password" name="password" type="password" autocomplete="current-password" required="" class="rounded-md bg-white/5 border-0 shadow-sm ring-inset text-white w-full py-1.5 px-2 ring-1 ring-white/10 block sm:text-sm sm:leading-6 focus:ring-inset focus:ring-2 focus:ring-indigo-500">
+            <input id="password" v-model="password" name="password" type="password" autocomplete="current-password" required="" class="rounded-md bg-white/5 border-0 shadow-sm ring-inset text-white w-full py-1.5 px-2 ring-1 ring-white/10 block sm:text-sm sm:leading-6 focus:ring-inset focus:ring-2 focus:ring-indigo-500">
           </div>
         </div>
         <div>
-          <button type="submit" class="rounded-md flex font-semibold bg-indigo-500 shadow-sm text-sm text-white w-full py-1.5 px-3 leading-6 justify-center hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+          <button :disabled="!password" class="rounded-md flex font-semibold bg-indigo-500 shadow-sm text-sm text-white w-full py-1.5 px-3 leading-6 justify-center hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:opacity-40" @click="doSubmit">
             Unlock
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>

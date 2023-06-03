@@ -1,3 +1,8 @@
+#### Vane-Trust is a trust leverager tool for solo online retailers and businesses.
+
+*Digital experienced re-imagined*
+
+
 ## Problem statements
 
   - The cost of making a mistake in crypto is very huge, we have seen that on wrong addresses incidents.
@@ -28,6 +33,7 @@
   ## Materials
 
   [Vane Node codebase](https://github.com/2-5-Foundation/Vane-Trust/tree/hack)
+
   [Business Plan](https://github.com/2-5-Foundation/VaneFront/blob/Vane-Materials/Vane-Trust%20Business%20Plan.pdf) 
 
   [Vane Builder](https://github.com/MrishoLukamba)

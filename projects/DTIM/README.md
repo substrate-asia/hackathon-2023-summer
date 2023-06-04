@@ -17,7 +17,7 @@ DTIM is trying to create a safe, efficient, powerful and Web3-based instant coll
 
 
 **服务端**
- - 使用 zkSBT 或 zkBAB 为软件提供 KYC 功能
+ - [ ] 使用 zkSBT 或 zkBAB 为软件提供 KYC 功能
  - [ ] 完成内置DAO工具IM机器人
 
 **客户端**

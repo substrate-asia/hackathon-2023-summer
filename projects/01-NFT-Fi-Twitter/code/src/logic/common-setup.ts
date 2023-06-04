@@ -27,7 +27,7 @@ export function setupApp(app: App, opts = { }) {
   })
   const hasLogin = ref(false)
   router.beforeEach(async (to, from) => {
-    console.log('====> to :', to, hasLogin.value, encryptedMnemonic.value)
+    // console.log('====> to :', to, hasLogin.value, encryptedMnemonic.value)
 
     if (to.fullPath.startsWith('/options/onboarding'))
       return true

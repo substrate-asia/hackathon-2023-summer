@@ -43,9 +43,9 @@ SaaS3 enables Dapps to become as versatile as any other web2 application availab
 #### Hackathon roadmap
 
 - We plan to develop a website displaying house prices which is a typical example of off-chain data feed.
-  - [] A website that displays house prices
-  - [] A smart contract that fetches house prices from saas3 oracle service
-  - [] A saas3 oracle service that fetches house prices from web2 api
+  - [ ] A website that displays house prices
+  - [ ] A smart contract that fetches house prices from saas3 oracle service
+  - [ ] A saas3 oracle service that fetches house prices from web2 api
 
 
 #### Technology Stack

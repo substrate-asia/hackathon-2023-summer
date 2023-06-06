@@ -6,19 +6,15 @@
 
 ## 项目整体简介
 
-- 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
-  -  
-  - Why  do this project ?
-    - Existing decentralized storage programs not only have high requirements on hardware, but also the participation process is very complicated and requires certain professional knowledge to participate. There is a certain threshold, and it is very unfriendly to novices. For example, FilCoin decentralized storage has very high hardware requirements, and the participation process is very complicated.
+### 解决问题 
+Existing decentralized storage programs not only have high requirements on hardware, but also the participation process is very complicated and requires certain professional knowledge to participate. There is a certain threshold, and it is very unfriendly to novices. For example, FilCoin decentralized storage has very high hardware requirements, and the participation process is very complicated.
       We hope to build a decentralized storage program that has a low threshold for participation, and users can participate as long as they have free storage space and a set of common hardware devices.
-- 项目介绍
-  -
+### 项目介绍
   This is a storage chain, and you don't need a powerful server to run it. 
   Divided into on-chain and off-chain,metadata is stored on the chain to implement punishment and incentives.
   Under the chain are storage nodes and verification nodes. We are lightweight enough that storage nodes can be combined with any blockchain.
-
-  
-- 技术架构
+![](./docs/assets/logo.png)
+### 技术架构
  1. The client node splits the file through the erasure code
  2. Match storage nodes on the chain
  3. Send and store point-to-point fragmented data
@@ -27,7 +23,7 @@
  6. The smart contract completes the economic model
  
 
-## 黑客松期间计划完成的事项
+### 黑客松期间计划完成的事项
 
  1. Smart contract (pledge, space purchase, metadata storage, economic model)
  2. Client (erasure code, metadata model, file distribution, file retrieval, p2p, RPC)

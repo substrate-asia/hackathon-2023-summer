@@ -14,7 +14,7 @@ emit('setTitle', 'On Board to Web3')
       </router-link>
       <br>
       <br>
-      <router-link to="/options/onboarding/import-wallet" class="border flex font-semibold border-indigo-500 rounded-2xl shadow-sm text-sm w-full p-3 text-indigo-500 leading-6 justify-center hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+      <router-link to="/options/onboarding/create-password?isImportWallet=yes" class="border flex font-semibold border-indigo-500 rounded-2xl shadow-sm text-sm w-full p-3 text-indigo-500 leading-6 justify-center hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
         Import an existing wallet
       </router-link>
     </div>

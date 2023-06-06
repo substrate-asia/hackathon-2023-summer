@@ -22,6 +22,9 @@ dependencies:
   events:
     specifier: ^3.3.0
     version: 3.3.0
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   process:
     specifier: ^0.11.10
     version: 0.11.10

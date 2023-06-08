@@ -52,7 +52,7 @@ This software uses the following open-source software:
 **Frontend**
 
 - `Dapp`
-  - [x] Integrate stable diffusion web ui.
+  - [ ] Integrate stable diffusion web ui.
   - [ ] Design front-end interactions.
   - [ ] interaction with blockchain.
 

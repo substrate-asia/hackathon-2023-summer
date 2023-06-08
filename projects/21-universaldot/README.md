@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://universaldot.foundation" title="universaldot">
-    <img src="https://raw.githubusercontent.com/UniversalDot/documents/master/logo/universaldot-logo/svg-01.svg" alt="Universaldot" width="244" />
+    <img src="https://raw.githubusercontent.com/UniversalDot/documents/master/logo/universaldot-logo/svg-01.svg" alt="Universaldot" width="444" />
   </a>
 </p>
 

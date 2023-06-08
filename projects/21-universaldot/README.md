@@ -1,11 +1,29 @@
+<p align="center">
+  <a href="https://universaldot.foundation" title="universaldot">
+    <img src="https://github.com/UniversalDot/documents/blob/master/logo/universaldot-logo/rsz_jpg-02.jpg" alt="Universaldot" width="244" />
+  </a>
+</p>
+
+
 # UNIVERSALDOT Project Proposal
 
-### Overview
+# Table of Contents
 
-##### Executive summary
+- [UNIVERSALDOT Project Proposal](#universaldot-project-proposal)
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Executive summary](#executive-summary)
+  - [Brief Description](#brief-description)
+- [Getting Started](#getting-started)
+  - [Techology Stack](#techology-stack)
+  - [Additional Information](#additional-information)
+
+# About The Project
+
+## Executive summary
 A freelancing decentralized application (dApp) that allows individuals to create/complete tasks and organize themselves by creating geographically distributed organizations.
 
-##### Brief Description
+## Brief Description
 The creation of Bitcoin allowed for easy exchange of digital tokens of value. Currently, value is created in the real world, and exchanged in the digital world. Our dApp allows for digital creation of value in addition to digital exchange of value.
 
 This dApp will be developed using Substrate. New pallets will create the business logic layer which will allow users to directly interact with each another using tasks. A basic front-end application will be developed as reference.
@@ -19,14 +37,14 @@ In addition to the above mentioned points, universaldot will also have the follo
 - Creation of Organizations.
 - Transfer of intellectual property through task creation/completion.
 
-### Project Details
+# Getting Started
 
-#### Techology Stack
+## Techology Stack
   - React, 
   - TypeScript
   - Substrate
 
-### Additional Information
+## Additional Information
 
 Use Case Diagram
 ![Architecture Design](https://github.com/UniversalDot/documents/blob/master/designs/architecture/Use-Case.drawio.png?raw=true)

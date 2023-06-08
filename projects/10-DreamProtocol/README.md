@@ -1,61 +1,79 @@
-## Notice
-06/03/2023
-Currently, I plan to develop this project solo, but if there are people who are willing to collaborate on this project together, please feel free to contact me to form a team. my email: i@qaqrz.xyz
+# Dream Protocol 
+started at Jun. 3th, 2023.
 
-
-## 基本资料
-
-项目名称：
-Dream Protocol
-项目立项日期 (哪年哪月)：
-06/03/2023
-## 项目整体简介
-Dream Protocol 
-
-项目简介，英文提交。包括但不限于：
 ### What is Dream Factory?
-Dream Factory is a decentralized AI-generated content protocol that encompasses various roles, including creators, shared computing nodes, and community users. It provides the latest and most comprehensive model style libraries and the cheapest model services, allowing everyone to enjoy the benefits of AI development and grow together with AI.
-The demo version will be based on Stable diffusion.
+Dream Factory is a decentralized AI-generated content protocol (Currently based on stable diffusion) that encompasses various roles, including creators, shared computing nodes, and community users. 
+It provides the latest and most comprehensive model style libraries and the cheapest model services, allowing everyone to enjoy the benefits of AI development and grow together with AI.
+
+### Background
+With the emergence of AIGC projects such as Stable Diffusion and ChatGPT, new opportunities and challenges have arisen. 
+The relationship between humans and AI has been disrupted, making it important for people to examine and reevaluate their relationship with AI. 
+In the field of image generation, there are also concerns about copyright and intellectual property.
+As a leading project in text-to-image generation, Stable Diffusion enables stand-alone deployment and model training, making it a game-changer in the industry.
+
+#### So what is Dream Protocol?
+Dream Protocol, a new blockchain-based consensus mechanism, provides a solution to these issues. 
+It shares global GPU computing resources and converts AI style models into NFTs to protect intellectual property. 
+In addition to offering cheaper model calling costs through GPU sharing, 
+
+What's more, Dream Protocol provides the most comprehensive model library for users. 
+Generative AI (AIGC) currently requires significant amounts of material to create stylized images during training, 
+but the copyright of these materials is disputed. 
+At Dream Factory, we have implemented a tokenomics commission mechanism for AI model usage.
+When an AI model uses a creator's image for training and generates income, 
+the creator receives a portion of the earnings. 
+We believe that people should make decisions about how to use AI, and AI is just a tool. 
+With Dream Factory, all creators can concentrate on innovation.
+Based on tokenomics, model owners and the community work together to create Fine-Tuning models, share profits, 
+and promote AI content production, while protecting the interests of content creators.
+
+#### How it works?
+TBD
+
+#### Summary
+Dream Protocol offers cheaper model calling and more extensive model libraries. 
+It is the main goal of this hackathon demo to realize the GPU computing power sharing part of the above content.
+
+### Logo
 ![logo](docs/Logo.png)
 
-- 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
-- 项目介绍
-- 项目Demo
-- 技术架构
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
-框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
+Prompt: Dream Protocol 1024*1024 web application logo
 
-## 黑客松期间计划完成的事项
+### Roadmap
+TBD
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+### Citation
+This software uses the following open-source software:
 
-**区块链端**
+* [Substrate: The platform for blockchain innovators](https://github.com/paritytech/substrate)
 
-- `pallet-nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
+## Buidl durning Hackathon
 
-**客户端**
+**Frontend**
 
-- web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+- `Dapp`
+  - [x] Integrate stable diffusion web ui.
+  - [ ] Design front-end interactions.
+  - [ ] interaction with blockchain.
 
-- hybrid (react-native)
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+**Blockchain**
 
+- worker
+  - [ ] Develop stable duffusion into a worker and interact with the blockchain.
 
-## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
+- blockchain
+  - [ ] Access stable diffusion through Offline worker.
+  - [ ] Storage generated images to IPFS.
+  - [ ] Develop functions for generating images & unittest
+  - [ ] deploy on GPU server
 
-- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
+**Business**
+  - [ ] Roadmap.
+  - [ ] Simplified tokenomics design.
+  - [ ] demo video
+  - [ ] demo pitch
 
-## 队员信息
+## Members of team
 
-Henry @onehumanbeing, Full-stack developer & web2/3 Entrepreneur. Winner of NEAR metabuild Hackathon III (@WaverFinance), Co-founder of NEAR Tinker Union. 
+Henry [@onehumanbeing](https://github.com/onehumanbeing), Full-stack developer & web2/3 Entrepreneur. 
+Winner of NEAR metabuild Hackathon III (@WaverFinance), Co-founder of NEAR Tinker Union. 

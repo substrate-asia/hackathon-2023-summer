@@ -1,4 +1,4 @@
-import {BigNumberish, BytesLike, ethers} from "ethers";
+import {BigNumberish, Bytes, BytesLike, ethers} from "ethers";
 import { DataSource } from "typeorm"
 import {User_address} from "../../entity";
 import {returnResponse} from "../../utils";
@@ -17,11 +17,22 @@ export class ChainService{
         let resp:any
 
         try {
+            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
             let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
+
+            console.log(address);
 
             let userAddress = new User_address();
             userAddress.AccountOwnerAddress = owner_address.owner_address;
             userAddress.AccountChildAddress = address;
+
+            let count = await this.orm.getRepository(User_address).createQueryBuilder("user_address").
+            where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getCount()
+            if (count >= 1){
+                resp = returnResponse("","该账号已经创建了子账号,无法重复创建")
+                return  resp
+            }
+
            let orm_resp = await this.orm.manager.insert(User_address,userAddress);
 
 
@@ -35,13 +46,17 @@ export class ChainService{
         return resp;
     }
 
-    GetAccount = async (owner_address:any)=>{
+    GetAccount = async (data:any)=>{
 
         let resp:any
         try {
 
+            let query:string = data.query
+            let params:string[] = query.split("?")
+            let ownerAddress:string[] = params[1].split("=")
+
             let orm_resp = await this.orm.getRepository(User_address).
-            createQueryBuilder("user_address").where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getMany();
+            createQueryBuilder("user_address").where("user_address.account_owner_address=:param1",{param1:ownerAddress[1]}).getMany();
 
             resp = returnResponse(orm_resp,"success")
 
@@ -56,28 +71,14 @@ export class ChainService{
          //to: 0xaE17e14F70fE91C1374ff9f779F393051c17268C
 
         let resp:any;
-        class UserOperation{
-            sender!: string;
-            nonce!: BigNumberish;
-            initCode!: BytesLike;
-            callData!: BytesLike;
-            callGasLimit!: BigNumberish;
-            verificationGasLimit!: BigNumberish;
-            preVerificationGas!: BigNumberish;
-            maxFeePerGas!: BigNumberish;
-            maxPriorityFeePerGas!: BigNumberish;
-            paymasterAndData!: BytesLike;
-            signature!: BytesLike;
-        }
 
         try {
-            let userOperation = new UserOperation();
 
-            Object.assign(userOperation,data)
+            console.log(data)
 
-            this.entryPoint.handleOps([data],this.accountOwnerAddress)
+           let tx = await this.entryPoint.handleOps([data],this.accountOwnerAddress)
 
-            resp = returnResponse("","success")
+            resp = returnResponse(tx.hash,"success")
 
         }catch (error){
 

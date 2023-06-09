@@ -51,7 +51,9 @@ Introduction to EN Project
 
 - app 端 (flutter)
   - [ ] 用户创建鲍页面
-  - [ ] 私钥绑定邮箱
+  - [ ] 绑定邮箱
+  - [ ] PIN 码设置
+  - [ ] EOA 转帐
   - [ ] Eip4337 合约交互
 
 **后端**
@@ -64,11 +66,8 @@ Introduction to EN Project
 
 **合约**
 
-- `Eip-4337合约`
-  - [ ] Eip4337 创建用户 (`fn create_account()`)
-  - [ ] Eip4337 转帐函数 (`fn transfer()`)
-  - [ ] Eip4337 授权函数 (`fn approve()`)
-  - [ ] Eip4337 授权转帐函数 (`fn transferForm()`)
+- `Eip-4337合约官方仓库地址`
+  - https://github.com/eth-infinitism/account-abstraction
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

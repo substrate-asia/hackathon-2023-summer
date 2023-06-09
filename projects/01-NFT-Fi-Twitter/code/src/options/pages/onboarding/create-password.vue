@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { sendMessage } from 'webext-bridge/options'
-
 const emit = defineEmits(['setTitle'])
+const route = useRoute()
+const { isImportWallet = false } = route.query
 emit('setTitle', 'Create Password')
 const isShowPwd1 = ref(false)
 const isShowPwd2 = ref(false)
@@ -22,7 +23,10 @@ const isValid = computed(() => password1.value && isMatch.value && isAgree.value
 const router = useRouter()
 const doSubmit = async () => {
   await sendMessage('storeInMemory', { password: password1.value }, 'background')
-  router.push('/options/onboarding/review-recovery-phrase')
+  if (isImportWallet)
+    router.push('/options/onboarding/import-wallet')
+  else
+    router.push('/options/onboarding/review-recovery-phrase')
 }
 </script>
 

@@ -1,13 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column, Timestamp,CreateDateColumn,UpdateDateColumn, DeleteDateColumn} from "typeorm"
 
-@Entity('users')
-export class Users {
+@Entity('user_wallets')
+export class UserWallets {
 
     @PrimaryGeneratedColumn("increment")
     id!: BigInt
 
-    @Column({ name: 'email', type: 'varchar',length: 50, default: '',comment:'用户邮箱'})
-    Email!: string
+    @Column({ name: 'user_id', type: 'int',default: '0',comment:'用户的ID'})
+    UserId!: number
+
+    @Column({ name: 'ipfs_address', type: 'varchar', default: '',comment:'ipfs的地址'})
+    IpfsAddress!: string
+
+    @Column({ name: 'wallet_address', type: 'varchar', default: '',comment:'wallet的地址'})
+    WalletAddress!: string
 
     // transformer: new LocalDateTimeValueTransformer()
     @CreateDateColumn( { name: 'created_at',type:'timestamp',nullable: true ,comment:'创建时间'})

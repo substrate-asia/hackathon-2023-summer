@@ -13,7 +13,8 @@ defmodule Evmscan.MixProject do
         :evmscan_indexer,
         :evmscan_api
       ],
-      releases: releases()
+      releases: releases(),
+      default_release: :evmscan
     ]
   end
 

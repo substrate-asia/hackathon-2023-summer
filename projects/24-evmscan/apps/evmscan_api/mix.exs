@@ -40,7 +40,20 @@ defmodule EvmscanApi.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+
+      # graphql
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"},
+      {:absinthe_phoenix, "~> 2.0"},
+      {:dataloader, "~> 1.0"},
+      {:paginator, "~> 1.1.0"},
+      {:money, "~> 1.9"},
+      {:graphql_builder, "~> 0.3.4"},
+      {:plug_heartbeat, "~> 1.0"},
+      {:quarto, "~> 1.0"},
+      {:constants, "~> 0.1.0"},
+      {:ex_keccak, "~> 0.7.0"}
     ]
   end
 

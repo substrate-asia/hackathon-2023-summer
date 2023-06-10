@@ -24,7 +24,8 @@ defmodule Evmscan.MixProject do
   # Run "mix help deps" for examples and options.
   defp deps do
     [
-      {:nimble_pool, "~> 1.0"}
+      {:nimble_pool, "~> 1.0"},
+      {:rustler, "~> 0.28.0"}
     ]
   end
 

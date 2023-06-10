@@ -1,0 +1,14 @@
+# Self Wallet
+
+## 配置文件
+```
+touch .env
+```
+
+## 配置文件内容
+```
+API_SECRET=YOUR_NFTSTORAGE_API_SECRET
+BASE_URL=SEVER_BASE_URL
+ENTRY_POINT_ADDRESS=xxx
+BENEFICIARY_ADDRESS=xxx
+```

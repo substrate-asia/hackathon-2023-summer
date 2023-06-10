@@ -23,6 +23,7 @@ services:
       - "8100:8100"
     depends_on:
       - mysql
+      - redis
     networks:
       ts-service-network:
         ipv4_address: 178.5.0.10
@@ -49,3 +50,18 @@ services:
     networks:
       ts-service-network:
         ipv4_address: 178.5.0.14
+
+
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - /usr/local/redis/conf:/etc/redis
+      - /usr/local/redis/data:/data
+    networks:
+      ts-service-network:
+        ipv4_address: 178.5.0.15
+

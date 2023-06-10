@@ -11,9 +11,7 @@ defmodule EvmscanSchema.Application do
       # Start the Ecto repository
       EvmscanSchema.Repo,
       # Start the PubSub system
-      {Phoenix.PubSub, name: EvmscanSchema.PubSub},
-      # Start Finch
-      {Finch, name: EvmscanSchema.Finch}
+      {Phoenix.PubSub, name: EvmscanSchema.PubSub}
       # Start a worker by calling: EvmscanSchema.Worker.start_link(arg)
       # {EvmscanSchema.Worker, arg}
     ]

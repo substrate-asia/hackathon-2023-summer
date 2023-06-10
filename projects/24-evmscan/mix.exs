@@ -7,7 +7,13 @@ defmodule Evmscan.MixProject do
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      apps: [:evmscan_schema, :evmscan_rpc, :evmscan_indexer, :evmscan_api, :evmscan_rpc]
+      apps: [
+        :evmscan_schema,
+        :evmscan_rpc,
+        :evmscan_indexer,
+        :evmscan_api
+      ],
+      releases: releases()
     ]
   end
 
@@ -17,6 +23,28 @@ defmodule Evmscan.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      {:nimble_pool, "~> 1.0"}
+    ]
+  end
+
+  defp releases do
+    [
+      evmscan: [
+        applications: [
+          evmscan_schema: :permanent,
+          evmscan_indexer: :permanent,
+          evmscan_api: :permanent
+        ],
+        include_erts: true
+      ],
+      evmscan_without_indexer: [
+        applications: [
+          evmscan_schema: :permanent,
+          evmscan_api: :permanent
+        ],
+        include_erts: true
+      ]
+    ]
   end
 end

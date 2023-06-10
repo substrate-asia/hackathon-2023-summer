@@ -7,7 +7,7 @@ defmodule EvmscanApi.Endpoint do
   @session_options [
     store: :cookie,
     key: "_evmscan_api_key",
-    signing_salt: "XR4XH10g",
+    signing_salt: "VD3ux/BQ",
     same_site: "Lax"
   ]
 

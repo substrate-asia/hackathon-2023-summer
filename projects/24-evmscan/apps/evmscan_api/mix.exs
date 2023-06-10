@@ -37,7 +37,6 @@ defmodule EvmscanApi.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.2"},
-      {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
@@ -50,10 +49,7 @@ defmodule EvmscanApi.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "assets.setup", "assets.build"],
-      "assets.setup": ["tailwind.install --if-missing"],
-      "assets.build": ["tailwind default"],
-      "assets.deploy": ["tailwind default --minify", "phx.digest"]
+      setup: ["deps.get"]
     ]
   end
 end

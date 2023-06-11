@@ -3,6 +3,9 @@ WORKDIR /home/node/app
 ARG CNF_VAR
 COPY . .
 COPY .env.${CNF_VAR} .env
+RUN npm config set registry https://registry.npm.taobao.org && npm i -g rimraf && npm install -g typescript
+RUN rimraf ./dist && tsc
+
 #RUN  npm config set registry https://registry.npm.taobao.org && npm i -g rimraf && yarn
 #RUN yarn build
 

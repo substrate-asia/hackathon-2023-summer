@@ -6,17 +6,17 @@
 
 ## Introduction
 
-This is an open source MVP version's explorer(inspired by [etherscan](https://etherscan.io/)) for EVM compatible solutions, such as Ethereum, Arbitrum, Optimism, Coinbase Base, ZKSync era and Polygon ZKEVM etc.
+EVMScan is an open source MVP version's explorer(inspired by [etherscan](https://etherscan.io/)) for EVM compatible solutions, such as Ethereum/Sepolia, Arbitrum, Optimism, Coinbase Base, ZKSync era and Polygon zkEVM etc.
 
 ## Tasks planning during hackathon-2023-summer
 
 ### backend
 
-- [ ] `indexer application`: sync fetching evm compatible block infos for explorer
-- [ ] `data schema layer`: designing data schema and implement data storage and middle layer for explorer
-- [ ] `api layer`: using graphql api for public service
-- [ ] `rpc layer`: interactive with EVM compatible solutions node, such as ETH-Sepolia Testnet
-- [ ] `api docs`: graphql api docs
+- [ ] `evmscan_indexer`: the application of syncing blockchain infos for explorer
+- [ ] `evmscan_schema`: the data schema of explorer and some common useful public function  
+- [ ] `evmscan_api`: the graphql api of explorer that use for frontend or third service
+- [ ] `evmscan_rpc`: the SDK of EVM-compatibility solution's rpc service
+- [ ] `api docs`: the docs of graphql public service
 
 ### web frontend
 

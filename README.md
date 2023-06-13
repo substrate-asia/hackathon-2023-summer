@@ -176,8 +176,11 @@ Bounty奖项列表
 
     加入方式: Twitter Space https://twitter.com/i/spaces/1zqKVPaELeLJB
 
-- Workshop#1：
-- Workshop#2：
+- Workshop#1：2023年6月10日20:00 - 21:30
+  1. 如何在区块链领域构建去中心的生态 Kaichao Parity 工程师
+  2. 创新思维: 探索Web3领域的非传统应用 Jimmy Substrate 贡献者
+- Workshop#2：2023年6月19日20:00 - 21:30
+  
 - Workshop#3：
 - Workshop#4：
 

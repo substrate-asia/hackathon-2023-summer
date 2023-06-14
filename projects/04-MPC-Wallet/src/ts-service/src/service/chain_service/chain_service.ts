@@ -17,14 +17,6 @@ export class ChainService{
         let resp:any
 
         try {
-            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
-            let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
-
-            console.log(address);
-
-            let userAddress = new User_address();
-            userAddress.AccountOwnerAddress = owner_address.owner_address;
-            userAddress.AccountChildAddress = address;
 
             let count = await this.orm.getRepository(User_address).createQueryBuilder("user_address").
             where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getCount()
@@ -32,6 +24,13 @@ export class ChainService{
                 resp = returnResponse("","该账号已经创建了子账号,无法重复创建")
                 return  resp
             }
+
+            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
+            let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
+
+            let userAddress = new User_address();
+            userAddress.AccountOwnerAddress = owner_address.owner_address;
+            userAddress.AccountChildAddress = address;
 
            let orm_resp = await this.orm.manager.insert(User_address,userAddress);
 

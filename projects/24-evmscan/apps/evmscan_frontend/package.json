@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fontsource/noto-sans": "^5.0.3",
     "@fontsource/noto-sans-sc": "^5.0.3",
     "@mui/material": "^5.13.5",

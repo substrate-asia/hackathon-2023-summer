@@ -1,0 +1,31 @@
+{
+    "vdx": {
+        "chainName": "VDX",
+        "rpc": "http://vdxchain-dev-rpc.xlipfs.com:8083",
+        "ws": "ws://192.168.7.195:9944",
+        "explorer": "http://vdxchain-dev-blockscout.xlipfs.com:8083/",
+        "chainId": 1281,
+        "iconUrl": "https://www.subdev.studio/icon/eth.svg",
+        "chainColor": "#627EEA",
+        "shortName": "vdx",
+        "nativeCurrencyName": "VDX",
+        "nativeCurrencySymbol": "VDX",
+        "nativeCurrencyDecimals": 18,
+        "isTest": true
+    },
+    
+    "mumbai": {
+        "chainName": "Mumbai",
+        "rpc": "https://rpc-mumbai.maticvigil.com/v1/b8ad974a05bb017a5da09dc548e6a75a837648db",
+        "ws": "wss://ws-mumbai.maticvigil.com",
+        "explorer": "https://mumbai.polygonscan.com/",
+        "chainId": 80001,
+        "iconUrl": "https://www.subdev.studio/icon/matic.svg",
+        "chainColor": "#2bbdf7",
+        "shortName": "matic",
+        "nativeCurrencyName": "Matic",
+        "nativeCurrencySymbol": "MATIC",
+        "nativeCurrencyDecimals": 18,
+        "isTest": true
+    }
+}

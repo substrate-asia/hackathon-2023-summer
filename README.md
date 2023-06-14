@@ -61,8 +61,7 @@ Bounty奖项列表
 ![Bounty](./docs/assets/06-bounty.jpg)
 
 ⼤赛新增 Bounty 命题及奖励，由⽣态内各⼤项⽬⽅结合⽣态发展和技术需求，总价值超过
-$300,000，为参赛战队提供 Bounty 赛题和奖⾦⽀持！[点击详情](https://dorahacks.io/
-hackathon/polkadot-hackathon-2023-summer/sponsor-bounties-details) 了解更多。
+$300,000，为参赛战队提供 Bounty 赛题和奖⾦⽀持！[点击详情](https://dorahacks.io/hackathon/polkadot-hackathon-2023-summer/sponsor-bounties-details) 了解更多。
 
 ## 项目报名
 

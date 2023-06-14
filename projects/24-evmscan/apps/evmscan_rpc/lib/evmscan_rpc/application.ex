@@ -10,7 +10,7 @@ defmodule EvmscanRpc.Application do
     children = [
       # Starts a worker by calling: EvmscanRpc.Worker.start_link(arg)
       # {EvmscanRpc.Worker, arg}
-      {Finch, name: FinchRpc}
+      {Finch, name: FinchRpc.Client}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

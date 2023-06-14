@@ -3,9 +3,11 @@ import Config
 # Configure your database
 config :evmscan_schema, EvmscanSchema.Repo,
   username: "postgres",
-  password: "postgres123",
+  password: "postgres",
+  #   password: "postgres123",
   hostname: "localhost",
-  port: 35432,
+  port: 5432,
+  #   port: 35432,
   database: "evmscan_schema_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,

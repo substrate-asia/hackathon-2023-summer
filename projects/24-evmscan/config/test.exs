@@ -7,9 +7,11 @@ import Config
 # Run `mix help test` for more information.
 config :evmscan_schema, EvmscanSchema.Repo,
   username: "postgres",
-  password: "postgres123",
+  # password: "postgres123",
+  password: "postgres",
   hostname: "localhost",
-  port: 35432,
+  # port: 35432,
+  port: 5432,
   database: "evmscan_schema_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10

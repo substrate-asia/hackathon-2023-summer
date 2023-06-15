@@ -53,9 +53,9 @@
 **客户端**
 - web 端
   - [x] 项目主页开发: [Home](https://civi.ink/)
-  - [ ] 用户注册页面,创建势力: [Dapp](https://app.civi.link)
-  - [ ] NFT 新手礼包领取: [Dapp](https://app.civi.link)
-  - [ ] NFT 产品购买流程: [Dapp](https://app.civi.link)
+  - [ ] 用户注册页面,创建势力: [Dapp](https://app.civi.ink)
+  - [ ] NFT 新手礼包领取: [Dapp](https://app.civi.ink)
+  - [ ] NFT 产品购买流程: [Dapp](https://app.civi.ink)
 
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)

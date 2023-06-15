@@ -1,0 +1,36 @@
+.clapyResets,
+.clapyResets * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+  text-decoration: none;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.clapyResets,
+.clapyResets :not(span, a, ul, ol, li, p) {
+  display: flex;
+}
+
+.clapyResets ul,
+.clapyResets ol {
+  text-indent: 0;
+  padding-inline-start: 1.5em;
+}
+
+.clapyResets p:empty::before {
+  content: '';
+  display: inline-block;
+}
+
+.clapyResets img {
+  object-fit: contain;
+}
+
+.clapyResets svg {
+  overflow: visible;
+}

@@ -1,0 +1,75 @@
+.union.union {
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconCollection10.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconCollection10.svg');
+}
+.root {
+  position: fixed;
+  left: 20px;
+  bottom: 1256px;
+  width: 1728px;
+  height: 137px;
+  align-items: flex-start;
+  padding: 18px 486px;
+  background-image: linear-gradient(180deg, #1314143b 0%, #131414ff 53%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.frame2675 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 30px;
+}
+.trainButton {
+  width: min-content;
+  height: min-content;
+}
+.frame2647 {
+  width: min-content;
+  height: min-content;
+  align-self: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 45px;
+  border-radius: 12px;
+  background-color: #336f87;
+}
+.minting {
+  opacity: 0.7;
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.frame2677 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 10px;
+}
+.warning {
+  width: 21.5px;
+  height: 21.5px;
+  overflow: visible;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.mintingIsIrreversibleYouCannot {
+  opacity: 0.5;
+  color: #d7997a;
+  font-size: 14px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}

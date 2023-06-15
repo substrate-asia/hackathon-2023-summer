@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 10px;
+    padding: 5%;
+    /* background-color: #000000; */
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+  }
+  
+  .product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .productImage {
+    margin-right: 20px;
+  }
+  
+  .productImage img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .description {
+    margin-bottom: 20px;
+  }
+  
+  .price {
+    margin-bottom: 0px;
+    font-size: 24px;
+  }
+  .numPrice{
+    margin-bottom: 10px;
+    font-size: 36px;
+
+    background-color: #497991;
+  }
+  .checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .paymentForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .paymentInput {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .paymentButton {
+    background-color: #497991;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .paymentButton:hover {
+    background-color: grey;
+  }

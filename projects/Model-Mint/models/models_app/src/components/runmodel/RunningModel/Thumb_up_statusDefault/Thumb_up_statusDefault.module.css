@@ -1,0 +1,27 @@
+.root {
+  opacity: 0.6;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  align-items: flex-start;
+}
+.thumb_up {
+  position: absolute;
+  left: 8.3333%;
+  right: 4.1667%;
+  top: 6.6667%;
+  bottom: 12.5%;
+  overflow: visible;
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/statusDefault.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/statusDefault.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: -1.9999998807907104px -1.5999999046325684px;
+  mask-position: -1.9999998807907104px -1.5999999046325684px;
+  -webkit-mask-size: 24px 24px;
+  mask-size: 24px 24px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}

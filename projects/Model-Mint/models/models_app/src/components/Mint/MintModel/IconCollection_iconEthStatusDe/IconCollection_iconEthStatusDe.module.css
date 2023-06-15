@@ -1,0 +1,27 @@
+.root {
+  opacity: 0.7;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  align-items: flex-start;
+}
+.union {
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 10.3958px;
+  height: 17.9995px;
+  overflow: visible;
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconEthStatusDefault.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconEthStatusDefault.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: -7px -4px;
+  mask-position: -7px -4px;
+  -webkit-mask-size: 25px 25px;
+  mask-size: 25px 25px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}

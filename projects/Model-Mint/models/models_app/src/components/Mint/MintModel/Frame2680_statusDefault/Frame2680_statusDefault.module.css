@@ -1,0 +1,25 @@
+.filterIcons.filterIcons {
+  z-index: 0;
+}
+.root {
+  width: min-content;
+  height: min-content;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 16px;
+  outline: solid 1.4px #ffffff1a;
+  outline-offset: -1px;
+  border-radius: 36px;
+}
+.video {
+  opacity: 0.5;
+  color: #fff;
+  font-size: 16px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  z-index: 0;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}

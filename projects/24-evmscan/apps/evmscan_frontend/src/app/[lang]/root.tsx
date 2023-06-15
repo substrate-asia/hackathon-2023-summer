@@ -6,7 +6,7 @@ import '@fontsource/noto-sans/500.css'
 import '@fontsource/noto-sans/700.css'
 import '@fontsource/noto-sans-sc/500.css'
 import '@fontsource/noto-sans-sc/700.css'
-import '../styles/globals.css'
+import '../../styles/globals.css'
 import { theme } from 'src/utils/theme'
 
 export default function Root({ children }: { children: React.ReactNode }) {

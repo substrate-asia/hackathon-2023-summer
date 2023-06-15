@@ -1,0 +1,36 @@
+.root {
+  width: 272px;
+  height: 143px;
+  flex-direction: column;
+  place-content: space-between;
+  padding: 16px 20px;
+  border-radius: 6px;
+  background-image: #000000;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.frame2663 {
+  height: 61px;
+  align-self: stretch;
+  place-content: space-between;
+  align-items: flex-start;
+}
+.frame {
+  width: 20px;
+  height: 20px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.veryCapableButFasterAndLowerCo {
+  opacity: 0.3;
+  color: #fff;
+  font-size: 14px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  height: min-content;
+  align-self: stretch;
+  flex-direction: column;
+}

@@ -1,10 +1,12 @@
 {
   "cSpell.words": [
     "Arbitrum",
+    "camelcase",
     "erts",
     "evmscan",
     "graphiql",
     "hackathon",
-    "Sepolia"
+    "Sepolia",
+    "Snakecase"
   ]
 }

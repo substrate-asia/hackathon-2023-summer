@@ -21,7 +21,7 @@ Therefore, it is necessary to continue to improve the performance of the oracle 
 
 In order to solve the problems of existing oracle machines, we hope to build a fully distributed oracle machine with low cost, strong scalability, low latency and high data accuracy. Therefore, we propose R3E, a TEE-based real-time oracle.
 
-R3E can process user data requests off-chain. Users construct meta-transactions (EIP712) locally and then send meta-transactions to our servers. The server requests corresponding data by parsing the user's meta-transaction, and then packages the acquired data together with the user's meta-transaction into an oracle transaction and broadcasts it to the blockchain. The oracle contract we deploy on the blockchain parses the oracle transaction, extracting the user's meta-transaction and the data of the oracle node. Then call the user contract according to the meta transaction, and pass the data to the user contract for execution.
+R3E can process user data requests off-chain. Users construct meta-transactions locally and then send meta-transactions to our servers. The server requests corresponding data by parsing the user's meta-transaction, and then packages the acquired data together with the user's meta-transaction into an oracle transaction and broadcasts it to the blockchain. The oracle contract we deploy on the blockchain parses the oracle transaction, extracting the user's meta-transaction and the data of the oracle node. Then call the user contract according to the meta transaction, and pass the data to the user contract for execution.
 
 R3E utilizes TEE technology to ensure data security and privacy. TEE is a Secure Execution Environment that protects data and code from malicious access from the outside. In R3E, the user's data request is processed securely, and the result is reliably transmitted back to the smart contract, while ensuring data integrity and immutability. This makes R3E a highly reliable and flexible oracle solution for various application scenarios.
 
@@ -49,32 +49,23 @@ Oracle Contract. The oracle contract is an entry contract deployed on the blockc
 
 ![R3E NetWork](./docs/assets/logo.jpg)
 
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
-框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
-
 ## 黑客松期间计划完成的事项
-
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
 
 **区块链端**
 
-- `pallet-nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
+- 完成预言机模块开发
+  - [ ] oracle in TEE
+- 预言机合约开发与测试
+  - [ ] 预言机合约开发
+  - [ ] 合约测试
+- 用户示例合约开发（测试预言机收发）
+  - [ ] 开发用户测试合约
 
 **客户端**
 
-- web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
-
-- hybrid (react-native)
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
-
+- web端
+  - [ ] 元交易构造sdk
+  - [ ] 元交易提交展示页面
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

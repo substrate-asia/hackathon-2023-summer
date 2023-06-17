@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="index.css">
+	</head>
+	<body>
+		<div id="terminal-section">
+			<pre id="terminal"></pre>
+			<form id="form">
+				<textarea id="msg" rows="4"></textarea>
+				<input type="submit" value="Send">
+			</form>
+			<div id="buttons">
+				<button id="get_specs">Get Specifications</button>
+				<button id="remove">Remove</button>
+			</div>
+		</div>
+		<script>
+			var socket = new WebSocket("ws://" + window.location.host + "/ws");
+			socket.onmessage = function (event) {
+				var data = JSON.parse(event.data);
+				if (data.type === "response") {
+					var response = data.data;
+					var messages = document.getElementById("terminal");
+					messages.append(JSON.stringify(response) + "\n");
+				}
+			};
+			var form = document.getElementById("form");
+			form.addEventListener('submit', function (event) {
+				event.preventDefault();
+				var input = document.getElementById("msg");
+				var data = input.value.trim();
+				socket.send(JSON.stringify({command: 'cli', data: [data]}));
+				input.value = "";
+			});
+
+			var getSpecsButton = document.getElementById("get_specs");
+			getSpecsButton.addEventListener('click', function (event) {
+				socket.send(JSON.stringify({command: 'get_specs', data: [""]}));
+			});
+
+			var removeButton = document.getElementById("remove");
+			removeButton.addEventListener('click', function (event) {
+				socket.send(JSON.stringify({command: 'remove', data: [""]}));
+			});
+
+			var messages = document.getElementById("terminal");
+			messages.addEventListener('keydown', function (event) {
+				if (event.key === 'Enter' && !event.shiftKey) {
+					event.preventDefault();
+					var data = event.target.innerText.trim();
+					if (data.startsWith('cli ')) {
+						var dataArr = data.slice(4).split(/\s+/);
+						socket.send(JSON.stringify({command: 'cli', data: dataArr}));
+					} else {
+						socket.send(data);
+					}
+					event.target.innerText = "";
+				}
+			});
+		</script>
+	</body>
+</html>

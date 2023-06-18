@@ -1,0 +1,45 @@
+ /* SignUpLogin.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+ 
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+  
+  .input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background: linear-gradient(45deg, black, black);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  
+  .button:hover {
+    opacity: 0.9;
+  }
+  

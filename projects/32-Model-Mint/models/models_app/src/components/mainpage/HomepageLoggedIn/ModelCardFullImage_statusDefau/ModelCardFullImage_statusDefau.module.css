@@ -1,0 +1,222 @@
+.root {
+  opacity: 0.9;
+  position: relative;
+  width: 313px;
+  height: 479px;
+  align-items: flex-start;
+  outline: solid 1px #00000026;
+  border-radius: 6px;
+  background-color: #282828, #262626;
+  overflow: hidden;
+  box-shadow: -10px -10px 200px 0px #187ea505;
+}
+.frame2573 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 313px;
+  height: 47px;
+  place-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+}
+.frame2584 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 9px;
+  padding: 0 14px;
+}
+.openAi1 {
+  width: 19px;
+  height: 19px;
+  border-radius: 51px;
+  background-image:/* webpackIgnore: true */ url('assets/openAi110.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.openAI {
+  opacity: 0.8;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.frame4 {
+  width: min-content;
+  height: 47px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 16px 0 8px;
+  border-radius: 6px;
+}
+._200ETH {
+  opacity: 0.6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.frame2585 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+}
+._1k {
+  opacity: 0.3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.backup {
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.rectangle319 {
+  position: absolute;
+  left: 0;
+  top: 47px;
+  width: 313px;
+  height: 311px;
+  background-image: linear-gradient(180deg, #357289ff 0%, #35728900 53%),
+    /* webpackIgnore: true */ url('assets/rectangle31911.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto, cover;
+}
+.frame2563 {
+  position: absolute;
+  left: 0;
+  top: 328px;
+  width: 313px;
+  height: 35px;
+  place-content: space-between;
+  align-items: center;
+  padding: 2px 18px;
+  background-color: #35728933, #152c3599;
+  background-image: linear-gradient(180deg, #27272757 0%, #272727ff 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  backdrop-filter: blur(2px);
+}
+.frame2562 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-radius: 18px;
+}
+._1210ETHTotal {
+  opacity: 0.3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  text-shadow: 0px 0px 20px #00000040;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.frame2582 {
+  width: 10px;
+  height: 17px;
+  overflow: visible;
+  filter: drop-shadow(0px 0px 20px #00000040);
+}
+.icon2 {
+  width: 100%;
+  height: 100%;
+}
+.frame2561 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-radius: 18px;
+}
+._19200Owned {
+  opacity: 0.3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.layers {
+  width: 17px;
+  height: 17px;
+  overflow: visible;
+}
+.icon3 {
+  width: 100%;
+  height: 100%;
+}
+.frame2565 {
+  position: absolute;
+  left: 19px;
+  top: 375px;
+  width: min-content;
+  height: min-content;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.frame2586 {
+  height: min-content;
+  align-self: stretch;
+  place-content: space-between;
+  align-items: center;
+}
+.modelNameGPT3 {
+  opacity: 0.9;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.gPT3IsTheLanguageModelIMCurren {
+  opacity: 0.5;
+  color: #fff;
+  font-size: 14px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: 276px;
+  height: min-content;
+  flex-direction: column;
+}

@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-contract PlayerContract {
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+
+contract PlayerContract is Ownable{
     struct PlayerData {
 
         string name;
@@ -18,6 +21,7 @@ contract PlayerContract {
 
     mapping(address => PlayerData) public Playerlist;
     address manager = address(0x1234);
+    address public allowedContract;
 
     function createPlayer(string calldata _name) public {
         Playerlist[msg.sender].name = _name;
@@ -25,6 +29,7 @@ contract PlayerContract {
         Playerlist[msg.sender].Life = 5;
         Playerlist[msg.sender].Strength = 5;
         Playerlist[msg.sender].Intelligence = 5;
+        Playerlist[msg.sender].Attack = 5;
         Playerlist[msg.sender].Defense = 5;
         Playerlist[msg.sender].Level = 1;
        
@@ -35,13 +40,31 @@ contract PlayerContract {
         Playerlist[_player].name = _name;
     }
 
-    function updatePlayerProperties(address _player, uint256 _Stamina, uint256 _Life, uint256 _Strength, uint256 _Intelligence, uint256 _Defense, uint256 _Level) public {
+    function updatePlayerProperties(address _player, uint256 _Stamina, uint256 _Life, uint256 _Strength, uint256 _Intelligence,uint256 _Attack, uint256 _Defense, uint256 _Level) public onlyAllowedContract{
         // require(msg.sender == manager, "You don't have the Permissions");
         Playerlist[_player].Stamina += _Stamina;
-        Playerlist[_player].Stamina += _Life;
-        Playerlist[_player].Stamina += _Strength;
-        Playerlist[_player].Stamina += _Intelligence;
-        Playerlist[_player].Stamina += _Defense;
-        Playerlist[_player].Stamina += _Level;
+        Playerlist[_player].Life += _Life;
+        Playerlist[_player].Strength += _Strength;
+        Playerlist[_player].Intelligence += _Intelligence;
+        Playerlist[_player].Attack += _Attack;
+        Playerlist[_player].Defense += _Defense;
+        Playerlist[_player].Level += _Level;
     }
+
+    function setNewMananger(address _newAddress) public onlyOwner{
+        manager = _newAddress;
+    }
+
+    modifier onlyAllowedContract() {
+        require(msg.sender == allowedContract, "Only allowed contract can call this function");
+        _;
+    }
+
+    function setAllowedContract(address _allowedContract) public onlyOwner {
+        allowedContract = _allowedContract;
+    }
+
+    // function setMyProperty(string memory _newValue) public onlyAllowedContract {
+    //     myProperty = _newValue;
+    // }
 }

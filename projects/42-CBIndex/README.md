@@ -42,7 +42,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 ### Project Logo
 
-![avatar](https://drive.google.com/file/d/1gzhPBZ2YGQaVE6lKBEuycpHe4Vlj84RJ/view?usp=sharing)
+![avatar](https://drive.google.com/file/d/1gzhPBZ2YGQaVE6lKBEuycpHe4Vlj84RJ/view)
 
 ## 黑客松期间计划完成的事项
 

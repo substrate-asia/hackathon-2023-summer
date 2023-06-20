@@ -48,7 +48,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 ### Project Logo
 
-![CBIndexLogo](https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png "CBIndex Logo")
+![CBIndexLogo](http://bafybeibjmafae7btk2yizz4zlqecjqkojjo4imyirylzisrhxvdcay3ile.ipfs.localhost:8080/2023-06-20_151330/CBIndex_logo_square_480_solid_black.png "CBIndex Logo")
 
 ## 黑客松期间计划完成的事项
 

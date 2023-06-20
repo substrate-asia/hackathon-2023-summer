@@ -1,13 +1,13 @@
 import {Account} from "../connector/Account";
 import {Connectors} from "../connector/Connectors";
-import {NetworkSwitcher} from "../connector/NetworkSwitcher";
 import {Address, useNetwork} from "wagmi";
 import {useState} from "react";
 import {
-    isWagmiError,
     isWagmiLoading,
     isWagmiSuccess,
-    useWagmiTransaction, WagmiStatus, WagmiWrite
+    useWagmiTransaction,
+    WagmiStatus,
+    WagmiWrite
 } from "../../libs/wagmi/hook/UseContractWrite";
 import {VEToken} from "../../web3/contracts/Contracts";
 import {BigNumber} from "ethers";
@@ -61,7 +61,6 @@ function Approve() {
             </div>
             <SendTransaction
                 text='Approve'
-                prepareStatus={result.prepareStatus}
                 prepareErr={result.prepareErr}
                 txHash={result.txHash}
                 txStatus={result.txStatus}
@@ -72,9 +71,8 @@ function Approve() {
 }
 
 // 发送交易按钮
-function SendTransaction({text, prepareStatus, prepareErr, write, txHash, txStatus}: {
+function SendTransaction({text, prepareErr, write, txHash, txStatus}: {
     text: string
-    prepareStatus: WagmiStatus
     prepareErr: Error | null
     txHash: Hash | undefined
     txStatus: WagmiStatus
@@ -84,20 +82,16 @@ function SendTransaction({text, prepareStatus, prepareErr, write, txHash, txStat
         <button disabled={!write} onClick={() => write?.()}>{text}</button>
         {isWagmiLoading(txStatus) && <ProcessingMessage hash={txHash} />}
         {isWagmiSuccess(txStatus) && <div>Success!</div>}
-        {isWagmiError(prepareStatus) && <div>Error: {prepareErr?.message}</div>}
+        {prepareErr && <div>Error: {prepareErr?.message}</div>}
     </>
 }
 
 // 发送交易后，等待交易状态
-function ProcessingMessage({ hash }: { hash?: `0x${string}` }) {
+function ProcessingMessage({ hash }: { hash?: Hash }) {
     const { chain } = useNetwork()
     const etherscan = chain?.blockExplorers?.etherscan
-    return (
-        <span>
-      Processing transaction...{' '}
-            {etherscan && (
-                <a href={`${etherscan.url}/tx/${hash}`}>{etherscan.name}</a>
-            )}
+    return <span>
+        Processing transaction...{' '}
+        {etherscan && <a href={`${etherscan.url}/tx/${hash}`}>{etherscan.name}</a>}
     </span>
-    )
 }

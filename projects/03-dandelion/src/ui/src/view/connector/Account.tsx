@@ -1,11 +1,11 @@
-import {useAccountAndEnsName} from "../../libs/wagmi/hook/UseAccount";
+import {useAccount} from "wagmi";
 
 export function Account() {
-    const {address, ensName} = useAccountAndEnsName()
+    const {address} = useAccount()
 
     if (!address) {
         return <div>帐号：未连接</div>
     }
 
-    return <div>帐号：{ensName ? `${ensName}(${address})` : address}</div>
+    return <div>帐号：{address}</div>
 }

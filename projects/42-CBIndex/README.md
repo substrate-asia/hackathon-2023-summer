@@ -30,7 +30,7 @@ https://app.cbindex.finance/
 
 The general framework or technical architecture of the CBIndex consists of several interconnected components designed to function seamlessly in the context of the blockchain and DeFi ecosystem. Here is a broad overview:
 
-- Frontend: The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript frameworks Next.js.
+- Frontend: The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
 - Backend: The backend is responsible for executing complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
 - Blockchain Layer: This layer interacts directly with the underlying blockchain. It is responsible for handling transactions, managing smart contracts, and ensuring the immutability and security of operations.
 - Smart Contracts: Smart contracts handle functions like mirrored investing, fund management, index creation, token swapping, and more.

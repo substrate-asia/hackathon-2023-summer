@@ -6,7 +6,6 @@
 
 ## 项目整体简介
 
-
 ### Project Introduction
 
 The project is named CBIndex. CBIndex is a transformative decentralized crypto investment tool and protocol fostering an innovative environment for individuals and entities to manage and grow their crypto assets. CBIndex encompasses a comprehensive suite of tools that empower users with unprecedented access to crypto investment through various vehicles, such as copy-investing, actively managed on-chain funds, and index funds. It presents a truly democratized ecosystem where anyone can effortlessly create, manage, and integrate crypto indices regardless of background or expertise. With CBIndex, setting up, managing, and investing in diverse investment vehicles becomes accessible and user-friendly. 
@@ -43,6 +42,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 ### Project Logo
 
+![avatar](https://drive.google.com/file/d/1gzhPBZ2YGQaVE6lKBEuycpHe4Vlj84RJ/view?usp=drive_link)
 
 ## 黑客松期间计划完成的事项
 

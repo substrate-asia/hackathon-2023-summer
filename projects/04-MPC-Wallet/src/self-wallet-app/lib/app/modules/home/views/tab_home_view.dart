@@ -30,47 +30,17 @@ class TabHomeView extends StatelessWidget {
           builder: (controller) => EasyRefresh.builder(
               controller: controller.refreshController,
               refreshOnStart: true,
-              header: CupertinoHeader(
-                  // spring: SpringDescription.withDampingRatio(
-                  //     mass: 12.0, stiffness: 20),
+              header: const CupertinoHeader(
                   clamping: true,
                   position: IndicatorPosition.locator,
                   backgroundColor: Colors.black),
-
-              // header: BezierCircleHeader(
-              //     // hapticFeedback: true,
-              //     // frictionFactor: (double t) {
-              //     //   return kBezierFrictionFactor(0.1);
-              //     // },
-              //     triggerOffset: 60,
-              //     clamping: true,
-              //     position: IndicatorPosition.locator,
-              //     foregroundColor: Colors.amber,
-              //     backgroundColor: Color(0xFF262626),
-              //     spring: SpringDescription(
-              //         mass: 12.0, stiffness: 20, damping: 5.0)),
-              // footer: const CupertinoFooter(
-              //   backgroundColor: Colors.amber
-
-              //     // backgroundColor: Colors.black,
-              //     // position: IndicatorPosition.locator,
-              //     // textColor: Colors.black,
-              //     ),
-              footer:
-                  const MaterialFooter(triggerOffset: 50, semanticsLabel: "测试"),
+              footer: null,
               onRefresh: () async {
                 // await Future.delayed(const Duration(seconds: 5));
                 // controller.setCount(10);
                 await walletController.refreshAllBalance();
                 controller.refreshController.finishRefresh();
                 controller.refreshController.resetFooter();
-              },
-              onLoad: () async {
-                await Future.delayed(const Duration(seconds: 2));
-                controller.setCount(controller.count + 10);
-                controller.refreshController.finishLoad(controller.count >= 30
-                    ? IndicatorResult.noMore
-                    : IndicatorResult.success);
               },
               childBuilder: (context, physics) {
                 return NestedScrollView(
@@ -109,13 +79,80 @@ class TabHomeView extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "您的余额",
-                                              style: TextStyle(
-                                                  fontSize: 18.sp,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
+                                            GestureDetector(
+                                                onTap: () {
+                                                  controller
+                                                      .switchProxyAccount();
+                                                },
+                                                child: Container(
+                                                  height: 35.w,
+                                                  width: 150.w,
+                                                  padding: EdgeInsets.all(2.w),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white12,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.w)),
+                                                  child: Stack(children: [
+                                                    Positioned(
+                                                        child:
+                                                            AnimatedContainer(
+                                                      duration: const Duration(
+                                                          milliseconds: 300),
+                                                      width: controller
+                                                              .isProxyAccount
+                                                          ? 70.w
+                                                          : 75.w,
+                                                      // height: double.infinity,
+                                                      margin: EdgeInsets.only(
+                                                          left: controller
+                                                                  .isProxyAccount
+                                                              ? 75.w
+                                                              : 0),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      18.w),
+                                                          color: Colors.black),
+                                                    )),
+                                                    SizedBox(
+                                                      height: 36.w,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "Web3账号",
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                color: controller
+                                                                        .isProxyAccount
+                                                                    ? Colors
+                                                                        .white54
+                                                                    : Colors
+                                                                        .white),
+                                                          ),
+                                                          Text(
+                                                            "代理账号",
+                                                            style: TextStyle(
+                                                                fontSize: 12.sp,
+                                                                color: controller
+                                                                        .isProxyAccount
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .white54),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ]),
+                                                )),
                                             const Expanded(child: SizedBox()),
                                             SizedBox(
                                               height: 40.w,
@@ -131,10 +168,9 @@ class TabHomeView extends StatelessWidget {
                                                   onPressed: () =>
                                                       {Get.toNamed('/notice')},
                                                   child: Icon(
-                                                    Icons
-                                                        .notifications_none_rounded,
+                                                    Icons.message_rounded,
                                                     color: Colors.white,
-                                                    size: 20.sp,
+                                                    size: 18.sp,
                                                   )),
                                             ),
                                             SizedBox(width: 10.w),
@@ -178,9 +214,8 @@ class TabHomeView extends StatelessWidget {
                                           IconButton(
                                               padding: EdgeInsets.zero,
                                               onPressed: () {
-                                                copyToClipboard(controller
-                                                        .rootAccount?.address ??
-                                                    '');
+                                                copyToClipboard(
+                                                    controller.accountAddress);
                                               },
                                               icon: Icon(Icons.copy_all_rounded,
                                                   color: Colors.white30,
@@ -190,8 +225,7 @@ class TabHomeView extends StatelessWidget {
                                       // SizedBox(height: 10.w),
                                       Text(
                                           addressFormat(
-                                              controller.rootAccount?.address ??
-                                                  '-'),
+                                              controller.accountAddress),
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w600,
@@ -211,14 +245,21 @@ class TabHomeView extends StatelessWidget {
                                               icon: const Icon(
                                                   Icons.arrow_upward_rounded),
                                               onPressed: () {
-                                            Get.toNamed('/transfer');
+                                            Get.toNamed('/transfer',
+                                                arguments:
+                                                    controller.isProxyAccount);
                                           }),
                                           _homeButton(context,
                                               name: "收款",
                                               icon: const Icon(
                                                   Icons.arrow_downward_rounded),
                                               onPressed: () {
-                                            Get.to(() => CollectionAccount(),
+                                            Get.to(
+                                                () => const CollectionAccount(),
+                                                arguments: {
+                                                  "address":
+                                                      controller.accountAddress
+                                                },
                                                 transition:
                                                     Transition.cupertinoDialog);
                                           }),
@@ -239,101 +280,107 @@ class TabHomeView extends StatelessWidget {
                                     ],
                                   )),
                             )),
-                        SliverOverlapAbsorber(
-                            handle:
-                                NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                    context),
-                            sliver: SliverPersistentHeader(
-                              delegate: WalletSliverPersistentHeaderDelegate(
-                                minHeight: statusBarHeight + 60.w,
-                                maxHeight: 220.w,
-                                collapsedChild: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black,
-                                  ),
-                                  padding: EdgeInsets.only(
-                                      top: statusBarHeight,
-                                      bottom: 10.w,
-                                      left: 15.w,
-                                      right: 15.w),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(child: SizedBox()),
-                                      Text("\$0.00",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24.sp)),
-                                    ],
-                                  ),
-                                ),
-                                expandedChild: Container(
-                                  color: controller.scrollOffset > 100
-                                      ? Colors.black
-                                      : const Color(0xFF262626),
-                                  child: Container(
-                                    decoration: BoxDecoration(
+                        controller.isProxyAccount
+                            ? SliverPadding(padding: EdgeInsets.zero)
+                            : SliverOverlapAbsorber(
+                                handle: NestedScrollView
+                                    .sliverOverlapAbsorberHandleFor(context),
+                                sliver: SliverPersistentHeader(
+                                  delegate:
+                                      WalletSliverPersistentHeaderDelegate(
+                                    minHeight: statusBarHeight + 60.w,
+                                    maxHeight: 220.w,
+                                    collapsedChild: Container(
+                                      decoration: const BoxDecoration(
                                         color: Colors.black,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(30.w),
-                                            topRight: Radius.circular(30.w))),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10.h),
-                                          child: Center(
-                                            child: Container(
-                                              width: 44.w,
-                                              height: 4.w,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white
-                                                      .withOpacity(0.5),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          2.w)),
+                                      ),
+                                      padding: EdgeInsets.only(
+                                          top: statusBarHeight,
+                                          bottom: 10.w,
+                                          left: 15.w,
+                                          right: 15.w),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Expanded(child: SizedBox()),
+                                          Text("\$0.00",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 24.sp)),
+                                        ],
+                                      ),
+                                    ),
+                                    expandedChild: Container(
+                                      color: controller.scrollOffset > 100
+                                          ? Colors.black
+                                          : const Color(0xFF262626),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(30.w),
+                                                topRight:
+                                                    Radius.circular(30.w))),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h),
+                                              child: Center(
+                                                child: Container(
+                                                  width: 44.w,
+                                                  height: 4.w,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white
+                                                          .withOpacity(0.5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2.w)),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15.w),
-                                          child: Text(
-                                            "您的资产",
-                                            style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ),
-                                        SizedBox(height: 15.w),
-                                        SizedBox(
-                                          height: 138.w,
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: <Widget>[
-                                              SizedBox(width: 15.w),
-                                              // 生成五个sizedbox
-                                              ...List.generate(
-                                                controller.mainCoinList.length,
-                                                (index) => _assetsCard(
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 15.w),
+                                              child: Text(
+                                                "您的资产",
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
+                                            ),
+                                            SizedBox(height: 15.w),
+                                            SizedBox(
+                                              height: 138.w,
+                                              child: ListView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                children: <Widget>[
+                                                  SizedBox(width: 15.w),
+                                                  // 生成五个sizedbox
+                                                  ...List.generate(
                                                     controller
-                                                        .mainCoinList[index]),
-                                              ).toList(),
-                                              SizedBox(width: 15.w),
-                                            ],
-                                          ),
+                                                        .mainCoinList.length,
+                                                    (index) => _assetsCard(
+                                                        controller.mainCoinList[
+                                                            index]),
+                                                  ).toList(),
+                                                  SizedBox(width: 15.w),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                              pinned: true,
-                            )),
+                                  pinned: true,
+                                )),
                       ];
                     },
                     // body: Container(
@@ -357,15 +404,26 @@ class TabHomeView extends StatelessWidget {
                     //       ],
                     //     ))
                     body: Container(
-                      decoration: const BoxDecoration(color: Colors.black),
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.w),
+                              topRight: Radius.circular(30.w))),
                       child: Builder(
                         builder: (BuildContext context) {
                           return CustomScrollView(physics: physics, slivers: <
                               Widget>[
-                            SliverOverlapInjector(
-                              handle: NestedScrollView
-                                  .sliverOverlapAbsorberHandleFor(context),
-                            ),
+                            controller.isProxyAccount
+                                ? SliverPadding(
+                                    padding: EdgeInsets.only(
+                                        top: controller.scrollOffset > 100
+                                            ? MediaQuery.of(context).padding.top
+                                            : 15.w))
+                                : SliverOverlapInjector(
+                                    handle: NestedScrollView
+                                        .sliverOverlapAbsorberHandleFor(
+                                            context),
+                                  ),
                             SliverToBoxAdapter(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,13 +480,14 @@ class TabHomeView extends StatelessWidget {
         margin: EdgeInsets.only(right: 15.w),
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.w),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.w),
-            color: const Color(0xFF212020),
-            image: const DecorationImage(
-                image: AssetImage('assets/images/assets-bg.png'),
-                alignment: Alignment.center,
-                opacity: 0.7,
-                fit: BoxFit.contain)),
+          borderRadius: BorderRadius.circular(16.w),
+          color: const Color(0xFF212020),
+          // image: const DecorationImage(
+          //     image: AssetImage('assets/images/assets-bg.png'),
+          //     alignment: Alignment.center,
+          //     opacity: 0.7,
+          //     fit: BoxFit.contain)
+        ),
         child: Stack(children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

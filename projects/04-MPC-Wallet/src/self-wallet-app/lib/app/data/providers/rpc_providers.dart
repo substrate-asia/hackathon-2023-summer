@@ -79,3 +79,24 @@ Future<BigInt?> getTokenBalance(
     return null;
   }
 }
+
+/// 读取JSON文件
+///
+/// [url] json文件的url
+/// return json文件的内容
+Future<dynamic> readJsonFile(String url) async {
+  try {
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      print('JSON: $json');
+      return json;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return null;
+    }
+    // return response.body;
+  } catch (e) {
+    return null;
+  }
+}

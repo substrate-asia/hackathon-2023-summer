@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
-import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/data/services/isar_service.dart';
-import 'package:sunrise/core/utils/ping_help.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
 class TokenAssetsController extends GetxController {
@@ -52,6 +49,11 @@ class TokenAssetsController extends GetxController {
 
       IsarService.isar?.contracts.where().findAll().then((contractList) {
         print(contractList.length);
+
+        // 打印contractList
+        for (var element in contractList) {
+          print("🥷 element: ${element.toJson()}");
+        }
 
         // 如果tokenListData和tokenConfigList长度不一致，说明有新的token，需要保存
         if (tokenListData == null ||

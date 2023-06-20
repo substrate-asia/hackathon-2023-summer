@@ -1,0 +1,28 @@
+import 'package:web3dart/web3dart.dart';
+
+// 连接到以太坊网络
+final httpClient = new Client();
+final ethClient = new Web3Client('https://mainnet.infura.io/v3/your-project-id', httpClient);
+
+// 获取Uniswap合约实例
+final uniswapAddress = EthereumAddress.fromHex('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D');
+final uniswapAbi = await rootBundle.loadString('assets/abi/uniswap.json');
+final uniswapContract = DeployedContract(ContractAbi.fromJson(uniswapAbi, 'Uniswap'), uniswapAddress);
+
+// 查询代币的储备量
+final tokenAddress = EthereumAddress.fromHex('0x6B175474E89094C44Da98b954EedeAC495271d0F'); // DAI代币地址
+final tokenAbi = await rootBundle.loadString('assets/abi/token.json');
+final tokenContract = DeployedContract(ContractAbi.fromJson(tokenAbi, 'Token'), tokenAddress);
+
+final reserves = await uniswapContract.callFunction('getReserves', [tokenAddress]);
+final tokenReserves = reserves[0] as BigInt;
+final ethReserves = reserves[1] as BigInt;
+
+final tokenDecimals = await tokenContract.callFunction('decimals', []);
+final tokenReservesInUnits = tokenReserves / BigInt.from(10).pow(tokenDecimals[0] as int);
+
+final ethDecimals = 18;
+final ethReservesInUnits = ethReserves / BigInt.from(10).pow(ethDecimals);
+
+print('Token reserves: $tokenReservesInUnits');
+print('ETH reserves: $ethReservesInUnits');

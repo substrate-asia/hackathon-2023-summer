@@ -1,0 +1,27 @@
+.root {
+  opacity: 0.7;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  align-items: flex-start;
+}
+.auto_read_play {
+  position: absolute;
+  left: 0.2519px;
+  top: 0.0732px;
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/iconGenerateOutputStatusDefaul.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/iconGenerateOutputStatusDefaul.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: -0.2518768310546875px -0.0732421875px;
+  mask-position: -0.2518768310546875px -0.0732421875px;
+  -webkit-mask-size: 25px 25px;
+  mask-size: 25px 25px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}

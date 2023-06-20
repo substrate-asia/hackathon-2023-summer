@@ -43,7 +43,9 @@
 Bounty奖项列表
 
 ## 奖金
+
 ![reward](./docs/assets/05-reward.jpeg)
+
 16个奖项共申请国库30万美金等额的DOT共42,852。每个奖项的金额如下
 - 一等奖: 5714 DOT 约四万美金 (每个赛道各一个)
 - 二等奖: 2857 DOT 约二万美金 (每个赛道各一个)
@@ -53,6 +55,13 @@ Bounty奖项列表
 - 最佳创新奖: 714 DOT 约五千美金 （共一个）
 - Travel Grant奖金池: 714 DOT 约5000美金 （共一个）
 （打卡每场活动+进入决赛来现场的战队共同瓜分该奖金池）
+
+### 赞助商奖金池
+
+![Bounty](./docs/assets/06-bounty.jpg)
+
+⼤赛新增 Bounty 命题及奖励，由⽣态内各⼤项⽬⽅结合⽣态发展和技术需求，总价值超过
+$300,000，为参赛战队提供 Bounty 赛题和奖⾦⽀持！[点击详情](https://dorahacks.io/hackathon/polkadot-hackathon-2023-summer/sponsor-bounties-details) 了解更多。
 
 ## 项目报名
 
@@ -168,18 +177,64 @@ Bounty奖项列表
 - 技术得分会结合 Demo 和问题答辩做调整，Demo 的内容和实现的代码功能应该一致
 - **本次活动的最终解释权归 OneBlock 及 Parity 官方所有。**
 
+## 評委
+
+本届⿊客松⼤赛评审分为 Hackathon Judges 和 Sponsor & Bounty Judges。他们将为参赛作品做出专业多维、公平公正的评判，以下是评审团队。
+
+![judging-panel](./docs/assets/07-judging-panel.jpg)
+
 ## Workshop 及 Office Hour 时间表
 
 - 开幕式：2023年5月20日
-  1. 2023上半年波卡最新进展 - 周俊 - Parity 工程师
-  2. 2023夏季黑客松赛事规则详解 - Jimmy - Substrate 贡献者
+  1. 2023上半年波卡最新进展 - 周俊 (Parity 工程师)
+  2. 2023夏季黑客松赛事规则详解 - Jimmy (Substrate 贡献者)
 
-    加入方式: Twitter Space https://twitter.com/i/spaces/1zqKVPaELeLJB
+    加入方式: [Twitter Space](https://twitter.com/i/spaces/1zqKVPaELeLJB)
 
-- Workshop#1：
-- Workshop#2：
-- Workshop#3：
-- Workshop#4：
+- **Workshop #1：超越创新：探索新的区块链⼯具和技术实践**
+
+  2023年6月10日 20:00 - 21:30 UTC +8
+
+  讲题：
+  1. 如何在区块链领域构建去中心的生态 - Kaichao (Parity 工程师)
+  2. 创新思维: 探索Web3领域的非传统应用 - Jimmy (Substrate 贡献者)
+
+    [YouTube 回顾](https://www.youtube.com/watch?v=jRMLKHlQw0s)
+
+- **Workshop #2：构建安全⾼效的Web3定制链与智能合约**
+
+  2023年6月19日 20:00 - 21:30 UTC +8
+
+  讲题：
+  1. Substrate 从0构建⼀条链的最佳⼯具 - 周俊 (Parity ⼯程师)
+  2. Ink! 构建智能合约应⽤ - Suvi Dong (Parity ⼯程师)
+
+    [加⼊ Zoom 会议](https://zoom.us/j/89233757595?pwd=TXpzb3o0V1RHTWJKbnpJOVgwK0NIZz09) / [YouTube 直播](https://www.youtube.com/live/gX8om1MUYck?feature=share)
+
+- **Workshop #3：Polkadot：区块链基础设施的未来**
+
+  2023年6⽉24⽇ 20:00-22:00 UTC+8
+
+  讲题：
+  1. 使⽤ Moonbeam 改善多链⽤户体验 - Kevin Neilson (Moonbeam 开发者关系⼯程师)
+  2. 强⼤的 Web3 创新平台 - Arthur (Deeper Network 区块链负责⼈)
+  3. CESS : 为百万级应⽤提供最好的去中⼼化存储 - Andy Zou (CESS 中⽂社区经理)
+  4. 零知识证明、Manta Network 与 zkSBT - Godot (Manta Network 核⼼贡献者)
+
+    [加⼊ Zoom 会议](https://us02web.zoom.us/j/86561770199?pwd=SENkTUJBUjRMYllHQWJmR1EwVUV5dz09) / [YouTube 直播](https://www.youtube.com/watch?v=hPSkW2PrXtc)
+
+- **Workshop #4：在 Polkadot 上开发应⽤程序**
+
+  2023年7⽉1⽇ 20:00-22:00 UTC +8
+
+  讲题：
+  1. 阿⾥云如何助⼒你的 Web3 之旅 - Leo Li (阿⾥云国际⾹港 Web3 ⽣态负责⼈)
+  2. 由 Gear Protocol 提供⽀持的并⾏智能合约平台 - Btwiuse (Gear Foundation 技术负责⼈); Nicole (Gear Foundation 社区增长)
+  3. 使⽤ Acala 构建 Dapp / Chopsticks - Shunji (Acala 核⼼代码贡献者)
+  4. LSD-fi 在 Polkadot 上的兴起 - Tyrone (Bifrost 治理委员会成员)
+  5. Polkadot 上的多虚拟机智能合约中⼼ - Mingshi (Astar ⾼级业务开发)
+
+    [加⼊ Zoom 会议](https://us02web.zoom.us/j/86561770199?pwd=SENkTUJBUjRMYllHQWJmR1EwVUV5dz09) / [YouTube 直播](https://www.youtube.com/watch?v=hPSkW2PrXtc)
 
 ## 联络
 

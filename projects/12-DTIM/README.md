@@ -2,35 +2,41 @@
 
 项目名称：DTIM
 
-项目立项日期 (哪年哪月)： 2023-02-15
+项目立项日期： 2023-02-15
 
 ## 项目整体简介
 
-项目简介，英文提交。
+项目简介
 DTIM is trying to create a safe, efficient, powerful and Web3-based instant collaboration tool, which is a breakthrough. It establishes solid trust relationship among organization members through open and transparent smart contract; it maintain end-to-end encrypted communication, to ensure efficient and confidentiallity; it improves work efficiency with thousands of open-source collaborative tool libraries; it keeps data in safe hands through distributed and decentralized storage.
 
 ## 黑客松期间计划完成的事项
 
-**区块链端**
+**区块链端** 
+> 代码库 https://github.com/DAOent/chain/tree/hackathon-2023-summer
 
 - `pallet-nft`
+  - NFT铸币
+  - NFT转账
 
-
-**服务端**
+**IM服务端**
+> 代码库 https://github.com/DAOent/dao-entrance-node/tree/hackathon-2023-summer
  - [ ] 使用 zkSBT 或 zkBAB 为软件提供 KYC 功能
  - [ ] 完成内置DAO工具IM机器人
 
 **客户端**
+> 代码库 https://github.com/DAOent/dao-entrance/tree/hackathon-2023-summer
 
 - web 端
   - [ ] flutter 通过接入 polkadot-js 实现兼容web端(现客户端使用flutter_rust代码桥接与链通信)
   - [ ] web 端接入 Polkadot{.js} extension
 
 - flutter desktop
-  - [ ] 成员用户信息展示
+  - [ ] 用户信息展示
   - [ ] 使用 zkSBT 或 zkBAB 为软件提供 KYC 功能
   - [ ] 完成P2P通话功能
   - [ ] 完成P2P在线会议
+  - [ ] NFT铸币
+  - [ ] NFT转账
  
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
@@ -44,3 +50,9 @@ DTIM is trying to create a safe, efficient, powerful and Web3-based instant coll
 在团队中担任的角色
 GitHub 帐号
 微信账号（如有请留下，方便及时联系）
+
+| 姓名         | 角色         | GitHub 帐号  | 微信账号     |
+| ----------- | ----------- | ----------- | ----------- |
+| BaiL       | 区块链全栈工程师  | bai-3   | dao-door000001   |
+| Erica       | 产品     |        |        |
+| Wyatt     | 前端   |       |        |

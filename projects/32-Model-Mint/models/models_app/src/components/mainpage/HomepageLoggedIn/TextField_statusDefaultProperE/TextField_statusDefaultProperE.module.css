@@ -1,0 +1,41 @@
+.search.search {
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconCollection8.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconCollection8.svg');
+}
+.send.send {
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconCollection9.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconCollection9.svg');
+}
+.send {
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconCollection9.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconCollection9.svg');
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.root {
+  width: 426px;
+  height: min-content;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #ffffff0d, #0003;
+}
+.frame2780 {
+  height: min-content;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+}
+.eGNameGPT {
+  opacity: 0.2;
+  color: #fff;
+  font-size: 16px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  height: min-content;
+  flex: 1;
+  flex-direction: column;
+}

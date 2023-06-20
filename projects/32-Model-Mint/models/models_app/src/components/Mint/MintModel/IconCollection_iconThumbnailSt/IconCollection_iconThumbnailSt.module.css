@@ -1,0 +1,26 @@
+.root {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  align-items: flex-start;
+}
+.add_photo_alternate {
+  position: absolute;
+  left: 0.6235px;
+  top: 0.5381px;
+  width: 24px;
+  height: 24px;
+  overflow: visible;
+  -webkit-mask-image:/* webpackIgnore: true */ url('assets/iconThumbnailStatusDefault.svg');
+  mask-image:/* webpackIgnore: true */ url('assets/iconThumbnailStatusDefault.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: -0.62353515625px -0.5380859375px;
+  mask-position: -0.62353515625px -0.5380859375px;
+  -webkit-mask-size: 25px 25px;
+  mask-size: 25px 25px;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}

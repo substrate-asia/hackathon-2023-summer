@@ -1,0 +1,33 @@
+.generateOutput.generateOutput {
+  position: relative;
+  right: -60%;
+  top: -40%;
+  bottom: 16.185%;
+  height: initial;
+}
+.auto_read_play.auto_read_play.auto_read_play {
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/iconCollection2.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/iconCollection2.svg');
+}
+.auto_read_play {
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/iconCollection2.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/iconCollection2.svg');
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.root {
+  position: relative;
+  width: 625px;
+  height: 173px;
+  align-items: flex-start;
+}
+.rectangle335 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 6px;
+}

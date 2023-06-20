@@ -1,0 +1,364 @@
+/* .root {
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  background-color: #1e1e1e;
+  flex-basis: 100%;
+  overflow-y: auto;
+} */
+
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0D0E0F;
+    font-family: 'SF Pro', sans-serif;
+  }
+  
+  .grid-container {
+    position: absolute;
+    left: 475px;
+    top: 35%;
+
+
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 80px;
+    width: 90%;
+    max-width: 1000px;
+    /* make it 10px space in vertical space */
+    /* make the code adaptable */
+
+    grid-auto-rows: 150px;
+    grid-auto-flow: dense;
+
+
+  }
+  
+
+  .grid-item {
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    color: #333;
+  }
+  
+  .grid-item h2 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .grid-item p {
+    color: #666;
+    font-size: 16px;
+  }
+  
+  
+  .grid-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .logo h1 {
+    font-size: 24px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+
+.settings {
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 80px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height as needed */
+  order: 1
+}
+
+
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: #ff0000;
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f8f8f8;
+  }
+  .app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f8f8f8;
+  }
+  
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 8px;
+    font-size: large;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box; /* make sure padding doesn't increase the total width */
+    outline: none; /* remove the outline */
+  }
+  
+  .modal-content input:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+  
+  /* You might want to style the placeholder text as well */
+  .modal-content input::placeholder {
+    color: #999;
+  }
+  
+  .modal-content button {
+    padding: 5px 10px;
+  }
+  
+  .connect-button {
+  /* make the button stay right with some margin */
+  margin-left: auto;
+
+
+  }
+
+  button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005b9f;
+  }
+
+  .wallet-address-container {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .wallet-address-container h1 {
+    font-size: 24px;
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+  }
+
+
+  .new-model-container{
+    /* model card */
+      position: absolute;
+      width: 980px;
+      height: 158px;
+      left: 475px;
+      top: 130px;
+    
+
+
+      background: url('./css_images/1.jpg');
+      background-position: center;
+      background-blend-mode: lighten, normal, normal;
+      opacity: 0.9;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      box-shadow: -10px -10px 200px rgba(24, 126, 165, 0.02);
+      border-radius: 6px;
+
+  }
+
+  .new-model-container h1{
+      position: absolute;
+      width: 215px;
+      height: 27px;
+      left: 32px;
+      top: 41px;
+
+      font-family: 'SF Pro Display';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 27px;
+
+      color: #FFFFFF;
+
+      opacity: 0.9;
+  }
+
+
+  .new-model-container h2{
+    position: absolute;
+    width: 400px;
+    height: 42px;
+    left: 32px;
+    top: 84px;
+    
+    font-family: 'SF Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    
+    color: #FFFFFF;
+    
+    opacity: 0.5;
+}
+
+.new-model-container button{
+  /* Frame 2547 */
+
+
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 20px;
+gap: 10px;
+
+position: absolute;
+width: 219px;
+height: 48px;
+left: 722px;
+top: 32px;
+
+background: rgba(55, 122, 148, 0.3);
+border-radius: 12px;
+}
+.new-model-container-2 button{
+
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 20px;
+gap: 10px;
+
+position: absolute;
+width: 219px;
+height: 48px;
+left: 1150px;
+top: 160px;
+
+background: #387B94;
+border-radius: 12px;
+}
+
+
+.new-model-container h3{
+  /* Frame 2547 */
+
+
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 20px;
+gap: 10px;
+
+position: absolute;
+width: 219px;
+height: 48px;
+left: 722px;
+top: 32px;
+
+background: rgba(55, 122, 148, 0.3);
+border-radius: 12px;
+}

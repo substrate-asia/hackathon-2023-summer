@@ -2,7 +2,7 @@ import {BigNumberish, Bytes, BytesLike, ethers} from "ethers";
 import { DataSource } from "typeorm"
 import {User_address} from "../../entity";
 import {returnResponse} from "../../utils";
-
+import {RedisClient,config} from "../../config";
 export class ChainService{
     constructor(readonly wallet:ethers.Wallet,
                 readonly tokenPaymaster:ethers.Contract,
@@ -73,11 +73,14 @@ export class ChainService{
 
         try {
 
-            console.log(data)
+            let data2 = JSON.stringify(data)
 
-           let tx = await this.entryPoint.handleOps([data],this.accountOwnerAddress)
+            let isOk = await RedisClient.lPush(config.redis.task_trade!,data2)
+            if (!isOk){
+                return returnResponse("","提交交易失败!")
+            }
 
-            resp = returnResponse(tx.hash,"success")
+            resp = returnResponse("","success")
 
         }catch (error){
 

@@ -13,5 +13,4 @@ contract AIToken is ERC20, Ownable {
     constructor() ERC20('AIToken', 'AI') {
         _mint(msg.sender, TOTAL_SUPPLY);
     }
-
 }

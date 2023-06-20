@@ -56,6 +56,7 @@ export const config = {
     password: process.env.REDIS_PASSWORD,
     host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
-    db_number: process.env.REDIS_DB_NUMBER
+    db_number: process.env.REDIS_DB_NUMBER,
+    task_trade: process.env.REDIS_TASK_TRADE
   }
 }

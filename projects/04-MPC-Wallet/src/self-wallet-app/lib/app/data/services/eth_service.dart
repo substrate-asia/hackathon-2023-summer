@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hex/hex.dart';
@@ -65,6 +66,25 @@ class EthService {
     return client;
   }
 
+  /// 监听交易hash
+  static Future<TransactionReceipt?> streamTxHash({
+    required String txHash,
+    required Web3Client client,
+  }) {
+    debugPrint("streamTxHash $txHash");
+    final web3 = client;
+    try {
+      return web3
+          .addedBlocks()
+          .asyncMap((_) => web3.getTransactionReceipt(txHash))
+          .where((tx) => tx != null)
+          .first;
+    } catch (e) {
+      debugPrint("streamTxHash error $e");
+      return Future.value(null);
+    }
+  }
+
   // 发送交易
   static Future<dynamic> signTransaction(
     String privateKey, {
@@ -81,16 +101,6 @@ class EthService {
     // var gasLimit = 10000000;
     EtherAmount gasPrice = await client.getGasPrice();
 
-    // gasPrice = EtherAmount.inWei(gasPrice.getInWei * BigInt.from(100));
-
-    // Uint8List? tempData;
-    // if (data != null) {
-    //   // Remove the 0x prefix
-    //   final hexWithoutPrefix = data.substring(2);
-    //   // Convert to bytes
-    //   final bytes = const HexDecoder().convert(hexWithoutPrefix);
-    //   tempData = Uint8List.fromList(bytes);
-    // }
     var transaction = Transaction(
       to: EthereumAddress.fromHex(toAddress),
       nonce: nonce,
@@ -100,11 +110,33 @@ class EthService {
       value: EtherAmount.inWei(amount),
     );
 
-    print("transaction ${transaction.maxFeePerGas}");
-    var signed = await client.sendTransaction(credentials, transaction,
+    String hash = await client.sendTransaction(credentials, transaction,
         chainId: chainId);
 
-    return signed;
+    print("transaction $hash");
+    // await streamTxHash(txHash: hash, client: client);
+    // 等待交易完成
+    // 每3s去查询
+    TransactionReceipt? receipt;
+    int count = 0;
+    while (receipt == null || receipt.status == null) {
+      await Future.delayed(const Duration(seconds: 3));
+      receipt = await client.getTransactionReceipt(hash);
+      print(receipt.toString());
+      count++;
+      if (count > 20) {
+        break;
+      }
+    }
+    print(receipt?.status);
+    // 输出交易状态
+    if (receipt?.status == true) {
+      print('Transaction succeeded!');
+      return hash;
+    } else {
+      print('Transaction failed!');
+      return null;
+    }
   }
 
   // 评估交易费用
@@ -117,21 +149,6 @@ class EthService {
   }) async {
     Web3Client client =
         await createWeb3Client(HiveService.getNetworkRpc(chainId) ?? '');
-    // EtherAmount gasPrice = await client.getGasPrice();
-    // print("gasPrice 0 $gasPrice");
-
-    // gasPrice = EtherAmount.inWei(gasPrice.getInWei * BigInt.from(10));
-
-    // print("gasPrice $gasPrice");
-
-    // Uint8List? tempData;
-    // if (data != null) {
-    //   // Remove the 0x prefix
-    //   final hexWithoutPrefix = data.substring(2);
-    //   // Convert to bytes
-    //   final bytes = const HexDecoder().convert(hexWithoutPrefix);
-    //   tempData = Uint8List.fromList(bytes);
-    // }
     print(value);
 
     final gasLimit = await client.estimateGas(

@@ -1,12 +1,12 @@
 import "./App.css";
 import {WagmiConfig} from "wagmi";
 import {wagmiClient} from "./web3/wagmi/WagmiClient";
-import {ConnectorDemo} from "./view/demo/ConnectorDemo";
+import {Demo} from "./view/demo/Demo";
 
 function App() {
   return <WagmiConfig client={wagmiClient}>
     <div className="App">App</div>
-    <ConnectorDemo/>
+    <Demo/>
   </WagmiConfig>
 }
 

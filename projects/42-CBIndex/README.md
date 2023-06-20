@@ -13,13 +13,19 @@ The project is named CBIndex. CBIndex is a transformative decentralized crypto i
 ### Project Background and Problem to Solve
 
 Most crypto investors make bad investment decisions:
+
 (1) Lead to financial losses and market volatility;
+
 (2) Result in diminished market confidence;
+
 (3) Trigger stricter regulatory scrutiny and hindered ecosystem growth.
 
 CBIndex solves the problems with various on-chain investment vehicles:
+
 (1) Provide mirrored investing for newbies to gain profits via copying seasoned investors;
+
 (2) Provide actively managed funds and index funds functionalities so that everyone can create, manage and invest in on-chain funds;
+
 (3) Equip each user with powerful investment simulators to play with.
 
 ### Project Demo

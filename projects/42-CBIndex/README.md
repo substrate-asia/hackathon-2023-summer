@@ -52,24 +52,28 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 ## 黑客松期间计划完成的事项
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+- Copy-investing Feature
+  - Fund Creation
+  - Fund Management
+  - DEX Integration
+  - Copy-investing
 
-**区块链端**
+**Blockchain**
 
 - `pallet-nft`
   - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
   - [ ] NFT 转帐函数 (`fn transfer()`)
   - [ ] NFT 销毁函数 (`fn burn_token()`)
 
-**客户端**
+**Client**
 
-- web 端
+- web
 
   - [ ] 用户注册页面
   - [ ] NFT 产品创建流程
   - [ ] NFT 产品购买流程
 
-- hybrid (react-native)
+- hybrid (Next.js)
   - [ ] 用户注册页面
   - [ ] NFT 产品创建流程
   - [ ] NFT 产品购买流程
@@ -80,9 +84,9 @@ The general framework or technical architecture of the CBIndex consists of sever
 - 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
 - Demo 视频，ppt 等大文件不要提交。可以在 readme 中存放它们的链接地址
 
-## 队员信息
+## Team Members
 
-包含参赛者名称及介绍
-在团队中担任的角色
-GitHub 帐号
-微信账号（如有请留下，方便及时联系）
+| 名称   | 介绍   | 角色   | GitHub 帐号 | 微信账号 |
+| ------ | ------ | ------ | ----------- | -------- |
+| 单元格 | 单元格 | 单元格 | 单元格      | 单元格   |
+| 单元格 | 单元格 | 单元格 | 单元格      | 单元格   |

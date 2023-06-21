@@ -1,32 +1,38 @@
-## 基本资料
+## Basic Information
 
-项目名称：CBIndex
+Project Name: CBIndex
 
-项目立项日期：2023.05.17
+Initation Date: 2023.05.17
 
-## 项目整体简介
+## Project Overview
 
 ### Project Introduction
 
-The project is named CBIndex. CBIndex is a transformative decentralized crypto investment tool and protocol fostering an innovative environment for individuals and entities to manage and grow their crypto assets. CBIndex encompasses a comprehensive suite of tools that empower users with unprecedented access to crypto investment through various vehicles, such as copy-investing, actively managed on-chain funds, and index funds. It presents a truly democratized ecosystem where anyone can effortlessly create, manage, and integrate crypto indices regardless of background or expertise. With CBIndex, setting up, managing, and investing in diverse investment vehicles becomes accessible and user-friendly.
+As a decentralized asset management platform, CBIndex provides various crypto investment tools built on the CBI protocol, fostering an innovative environment for individuals and entities to manage and grow their crypto assets. 
+
+CBIndex encompasses a comprehensive suite of tools that empower users with unprecedented access to crypto investment through various vehicles, such as copy-investing, actively managed on-chain funds, and on-chain index funds. 
+
+It delivers a democratized ecosystem where anyone can effortlessly make crypto investment decisions by copying seasoned investors or participating in active and index funds.
+
+Using the CBIndex simulator, one can try out, learn and practice crypto investments in a well-simulated environment. With the index tool, anyone can become a crypto index provider by building, managing, and promoting their crypto indices.
 
 ### Project Background and Problem to Solve
 
-Most crypto investors make bad investment decisions:
+**Most crypto investors make bad investment decisions:**
 
-(1) Lead to financial losses and market volatility;
+> Lead to financial losses and market volatility;
+>
+> Result in diminished market confidence;
+>
+> Trigger stricter regulatory scrutiny and hindered ecosystem growth.
 
-(2) Result in diminished market confidence;
+**CBIndex solves the problems with various on-chain investment vehicles:**
 
-(3) Trigger stricter regulatory scrutiny and hindered ecosystem growth.
+- Provide mirrored investing for newbies to gain profits via copying seasoned investors;
 
-CBIndex solves the problems with various on-chain investment vehicles:
+- Provide actively managed funds and index funds functionalities so that everyone can create, manage and invest in on-chain funds;
 
-(1) Provide mirrored investing for newbies to gain profits via copying seasoned investors;
-
-(2) Provide actively managed funds and index funds functionalities so that everyone can create, manage and invest in on-chain funds;
-
-(3) Equip each user with powerful investment simulators to play with.
+- Equip each user with powerful investment simulators to play with.
 
 ### Project Demo
 

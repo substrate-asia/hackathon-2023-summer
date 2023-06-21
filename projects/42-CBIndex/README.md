@@ -2,7 +2,7 @@
 
 Project Name: CBIndex
 
-Initation Date: 2023.05.17
+Initation Date: 17 May 2023
 
 ## Project Overview
 
@@ -18,13 +18,15 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 ### Project Background and Problem to Solve
 
+
 **Most crypto investors make bad investment decisions:**
 
-> Lead to financial losses and market volatility;
->
-> Result in diminished market confidence;
->
-> Trigger stricter regulatory scrutiny and hindered ecosystem growth.
+- Lead to financial losses and market volatility;
+
+- Result in diminished market confidence;
+
+- Trigger stricter regulatory scrutiny and hindered ecosystem growth.
+
 
 **CBIndex solves the problems with various on-chain investment vehicles:**
 
@@ -34,11 +36,15 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 - Equip each user with powerful investment simulators to play with.
 
+
 ### Project Demo
+
 
 https://app.cbindex.finance/
 
+
 ### Project Architecture
+
 
 The general framework or technical architecture of the CBIndex consists of several interconnected components designed to function seamlessly in the context of the blockchain and DeFi ecosystem. Here is a broad overview:
 
@@ -52,11 +58,14 @@ The general framework or technical architecture of the CBIndex consists of sever
 - Security Infrastructure: This is the set of technologies and protocols that ensure the platform's overall security. It includes encryption protocols, user authentication mechanisms, smart contract audits, and more to ensure the safety of user data and funds.
 - Multi-chain Compatibility: CBIndex platform will aim to become multi-chain compatible, meaning it will not just run on one blockchain. This will increase the availability of funds and assets for investors and fund managers.
 
+
 ### Project Logo
 
 ![CBIndexLogo](https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png "CBIndex Logo")
 
+
 ## 黑客松期间计划完成的事项
+
 
 - Copy-investing Feature
   - Fund Creation

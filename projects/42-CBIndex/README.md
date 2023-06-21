@@ -39,24 +39,22 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 ### Project Demo
 
-
 https://app.cbindex.finance/
-
 
 ### Project Architecture
 
 
 The general framework or technical architecture of the CBIndex consists of several interconnected components designed to function seamlessly in the context of the blockchain and DeFi ecosystem. Here is a broad overview:
 
-- Frontend: The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
-- Backend: The backend is responsible for executing complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
-- Blockchain Layer: This layer interacts directly with the underlying blockchain. It is responsible for handling transactions, managing smart contracts, and ensuring the immutability and security of operations.
-- Smart Contracts: Smart contracts handle functions like mirrored investing, fund management, index creation, token swapping, and more.
-- Integration Layer: The integration layer allows CBIndex to interact with other platforms and services in the DeFi ecosystem. It includes API gateways and other interfaces that enable CBIndex to connect with external applications, services, or exchanges.
-- Data Layer: This layer manages all the data related to the platform. This includes data from centralized data aggregators and decentralized infrastructures.
-- Analytics Engine: The analytics engine is responsible for generating insights from the data. It tracks and analyzes market trends, index performance, fund performance, etc., and presents this data to users in a digestible format.
-- Security Infrastructure: This is the set of technologies and protocols that ensure the platform's overall security. It includes encryption protocols, user authentication mechanisms, smart contract audits, and more to ensure the safety of user data and funds.
-- Multi-chain Compatibility: CBIndex platform will aim to become multi-chain compatible, meaning it will not just run on one blockchain. This will increase the availability of funds and assets for investors and fund managers.
+- **Frontend:** The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
+- **Backend:** The backend is responsible for executing complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
+- **Blockchain Layer:** This layer interacts directly with the underlying blockchain. It is responsible for handling transactions, managing smart contracts, and ensuring the immutability and security of operations.
+- **Smart Contracts:** Smart contracts handle functions like mirrored investing, fund management, index creation, token swapping, and more.
+- **Integration Layer:** The integration layer allows CBIndex to interact with other platforms and services in the DeFi ecosystem. It includes API gateways and other interfaces that enable CBIndex to connect with external applications, services, or exchanges.
+- **Data Layer:** This layer manages all the data related to the platform. This includes data from centralized data aggregators and decentralized infrastructures.
+- **Analytics Engine:** The analytics engine is responsible for generating insights from the data. It tracks and analyzes market trends, index performance, fund performance, etc., and presents this data to users in a digestible format.
+- **Security Infrastructure:** This is the set of technologies and protocols that ensure the platform's overall security. It includes encryption protocols, user authentication mechanisms, smart contract audits, and more to ensure the safety of user data and funds.
+- **Multi-chain Compatibility:** CBIndex platform will aim to become multi-chain compatible, meaning it will not just run on one blockchain. This will increase the availability of funds and assets for investors and fund managers.
 
 
 ### Project Logo
@@ -64,19 +62,18 @@ The general framework or technical architecture of the CBIndex consists of sever
 ![CBIndexLogo](https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png "CBIndex Logo")
 
 
-## 黑客松期间计划完成的事项
+## Tasks During Hackathon
 
-
-- Copy-investing Feature
-  - Fund Creation
-  - Fund Management
-  - DEX Integration
-  - Copy-investing
+- Coyp-investing fund Creation
+- Coyp-investing fund Management
+- DEX Integration
+- Copy-investing fund Performance Analytics
+- Copy-investing fund investment 
 
 **Blockchain**
 
-- `pallet-nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
+- `copy-investing-fund`
+  - [ ] vault initiation (`fn create_copy_investing_vault()`)
   - [ ] NFT 转帐函数 (`fn transfer()`)
   - [ ] NFT 销毁函数 (`fn burn_token()`)
 

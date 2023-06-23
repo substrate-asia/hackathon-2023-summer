@@ -28,7 +28,7 @@ NFT-Fi Twitter: A NFT powered WebExtension ([Chrome](https://developer.chrome.co
 * [05/30](https://github.com/parity-asia/hackathon-2023-summer/pull/11/commits) 新增 RWA 钱包登录页面 UI
 * [06/03](https://github.com/parity-asia/hackathon-2023-summer/pull/18/commits) RWA 钱包的新用户 onboard 模块的 UI/UX 几近完成！
 * [06/04](https://github.com/parity-asia/hackathon-2023-summer/pull/23/commits) 完成了最核心的助记词的安全缓存逻辑！
-* [06/23]() 项目迁移到新的 repo 并添加更多支持性的分包代码
+* [06/23](https://github.com/parity-asia/hackathon-2023-summer/pull/76) 项目迁移到新的 repo 并添加更多支持性的分包代码
   * RWA 钱包代码: <https://github.com/Web3Hacker-World/web3-rwa-wallet>
   * RWA-JS-SDK 代码：<https://github.com/Web3Hacker-World/RWA-JS-SDK> （在 RWA 钱包项目中依赖此代码库），此代码库未来作为 RWA 的通用库发展
 

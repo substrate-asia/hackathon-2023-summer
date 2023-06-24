@@ -28,7 +28,7 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 **CBIndex solves the problems with various on-chain investment vehicles:**
 
-- Provide mirrored investing for newbies to gain profits via copying seasoned investors;
+- Provide copy-investing for newbies to gain profits via copying seasoned investors;
 
 - Provide actively managed funds and index funds functionalities so that everyone can create, manage and invest in on-chain funds;
 
@@ -45,7 +45,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 - **Frontend:** The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
 - **Backend:** The backend is responsible for executing complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
 - **Blockchain Layer:** This layer interacts directly with the underlying blockchain. It is responsible for handling transactions, managing smart contracts, and ensuring the immutability and security of operations.
-- **Smart Contracts:** Smart contracts handle functions like mirrored investing, fund management, index creation, token swapping, and more.
+- **Smart Contracts:** Smart contracts handle functions like copy-investing, fund management, index creation, token swapping, and more.
 - **Integration Layer:** The integration layer allows CBIndex to interact with other platforms and services in the DeFi ecosystem. It includes API gateways and other interfaces that enable CBIndex to connect with external applications, services, or exchanges.
 - **Data Layer:** This layer manages all the data related to the platform. This includes data from centralized data aggregators and decentralized infrastructures.
 - **Analytics Engine:** The analytics engine is responsible for generating insights from the data. It tracks and analyzes market trends, index performance, fund performance, etc., and presents this data to users in a digestible format.

@@ -2,9 +2,10 @@ import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import type { AppProps } from 'next/app';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { arbitrum, goerli, mainnet } from 'wagmi/chains';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { arbitrum, bsc, goerli, mainnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import dynamic from 'next/dynamic';
 
 const GnosisChain = {
   id: 100,
@@ -92,13 +93,14 @@ const AstarChain = {
 }
 
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
+const { chains, provider, webSocketProvider } = configureChains(
   [
     mainnet,
-    arbitrum,
+    // arbitrum,
     MoonBeamChain,
-    AstarChain,
+    // AstarChain,
     GnosisChain,  
+    bsc,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
   [publicProvider()]
@@ -110,16 +112,16 @@ const { connectors } = getDefaultWallets({
   chains,
 });
 
-const wagmiConfig = createConfig({
+const wagmiConfig = createClient({
   autoConnect: true,
   connectors,
-  publicClient,
-  webSocketPublicClient,
+  provider,
+  webSocketProvider,
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig client={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
       </RainbowKitProvider>
@@ -127,4 +129,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+// export default MyApp;
+
+export default dynamic(() => Promise.resolve(MyApp), {
+  ssr:false,
+})

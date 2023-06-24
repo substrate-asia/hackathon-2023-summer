@@ -100,5 +100,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 | Name   | Info   | Role   | GitHub | WeChat |
 | ------ | ------ | ------ | ------ | ------ |
-| Ray | tech background, 8+ years of web3 experience | product manager |  | 单元格 |
-| 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
+| Ray | tech background, 8+ years of web3 experience | product manager | DRGU0416 | baozhadexiaoshitou |
+| Evan | full-stack, smart contract engineer | blockchain dev | mozhiyun | - |
+| John | full-stack, smart contract engineer | blockchain dev | John_Suu | - |
+| ZZ | 3 years of dev experience | frontend dev | zzqVip | - |

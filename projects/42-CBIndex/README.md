@@ -90,7 +90,7 @@ The general framework or technical architecture of the CBIndex consists of sever
   - Copy-investing fund Performance Analytics
   - Coyp-investing fund Management
 
-## 黑客松期间所完成的事项 (2023 年 7 月 4 日上午 11:59 初审前提交)
+## Completed Tasks During Hackathon (2023 年 7 月 4 日上午 11:59 初审前提交)
 
 - 2023 年 7 月 4 日上午 11:59 前，在本栏列出黑客松期间最终完成的功能点。
 - 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。

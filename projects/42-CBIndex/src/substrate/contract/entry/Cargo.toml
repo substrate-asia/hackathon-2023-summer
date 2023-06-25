@@ -1,0 +1,33 @@
+[package]
+name = "entry"
+version.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+gstd.workspace = true
+entry-io.workspace = true
+vault-io.workspace = true
+storage-io.workspace = true
+gmeta.workspace = true
+hashbrown.workspace = true
+primitive-types.workspace = true
+sp-core-hashing = { version = "8.0.0", default-features = false }
+
+[dev-dependencies]
+gtest.workspace = true
+gstd = { workspace = true, features = ["debug"] }
+gclient.workspace = true
+tokio.workspace = true
+light_sr25519.workspace = true
+sp-core.workspace = true
+hex-literal = "0.3.4"
+
+[build-dependencies]
+gear-wasm-builder.workspace = true
+gmeta.workspace = true
+entry-io.workspace = true
+
+[features]
+binary-vendor = []

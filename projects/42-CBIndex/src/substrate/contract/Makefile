@@ -1,6 +1,6 @@
-.PHONY: all build fmt fmt-doc lint pre-commit test full-test deps
+.PHONY: all build fmt init lint pre-commit test full-test deps
 
-all: build test
+all: init build test
 
 build:
 	@echo ⚙️ Building a release...
@@ -11,9 +11,10 @@ fmt:
 	@echo ⚙️ Checking a format...
 	@cargo fmt --all --check
 
-fmt-doc:
-	@echo ⚙️ Format the docs...
-	@cargo fmt -- --config wrap_comments=true,format_code_in_doc_comments=true
+init:
+	@echo ⚙️ Installing a toolchain \& a target...
+	@rustup toolchain install nightly --component clippy --component rustfmt
+	@rustup target add wasm32-unknown-unknown --toolchain nightly
 
 lint:
 	@echo ⚙️ Running the linter...

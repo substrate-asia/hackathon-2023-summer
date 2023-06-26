@@ -1,5 +1,5 @@
 [package]
-name = "dandelion-node"
+name = "frontier-template-node"
 version = "4.0.0-dev"
 description = "A fresh FRAME-based Substrate node, ready for hacking."
 authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]
@@ -7,7 +7,6 @@ homepage = "https://substrate.io/"
 edition = "2021"
 license = "Unlicense"
 publish = false
-repository = "https://github.com/substrate-developer-hub/substrate-node-template/"
 build = "build.rs"
 
 [package.metadata.docs.rs]
@@ -85,19 +84,19 @@ fp-account = { git = 'https://github.com/moondance-labs/frontier', branch = "pol
 fp-dynamic-fee = { git = 'https://github.com/moondance-labs/frontier', branch = "polkadot-v0.9.40", default-features = false }
 fp-evm = { git = 'https://github.com/moondance-labs/frontier', branch = "polkadot-v0.9.40", default-features = false }
 fp-rpc = { git = 'https://github.com/moondance-labs/frontier', branch = "polkadot-v0.9.40", default-features = false }
-dandelion-template-runtime = { path = "../runtime", features = ["default"] }
+frontier-template-runtime = { path = "../runtime", features = ["default"] }
 
 [build-dependencies]
 substrate-build-script-utils = { version = "3.0.0", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.40" }
 
 [features]
 default = ["with-rocksdb-weights"]
-with-rocksdb-weights = ["dandelion-template-runtime/with-rocksdb-weights"]
-with-paritydb-weights = ["dandelion-template-runtime/with-paritydb-weights"]
+with-rocksdb-weights = ["frontier-template-runtime/with-rocksdb-weights"]
+with-paritydb-weights = ["frontier-template-runtime/with-paritydb-weights"]
 rpc-binary-search-estimate = ["fc-rpc/rpc-binary-search-estimate"]
 # Dependencies that are only required if runtime benchmarking should be build.
 runtime-benchmarks = [
-	"dandelion-template-runtime/runtime-benchmarks",
+	"frontier-template-runtime/runtime-benchmarks",
 	"frame-benchmarking/runtime-benchmarks",
 	"sc-service/runtime-benchmarks",
 	"frame-benchmarking-cli/runtime-benchmarks",

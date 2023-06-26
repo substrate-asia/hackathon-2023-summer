@@ -18,7 +18,7 @@ use sp_api::{CallApiAt, ProvideRuntimeApi};
 use sp_blockchain::{Error as BlockChainError, HeaderBackend, HeaderMetadata};
 use sp_runtime::traits::Block as BlockT;
 // Runtime
-use dandelion_template_runtime ::{opaque::Block, AccountId, Balance, Hash, Index};
+use frontier_template_runtime::{opaque::Block, AccountId, Balance, Hash, Index};
 
 mod eth;
 pub use self::eth::{create_eth, overrides_handle, EthDeps};

@@ -1,5 +1,5 @@
 [package]
-name = "dandelion-template-runtime"
+name = "frontier-template-runtime"
 version = "4.0.0-dev"
 description = "A fresh FRAME-based Substrate node, ready for hacking."
 authors = ["Substrate DevHub <https://github.com/substrate-developer-hub>"]

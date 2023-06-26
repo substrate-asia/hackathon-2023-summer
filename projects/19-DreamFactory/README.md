@@ -1,33 +1,71 @@
-## 基本信息
+### Basic Information
+Project name：DreamFactory
 
-项目名称：OpenSource DreamFactory
+Starting time：2023-5-25 Code address：https://github.com/OpenSource-DreamFactory
 
-项目立项日期：2023/06
+### Project Description
+开源梦工厂旨在建立一个从Web3.0到开源世界的门户，激励开发者继续为开源项目贡献代码和时间。我们在Polkadot上开发了一种动态NFT协议，它创建与开源项目和贡献者活动相关联的动态NFT。参与者将竞争开发最有前途的项目，利用动态NFT和DAO机制支持开源创新。
 
-## 概述
-该项目的主要目标是建立一个开源项目生态系统，在波卡平行链创建动态NFT，以激励开源开发者的贡献。同时，通过DAO基金池为开源项目注入资金。此外，该项目将基于Polkadot网络，利用其跨链能力，将各个开源项目连接在一起，形成一个去中心化的开源项目网络。进一步的研究包括实现DAO治理，让社区参与决策，以及设计一套公正、公开、透明的贡献度评估标准。
+The Open Source Dream Factory aims to establish a gateway from Web3.0 to the opensource world, incentivizing developers to continue contributing code and time to open source projects. We have developed a dynamic NFT protocol on Polkadot，It creates dynamic NFTs associated with open source projects and contributors' activities, Participants will compete to develop the most promising projects that can leverage the dynamic NFT and DAO mechanisms to support open source innovation.
 
-## 黑客松期间计划完成的事项
-- 在波卡平行链创建一系列动态NFT，与开源项目和贡献者的活动紧密关联，并设计NFT自动升级机制，与项目进度和用户贡献同步。
-- 设计NFT发行和交易机制，支持用户购买和出售NFT。
-设计一套公正、公开、透明的贡献度评估标准，并提供工具和接口，方便开发者上传和验证他们的贡献。
-- 创建一个Chrome插件，方便用户查看和管理他们的NFT，插件应显示用户的开源贡献等级，以及项目的进度和活动。
-- 创建DAO基金池，所有NFT销售所得dot都进入基金池，基金池资金的使用需要DAO成员投票决定。
-- 设计DAO治理规则，让NFT持有者能参与项目的治理。
-- 利用Polkadot的跨链能力，将各个开源项目连接在一起，形成一个去中心化的开源项目网络。
-- 开发基本的用户界面，以演示开源项目生态系统的运行情况。
+![dreamfactory.png](https://upload-images.jianshu.io/upload_images/528413-7bca135935649b9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### Vision and Mission
+愿景：建立一个充满活力的开源生态系统，激励开发者并为开源项目提供可持续的资金支持。
+
+- Vision: Build a vibrant open-source ecosystem that incentivizes developers and provides sustainable funding for open source projects.
+
+使命：激励更多的开发者为开源项目做出贡献。开发者应该得到与他们的贡献相称的奖励和认可。为有前途但缺乏资金支持的开源项目提供持续性的财务支持。促进开放协作文化的发展。创新开源生态系统中的治理和激励机制。
+
+- Mission: Motivate more developers to contribute to open source projects. Developers should receive rewards and recognition commensurate with their contributions.Provide sustained financial support for promising but underfunded open source projects. Promote the development of a culture of open collaboration. Innovate governance and incentive mechanisms in the open source ecosystem.
+
+### Problem and Opportunity
+#### Problem
+大多数开源项目依靠开发者的自愿贡献建设,缺乏持续稳定的资金支持,难以长期发展。同时，开发者缺乏动力和激励来维持他们的贡献。
+
+1.Most open source projects rely on voluntary contributions from developers and lack sustained and stable financial support, making it difficult for them to develop in the long term.At the same time, developers lack motivation and incentives to sustain their contributions.
+
+贡献激励不足:现有的贡献评价和激励机制无法有效鼓励开发者的持续贡献,他们的付出得不到应有的认可与回报。
+
+2.Inadequate contribution incentives: The existing contribution evaluation and incentive mechanisms are unable to effectively encourage developers' sustained contributions, and their efforts do not receive the recognition and rewards they deserve.
+
+开源项目标准化程度不足，这可能会加大项目组织，开发实施过程的中的不确定性，降低投资人的安全感，从而影响资金注入的积极性。
+
+3.The standardization level of open source projects is insufficient, which may increase uncertainty in the project organization and development implementation process, reduce investors' sense of security, and thus affect the enthusiasm for capital injection.
+
+#### Opportunity
+
+开源梦工厂项目的机会主要在于它的技术和机制:使用创新的动态NFT结合DAO治理的方式。可以体现出较高的技术含金量和创新性,更多的吸引技术社区的眼球。动态NFT其实可以游戏化开源贡献，增强了开源社区用户的参与感，从而不断激发开发者参与开源项目的热情。动态NFT也可以在区块链上公开透明地标记每个贡献行为,这增加了项目的公信力,也便于社区监督,NFT持有者拥有DAO治理投票的权利，反过来解决了投资者注入资金的信任度和积极性,为项目开拓新的商业模式创造机会。
+
+The opportunity of the Open Source Dream Factory project mainly lies in its technology and mechanism: using innovative dynamic NFT combined with DAO governance. This reflects a high level of technical expertise and innovation, which attracts more attention from the technical community. Dynamic NFT can gamify open source contributions, enhancing the participation of users in the open source community and continuously inspiring developers to participate in open source projects. Dynamic NFTs also can publicly and transparently mark each contribution behavior on the blockchain, increasing project credibility and facilitating community supervision. NFT holders have the right to vote for DAO governance, which in turn solves trustworthiness and enthusiasm issues for investors injecting funds, creating opportunities for new business models for the project.
 
 
-### substrate pallet
+### Our Solution
+To achieve the vision, we launched the Open Source Dream Factory platform which includes:
+- Dynamic NFTs: We create dynamic NFTs associated with open source projects and contributors' activities to gamify the ecosystem.
+- DAO and funding pool: We established a DAO and funding pool to inject funding into selected open source projects. The use of the funds are decided by DAO members through voting.
+- Contribution evaluation: We designed a fair and transparent mechanism to evaluate contributors based on their activities like pull requests, issues, comments, etc. Top contributors can claim limited NFTs.
 
-待定
+### Dynamic NFTs protocol Design
 
-## 黑客松期间所完成的事项
+### How it works
 
-待定
 
-## 队员信息
+### How Ecosystem Works
 
-- jack：软件工程师，具有 Rust 和区块链开发经验。团队领导。
-- soywang：区块链开发人员，具有 Substrate 和 Solidity, Solana 开发经验。
-- ciconianigra：区块链开发人员
+
+### Technical Architecture
+
+
+### Functions completed during hackathon delivery
+
+### See More
+Videos: 
+
+Show how demo works:
+
+Contract Example Online:
+
+
+Other Files:
+Project Pitch Deck: 

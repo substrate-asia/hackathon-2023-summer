@@ -1,23 +1,11 @@
-import { useCallback } from "react";
+import { useAccount } from "wagmi";
 import { Logo } from "../../assets";
 import { FaWallet } from "react-icons/fa";
-import { useConnectors, WagmiConnectorStatus } from "../../libs/wagmi/hook/UseConnector";
-import { useAccount, useDisconnect } from "wagmi";
+import {useConn} from "../../web3/hook/UseConn";
 
 function Wallet() {
   const {address} = useAccount() // 当前连接的账号
-  const {connect, connectors: [{status, conn}]} = useConnectors()
-  const {disconnect} = useDisconnect()
-  const onClick = useCallback(() => {
-    switch (status) {
-      case WagmiConnectorStatus.unconnected:
-        connect({connector: conn}) // 连接
-        break;
-      case WagmiConnectorStatus.connected:
-        disconnect() // 断开连接
-        break;
-    }
-  }, [status, conn, connect, disconnect])
+  const [, onClick] = useConn() // 连接或断开
 
   return (
     <div className="flex flex-row ">

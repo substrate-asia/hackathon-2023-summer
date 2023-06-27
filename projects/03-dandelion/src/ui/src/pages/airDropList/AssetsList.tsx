@@ -1,5 +1,8 @@
 import { Tree } from "assets";
 import "./AssetsList.css";
+import {balanceStr} from "../../web3/wagmi/Balance";
+import {useMyNativeBalance, useMyVEBalance} from "../../web3/hook/UseBalance";
+
 export default function AssetsList() {
   return (
     <div className="flex flex-row justify-between w-full">
@@ -13,9 +16,9 @@ export default function AssetsList() {
                 alt=""
                 className="w-[24px] h-[24px] mr-2"
               />
-              <span className="asset-title">DOT</span>
+              <span className="asset-title">Dandelion</span>
             </div>
-            <div className="">0USDT</div>
+            <MyNativeBalance/>
           </div>
           <div className="border-line asset-item flex flex-row justify-between">
             <div className="flex flex-row">
@@ -24,9 +27,9 @@ export default function AssetsList() {
                 alt=""
                 className="w-[24px] h-[24px] mr-2"
               />
-              <span className="asset-title">DOT</span>
+              <span className="asset-title">VEToken</span>
             </div>
-            <div className="">0USDT</div>
+            <MyVEBalance/>
           </div>
         </div>
         <div className="separator w-[700px] mt-10 h-1"></div>
@@ -62,4 +65,14 @@ export default function AssetsList() {
       </div>
     </div>
   );
+}
+
+function MyNativeBalance() {
+  const balance = useMyNativeBalance(true)
+  return <div>{balanceStr(balance, 4)}</div>
+}
+
+function MyVEBalance() {
+  const balance = useMyVEBalance(true)
+  return <div>{balanceStr(balance, 4)}</div>
 }

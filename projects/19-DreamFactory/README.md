@@ -41,10 +41,20 @@ The opportunity of the Open Source Dream Factory project mainly lies in its tech
 
 
 ### Our Solution
-To achieve the vision, we launched the Open Source Dream Factory platform which includes:
-- Dynamic NFTs: We create dynamic NFTs associated with open source projects and contributors' activities to gamify the ecosystem.
-- DAO and funding pool: We established a DAO and funding pool to inject funding into selected open source projects. The use of the funds are decided by DAO members through voting.
-- Contribution evaluation: We designed a fair and transparent mechanism to evaluate contributors based on their activities like pull requests, issues, comments, etc. Top contributors can claim limited NFTs.
+
+在波卡上开发动态NFT协议，创建动态NFT来激励开源开发者的贡献
+动态NFT动态显示开源项目和贡献者的活动紧密关联，贡献度排名与开源项目分红直接相关
+NFT升级机制，将根据项目的进展和用户的贡献进行动态升级,游戏化开源贡献
+开源项目对应一个DAO基金池，实施透明和公开公正的财务管理，让投资者和社区成员了解资金的流向和使用情况
+让社区和投资者可以参与资金注入和与之对应的开源项目决策
+偏好的加密货币来参与开源项目的资金募集，同时还可以在波卡等跨链平台上进行支付和交易
+
+
+- The dynamic NFT is closely related to the open source project and contributors' activities, and the contribution ranking is directly related to the distribution of dividends for the open source project.
+- The NFT upgrade mechanism will dynamically upgrade based on the progress of the project and user contributions.
+- Each open source project corresponds to a DAO fund pool that implements transparent and fair financial management, allowing investors and community members to understand the flow and use of funds.
+- This allows communities and investors to participate in funding injections and corresponding decision-making for open source projects.
+- Preferred cryptocurrencies can be used for fundraising in open-source projects, while payments and transactions can also be made on cross-chain platforms such as Polkadot.
 
 ### Dynamic NFTs protocol Design
 

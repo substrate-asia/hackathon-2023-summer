@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useCallback } from "react";
 import { Logo } from "../../assets";
 import { FaWallet } from "react-icons/fa";
+import { useConnectors, WagmiConnectorStatus } from "../../libs/wagmi/hook/UseConnector";
+import { useAccount, useDisconnect } from "wagmi";
 
 function Wallet() {
-  const [isConnect, setConnect] = useState(false);
+  const {address} = useAccount() // 当前连接的账号
+  const {connect, connectors: [{status, conn}]} = useConnectors()
+  const {disconnect} = useDisconnect()
+  const onClick = useCallback(() => {
+    switch (status) {
+      case WagmiConnectorStatus.unconnected:
+        connect({connector: conn}) // 连接
+        break;
+      case WagmiConnectorStatus.connected:
+        disconnect() // 断开连接
+        break;
+    }
+  }, [status, conn, connect, disconnect])
+
   return (
     <div className="flex flex-row ">
       <div
         className="px-3 py-0 flex flex-row justify-center items-center border-solid border rounded-3xl hover:cursor-pointer"
-        onClick={() => setConnect(!isConnect)}
+        onClick={onClick}
       >
         <FaWallet />
         <span className="pl-1">
-          {isConnect
-            ? getShortenAddress("0x9AF803510A19eF61AC57CE73D4a892A387Ba40E4")
-            : "Connect"}
+          {address ? getShortenAddress(address) : "Connect"}
         </span>
       </div>
       <div className="px-3 py-1 flex flex-row justify-start items-center border-solid border rounded-3xl ml-10">

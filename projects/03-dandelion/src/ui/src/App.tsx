@@ -1,13 +1,18 @@
+import AirDropList from "pages/airDropList/AirDropList";
 import "./App.css";
-import {WagmiConfig} from "wagmi";
-import {wagmiClient} from "./web3/wagmi/WagmiClient";
-import {Demo} from "./view/demo/Demo";
+import Home from "pages/home/Home";
+// import { Demo } from "./view/demo/Demo";
 
 function App() {
-  return <WagmiConfig client={wagmiClient}>
-    <div className="App">App</div>
-    <Demo/>
-  </WagmiConfig>
+  return (
+    <>
+      <div className="w-full  overflow-hidden">
+        {/* <Home></Home> */}
+        <AirDropList />
+      </div>
+      {/* <Demo /> */}
+    </>
+  );
 }
 
 export default App;

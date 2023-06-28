@@ -1,9 +1,11 @@
 ### Basic Information
 Project name：DreamFactory
 
-website: http://opensource.dreamfactorys.xyz
+website: [https://opensource.dreamfactorys.xyz](https://opensource.dreamfactorys.xyz/)
 
-Starting time：2023-5-25 Code address：https://github.com/OpenSource-DreamFactory
+Starting time：2023-5-25 
+
+Code address：https://github.com/OpenSource-DreamFactory
 
 ### Project Description
 开源梦工厂旨在建立一个从Web3.0到开源世界的门户，激励开发者继续为开源项目贡献代码和时间。我们在Polkadot上开发了一种动态NFT协议，它创建与开源项目和贡献者活动相关联的动态NFT。参与者将竞争开发最有前途的项目，利用动态NFT和DAO机制支持开源创新。
@@ -51,14 +53,17 @@ NFT升级机制，将根据项目的进展和用户的贡献进行动态升级,�
 让社区和投资者可以参与资金注入和与之对应的开源项目决策
 偏好的加密货币来参与开源项目的资金募集，同时还可以在波卡等跨链平台上进行支付和交易
 
-
+- Developing a dynamic NFT protocol on Polkadot to create dynamic NFTs that incentivize contributions from open-source developers.
 - The dynamic NFT is closely related to the open source project and contributors' activities, and the contribution ranking is directly related to the distribution of dividends for the open source project.
 - The NFT upgrade mechanism will dynamically upgrade based on the progress of the project and user contributions.
 - Each open source project corresponds to a DAO fund pool that implements transparent and fair financial management, allowing investors and community members to understand the flow and use of funds.
 - This allows communities and investors to participate in funding injections and corresponding decision-making for open source projects.
 - Preferred cryptocurrencies can be used for fundraising in open-source projects, while payments and transactions can also be made on cross-chain platforms such as Polkadot.
+  
 
 ### Dynamic NFTs protocol Design
+
+Data-driven dynamics NFT
 
 ### How it works
 
@@ -71,7 +76,17 @@ NFT升级机制，将根据项目的进展和用户的贡献进行动态升级,�
 
 ### Functions completed during hackathon delivery
 
-### See More
+
+
+
+
+### Initial project review version/
+
+### Team information/
+
+### Track affiliation
+
+### Project demonstration
 Videos: 
 
 Show how demo works:

@@ -5,7 +5,9 @@ use serde::{Deserialize, Serialize};
 use sc_chain_spec::{ChainType, Properties};
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_consensus_grandpa::AuthorityId as GrandpaId;
-use sp_core::{ecdsa, sr25519, storage::Storage, Pair, Public, H160, U256};
+#[allow(unused_imports)]
+use sp_core::ecdsa;
+use sp_core::{storage::Storage, Pair, Public, H160, U256};
 use sp_runtime::traits::{IdentifyAccount, Verify};
 use sp_state_machine::BasicExternalities;
 use hex_literal::hex;
@@ -50,9 +52,11 @@ pub fn get_from_seed<TPublic: Public>(seed: &str) -> <TPublic::Pair as Pair>::Pu
 		.public()
 }
 
+#[allow(dead_code)]
 type AccountPublic = <Signature as Verify>::Signer;
 
 /// Generate an account ID from seed.
+#[allow(dead_code)]
 pub fn get_account_id_from_seed<TPublic: Public>(seed: &str) -> AccountId
 where
 	AccountPublic: From<<TPublic::Pair as Pair>::Public>,
@@ -86,17 +90,13 @@ pub fn development_config(enable_manual_seal: Option<bool>) -> DevChainSpec {
 				genesis_config: testnet_genesis(
 					wasm_binary,
 					// Sudo account
-					get_account_id_from_seed::<ecdsa::Public>("Alice"),
+					AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")),
 					// Pre-funded accounts
 					vec![
 						AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")), // Alith
 						AccountId::from(hex!("3Cd0A705a2DC65e5b1E1205896BaA2be8A07c6e0")), // Baltathar
 						AccountId::from(hex!("798d4Ba9baf0064Ec19eB4F0a1a45785ae9D6DFc")), // Charleth
 						AccountId::from(hex!("773539d4Ac0e786233D90A233654ccEE26a613D9")), // Dorothy
-						/* get_account_id_from_seed::<ecdsa::Public>("Alice"),
-						get_account_id_from_seed::<ecdsa::Public>("Bob"),
-						get_account_id_from_seed::<ecdsa::Public>("Alice//stash"),
-						get_account_id_from_seed::<ecdsa::Public>("Bob//stash"), */
 					],
 					// Initial PoA authorities
 					vec![authority_keys_from_seed("Alice")],
@@ -135,25 +135,13 @@ pub fn local_testnet_config() -> ChainSpec {
 				wasm_binary,
 				// Initial PoA authorities
 				// Sudo account
-				get_account_id_from_seed::<ecdsa::Public>("Alice"),
+				AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")),
 				// Pre-funded accounts
 				vec![
 					AccountId::from(hex!("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")), // Alith
 					AccountId::from(hex!("3Cd0A705a2DC65e5b1E1205896BaA2be8A07c6e0")), // Baltathar
 					AccountId::from(hex!("798d4Ba9baf0064Ec19eB4F0a1a45785ae9D6DFc")), // Charleth
 					AccountId::from(hex!("773539d4Ac0e786233D90A233654ccEE26a613D9")), // Dorothy
-					/* get_account_id_from_seed::<ecdsa::Public>("Alice"),
-					get_account_id_from_seed::<ecdsa::Public>("Bob"),
-					get_account_id_from_seed::<ecdsa::Public>("Charlie"),
-					get_account_id_from_seed::<ecdsa::Public>("Dave"),
-					get_account_id_from_seed::<ecdsa::Public>("Eve"),
-					get_account_id_from_seed::<ecdsa::Public>("Ferdie"),
-					get_account_id_from_seed::<ecdsa::Public>("Alice//stash"),
-					get_account_id_from_seed::<ecdsa::Public>("Bob//stash"),
-					get_account_id_from_seed::<ecdsa::Public>("Charlie//stash"),
-					get_account_id_from_seed::<ecdsa::Public>("Dave//stash"),
-					get_account_id_from_seed::<ecdsa::Public>("Eve//stash"),
-					get_account_id_from_seed::<ecdsa::Public>("Ferdie//stash"), */
 				],
 				vec![
 					authority_keys_from_seed("Alice"),
@@ -233,7 +221,7 @@ fn testnet_genesis(
 					// SS58: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 					// hex: 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
 					// Using the full hex key, truncating to the first 20 bytes (the first 40 hex chars)
-					H160::from_str("f24FF3a9CF04c71Dbc94D0b566f7A27B94566cac")
+					H160::from_str("d43593c715fdd31c61141abd04a99fd6822c8558")
 						.expect("internal H160 is valid; qed"),
 					fp_evm::GenesisAccount {
 						balance: U256::from_str("0xffffffffffffffffffffffffffffffff")
@@ -245,7 +233,7 @@ fn testnet_genesis(
 				);
 				map.insert(
 					// H160 address of CI test runner account
-					H160::from_str("3Cd0A705a2DC65e5b1E1205896BaA2be8A07c6e0")
+					H160::from_str("6be02d1d3665660d22ff9624b7be0551ee1ac91b")
 						.expect("internal H160 is valid; qed"),
 					fp_evm::GenesisAccount {
 						balance: U256::from_str("0xffffffffffffffffffffffffffffffff")

@@ -1,7 +1,7 @@
 import { Tree } from "assets";
 import "./AssetsList.css";
-import {balanceStr} from "../../web3/wagmi/Balance";
-import {useMyNativeBalance, useMyVEBalance} from "../../web3/hook/UseBalance";
+import { balanceStr } from "../../web3/wagmi/Balance";
+import { useMyNativeBalance, useMyVEBalance } from "../../web3/hook/UseBalance";
 
 export default function AssetsList() {
   return (
@@ -18,7 +18,7 @@ export default function AssetsList() {
               />
               <span className="asset-title">Dandelion</span>
             </div>
-            <MyNativeBalance/>
+            <MyNativeBalance />
           </div>
           <div className="border-line asset-item flex flex-row justify-between">
             <div className="flex flex-row">
@@ -29,7 +29,7 @@ export default function AssetsList() {
               />
               <span className="asset-title">VEToken</span>
             </div>
-            <MyVEBalance/>
+            <MyVEBalance />
           </div>
         </div>
         <div className="separator w-[700px] mt-10 h-1"></div>
@@ -62,17 +62,19 @@ export default function AssetsList() {
       </div>
       <div>
         <img src={Tree} alt="" className="w-[500px] h-[500px]" />
+        {/* TODO: 浇水的UI */}
+        <button>浇水</button>
       </div>
     </div>
   );
 }
 
 function MyNativeBalance() {
-  const balance = useMyNativeBalance(true)
-  return <div>{balanceStr(balance, 4)}</div>
+  const balance = useMyNativeBalance(true);
+  return <div>{balanceStr(balance, 4)}</div>;
 }
 
 function MyVEBalance() {
-  const balance = useMyVEBalance(true)
-  return <div>{balanceStr(balance, 4)}</div>
+  const balance = useMyVEBalance(true);
+  return <div>{balanceStr(balance, 4)}</div>;
 }

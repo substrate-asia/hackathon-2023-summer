@@ -9,9 +9,6 @@
 <p align="center">
   <b><i>Freelance like a Pro.</i></b>
   <br />
-  <br />
-  <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
-  <br>
   <a href="https://docs.universaldot.me/">Explore the docs</a>
   ·
   <a href="https://github.com/UniversalDot">GitHub</a>
@@ -35,6 +32,7 @@
   - [Docker](#docker)
   - [Ansible](#ansible)
 - [Demo](#demo)
+  - [App Live Demo](#app-live-demo)
 
 ## About The Project
 
@@ -104,15 +102,16 @@ ansible-playbook universaldot.yml
 ```
 ##  Demo
 
-- [Promo](https://www.youtube.com/watch?v=dADLbKl1P7g)
-- [Introduction](https://www.youtube.com/watch?v=QgjvhzC47tA)
-- [Solution](https://www.youtube.com/watch?v=YJWPwlWoREc)
-
 Pallet Demonstration through a React Front-end
 
 - [Profile](https://www.youtube.com/watch?v=Gaoo6LoZydg)
 - [Task](https://www.youtube.com/watch?v=ssTMk1nGbk8)
 - [DAO](https://www.youtube.com/watch?v=K9-v016fGVs)
 
+- [Promo](https://www.youtube.com/watch?v=dADLbKl1P7g)
+
+### App Live Demo
+
+https://app.universaldot.me 
 
 

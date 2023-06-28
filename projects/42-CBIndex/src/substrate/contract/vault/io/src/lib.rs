@@ -24,7 +24,7 @@ pub struct FTLogicState {
     pub instructions: Vec<(H256, (Instruction, Instruction))>,
     pub storage_code_hash: H256,
     pub id_to_storage: Vec<(String, ActorId)>,
-    pub followers: Vec<ActorId>,
+    pub followers: Vec<(String, ActorId)>,
 }
 
 #[derive(Encode, Decode, TypeInfo, Clone, Debug)]

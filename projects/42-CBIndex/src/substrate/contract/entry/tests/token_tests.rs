@@ -85,7 +85,10 @@ fn invest() {
     let wrong_account: u64 = 101;
     let amount: u128 = 100_000;
     let ftoken = Program::ftoken(&system);
-
+    ftoken.follow(transaction_id, sender, sender, false);
+    transaction_id += 1;
+    ftoken.follow(transaction_id, sender, sender, true);
+    transaction_id += 1;
      // mint tokens
      ftoken.mint(transaction_id, sender, sender, amount, false);
      // check balance

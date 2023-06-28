@@ -21,7 +21,7 @@ struct FTLogic {
     storage_code_hash: H256,
     share_code_hash:H256,
     // to keep followers
-    followers: Vec<ActorId>,
+    followers: HashMap<String,ActorId>,
     id_to_storage: HashMap<String, ActorId>,
 }
 
@@ -118,11 +118,16 @@ impl FTLogic {
         msg_source: &ActorId,
         account: &ActorId
     ) {
-        if !self.followers.contains(account) {
-            self.followers.push(account.clone());
-           
+
+        let encoded = hex::encode(account.as_ref());
+        let id: String = encoded.chars().next().expect("Can't be None").to_string();
+        if let Some(address) = self.followers.get(&id) {
+            debug!("already exists in followers");
+            reply_err();
+        } else {
+            self.followers.insert(id, *account);
+            reply_ok();
         }
-       reply_ok();
     }
 
     async fn mint(&mut self, transaction_hash: H256, recipient: &ActorId, amount: u128) {
@@ -430,6 +435,10 @@ impl FTLogic {
                 amount,
             )
             .await;
+            for (key,val) in self.followers.iter() {
+                debug!("send message to follower");
+                msg::send_with_gas( *val, FTLogicEvent::Invested(*recipient, amount),2298711287, 0).expect("Error in sending a reply `FTLogicEvent::Invested");
+            }
             return;
         }
         debug!("different storage");
@@ -472,10 +481,25 @@ impl FTLogic {
             Ok(_) => {
                 self.transaction_status
                     .insert(transaction_hash, TransactionStatus::Success);
-                for addr in self.followers.iter() {
-                    let _ = msg::send( *addr, FTLogicEvent::Invested(*recipient, amount), 0);
+                let mut result = true;
+                for (_key,val) in self.followers.iter() {
+                    debug!("send message to follower [{:?}]",(*val).as_ref());
+                   let res = msg::send_with_gas( *val, FTLogicEvent::Invested(*recipient, amount), 2298711287,0);
+                   match res {
+                      Ok(_) => {
+                       debug!("send message ok");
+                      } 
+                      Err(_) => {
+                        result = false;
+                      }
+                   }
                 }
-                reply_ok();
+                if result {
+                    reply_ok();
+                }else{
+                    reply_err();
+                }
+                
                 debug!("reply ok");
             }
         }
@@ -587,10 +611,10 @@ extern "C" fn state() {
             .iter()
             .map(|(key, value)| (key.clone(), *value))
             .collect(),
-            followers: logic
+        followers: logic
             .followers
             .iter()
-            .map(|value|(*value))
+            .map(|(key, value)| (key.clone(), *value))
             .collect(),
     };
     msg::reply(logic_state, 0).expect("Failed to share state");

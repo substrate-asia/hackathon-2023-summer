@@ -24,6 +24,7 @@ pub struct FTLogicState {
     pub instructions: Vec<(H256, (Instruction, Instruction))>,
     pub storage_code_hash: H256,
     pub id_to_storage: Vec<(String, ActorId)>,
+    pub followers: Vec<ActorId>,
 }
 
 #[derive(Encode, Decode, TypeInfo, Clone, Debug)]
@@ -45,6 +46,8 @@ pub enum FTLogicAction {
     Clear(H256),
     UpdateStorageCodeHash(H256),
     MigrateStorages,
+    Invest(ActorId,u128),
+    Follow(ActorId),
 }
 
 #[derive(Encode, Decode, TypeInfo)]
@@ -53,6 +56,11 @@ pub enum FTLogicEvent {
     Err,
     Balance(u128),
     PermitId(u128),
+    Deposit(u128),
+    Withdraw(u128),
+    Invest(ActorId,u128),
+    Invested(ActorId,u128),
+    Follow(),
 }
 
 #[derive(Encode, Debug, Decode, TypeInfo, Copy, Clone)]
@@ -67,4 +75,5 @@ pub struct PermitUnsigned {
 pub struct InitFTLogic {
     pub admin: ActorId,
     pub storage_code_hash: H256,
+    pub share_code_hash:H256,
 }

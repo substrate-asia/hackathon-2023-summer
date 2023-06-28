@@ -1,7 +1,7 @@
 #![no_std]
 use vault_io::{FTLogicAction, FTLogicEvent, InitFTLogic};
 use entry_io::*;
-use gstd::{exec, msg, prelude::*, prog::ProgramGenerator, ActorId};
+use gstd::{exec, msg, prelude::*, prog::ProgramGenerator, ActorId, errors::ContractError};
 use hashbrown::HashMap;
 use primitive_types::H256;
 
@@ -89,8 +89,38 @@ impl FToken {
         }
     }
 
+    //  // burn shares and get USDT
+    // async  fn follow( &self) {
+    //     let reply: FTLogicEvent = msg::send_for_reply_as::<_,FTLogicEvent>(
+    //         self.ft_logic_id,
+    //         FTLogicAction::Follow(msg::source()),
+    //         0,
+    //     ).expect("Error in sending a message `Withdraw")
+    //     .await
+    //     .expect("Unable to decode `FTLogicEvent");
+    //     if let FTLogicEvent::Follow() = reply {
+    //         msg::reply(FTokenEvent::Follow(),0) 
+    //         .expect("Error in a replay `FTokenEvent::Withdraw");
+    //     }
+    // }
+
+    // async  fn invest( &self, account:&ActorId, amount:&u128) {
+
+    //     let reply: FTLogicEvent = msg::send_for_reply_as::<_,FTLogicEvent>(
+    //         self.ft_logic_id,
+    //         FTLogicAction::Invest(*account,*amount),
+    //         0,
+    //     ).expect("Error in sending a message `Invest")
+    //     .await
+    //     .expect("Unable to decode `FTLogicEvent");
+    //     if let FTLogicEvent::Invest(account,amount) = reply {
+    //         msg::reply(FTokenEvent::Invest(account,amount),0) 
+    //         .expect("Error in a replay `FTokenEvent::Invest");
+    //     }
+    // }
+
     async fn get_balance(&self, account: &ActorId) {
-        let reply = msg::send_for_reply_as::<_, FTLogicEvent>(
+        let reply: FTLogicEvent = msg::send_for_reply_as::<_, FTLogicEvent>(
             self.ft_logic_id,
             FTLogicAction::GetBalance(*account),
             0,
@@ -119,13 +149,14 @@ impl FToken {
         }
     }
 
-    fn update_logic_contract(&mut self, ft_logic_code_hash: H256, storage_code_hash: H256) {
+    fn update_logic_contract(&mut self, ft_logic_code_hash: H256, storage_code_hash: H256,share_code_hash: H256) {
         self.assert_admin();
         let (_message_id, ft_logic_id) = ProgramGenerator::create_program(
             ft_logic_code_hash.into(),
             InitFTLogic {
                 admin: msg::source(),
                 storage_code_hash,
+                share_code_hash,
             }
             .encode(),
             0,
@@ -159,17 +190,34 @@ async fn main() {
         let payload: Vec<u8> = bytes[9..].to_vec();
         ftoken.message(transaction_id, &payload).await;
     } else {
+        // debug!("start decode inner action");
         let action = FTokenInnerAction::decode(&mut &bytes[..])
             .expect("Unable to decode `FTokenInnerAction`");
+        // debug!("end decode inner action");
         match action {
             FTokenInnerAction::UpdateLogicContract {
                 ft_logic_code_hash,
                 storage_code_hash,
-            } => ftoken.update_logic_contract(ft_logic_code_hash, storage_code_hash),
-            FTokenInnerAction::Clear(transaction_hash) => ftoken.clear(transaction_hash),
-            FTokenInnerAction::GetBalance(account) => ftoken.get_balance(&account).await,
-            FTokenInnerAction::GetPermitId(account) => ftoken.get_permit_id(&account).await,
-            _ => {}
+                share_code_hash,
+            } => {
+                // debug!("UpdateLogicContract message");
+                ftoken.update_logic_contract(ft_logic_code_hash, storage_code_hash,share_code_hash)
+            },
+            FTokenInnerAction::Clear(transaction_hash) =>{
+                // debug!("Clear message");
+                ftoken.clear(transaction_hash)
+            },
+            FTokenInnerAction::GetBalance(account) => {
+                // debug!("GetBalance message");
+                ftoken.get_balance(&account).await
+            },
+            FTokenInnerAction::GetPermitId(account) =>{ 
+                // debug!("GetPermitId message");
+                ftoken.get_permit_id(&account).await
+            },
+            _ => {
+                // debug!("unknown inner action");
+            }
         }
     }
 }
@@ -182,6 +230,7 @@ unsafe extern "C" fn init() {
         InitFTLogic {
             admin: msg::source(),
             storage_code_hash: init_config.storage_code_hash,
+            share_code_hash:init_config.share_code_hash,
         }
         .encode(),
         0,

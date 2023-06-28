@@ -64,6 +64,39 @@ fn burn() {
     ftoken.burn(transaction_id, account, account, amount, true);
 }
 
+
+#[test]
+fn follow() {
+    let system = System::new();
+    system.init_logger();
+    let mut transaction_id: u64 = 0;
+    let sender: u64 = 100;
+    let ftoken = Program::ftoken(&system);
+    ftoken.follow(transaction_id,sender,sender,false);
+}
+
+#[test]
+fn invest() {
+    let system = System::new();
+    system.init_logger();
+    let mut transaction_id: u64 = 0;
+    let sender: u64 = 100;
+    let recipient: u64 = 200;
+    let wrong_account: u64 = 101;
+    let amount: u128 = 100_000;
+    let ftoken = Program::ftoken(&system);
+
+     // mint tokens
+     ftoken.mint(transaction_id, sender, sender, amount, false);
+     // check balance
+     ftoken.check_balance(sender, amount);
+     transaction_id += 1;
+
+     ftoken.invest(transaction_id,sender,sender,recipient,amount,false);
+     ftoken.check_balance(sender, 0);
+     ftoken.check_balance(recipient, amount);
+}
+
 #[test]
 fn transfer() {
     let system = System::new();

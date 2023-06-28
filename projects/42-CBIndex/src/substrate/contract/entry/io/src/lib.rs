@@ -42,11 +42,13 @@ pub enum FTokenInnerAction {
     UpdateLogicContract {
         ft_logic_code_hash: H256,
         storage_code_hash: H256,
+        share_code_hash: H256,
     },
     GetBalance(ActorId),
     GetPermitId(ActorId),
     Clear(H256),
     MigrateStorageAddresses,
+    GetFollowers(),
 }
 
 #[derive(Encode, Debug, Decode, TypeInfo, Copy, Clone)]
@@ -75,6 +77,14 @@ pub enum LogicAction {
         permit_id: u128,
         sign: H512,
     },
+    Invest {
+        sender: ActorId,
+        recipient: ActorId,
+        amount: u128,
+    },
+    Follow {
+        account: ActorId,
+    },
 }
 
 #[derive(Debug, Encode, Decode, TypeInfo, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
@@ -83,12 +93,16 @@ pub enum FTokenEvent {
     Err,
     Balance(u128),
     PermitId(u128),
+    Invest(ActorId,u128),
+    Invested(ActorId,u128),
+    Follow(),
 }
 
 #[derive(Encode, Decode, TypeInfo)]
 pub struct InitFToken {
     pub storage_code_hash: H256,
     pub ft_logic_code_hash: H256,
+    pub share_code_hash:H256,
 }
 
 #[derive(Encode, Decode, TypeInfo, Copy, Clone, Debug)]

@@ -16,10 +16,12 @@ struct FTStorage {
 static mut FT_STORAGE: Option<FTStorage> = None;
 
 impl FTStorage {
+    
     fn get_permit_id(&self, account: &ActorId) {
         let permit_id = self.permits.get(account).unwrap_or(&0);
         msg::reply(FTStorageEvent::PermitId(*permit_id), 0).expect("");
     }
+
 
     fn check_and_increment_permit_id(
         &mut self,

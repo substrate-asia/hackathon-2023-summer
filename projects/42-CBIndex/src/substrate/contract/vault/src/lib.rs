@@ -2,7 +2,7 @@
 use vault_io::instruction::*;
 use vault_io::*;
 use entry_io::LogicAction;
-use gstd::{exec, msg, prelude::*, prog::ProgramGenerator, ActorId};
+use gstd::{exec, msg, prelude::*, prog::ProgramGenerator, ActorId, debug};
 
 mod messages;
 use hashbrown::HashMap;
@@ -19,6 +19,9 @@ struct FTLogic {
     transaction_status: HashMap<H256, TransactionStatus>,
     instructions: HashMap<H256, (Instruction, Instruction)>,
     storage_code_hash: H256,
+    share_code_hash:H256,
+    // to keep followers
+    followers: Vec<ActorId>,
     id_to_storage: HashMap<String, ActorId>,
 }
 
@@ -32,6 +35,7 @@ impl FTLogic {
     /// * `account`: the account that sent the message to the main contract;
     /// * `action`: the message payload.
     async fn message(&mut self, transaction_hash: H256, account: &ActorId, payload: &[u8]) {
+        debug!("vault message");
         self.assert_main_contract();
         let action = LogicAction::decode(&mut &payload[..]).expect("Can't decode `Action`");
 
@@ -94,10 +98,31 @@ impl FTLogic {
                             &payload,
                         )
                         .await;
-                    }
+                    },
+                    LogicAction::Follow { account } => {
+                        self.follow(transaction_hash,&account,&account).await;
+                    },
+                    LogicAction::Invest {sender, recipient, amount } => {
+                        debug!("vault logic invest");
+                        self.invest(transaction_hash, account, &sender, &recipient, amount).await;
+                    },
                 }
             }
         }
+    }
+
+
+    async fn follow(
+        &mut self, 
+        transaction_hash: H256,
+        msg_source: &ActorId,
+        account: &ActorId
+    ) {
+        if !self.followers.contains(account) {
+            self.followers.push(account.clone());
+           
+        }
+       reply_ok();
     }
 
     async fn mint(&mut self, transaction_hash: H256, recipient: &ActorId, amount: u128) {
@@ -378,6 +403,83 @@ impl FTLogic {
         false
     }
 
+
+ 
+    async fn invest(  
+        &mut self,
+        transaction_hash: H256,
+        msg_source: &ActorId,
+        sender: &ActorId,
+        recipient: &ActorId,
+        amount: u128,
+       ) {
+        debug!("do invest");
+        // self.assert_admin();
+        debug!("check admin");
+        let sender_storage = self.get_storage_address(sender);
+        let recipient_storage = self.get_storage_address(recipient);
+        debug!("get storage address");
+        if recipient_storage == sender_storage {
+            debug!("same storage");
+            self.transfer_single_storage(
+                transaction_hash,
+                &sender_storage,
+                msg_source,
+                sender,
+                recipient,
+                amount,
+            )
+            .await;
+            return;
+        }
+        debug!("different storage");
+        let (decrease_instruction, increase_instruction) = self
+            .instructions
+            .entry(transaction_hash)
+            .or_insert_with(|| {
+                let decrease_instruction = create_decrease_instruction(
+                    transaction_hash,
+                    msg_source,
+                    &sender_storage,
+                    sender,
+                    amount,
+                );
+                let increase_instruction = create_increase_instruction(
+                    transaction_hash,
+                    &recipient_storage,
+                    recipient,
+                    amount,
+                );
+                (decrease_instruction, increase_instruction)
+            });
+
+        if decrease_instruction.start().await.is_err() {
+            self.transaction_status
+                .insert(transaction_hash, TransactionStatus::Failure);
+            reply_err();
+            return;
+        }
+        debug!("trans status done");
+        match increase_instruction.start().await {
+            Err(_) => {
+                if decrease_instruction.abort().await.is_ok() {
+                    self.transaction_status
+                        .insert(transaction_hash, TransactionStatus::Failure);
+                    reply_err();
+                }
+                debug!("reply err");
+            }
+            Ok(_) => {
+                self.transaction_status
+                    .insert(transaction_hash, TransactionStatus::Success);
+                for addr in self.followers.iter() {
+                    let _ = msg::send( *addr, FTLogicEvent::Invested(*recipient, amount), 0);
+                }
+                reply_ok();
+                debug!("reply ok");
+            }
+        }
+    }
     async fn get_balance(&self, account: &ActorId) {
         let encoded = hex::encode(account.as_ref());
         let id: String = encoded.chars().next().expect("Can't be None").to_string();
@@ -438,6 +540,7 @@ unsafe extern "C" fn init() {
     let ft_logic = FTLogic {
         admin: init_config.admin,
         storage_code_hash: init_config.storage_code_hash,
+        share_code_hash: init_config.share_code_hash,
         ftoken_id: msg::source(),
         ..Default::default()
     };
@@ -483,6 +586,11 @@ extern "C" fn state() {
             .id_to_storage
             .iter()
             .map(|(key, value)| (key.clone(), *value))
+            .collect(),
+            followers: logic
+            .followers
+            .iter()
+            .map(|value|(*value))
             .collect(),
     };
     msg::reply(logic_state, 0).expect("Failed to share state");

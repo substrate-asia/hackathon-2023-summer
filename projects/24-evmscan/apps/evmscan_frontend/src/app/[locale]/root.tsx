@@ -16,7 +16,13 @@ const RootPage = styled('div')(({ theme }) => ({
   width: '100vw',
   height: '100vh',
   overflowY: 'auto',
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: '#f5f5f544',
+}))
+
+const Body = styled('div')(() => ({
+  width: '100%',
+  maxWidth: '1200px',
+  margin: '0 auto',
 }))
 
 export default function Root({ children }: { children: React.ReactNode }) {
@@ -25,7 +31,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <CssBaseLine />
       <RootPage>
         <Header />
-        {children}
+        <Body>{children}</Body>
       </RootPage>
     </ThemeProvider>
   )

@@ -28,7 +28,7 @@ export const theme = createTheme(
     components: {
       MuiLink: {
         defaultProps: {
-          underline: 'none'
+          underline: 'none',
         }
       },
     }

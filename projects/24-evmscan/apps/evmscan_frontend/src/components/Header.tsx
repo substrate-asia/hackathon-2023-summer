@@ -63,80 +63,84 @@ const Header = () => {
   const pathname = usePathname()
 
   return (
-    <Root>
-      <Head>
-        <Logo href={`/${locale}`}>
-          <Image src={LogoImg} alt="evmscan" width={30} height={30} />
-          <Typography fontWeight="700" fontSize="2rem" color="text.primary">
-            EvmScan
-          </Typography>
-        </Logo>
-        <Nav>
-          <Link href={`/${locale}`}>
-            <Typography fontSize="1.5rem" color="text.primary">
-              {t('home')}
+    <>
+      <Root>
+        <Head>
+          <Logo href={`/${locale}`}>
+            <Image src={LogoImg} alt="evmscan" width={30} height={30} />
+            <Typography fontWeight="700" fontSize="2rem" color="text.primary">
+              EvmScan
             </Typography>
-          </Link>
-          <Link href={`/${locale}`}>
-            <Typography fontSize="1.5rem" color="text.primary">
-              {t('Blocks')}
-            </Typography>
-          </Link>
-          <Link href={`/${locale}`}>
-            <Typography fontSize="1.5rem" color="text.primary">
-              {t('Transactions')}
-            </Typography>
-          </Link>
-          <Box display={'flex'} alignItems="center">
-            <Link href={`/zh${pathname.replace('/zh', '')}`}>
-              <Typography fontSize="1.5rem" color={locale === 'zh' ? 'primary.main' : 'text.primary'}>
-                简
+          </Logo>
+          <Nav>
+            <Link href={`/${locale}`}>
+              <Typography fontSize="1.5rem" color="text.primary">
+                {t('home')}
               </Typography>
             </Link>
-            <Border />
-            <Link href={pathname.replace('/zh', '/en')}>
-              <Typography fontSize="1.5rem" color={locale === 'en' ? 'primary.main' : 'text.primary'}>
-                EN
+            <Link href={`/${locale}`}>
+              <Typography fontSize="1.5rem" color="text.primary">
+                {t('Blocks')}
               </Typography>
             </Link>
+            <Link href={`/${locale}`}>
+              <Typography fontSize="1.5rem" color="text.primary">
+                {t('Transactions')}
+              </Typography>
+            </Link>
+            <Box display={'flex'} alignItems="center">
+              <Link href={`/zh${pathname.replace('/zh', '')}`}>
+                <Typography fontSize="1.5rem" color={locale === 'zh' ? 'primary.main' : 'text.primary'}>
+                  简
+                </Typography>
+              </Link>
+              <Border />
+              <Link href={pathname.replace('/zh', '/en')}>
+                <Typography fontSize="1.5rem" color={locale === 'en' ? 'primary.main' : 'text.primary'}>
+                  EN
+                </Typography>
+              </Link>
+            </Box>
+          </Nav>
+        </Head>
+      </Root>
+      <Box width="100vw" bgcolor={'#f1f6ff'}>
+        <Box width="100%" maxWidth="1200px" marginLeft="auto" marginRight="auto">
+          <SearchBar />
+        </Box>
+        <Box
+          width="100%"
+          maxWidth="1200px"
+          display="grid"
+          gridTemplateColumns="1fr 1fr 1fr"
+          rowGap="10px"
+          marginLeft="auto"
+          marginRight="auto"
+          padding="20px 24px"
+        >
+          <Box display="flex" flexDirection="column">
+            <InfoTitle>{t('Blocks')}</InfoTitle>
+            <InfoContent>3,216,720</InfoContent>
           </Box>
-        </Nav>
-      </Head>
-      <Head>
-        <SearchBar />
-      </Head>
-      <Box
-        width="100%"
-        maxWidth="1200px"
-        display="grid"
-        gridTemplateColumns="1fr 1fr 1fr"
-        rowGap="10px"
-        marginLeft="auto"
-        marginRight="auto"
-        padding="20px 24px"
-      >
-        <Box display="flex" flexDirection="column">
-          <InfoTitle>{t('Blocks')}</InfoTitle>
-          <InfoContent>3,216,720</InfoContent>
-        </Box>
-        <Box display="flex" flexDirection="column">
-          <InfoTitle>{t('Avg Block Time')}</InfoTitle>
-          <InfoContent>8.02 s</InfoContent>
-        </Box>
-        <Box display="flex" flexDirection="column">
-          <InfoTitle>{t('Transactions')}</InfoTitle>
-          <InfoContent>2,580,734</InfoContent>
-        </Box>
-        <Box display="flex" flexDirection="column">
-          <InfoTitle>{t('TPS')}</InfoTitle>
-          <InfoContent>0 Txs/s</InfoContent>
-        </Box>
-        <Box display="flex" flexDirection="column">
-          <InfoTitle>{t('Account Count')}</InfoTitle>
-          <InfoContent>137,508</InfoContent>
+          <Box display="flex" flexDirection="column">
+            <InfoTitle>{t('Avg Block Time')}</InfoTitle>
+            <InfoContent>8.02 s</InfoContent>
+          </Box>
+          <Box display="flex" flexDirection="column">
+            <InfoTitle>{t('Transactions')}</InfoTitle>
+            <InfoContent>2,580,734</InfoContent>
+          </Box>
+          <Box display="flex" flexDirection="column">
+            <InfoTitle>{t('TPS')}</InfoTitle>
+            <InfoContent>0 Txs/s</InfoContent>
+          </Box>
+          <Box display="flex" flexDirection="column">
+            <InfoTitle>{t('Account Count')}</InfoTitle>
+            <InfoContent>137,508</InfoContent>
+          </Box>
         </Box>
       </Box>
-    </Root>
+    </>
   )
 }
 

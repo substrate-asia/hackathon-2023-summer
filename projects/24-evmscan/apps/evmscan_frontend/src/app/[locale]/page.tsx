@@ -1,8 +1,13 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { Box } from '@mui/material'
+import { LatestBlocks, LatestTransaction } from 'src/components/InfoBox'
 
 export default async function Home() {
-  const t = useTranslations('')
-  return <div>{t('home')}</div>
+  return (
+    <Box display="flex" justifyContent={'space-between'} gap="1rem" pt="2rem">
+      <LatestBlocks />
+      <LatestTransaction />
+    </Box>
+  )
 }

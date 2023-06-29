@@ -187,6 +187,7 @@ Chainlink Oracle:
 - 都利用Oracle机制实现链下数据同步至链上 
 - 都需要多个Oracle节点form一个网络,提高可靠性 
 - 都面临数据可信度和安全性的挑战,需要妥善设计与应对。
+  
 Tableland Oracle:
 - Data source: Off-chain relational database
 - Synchronization target: Tableland network database
@@ -235,13 +236,13 @@ Overall, Tableland mainly reduces and avoids centralization risks in the followi
 5. 如果Tableland数据更新也需要触发Astar事件,Tableland节点可以直接调用Astar网络智能合约接口发起事件。
    
 But currently, Tableland does not support the Polkadot network. Instead, we have implemented a dynamic NFT protocol based on the principles similar to Tableland, using the Polkadot blockchain. We have done some work to achieve compatibility with EVM on Polkadot's parachain Astar and made adaptations to the Tableland validation nodes.
-
 The specific work is as follows:
 1. Deploying Tableland's data storage contract on the Astar network to store NFT states and other data.
 2. Adding indexing and caching of Astar network data on Tableland nodes in Polygon/Ethereum networks. This allows Tableland to directly query and update Astar network data.
 3. When users interact with NFTs or assets on the Astar network, it automatically triggers on-chain events. Upon detecting these events, Tableland nodes can directly call interfaces of Astar network smart contracts for data querying or updating.
 4. When users query NFT data, they can directly call Tableland's API. The Tableland node checks its local cache first; if there is no latest data available, it queries the Astar network to obtain it and updates the cache accordingly. This enables users to query Astar asset data just like they would for native Tableland networks.
 5. If updating Tableland's data also requires triggering an event in Astar, then the Tableland node can directly call interfaces of Astar network smart contracts to initiate such events.
+   
 这个方案的主要流程是:
 1. 在Astar部署Tableland合约
 2. Tableland节点增加对Astar网络数据的缓存和索引
@@ -332,6 +333,7 @@ In this way, by using Oracle as an intermediate layer, dynamic updates of Dreamf
 
 ### How Ecosystem Works
 开源梦工厂致力于推动开源项目的发展与商业化,在开源创新领域进行生态建设与布局。这是一个非常有意义的方向,能释放开源技术和项目的巨大潜能。
+
 The Open Source Dream Factory is committed to promoting the development and commercialization of open source projects, and building an ecosystem in the field of open source innovation. This is a very meaningful direction that can unleash the tremendous potential of open source technology and projects.
 
 ![dream](https://upload-images.jianshu.io/upload_images/528413-9591dde4c5e8d64c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -356,7 +358,6 @@ The Open Source Dream Factory is committed to promoting the development and comm
 4. 生态建设为开源梦工厂选择项目和推动项目转化创造条件。优秀项目和技术也可以在生态中获得孵化与布局。
 
 This diagram illustrates the process of commercializing open source projects, with Open Source Dream Factory as both a promoter and participant:
-
 1. Open source projects need to adhere to open source licenses, establish active communities, and continuously maintain and develop in order to ultimately achieve commercial success and value.
 2. Open Source Dream Factory identifies promising projects through project mining and provides them with technical support and investment to facilitate their commercial transformation. Successful transformations can bring investment returns for Open Source Dream Factory.
 3. Project maintenance requires the support of both the open source community and Open Source Dream Factory. The latter can also share in the commercial success of the projects, creating a virtuous cycle.
@@ -370,12 +371,13 @@ DreamFactory has registry contracts deployed on each polkadot Parachain (current
 ![hybrid](https://upload-images.jianshu.io/upload_images/528413-26ad339f766c7d38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 在链上：表的创建和写入通过注册智能合约传递到每个基础链（语句被写入事件日志）。这包括SQL语句本身以及在智能合约中定义的自定义访问控制，使得数据可以在链上获取。
-
 链下：用于表的创建和写入的语句由DreamFactory验证节点实现——这些节点简单地监视注册表，并使用数据库指令改变本地SQLite数据库。在这里，可以通过HTTPS网关使用SQL读取查询来访问数据。
+
 On-chain: Table creates and writes pass through the registry smart contract on each base chain (statements are written to event logs). This includes the SQL statement itself plus custom access controls defined in smart contracts such that data is available on-chain.
 Off-chain: Statements for table creates and writes are materialized by Tableland validator nodes—these nodes simply watch the registry and mutate a local SQLite database with the database instructions. Here, the data is accessible using SQL read queries at an HTTPS gateway.
 
 换句话说，通过重放链式注册合约中的所有事件，您可以重新创建表格的状态；这就是如何在彼此之上构建不可阻挡的网络。只要主链存活下来，表格的状态就可以被确定性地汇总。请记住，在智能合约调用内部无法访问表格数据 - 您不能在没有使用某种离线预言机设置的情况下从合约查询表格。与智能合约无法读取交易数据一样，它们也无法读取表格数据，因为数据仅在事件日志中可用。因此，只有通过直接向任何DreamFactory节点发送读取查询才可能实现对数据的访问权限。
+
 In other words, you can recreate a table's state by replaying all of the events at a chain's registry contract; this is how unstoppable networks are built on top of each other. As long as the host chain survives, the table's state can deterministically be collated. Keep in mind that table data is not accessible from within smart contract calls—you can't query a table from a contract without using some off-chain oracle-like setup. Much like how smart contracts can't read transaction data, they also cannot read table data since data is available in event logs. Thus, data accessibility is only possible using read queries directly to any DreamFactory node.
 
 
@@ -401,6 +403,7 @@ In other words, you can recreate a table's state by replaying all of the events 
 - jack：软件工程师，具有 Rust 和区块链开发经验。
 - soywang：区块链开发人员，具有 Substrate 和 Solidity, Solana 开发经验。
 - ciconianigra：区块链开发人员
+- yiko：区块链开发人员
 
 ### Track affiliation
 

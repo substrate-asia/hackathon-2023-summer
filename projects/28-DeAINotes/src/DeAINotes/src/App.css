@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+.btn-bg{
+  background-color: rgb(164, 203, 41);
+}
+.btn-bg:hover{
+  background-color: rgb(126, 158, 18);
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-line {
+  width: 90%;
+  padding: 10px 20px;
+  display: flex;
+  overflow: hidden;
+  margin: 20px auto;
+  background-color: #eee;
+  color: #000;
+  font-size: 16px;
+  line-height: 37px;
+  cursor:pointer;
+}
+
+.login-line img {
+  width: 40px;
+  height:40px;
+}
+
+.login-line span {
+  width: 50%;
+  text-align: center;
+}
+
+.login-line label {
+  width: 30%;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(210, 243, 111, 1) 0%, rgba(201, 244, 177, 1) 51%, rgba(192, 245, 241, 1) 100%);
+  float:right;
+}

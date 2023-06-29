@@ -53,7 +53,7 @@ class TabProfileView extends StatelessWidget {
                   ),
                   actions: [
                     IconButton(
-                      icon: const Icon(Icons.notifications_none_rounded),
+                      icon: const Icon(Icons.message_rounded),
                       onPressed: () {
                         Get.toNamed('/notice');
                       },
@@ -323,6 +323,8 @@ class TabProfileView extends StatelessWidget {
                           onTap: () async {
                             await HiveService.deleteData(
                                 LocalKeyList.transferSelected);
+                            await HiveService.deleteWalletData(
+                                LocalKeyList.rootAddress);
                             Get.offAllNamed('/account');
                           },
                         ),

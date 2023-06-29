@@ -1,3 +1,18 @@
+## 基本资料
+
+项目名称：ModelMint
+
+项目立项日期 (哪年哪月)：2023年6月10日
+
+## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
+-完成marketplace 页面&基本功能搭建
+-通过csv进行fine-tune数据上传，再基于可选择的base models训练和微调
+-测试已经微调过的模型，并且可以进行Mint操作
+-AIGC 自动根据介绍生成模型NFT的图片
+-基于模型，使用token，自动权限控制等的NFT生成
+
+*具体的细节部分，请参考commit history：https://github.com/danieltyx/ModelMint/commits/main
+
 # ModelMint
 ## Revolutionize the way AI monetize through NFTs
 

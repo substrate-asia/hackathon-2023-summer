@@ -1,8 +1,6 @@
+import 'package:flutter_cache_manager/src/cache_store.dart';
 import 'package:get/get.dart';
-import 'package:sunrise/app/data/models/wallet_account.dart';
-import 'package:sunrise/app/data/services/hive_service.dart';
-import 'package:sunrise/core/utils/ping_help.dart';
-import 'package:sunrise/core/values/hive_boxs.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class BaseController extends GetxController {
   //TODO: Implement BaseController
@@ -20,5 +18,12 @@ class BaseController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  // 查询缓存大小
+  Future<String> getCacheSize() async {
+    var cache = DefaultCacheManager();
+    CacheStore store = cache.store;
+    return '';
   }
 }

@@ -10,7 +10,7 @@ pub mod pallet {
 		PalletId,
 	};
 	pub use frame_system::pallet_prelude::*;
-	use sp_runtime::traits::AccountIdConversion;
+	use sp_runtime::{traits::AccountIdConversion, ArithmeticError};
 	pub use sp_std::prelude::*;
 
 	const STORAGE_VERSION: StorageVersion = StorageVersion::new(1);
@@ -26,7 +26,7 @@ pub mod pallet {
 	pub struct Artwork<T: Config> {
 		// `None` assumes not for sale
 		pub price: Option<BalanceOf<T>>,
-		pub ipfs_cid: BoundedVec<u8, T::MaxCidLength>,
+		pub ipfs_cid: [u8; 64],
 		pub owner: T::AccountId,
 	}
 
@@ -35,7 +35,7 @@ pub mod pallet {
 	pub trait Config: frame_system::Config {
 		/// The maximum length of ipfs cid that can be added.
 		#[pallet::constant]
-		type MaxCidLength: Get<u32>;
+		type MaxArtworkCapacity: Get<u32>;
 
 		/// Because this pallet emits events, it depends on the runtime's definition of an event.
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
@@ -50,25 +50,33 @@ pub mod pallet {
 
 	#[pallet::storage]
 	#[pallet::getter(fn artworks)]
-	pub type Artworks<T: Config> = StorageMap<_, Blake2_128Concat, T::AccountId, Artwork<T>>;
+	pub type Artworks<T: Config> = StorageMap<_, Blake2_128Concat, [u8; 64], Artwork<T>>;
 
 	#[pallet::storage]
 	#[pallet::getter(fn artwork_owner)]
-	pub type ArtworkOwner<T: Config> =
-		StorageMap<_, Blake2_128Concat, BoundedVec<u8, T::MaxCidLength>, T::AccountId>;
+	pub type ArtworkOwned<T: Config> = StorageMap<
+		_,
+		Blake2_128Concat,
+		T::AccountId,
+		BoundedVec<[u8; 64], T::MaxArtworkCapacity>,
+		ValueQuery,
+	>;
+
+	/// Keeps track of the number of Artworks in existence.
+	#[pallet::storage]
+	pub type CountForArtworks<T: Config> = StorageValue<_, u64, ValueQuery>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
-		ArtworkCreated { owner: T::AccountId, ipfs_cid: BoundedVec<u8, T::MaxCidLength> },
+		ArtworkSaved { owner: T::AccountId, ipfs_cid: [u8; 64] },
 	}
 
 	#[pallet::error]
 	pub enum Error<T> {
-		ProofAlreadyExist,
-		ClaimTooLang,
-		ClaimNotExist,
-		NotClaimOwner,
+		/// An account may only own `MaxArtworkCapacity` artworks.
+		TooManyOwned,
+		ArtworkAlreadyExist,
 	}
 
 	#[pallet::hooks]
@@ -78,14 +86,25 @@ pub mod pallet {
 	impl<T: Config> Pallet<T> {
 		#[pallet::call_index(0)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn create_artwork(
-			origin: OriginFor<T>,
-			ipfs_cid: BoundedVec<u8, T::MaxCidLength>,
-		) -> DispatchResult {
+		pub fn save_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 
+			Self::do_save_artwork(who, ipfs_cid)
+		}
+	}
+
+	impl<T: Config> Pallet<T> {
+		fn do_save_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
 			let artwork: Artwork<T> =
 				Artwork { price: None, ipfs_cid: ipfs_cid.clone(), owner: who.clone() };
+
+			// Check if the artwork does not already exist in our storage map
+			ensure!(!Artworks::<T>::contains_key(&ipfs_cid), Error::<T>::ArtworkAlreadyExist);
+
+			// Performs this operation first as it may fail
+			let count = CountForArtworks::<T>::get();
+			let new_count = count.checked_add(1).ok_or(ArithmeticError::Overflow)?;
+
 			let artwork_price = T::ArtworkPrice::get();
 			T::Currency::transfer(
 				&who,
@@ -94,15 +113,15 @@ pub mod pallet {
 				ExistenceRequirement::KeepAlive,
 			)?;
 
-			Artworks::<T>::insert(&who, artwork);
-			ArtworkOwner::<T>::insert(&ipfs_cid, &who);
+			Artworks::<T>::insert(ipfs_cid.clone(), artwork);
+			ArtworkOwned::<T>::try_append(&who, ipfs_cid.clone())
+				.map_err(|_| Error::<T>::TooManyOwned)?;
+			CountForArtworks::<T>::put(new_count);
 
-			Self::deposit_event(Event::ArtworkCreated { owner: who, ipfs_cid });
+			Self::deposit_event(Event::ArtworkSaved { owner: who, ipfs_cid });
 			Ok(())
 		}
-	}
 
-	impl<T: Config> Pallet<T> {
 		fn get_pallet_account_id() -> T::AccountId {
 			T::PalletId::get().into_account_truncating()
 		}

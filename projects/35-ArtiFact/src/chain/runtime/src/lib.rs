@@ -276,7 +276,7 @@ impl pallet_artwork::Config for Runtime {
 	type Currency = Balances;
 	type PalletId = ArtworkPalletId;
 	type ArtworkPrice = ArtworkPrice;
-	type MaxCidLength = ConstU32<64>;
+	type MaxArtworkCapacity = ConstU32<100>;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.

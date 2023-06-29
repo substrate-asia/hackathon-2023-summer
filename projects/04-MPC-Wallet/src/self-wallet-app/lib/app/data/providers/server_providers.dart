@@ -23,7 +23,7 @@ class Server {
       print(result);
 
       if (result['data'] == "") {
-        print("so error");
+        print("createUser error");
         // EasyLoading.showError("该账号已经创建了子账号,无法重复创建");
         return '0x';
       } else {
@@ -52,7 +52,7 @@ class Server {
       print(result);
 
       if (result['data'] == "") {
-        print("so error");
+        print("getUser error");
         // EasyLoading.showError("该账号已经创建了子账号,无法重复创建");
         return null;
       } else {

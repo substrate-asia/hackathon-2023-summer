@@ -13,7 +13,9 @@ contract CreateCivilization {
         uint256 totalMembers;
     }
     RegistContract reg = RegistContract(0xa6f79B60359f141df90A0C745125B131cAAfFD12);
+
     mapping(address => CiviMember) public CiviMembers; // 势力映射
+    uint256 totalCiviGroups;
     mapping(address => bool) public joinedGroup; // 玩家是否已经加入势力.
     mapping(address => address) public whichGroup; // 玩家加入了哪个势力.
 
@@ -39,6 +41,7 @@ contract CreateCivilization {
         joinedGroup[msg.sender] = true;
         whichGroup[msg.sender] = msg.sender;
         newCiviMember.totalMembers += 1;
+        totalCiviGroups += 1;
     }
 
     function joinGroup(address _groupOwner) public {
@@ -101,8 +104,10 @@ contract CreateCivilization {
         return whichGroup[_userAddress];
     }
 
-    //         string name;
-    // string description;
+    function returnTotalCiviGroups() public view returns (uint256) {
+        return totalCiviGroups;
+    }
+
 
 
     function setGroupInfo(address _groupOwner, string calldata _name, string calldata _description) public {

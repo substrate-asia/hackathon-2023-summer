@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
+import 'package:sunrise/app/data/services/eth_service.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/modules/home/widgets/token_select.dart';
 import 'package:sunrise/app/widgets/image_widget.dart';
+import 'package:sunrise/app/widgets/payment_widget.dart';
 import 'package:sunrise/core/utils/common.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../account/views/verify_pin_view.dart';
 
@@ -30,8 +34,11 @@ class TransferFormState extends State<TransferForm>
 
   late Balance selectedAccount;
 
+  // 当前gasPrice
+  EtherAmount gasPrice = EtherAmount.zero();
+
   // 收款人
-  final toAddressController = TextEditingController(text: '');
+  final toAddressController = TextEditingController();
   final amoutController = TextEditingController();
 
   // 切换网络
@@ -68,6 +75,61 @@ class TransferFormState extends State<TransferForm>
       selectedAccount = come;
       print("object ${selectedAccount.chainId} ${widget.isFree}");
     });
+    setGasPrice();
+  }
+
+  // 设置gasPrice
+  void setGasPrice() async {
+    Web3Client client = await EthService.createWeb3Client(
+        HiveService.getNetworkRpc(selectedAccount.chainId) ?? '');
+
+    // 当前gasPrice
+    EtherAmount currentPrice = await client.getGasPrice();
+    print("当前gasPrice ${currentPrice.getInWei}");
+    setState(() {
+      gasPrice = currentPrice;
+    });
+  }
+
+  bool isValidAddress(String address) {
+    // 使用正则表达式判断是否是合法地址
+    RegExp reg = RegExp(r'^0x[a-fA-F0-9]{40}$');
+    return reg.hasMatch(address);
+  }
+
+  // 发起转账
+  void transfer() async {
+    if (transferKey.currentState?.validate() == true) {
+      // 判断账号余额与转账金额
+      if (double.parse(selectedAccount.balance) <
+          double.parse(amoutController.text)) {
+        EasyLoading.showError('余额不足');
+        return;
+      }
+      // 判断收款地址是否合法
+      if (!isValidAddress(toAddressController.text)) {
+        EasyLoading.showError('收款地址不合法');
+        return;
+      }
+
+      // 调用转账接口
+      String? hash = await Get.bottomSheet(
+        PaymentWidget(
+          networkId: selectedAccount.chainId,
+          type: 0,
+          owner: selectedAccount,
+          to: toAddressController.text,
+          amount: double.parse(amoutController.text),
+        ),
+        backgroundColor: const Color(0xFF0a0a0a),
+        barrierColor: Colors.black.withOpacity(0.5),
+      );
+      if (hash != null) {
+        print("交易hash: $hash");
+        toAddressController.text = '';
+        amoutController.text = '';
+      }
+    }
   }
 
   @override
@@ -169,9 +231,9 @@ class TransferFormState extends State<TransferForm>
             TextFormField(
               controller: toAddressController,
               maxLength: 42,
-              // inputFormatters: [
-              //   FilteringTextInputFormatter.allow(RegExp("[a-exA-EX0-9]"))
-              // ],
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp("[a-fxA-FX0-9]"))
+              ],
               decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15.w, vertical: 0),
@@ -198,6 +260,9 @@ class TransferFormState extends State<TransferForm>
               validator: (value) {
                 if (value == null || value == '') {
                   return '请输入收款地址';
+                }
+                if (!isValidAddress(value)) {
+                  return "收款地址格式不正确";
                 }
                 return null;
               },
@@ -240,7 +305,12 @@ class TransferFormState extends State<TransferForm>
                             padding:
                                 MaterialStateProperty.all(EdgeInsets.zero)),
                         child: const Text("全部"),
-                        onPressed: () {}),
+                        onPressed: () {
+                          setState(() {
+                            amoutController.text =
+                                weiToEth(selectedAccount.balance);
+                          });
+                        }),
                   ),
                   hintText: '请输入转账金额',
                   border: OutlineInputBorder(
@@ -263,7 +333,7 @@ class TransferFormState extends State<TransferForm>
                 ? Column(
                     children: [
                       Row(children: [
-                        Text("矿工费",
+                        Text("GAS PRICE",
                             style: TextStyle(
                                 fontSize: 16.sp, color: Colors.white)),
                         const Expanded(child: SizedBox()),
@@ -284,29 +354,29 @@ class TransferFormState extends State<TransferForm>
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.w)),
                               title: Text(
-                                "0.0002 ETH",
+                                "正常",
                                 style: TextStyle(
                                     fontSize: 14.sp, color: Colors.white),
                               ),
                               trailing: SizedBox(
-                                width: 100.w,
+                                width: 150.w,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "0.12 GWEI",
+                                      "${gasPrice.getInWei} WEI",
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: Colors.white54),
                                     ),
-                                    // SizedBox(
-                                    //   width: 5.w,
-                                    // ),
-                                    // Icon(
-                                    //   Icons.arrow_forward_ios_rounded,
-                                    //   size: 16.sp,
-                                    //   color: Colors.white,
-                                    // )
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 16.sp,
+                                      color: Colors.white,
+                                    )
                                   ],
                                 ),
                               ))),
@@ -328,26 +398,8 @@ class TransferFormState extends State<TransferForm>
                         borderRadius: BorderRadius.circular(22.5.w),
                       ),
                     ),
-                    onPressed: () async {
-                      if (transferKey.currentState?.validate() == true) {
-                        // TODO: 实现转账逻辑
-                        String? hash = await Get.bottomSheet(
-                          VerifyPinView(
-                            owner: selectedAccount,
-                            to: toAddressController.text,
-                            amount: double.parse(amoutController.text),
-                          ),
-                          isScrollControlled: true,
-                          useRootNavigator: true,
-                          backgroundColor: const Color(0xFF0a0a0a),
-                          barrierColor: Colors.black.withOpacity(0.5),
-                        );
-                        if (hash != null) {
-                          print("交易hash: $hash");
-                          toAddressController.text = '';
-                          amoutController.text = '';
-                        }
-                      }
+                    onPressed: () {
+                      transfer();
                     },
                     child: Text('确认',
                         style: TextStyle(

@@ -1,4 +1,6 @@
 // 处理字符串，超过十位中间为省略号
+import 'dart:math';
+
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,6 +15,36 @@ String addressFormat(String str) {
   }
 }
 
+// 根据以太坊地址最后一位返回头像名称
+String avatarName(String address) {
+  String lastChar = address.substring(address.length - 1);
+  int index = int.parse(lastChar, radix: 16);
+  // 头像名称列表
+  List<String> avatarNames = [
+    'Misty',
+    'Bandit',
+    'Cali',
+    'Oscar',
+    'Ginger',
+    'Pepper',
+    'Sophie',
+    'Angel',
+    'Trouble',
+    'Kiki',
+    'Shadow',
+    'Pumpkin',
+    'Whiskers',
+    'Sheba',
+    'Luna',
+    'Gracie',
+    'Smokey',
+    'Snickers',
+    'Sugar',
+    'Casper'
+  ];
+  return avatarNames[index];
+}
+
 // 传入wei返回eth, 保留两位小数
 String weiToEth(String? wei) {
   if (wei == null) {
@@ -23,7 +55,7 @@ String weiToEth(String? wei) {
 
 // 格式化处理数字，给double保留两位小数添加千分位
 String formatNum(double num) {
-  return num.toStringAsFixed(2).replaceAllMapped(
+  return ((num * 100).truncateToDouble() / 100).toString().replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?:$|\.))'),
       (Match match) => '${match[1]},');
 }
@@ -33,6 +65,16 @@ void copyToClipboard(String content) {
   FlutterClipboard.copy(content).then((value) {
     EasyLoading.showToast('复制成功');
   });
+}
+
+// 生成随机的字符串
+String generateRandomString() {
+  var random = Random();
+  var codeUnits = List.generate(6, (index) {
+    return random.nextInt(26) + 97;
+  });
+
+  return String.fromCharCodes(codeUnits);
 }
 
 // 显示消息内容
@@ -50,6 +92,8 @@ void showHelpContent({
           style: TextStyle(fontSize: 14.sp),
         ),
         TextButton(
+            style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.transparent)),
             onPressed: () {
               Get.back();
             },

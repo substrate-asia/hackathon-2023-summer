@@ -19,6 +19,8 @@ import 'package:sunrise/app/modules/account/controllers/account_controller.dart'
 import 'package:sunrise/core/utils/encryption.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
+import 'active_proxy_account.dart';
+
 class EnterPinView extends StatefulWidget {
   const EnterPinView({super.key});
 
@@ -51,10 +53,8 @@ class _EnterPinViewState extends State<EnterPinView> {
       });
     }
 
+    // 第二次输入密码
     if (_pin.length == 6 && firstPin != '') {
-      // Submit the verification code
-      print('Verification code submitted: $_pin');
-
       if (firstPin != '' && _pin != firstPin) {
         setState(() {
           errorText = '两次密码不相等, 请重试';
@@ -65,7 +65,8 @@ class _EnterPinViewState extends State<EnterPinView> {
     }
   }
 
-  void _onDeletePressed() {
+  // 删除
+  void _onDeletePressed() async {
     // _saveWalletAccount();
     setState(() {
       if (_pin.isNotEmpty) {
@@ -111,6 +112,40 @@ class _EnterPinViewState extends State<EnterPinView> {
     return list;
   }
 
+  /// 查询代理账号
+  Future<void> _checkProxyAccount(String address) async {
+    List<String>? result = await Server.getUser(address);
+    print(result);
+    // 有代理账号
+    if (result != null && result.isNotEmpty) {
+      _finsihAccount(result);
+    } else {
+      // 没有代理账号
+      EasyLoading.dismiss();
+      String? result = await Get.bottomSheet(
+        ActiveProxyAccount(address: address),
+        backgroundColor: const Color(0xFF0a0a0a),
+        barrierColor: Colors.black.withOpacity(0.5),
+      );
+
+      if (result != null && result != "0x") {
+        await EasyLoading.show(
+            maskType: EasyLoadingMaskType.black,
+            dismissOnTap: false,
+            status: "激活成功，正在跳转");
+        _finsihAccount([result]);
+      } else {
+        await EasyLoading.show(
+            maskType: EasyLoadingMaskType.black,
+            dismissOnTap: false,
+            status: "同步中");
+        // 重置
+        _resetFirstPin();
+        _finsihAccount([]);
+      }
+    }
+  }
+
   /// 保存钱包账号
   void _saveWalletAccount() async {
     print(controller.walletAccount?.address);
@@ -146,8 +181,9 @@ class _EnterPinViewState extends State<EnterPinView> {
         // 把加密私钥保存到本地
         await HiveService.saveEncryptedPrivateKey(
             controller.walletAddress ?? '', _encrypted);
-        // await EasyLoading.dismiss();
-        _finsihAccount([]);
+        walletController.initChatIsolate(privateKey: decryptedKey);
+        // 查询代理账号
+        await _checkProxyAccount(controller.walletAddress ?? '');
         return;
       }
 
@@ -173,8 +209,6 @@ class _EnterPinViewState extends State<EnterPinView> {
           _resetFirstPin();
           return;
         }
-        print(list);
-        print(cidList);
 
         await Server.saveWallet(
             userId: controller.userId,
@@ -189,27 +223,13 @@ class _EnterPinViewState extends State<EnterPinView> {
             status: "生成中");
         await HiveService.saveEncryptedPrivateKey(
             controller.walletAccount!.address, encryptedKey);
-        List<String>? result =
-            await Server.getUser(controller.walletAccount!.address);
-        print(result);
-        if (result != null && result.isNotEmpty) {
-          _finsihAccount(result);
-        } else {
-          String? proxyAddress =
-              await Server.createUser(controller.walletAccount!.address);
-          if (proxyAddress != null) {
-            _finsihAccount([proxyAddress]);
-          } else {
-            EasyLoading.showError('创建失败',
-                dismissOnTap: true, duration: const Duration(seconds: 2));
-            // 重置
-            _resetFirstPin();
-          }
-        }
+        walletController.initChatIsolate(
+            privateKey: controller.walletAccount?.privateKey ?? '');
+        await _checkProxyAccount(controller.walletAccount!.address);
       }
     } catch (e) {
       print(e);
-      EasyLoading.showError('创建失败',
+      EasyLoading.showError(controller.userStatus == 2 ? '恢复失败' : '创建失败',
           dismissOnTap: false, duration: const Duration(seconds: 2));
       // 重置
       _resetFirstPin();
@@ -231,12 +251,12 @@ class _EnterPinViewState extends State<EnterPinView> {
             .filter()
             .addressEqualTo(addressList[0])
             .findAll();
-        print("checkList $checkList");
+        print("checkList $checkList ${controller.walletAccount}");
         // 如果没有就插入代理账号
         if (checkList == null || checkList.isEmpty) {
           ProxyAccount proxyAccount = ProxyAccount(
               address: addressList[0],
-              rootAddress: controller.walletAccount!.address,
+              rootAddress: controller.walletAddress ?? '',
               entryPointAddress: entryPoint);
 
           await IsarService.isar?.writeTxn(() async {
@@ -272,6 +292,17 @@ class _EnterPinViewState extends State<EnterPinView> {
             size: 18.sp,
           ),
         ),
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                // Get.toNamed('/help');
+              },
+              icon: Icon(
+                Icons.help_outline_rounded,
+                size: 18.sp,
+              ))
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -78,18 +78,18 @@ class AssetsView extends GetView {
               ),
             ),
             const SizedBox(height: 10),
-            ListTile(
-              trailing: Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 16.sp,
-              ),
-              minLeadingWidth: 5.w,
-              title: Text(
-                "自定义币种",
-                style: TextStyle(fontSize: 14.sp),
-              ),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_rounded,
+            //     size: 16.sp,
+            //   ),
+            //   minLeadingWidth: 5.w,
+            //   title: Text(
+            //     "自定义币种",
+            //     style: TextStyle(fontSize: 14.sp),
+            //   ),
+            //   onTap: () {},
+            // ),
             // Padding(
             //     padding: EdgeInsets.symmetric(horizontal: 15.w),
             //     child: Divider(

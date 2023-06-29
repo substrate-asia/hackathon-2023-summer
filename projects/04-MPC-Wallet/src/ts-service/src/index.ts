@@ -15,7 +15,7 @@ limitations under the License.
 import { initDapr,initTypeOrm,initEthers,initRedis } from './config';
 import { App,Chain } from './routes';
 import {WalletRouter} from "./routes";
-import RedisClient from "@redis/client/dist/lib/client";
+import {TradeTrade} from "./utils"
 
 async function start() {
   // 初始化 dapr
@@ -37,6 +37,9 @@ async function start() {
   await new Chain(wallet,accountOwnerAddress,tokenPaymaster,simpleAccountFactory,entryPoint,orm,invoker).router();
 
   await new WalletRouter(orm,invoker).router();
+
+  //开启任务
+  await TradeTrade(entryPoint,accountOwnerAddress)
   // 启动dapr 服务
   await server.start();
 }

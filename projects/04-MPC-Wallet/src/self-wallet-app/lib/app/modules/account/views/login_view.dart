@@ -159,6 +159,9 @@ class LoginView extends GetView {
                                 filled: true,
                                 fillColor: const Color(0xFF262626),
                               ),
+                              onSubmitted: (value) {
+                                controller.createWalletAccount();
+                              },
                             ),
                           )
                               .animate()
@@ -231,8 +234,6 @@ class LoginView extends GetView {
                           ),
                           onPressed: controller.isEmailValid
                               ? () {
-                                  // Get.to(() => PinCodeView(),
-                                  //     transition: Transition.cupertino);
                                   controller.createWalletAccount();
                                 }
                               : null,

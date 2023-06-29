@@ -2,7 +2,7 @@ import {BigNumberish, Bytes, BytesLike, ethers} from "ethers";
 import { DataSource } from "typeorm"
 import {User_address} from "../../entity";
 import {returnResponse} from "../../utils";
-
+import {RedisClient,config} from "../../config";
 export class ChainService{
     constructor(readonly wallet:ethers.Wallet,
                 readonly tokenPaymaster:ethers.Contract,
@@ -17,14 +17,6 @@ export class ChainService{
         let resp:any
 
         try {
-            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
-            let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
-
-            console.log(address);
-
-            let userAddress = new User_address();
-            userAddress.AccountOwnerAddress = owner_address.owner_address;
-            userAddress.AccountChildAddress = address;
 
             let count = await this.orm.getRepository(User_address).createQueryBuilder("user_address").
             where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getCount()
@@ -32,6 +24,13 @@ export class ChainService{
                 resp = returnResponse("","该账号已经创建了子账号,无法重复创建")
                 return  resp
             }
+
+            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
+            let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
+
+            let userAddress = new User_address();
+            userAddress.AccountOwnerAddress = owner_address.owner_address;
+            userAddress.AccountChildAddress = address;
 
            let orm_resp = await this.orm.manager.insert(User_address,userAddress);
 
@@ -74,11 +73,14 @@ export class ChainService{
 
         try {
 
-            console.log(data)
+            let data2 = JSON.stringify(data)
 
-           let tx = await this.entryPoint.handleOps([data],this.accountOwnerAddress)
+            let isOk = await RedisClient.lPush(config.redis.task_trade!,data2)
+            if (!isOk){
+                return returnResponse("","提交交易失败!")
+            }
 
-            resp = returnResponse(tx.hash,"success")
+            resp = returnResponse("","success")
 
         }catch (error){
 

@@ -69,14 +69,30 @@ pub mod pallet {
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
+		/// A new artwork was successfully saved.
 		ArtworkSaved { owner: T::AccountId, ipfs_cid: [u8; 64] },
+		/// A artwork was successfully sold.
+		Sold { seller: T::AccountId, buyer: T::AccountId, ipfs_cid: [u8; 64], price: BalanceOf<T> },
+		/// A artwork was successfully transferred.
+		Transferred { from: T::AccountId, to: T::AccountId, ipfs_cid: [u8; 64] },
 	}
 
 	#[pallet::error]
 	pub enum Error<T> {
 		/// An account may only own `MaxArtworkCapacity` artworks.
 		TooManyOwned,
+		/// This artwork already exists!
 		ArtworkAlreadyExist,
+		/// This artwork does not exist!
+		NoArtwork,
+		/// You are not the owner of this artwork.
+		NotOwner,
+		/// Trying to transfer or buy a artwork from oneself.
+		TransferToSelf,
+		/// This artwork is not for sale.
+		NotForSale,
+		/// Ensures that the buying price is greater than the requested price.
+		BuyPriceTooLow,
 	}
 
 	#[pallet::hooks]
@@ -84,16 +100,42 @@ pub mod pallet {
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
+		/// Save a new unique artwork.
+		///
+		/// The actual artwork saving is done in the `do_save_artwork()` function.
 		#[pallet::call_index(0)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
 		pub fn save_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
+			// Make sure the caller is from a signed origin
 			let who = ensure_signed(origin)?;
-
 			Self::do_save_artwork(who, ipfs_cid)
+		}
+
+		/// Directly transfer an artwork to another recipient.
+		///
+		/// Any account that holds an artwork can send it to another Account. This will reset the
+		/// asking price of the artwork, marking it not for sale.
+		#[pallet::call_index(1)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn transfer_artwork(
+			origin: OriginFor<T>,
+			to: T::AccountId,
+			ipfs_cid: [u8; 64],
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let from = ensure_signed(origin)?;
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == from, Error::<T>::NotOwner);
+			Self::do_transfer_artwork(ipfs_cid, to, None)?;
+			Ok(())
 		}
 	}
 
 	impl<T: Config> Pallet<T> {
+		fn get_pallet_account_id() -> T::AccountId {
+			T::PalletId::get().into_account_truncating()
+		}
+
 		fn do_save_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
 			let artwork: Artwork<T> =
 				Artwork { price: None, ipfs_cid: ipfs_cid.clone(), owner: who.clone() };
@@ -122,8 +164,63 @@ pub mod pallet {
 			Ok(())
 		}
 
-		fn get_pallet_account_id() -> T::AccountId {
-			T::PalletId::get().into_account_truncating()
+		// Update storage to transfer artwork
+		pub fn do_transfer_artwork(
+			ipfs_cid: [u8; 64],
+			to: T::AccountId,
+			buy_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			// Get the artwork
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			let from = artwork.owner;
+
+			ensure!(from != to, Error::<T>::TransferToSelf);
+			let mut from_owned = ArtworkOwned::<T>::get(&from);
+
+			// Remove artwork from list of owned artworks.
+			if let Some(ind) = from_owned.iter().position(|&id| id == ipfs_cid) {
+				from_owned.swap_remove(ind);
+			} else {
+				return Err(Error::<T>::NoArtwork.into())
+			}
+
+			// Add artwork to the list of owned artworks.
+			let mut to_owned = ArtworkOwned::<T>::get(&to);
+			to_owned.try_push(ipfs_cid).map_err(|_| Error::<T>::TooManyOwned)?;
+
+			// Mutating state here via a balance transfer.
+			// The buyer will always be charged the actual price.
+			if let Some(buy_price) = buy_price {
+				// Current artwork price if for sale
+				if let Some(sale_price) = artwork.price {
+					ensure!(buy_price >= sale_price, Error::<T>::BuyPriceTooLow);
+					// Transfer the amount from buyer to seller
+					T::Currency::transfer(&to, &from, sale_price, ExistenceRequirement::KeepAlive)?;
+					// Deposit sold event
+					Self::deposit_event(Event::Sold {
+						seller: from.clone(),
+						buyer: to.clone(),
+						ipfs_cid,
+						price: sale_price,
+					});
+				} else {
+					// Artwork price is set to `None` and is not for sale
+					return Err(Error::<T>::NotForSale.into())
+				}
+			}
+
+			// Transfer succeeded, update the artwork owner and reset the price to `None`.
+			artwork.owner = to.clone();
+			artwork.price = None;
+
+			// Write updates to storage
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+			ArtworkOwned::<T>::insert(&to, to_owned);
+			ArtworkOwned::<T>::insert(&from, from_owned);
+
+			Self::deposit_event(Event::Transferred { from, to, ipfs_cid });
+
+			Ok(())
 		}
 	}
 }

@@ -75,6 +75,10 @@ pub mod pallet {
 		Sold { seller: T::AccountId, buyer: T::AccountId, ipfs_cid: [u8; 64], price: BalanceOf<T> },
 		/// A artwork was successfully transferred.
 		Transferred { from: T::AccountId, to: T::AccountId, ipfs_cid: [u8; 64] },
+		/// The price of a artwork was successfully set.
+		SetPrice { ipfs_cid: [u8; 64], price: Option<BalanceOf<T>> },
+		/// A new artwork was successfully destroyed.
+		DestroyArtwork { owner: T::AccountId, ipfs_cid: [u8; 64] },
 	}
 
 	#[pallet::error]
@@ -108,7 +112,9 @@ pub mod pallet {
 		pub fn save_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let who = ensure_signed(origin)?;
-			Self::do_save_artwork(who, ipfs_cid)
+			Self::do_save_artwork(who, ipfs_cid)?;
+
+			Ok(())
 		}
 
 		/// Directly transfer an artwork to another recipient.
@@ -127,6 +133,69 @@ pub mod pallet {
 			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == from, Error::<T>::NotOwner);
 			Self::do_transfer_artwork(ipfs_cid, to, None)?;
+
+			Ok(())
+		}
+
+		/// Buy an artwork for sale.
+		/// A front-end should assume that `buy_price` is always equal to the actual price of the
+		/// artwork. The buyer will always be charged the actual price of the artwork.
+		///
+		/// If successful, this method will reset the price of the artwork to `None`, making
+		/// it no longer for sale and handle the balance and artwork transfer between the buyer and
+		/// seller.
+		#[pallet::call_index(2)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn buy_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: [u8; 64],
+			buy_price: BalanceOf<T>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let buyer = ensure_signed(origin)?;
+			// Transfer the artwork from seller to buyer as a sale
+			Self::do_transfer_artwork(ipfs_cid, buyer, Some(buy_price))?;
+
+			Ok(())
+		}
+
+		/// Set the price for an artwork.
+		///
+		/// Updates artwork price and updates storage.
+		#[pallet::call_index(3)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn set_price(
+			origin: OriginFor<T>,
+			ipfs_cid: [u8; 64],
+			new_price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+
+			// Set the price in storage
+			artwork.price = new_price;
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+
+			// Deposit a "SetPrice" event.
+			Self::deposit_event(Event::SetPrice { ipfs_cid, price: new_price });
+
+			Ok(())
+		}
+
+		/// Destroy an artwork and return of down-payment.
+		///
+		/// Updates storage.
+		#[pallet::call_index(4)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn destroy_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let who = ensure_signed(origin)?;
+			Self::do_destroy_artwork(who, ipfs_cid)?;
+
 			Ok(())
 		}
 	}
@@ -136,6 +205,7 @@ pub mod pallet {
 			T::PalletId::get().into_account_truncating()
 		}
 
+		// Save a new unique artwork.
 		fn do_save_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
 			let artwork: Artwork<T> =
 				Artwork { price: None, ipfs_cid: ipfs_cid.clone(), owner: who.clone() };
@@ -219,6 +289,38 @@ pub mod pallet {
 			ArtworkOwned::<T>::insert(&from, from_owned);
 
 			Self::deposit_event(Event::Transferred { from, to, ipfs_cid });
+
+			Ok(())
+		}
+
+		// Destroy an artwork and return of down-payment.
+		pub fn do_destroy_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
+			// Ensure the artwork exists and is called by the artwork owner
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == who, Error::<T>::NotOwner);
+
+			// Performs this operation first as it may fail
+			let count = CountForArtworks::<T>::get();
+			let new_count = count.checked_sub(1).ok_or(ArithmeticError::Underflow)?;
+
+			T::Currency::transfer(
+				&Self::get_pallet_account_id(),
+				&who,
+				T::ArtworkPrice::get(),
+				ExistenceRequirement::KeepAlive,
+			)?;
+
+			Artworks::<T>::remove(ipfs_cid.clone());
+			// Remove the ipfs_cid
+			ArtworkOwned::<T>::try_mutate(&who, |ipfs_cid_vec| {
+				ipfs_cid_vec.retain(|x| *x != ipfs_cid);
+				Ok(())
+			})
+			.map_err(|()| Error::<T>::NoArtwork)?;
+			CountForArtworks::<T>::put(new_count);
+
+			// Deposit a "DestroyArtwork" event.
+			Self::deposit_event(Event::DestroyArtwork { owner: who, ipfs_cid });
 
 			Ok(())
 		}

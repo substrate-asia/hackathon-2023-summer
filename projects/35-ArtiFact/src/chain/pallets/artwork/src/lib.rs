@@ -26,7 +26,7 @@ pub mod pallet {
 	pub struct Artwork<T: Config> {
 		// `None` assumes not for sale
 		pub price: Option<BalanceOf<T>>,
-		pub ipfs_cid: [u8; 64],
+		pub ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		pub owner: T::AccountId,
 	}
 
@@ -50,7 +50,8 @@ pub mod pallet {
 
 	#[pallet::storage]
 	#[pallet::getter(fn artworks)]
-	pub type Artworks<T: Config> = StorageMap<_, Blake2_128Concat, [u8; 64], Artwork<T>>;
+	pub type Artworks<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, Artwork<T>>;
 
 	#[pallet::storage]
 	#[pallet::getter(fn artwork_owner)]
@@ -58,7 +59,7 @@ pub mod pallet {
 		_,
 		Blake2_128Concat,
 		T::AccountId,
-		BoundedVec<[u8; 64], T::MaxArtworkCapacity>,
+		BoundedVec<BoundedVec<u8, ConstU32<64>>, T::MaxArtworkCapacity>,
 		ValueQuery,
 	>;
 
@@ -70,15 +71,20 @@ pub mod pallet {
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
 		/// A new artwork was successfully saved.
-		ArtworkSaved { owner: T::AccountId, ipfs_cid: [u8; 64] },
+		ArtworkSaved { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 		/// A artwork was successfully sold.
-		Sold { seller: T::AccountId, buyer: T::AccountId, ipfs_cid: [u8; 64], price: BalanceOf<T> },
+		Sold {
+			seller: T::AccountId,
+			buyer: T::AccountId,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+			price: BalanceOf<T>,
+		},
 		/// A artwork was successfully transferred.
-		Transferred { from: T::AccountId, to: T::AccountId, ipfs_cid: [u8; 64] },
+		Transferred { from: T::AccountId, to: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 		/// The price of a artwork was successfully set.
-		SetPrice { ipfs_cid: [u8; 64], price: Option<BalanceOf<T>> },
+		SetPrice { ipfs_cid: BoundedVec<u8, ConstU32<64>>, price: Option<BalanceOf<T>> },
 		/// A new artwork was successfully destroyed.
-		DestroyArtwork { owner: T::AccountId, ipfs_cid: [u8; 64] },
+		DestroyArtwork { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 	}
 
 	#[pallet::error]
@@ -109,7 +115,10 @@ pub mod pallet {
 		/// The actual artwork saving is done in the `do_save_artwork()` function.
 		#[pallet::call_index(0)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn save_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
+		pub fn save_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let who = ensure_signed(origin)?;
 			Self::do_save_artwork(who, ipfs_cid)?;
@@ -126,7 +135,7 @@ pub mod pallet {
 		pub fn transfer_artwork(
 			origin: OriginFor<T>,
 			to: T::AccountId,
-			ipfs_cid: [u8; 64],
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let from = ensure_signed(origin)?;
@@ -148,7 +157,7 @@ pub mod pallet {
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
 		pub fn buy_artwork(
 			origin: OriginFor<T>,
-			ipfs_cid: [u8; 64],
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 			buy_price: BalanceOf<T>,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
@@ -166,7 +175,7 @@ pub mod pallet {
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
 		pub fn set_price(
 			origin: OriginFor<T>,
-			ipfs_cid: [u8; 64],
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 			new_price: Option<BalanceOf<T>>,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
@@ -191,7 +200,10 @@ pub mod pallet {
 		/// Updates storage.
 		#[pallet::call_index(4)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn destroy_artwork(origin: OriginFor<T>, ipfs_cid: [u8; 64]) -> DispatchResult {
+		pub fn destroy_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let who = ensure_signed(origin)?;
 			Self::do_destroy_artwork(who, ipfs_cid)?;
@@ -206,7 +218,10 @@ pub mod pallet {
 		}
 
 		// Save a new unique artwork.
-		fn do_save_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
+		fn do_save_artwork(
+			who: T::AccountId,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
 			let artwork: Artwork<T> =
 				Artwork { price: None, ipfs_cid: ipfs_cid.clone(), owner: who.clone() };
 
@@ -236,7 +251,7 @@ pub mod pallet {
 
 		// Update storage to transfer artwork
 		pub fn do_transfer_artwork(
-			ipfs_cid: [u8; 64],
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 			to: T::AccountId,
 			buy_price: Option<BalanceOf<T>>,
 		) -> DispatchResult {
@@ -248,7 +263,7 @@ pub mod pallet {
 			let mut from_owned = ArtworkOwned::<T>::get(&from);
 
 			// Remove artwork from list of owned artworks.
-			if let Some(ind) = from_owned.iter().position(|&id| id == ipfs_cid) {
+			if let Some(ind) = from_owned.iter().position(|id| id == &ipfs_cid) {
 				from_owned.swap_remove(ind);
 			} else {
 				return Err(Error::<T>::NoArtwork.into())
@@ -256,7 +271,7 @@ pub mod pallet {
 
 			// Add artwork to the list of owned artworks.
 			let mut to_owned = ArtworkOwned::<T>::get(&to);
-			to_owned.try_push(ipfs_cid).map_err(|_| Error::<T>::TooManyOwned)?;
+			to_owned.try_push(ipfs_cid.clone()).map_err(|_| Error::<T>::TooManyOwned)?;
 
 			// Mutating state here via a balance transfer.
 			// The buyer will always be charged the actual price.
@@ -270,7 +285,7 @@ pub mod pallet {
 					Self::deposit_event(Event::Sold {
 						seller: from.clone(),
 						buyer: to.clone(),
-						ipfs_cid,
+						ipfs_cid: ipfs_cid.clone(),
 						price: sale_price,
 					});
 				} else {
@@ -294,7 +309,10 @@ pub mod pallet {
 		}
 
 		// Destroy an artwork and return of down-payment.
-		pub fn do_destroy_artwork(who: T::AccountId, ipfs_cid: [u8; 64]) -> DispatchResult {
+		pub fn do_destroy_artwork(
+			who: T::AccountId,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
 			// Ensure the artwork exists and is called by the artwork owner
 			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == who, Error::<T>::NotOwner);

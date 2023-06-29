@@ -23,12 +23,20 @@ class HomeController extends GetxController {
 
   bool loadFinish = false;
 
+  bool isProxyAccount = false;
+
   // 主币资产列表
   List<Balance> mainCoinList = [];
   // token资产列表
   List<Balance> tokenList = [];
 
+  // 用户邮箱地址
   String userEmail = '';
+
+  // 账号地址 根据isProxyAccount显示
+  String get accountAddress => isProxyAccount
+      ? rootAccount?.proxyAddressList[0] ?? ''
+      : rootAccount?.address ?? '';
 
   Timer? timer;
   late double progress;
@@ -76,6 +84,12 @@ class HomeController extends GetxController {
     update();
   }
 
+  void switchProxyAccount() {
+    isProxyAccount = !isProxyAccount;
+    accountListHandle(rxAccount);
+    update();
+  }
+
   void _scrollListener() {
     // print(scrollController.offset);
     if (scrollController.offset >= 0) {
@@ -99,14 +113,19 @@ class HomeController extends GetxController {
 
   // 账号列表处理
   void accountListHandle(List<Balance> list) async {
+    print("accountListHandle ${list.length}");
     // 获取主币资产列表
     mainCoinList = list
         .where((element) =>
-            element.contractAddress == null && element.isContract == false)
+            element.contractAddress == null &&
+            element.isContract == false &&
+            element.isProxy == isProxyAccount)
         .toList();
     tokenList = list
         .where((element) =>
-            element.contractAddress != null && element.isContract == true)
+            element.contractAddress != null &&
+            element.isContract == true &&
+            element.isProxy == isProxyAccount)
         .toList();
     update();
   }

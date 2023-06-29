@@ -18,12 +18,16 @@ class TransferController extends GetxController
   // 默认tab
   int defaultTab = 0;
 
+  bool isProxyAccount = false;
+
   final count = 0.obs;
   @override
   void onInit() {
+    isProxyAccount = Get.arguments ?? false;
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
-    initTransferAccount(rxAccount.value);
+    initTransferAccount(rxAccount);
+    print("isProxyAccount $isProxyAccount");
   }
 
   @override
@@ -50,21 +54,6 @@ class TransferController extends GetxController
           element.toSelected().toString() ==
           Map<String, dynamic>.from(_account).toString());
       print("paymentBalance ${paymentBalance?.toSelected()}");
-      // 判断是否是token
-      // if (_account["isContract"] == true) {
-      //   paymentBalance = list.firstWhere((element) =>
-      //       element.address == _account["address"] &&
-      //       element.chainId == _account["chainId"] &&
-      //       element.isProxy == _account["isProxy"] &&
-      //       element.contractAddress == _account["contractAddress"]);
-      //   print("paymentBalance11 $paymentBalance");
-      // } else {
-      //   paymentBalance = list.firstWhere((element) =>
-      //       element.address == _account["address"] &&
-      //       element.chainId == _account["chainId"] &&
-      //       element.isProxy == _account["isProxy"]);
-      //   print("paymentBalance $paymentBalance");
-      // }
 
       if (_account["isProxy"]) {
         tabController.animateTo(1, duration: const Duration(milliseconds: 500));
@@ -93,23 +82,28 @@ class TransferController extends GetxController
   }
 
   void changeTab(int index) async {
-    Balance? temp;
+    try {
+      Balance? temp;
 
-    var _account = await HiveService.getData(LocalKeyList.transferSelected);
-    // print("selected account $_account");
+      var _account = await HiveService.getData(LocalKeyList.transferSelected);
+      print("selected account $rxAccount");
 
-    // 找到isProxy为false的第一个账号
-    temp = rxAccount.firstWhere((element) =>
-        element.isProxy == (index == 1) &&
-        _checkTabNetwork(element, Map<String, dynamic>.from(_account)));
-    print("changeTab ${temp.toSelected()}");
-    if (index == 1) {
-      proxyKey.currentState?.setNetwork(temp);
-    } else {
-      eoaKey.currentState?.setNetwork(temp);
+      // 找到isProxy为false的第一个账号
+      temp = rxAccount.firstWhere((element) =>
+          element.isProxy == (index == 1) &&
+          _checkTabNetwork(element, Map<String, dynamic>.from(_account)));
+      print("changeTab ${temp.toSelected()}");
+      if (index == 1) {
+        proxyKey.currentState?.setNetwork(temp);
+      } else {
+        eoaKey.currentState?.setNetwork(temp);
+      }
+
+      changeAccount(temp);
+    } on StateError catch (e) {
+      // 没有找到匹配项的情况下的操作
+      print('找不到匹配项: $e');
     }
-
-    changeAccount(temp);
   }
 
   // 切换账号

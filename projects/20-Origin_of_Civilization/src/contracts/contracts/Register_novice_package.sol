@@ -7,18 +7,15 @@ contract RegistContract{
 
     function regist () public {
         require(Registed[msg.sender] == false, "already registed");
-        // require(nonces)
-        // require(msg.sender.nonce >= 10, "address too new");
         Registed[msg.sender] = true;
         TotalRegister += 1;
-
     }
 
     function isRegisted(address _address) public view returns(bool) {
         return Registed[_address];
     }
 
-    // function getTransactionCount(address _address) public view returns (uint256) {
-    //     return _address.nonce;
-    // }
+    function getTotalRegist() public view returns (uint256) {
+        return TotalRegister;
+    }
 }

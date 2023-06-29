@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sunrise/app/modules/home/views/tab_chat_view.dart';
 
 import '../modules/account/bindings/account_binding.dart';
 import '../modules/account/views/account_view.dart';
@@ -64,7 +65,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NOTICE,
-      page: () => const NoticeView(),
+      page: () => const TabChatView(),
       binding: NoticeBinding(),
       // ios切入动画
       transition: Transition.cupertino,

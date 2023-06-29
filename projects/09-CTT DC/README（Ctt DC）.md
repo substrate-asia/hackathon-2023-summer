@@ -51,7 +51,7 @@ In addition, the Distributed Business Collaboration System also has typical dece
 - 项目Demo
 -
 Ctt DC web wallet: http://www.d2business.net/#/explorer
-Android Download：[](https://www.aigoshop.net/upload/jianfa_wallet.apk)
+Android ：[](docs/jianfa_wallet.apk)
 
 - 技术架构
 - 

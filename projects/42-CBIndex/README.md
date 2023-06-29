@@ -2,7 +2,7 @@
 
 Project Name: CBIndex
 
-Initation Date: 17 May 2023
+Initiation Date: 17 May 2023
 
 ## Project Overview
 

@@ -1,12 +1,12 @@
 ## Basic Information
 
 Project Name: CBIndex
-
-Initiation Date: 17 May 2023
+Initation Date: 17 May 2023
 
 ## Project Overview
 
 ### Project Introduction
+
 
 As a decentralized asset management platform, CBIndex provides various crypto investment tools built on the CBI protocol, fostering an innovative environment for individuals and entities to manage and grow their crypto assets.
 
@@ -30,6 +30,7 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 - Provide copy-investing for newbies to gain profits via copying seasoned investors;
 
+
 - Provide actively managed funds and index funds functionalities so that everyone can create, manage and invest in on-chain funds;
 
 - Equip each user with powerful investment simulators to play with.
@@ -43,6 +44,7 @@ https://app.cbindex.finance/ is the demo of CBIndex App (mainly built on central
 The project CBIndex is composed of both parts to best serve the users. Ideally, users can use the App to build and manage their crypto index funds, analyze the market with index indicators and tools, learn and practice fund manangement or fund investment with the fund simulator, practice copy-investing with the copy-investing simulator, and then use the DApp to copy-investing or invest in crypto funds in the real market.
 
 ### Project Architecture
+
 
 The general framework or technical architecture of the CBIndex consists of several interconnected components designed to function seamlessly in the context of the blockchain and DeFi ecosystem. Here is a broad overview:
 
@@ -96,6 +98,7 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 ## Completed Tasks During Hackathon (2023 年 7 月 4 日上午 11:59 初审前提交)
 
+
 - 2023 年 7 月 4 日上午 11:59 前，在本栏列出黑客松期间最终完成的功能点。
 - 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
 - Demo 视频，ppt 等大文件不要提交。可以在 readme 中存放它们的链接地址
@@ -108,3 +111,4 @@ The general framework or technical architecture of the CBIndex consists of sever
 | Evan | full-stack, smart contract engineer | blockchain dev | mozhiyun | - |
 | John | full-stack, smart contract engineer | blockchain dev | John_Suu | - |
 | ZZ | 3 years of dev experience | frontend dev | zzqVip | - |
+

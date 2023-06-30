@@ -39,7 +39,7 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 https://dapp.cbindex.finance/ is the demo of CBIndex DApp (fully built on blockchain), which has the copy-investing feature now. The mutual fund (active fund and index fund) investment feature will be added in the future.
 
-https://app.cbindex.finance/ is the demo of CBIndex App (mainly built on centralized server), which has crypto index fund building and management feature, mutual fund (active fund and index fund) creation and investment simulator, copy-investing simulator, and various analysis tools for crypto investment.
+https://app.cbindex.finance/ is CBIndex App (mainly built on centralized server), which has crypto index fund building and management feature, mutual fund (active fund and index fund) creation and investment simulator, copy-investing simulator, and various analysis tools for crypto investment.
 
 The project CBIndex is composed of both parts to best serve the users. Ideally, users can use the App to build and manage their crypto index funds, analyze the market with index indicators and tools, learn and practice fund manangement or fund investment with the fund simulator, practice copy-investing with the copy-investing simulator, and then use the DApp to copy-investing or invest in crypto funds in the real market.
 
@@ -104,6 +104,23 @@ The general framework or technical architecture of the CBIndex consists of sever
 - 2023 年 7 月 4 日上午 11:59 前，在本栏列出黑客松期间最终完成的功能点。
 - 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
 - Demo 视频，ppt 等大文件不要提交。可以在 readme 中存放它们的链接地址
+
+
+## Documents
+### CBIndex Deck:
+https://docsend.com/view/6fs4krz2tjkpfyn5
+
+### CBIndex Documentation:
+https://log.cbindex.finance/
+
+### CBIndex Whitepaper:
+https://whitepaper.cbindex.finance/
+
+### CBIndex Methodology:
+https://method.cbindex.finance/introduction/readme
+
+### CBIndex CICS Methodology:
+https://cics.cbindex.finance/
 
 ## Team Members
 

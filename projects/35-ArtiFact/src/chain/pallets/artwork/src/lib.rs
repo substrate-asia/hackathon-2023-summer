@@ -14,9 +14,15 @@ pub mod pallet {
 	};
 	pub use frame_system::pallet_prelude::*;
 	use sp_core::offchain::Duration;
-	use sp_runtime::{offchain::http, traits::AccountIdConversion, ArithmeticError};
+	use sp_runtime::{
+		offchain::http,
+		traits::{AccountIdConversion, CheckedSub},
+		ArithmeticError, Permill,
+	};
 	pub use sp_std::prelude::*;
 
+	// The tax rate of pallet is 0.1%.
+	pub const PALLET_TAX_RATE: Permill = Permill::from_parts(1_000);
 	const STORAGE_VERSION: StorageVersion = StorageVersion::new(1);
 	type BalanceOf<T> =
 		<<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
@@ -37,7 +43,7 @@ pub mod pallet {
 		pub collateral_period: Option<u8>,
 		// Collateral interest rate, represented by a percent sign,
 		// `None` assumes not for collateral.
-		pub collateral_interest_rate: Option<u8>,
+		pub collateral_interest_rate: Option<Permill>,
 		// Ipfs cid, unique identification of the artwork
 		pub ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		// The owner of artwork
@@ -101,6 +107,12 @@ pub mod pallet {
 	pub type ArtworksOnSale<T: Config> =
 		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, ()>;
 
+	/// Artwork will expire on which block number.
+	#[pallet::storage]
+	#[pallet::getter(fn artworks_expire_block_for_loan)]
+	pub type ArtworksExpireBlockForLoan<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, T::BlockNumber>;
+
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
@@ -125,10 +137,12 @@ pub mod pallet {
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 			collateral_fee: BalanceOf<T>,
 			collateral_period: u8,
-			collateral_interest_rate: u8,
+			collateral_interest_rate: Permill,
 		},
 		/// Artwork was successfully canceled to loan.
 		ArtworkCancelLoan { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// Artwork is over to loan.
+		ArtworkLoanOver { ipfs_cid: BoundedVec<u8, ConstU32<64>>, block_number: T::BlockNumber },
 	}
 
 	#[pallet::error]
@@ -151,15 +165,53 @@ pub mod pallet {
 		CollateralFeeMustBiggerThanZero,
 		/// Collateral period must bigger than 0.
 		PeriodMustBiggerThanZero,
-		/// Collateral interest rate must bigger than 100. It is represented by a percent sign.
-		InterestRateMustBiggerThan100,
 		/// Artwork has bean loaned.
 		ArtworkHasBeanLoaned,
+		/// Trying to lend a artwork from oneself.
+		LendToSelf,
+		/// This artwork is not for loan.
+		NotForLoan,
 	}
 
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
-		fn offchain_worker(_block_number: T::BlockNumber) {
+		fn offchain_worker(block_number: T::BlockNumber) {
+			// Do...
+			for (ipfs_cid, value) in ArtworksExpireBlockForLoan::<T>::iter() {
+				if block_number == value {
+					// Get the artwork
+					let mut artwork =
+						Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
+					// Compute the tax fee.
+					let tax = artwork
+						.collateral_interest_rate
+						.unwrap()
+						.checked_sub(&PALLET_TAX_RATE)
+						.unwrap();
+					// Compute the total fee.
+					let total_fee = tax.mul_ceil(artwork.collateral_fee.unwrap());
+					T::Currency::transfer(
+						&Self::get_pallet_account_id(),
+						&artwork.owner,
+						total_fee,
+						ExistenceRequirement::KeepAlive,
+					)
+					.unwrap();
+
+					// Update the artwork collateral info to `None`.
+					artwork.collateral_fee = None;
+					artwork.collateral_period = None;
+					artwork.collateral_interest_rate = None;
+					artwork.collateral_for = None;
+					Artworks::<T>::insert(&ipfs_cid, artwork);
+					ArtworksOnLoan::<T>::remove(&ipfs_cid);
+
+					// Deposit a "ArtworkLoanOver" event.
+					Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
+				}
+			}
+
+			// Get coin price.
 			if let Ok(coin) = Self::fetch_coin_price_info() {
 				log::info!("OCW ==> coin price info: {:?}", coin);
 				let price = sp_std::str::from_utf8(&coin.price)
@@ -294,7 +346,7 @@ pub mod pallet {
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 			collateral_fee: BalanceOf<T>,
 			collateral_period: u8,
-			collateral_interest_rate: u8,
+			collateral_interest_rate: u32,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let sender = ensure_signed(origin)?;
@@ -304,12 +356,13 @@ pub mod pallet {
 			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
 			ensure!(collateral_fee > 0u8.into(), Error::<T>::CollateralFeeMustBiggerThanZero);
 			ensure!(collateral_period > 0, Error::<T>::PeriodMustBiggerThanZero);
-			ensure!(collateral_interest_rate > 100, Error::<T>::InterestRateMustBiggerThan100);
 
 			// Set the collateral info in storage
 			artwork.collateral_fee = Some(collateral_fee);
 			artwork.collateral_period = Some(collateral_period);
-			artwork.collateral_interest_rate = Some(collateral_interest_rate);
+			// Transfer 1 to 1%.
+			artwork.collateral_interest_rate =
+				Some(Permill::from_parts(collateral_interest_rate * 10_000));
 			Artworks::<T>::insert(&ipfs_cid, artwork);
 			ArtworksOnLoan::<T>::insert(&ipfs_cid, ());
 
@@ -319,7 +372,7 @@ pub mod pallet {
 				ipfs_cid,
 				collateral_fee,
 				collateral_period,
-				collateral_interest_rate,
+				collateral_interest_rate: Permill::from_parts(collateral_interest_rate),
 			});
 
 			Ok(())
@@ -351,6 +404,51 @@ pub mod pallet {
 
 			// Deposit a "ArtworkCancelLoan" event.
 			Self::deposit_event(Event::ArtworkCancelLoan { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Lend funds out.
+		///
+		/// Updates storage.
+		#[pallet::call_index(7)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn lend_funds(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let who = ensure_signed(origin)?;
+
+			// Get the artwork
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			let owner = artwork.owner.clone();
+
+			ensure!(owner != who, Error::<T>::LendToSelf);
+			ensure!(ArtworksOnLoan::<T>::get(&ipfs_cid) != None, Error::<T>::NotForLoan);
+			// When artwork is pledged, artwork cannot be transferred.
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
+
+			// Compute the expired block number.
+			let expired_block_num: T::BlockNumber = frame_system::Pallet::<T>::block_number() +
+				artwork.collateral_period.unwrap().into();
+			ArtworksExpireBlockForLoan::<T>::insert(&ipfs_cid, expired_block_num);
+
+			// Renewal the artwork storage message.
+			artwork.collateral_for = Some(who.clone());
+			Artworks::<T>::insert(&ipfs_cid, artwork.clone());
+
+			// Compute the total fee.
+			let total_fee = artwork
+				.collateral_interest_rate
+				.unwrap()
+				.mul_ceil(artwork.collateral_fee.unwrap());
+			T::Currency::transfer(
+				&who,
+				&Self::get_pallet_account_id(),
+				total_fee,
+				ExistenceRequirement::KeepAlive,
+			)?;
 
 			Ok(())
 		}
@@ -410,7 +508,7 @@ pub mod pallet {
 			let from = artwork.owner;
 
 			ensure!(from != to, Error::<T>::TransferToSelf);
-			// When artwork is transferred, artwork cannot be pledged.
+			// When artwork is pledged, artwork cannot be transferred.
 			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 			let mut from_owned = ArtworkOwned::<T>::get(&from);
 

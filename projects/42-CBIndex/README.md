@@ -61,7 +61,8 @@ The general framework or technical architecture of the CBIndex consists of sever
 ### Project Logo
 
 ![CBIndexLogo](https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png "CBIndex Logo")
-https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png
+
+- https://ipfs.io/ipfs/QmeRAn9YwAmeq4i6WwA8t4qCzqb5kpwx1o2u9B3Gu6m4sp?filename=CBIndex_logo_square_480_solid_black.png
 
 ## Planned Tasks During Hackathon
 

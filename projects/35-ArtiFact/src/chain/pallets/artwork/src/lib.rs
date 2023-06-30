@@ -70,7 +70,7 @@ pub mod pallet {
 		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, Artwork<T>>;
 
 	#[pallet::storage]
-	#[pallet::getter(fn artwork_owner)]
+	#[pallet::getter(fn artwork_owned)]
 	pub type ArtworkOwned<T: Config> = StorageMap<
 		_,
 		Blake2_128Concat,
@@ -81,11 +81,25 @@ pub mod pallet {
 
 	/// Keeps track of the number of Artworks in existence.
 	#[pallet::storage]
+	#[pallet::getter(fn count_for_artworks)]
 	pub type CountForArtworks<T: Config> = StorageValue<_, u64, ValueQuery>;
 
 	/// Real-time artwork price to create an artwork or destroy an artwork.
 	#[pallet::storage]
+	#[pallet::getter(fn real_time_artwork_price)]
 	pub type RealTimeArtworkPrice<T: Config> = StorageValue<_, BalanceOf<T>, OptionQuery>;
+
+	/// Artwork available for loan.
+	#[pallet::storage]
+	#[pallet::getter(fn artworks_on_loan)]
+	pub type ArtworksOnLoan<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, ()>;
+
+	/// Artwork available for sale.
+	#[pallet::storage]
+	#[pallet::getter(fn artworks_on_sale)]
+	pub type ArtworksOnSale<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, ()>;
 
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -242,6 +256,12 @@ pub mod pallet {
 			artwork.price = new_price;
 			Artworks::<T>::insert(&ipfs_cid, artwork);
 
+			// Updates `ArtworksOnSale` storage.
+			match new_price {
+				None => ArtworksOnSale::<T>::remove(&ipfs_cid),
+				Some(_) => ArtworksOnSale::<T>::insert(&ipfs_cid, ()),
+			}
+
 			// Deposit a "SetPrice" event.
 			Self::deposit_event(Event::SetPrice { ipfs_cid, price: new_price });
 
@@ -291,6 +311,7 @@ pub mod pallet {
 			artwork.collateral_period = Some(collateral_period);
 			artwork.collateral_interest_rate = Some(collateral_interest_rate);
 			Artworks::<T>::insert(&ipfs_cid, artwork);
+			ArtworksOnLoan::<T>::insert(&ipfs_cid, ());
 
 			// Deposit a "ArtworkStartToLoan" event.
 			Self::deposit_event(Event::ArtworkStartToLoan {
@@ -326,6 +347,7 @@ pub mod pallet {
 			artwork.collateral_period = None;
 			artwork.collateral_interest_rate = None;
 			Artworks::<T>::insert(&ipfs_cid, artwork);
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			// Deposit a "ArtworkCancelLoan" event.
 			Self::deposit_event(Event::ArtworkCancelLoan { owner: sender, ipfs_cid });
@@ -433,10 +455,12 @@ pub mod pallet {
 			artwork.collateral_interest_rate = None;
 			artwork.collateral_for = None;
 
-			// Write updates to storage
+			// Write updates to storage.
 			Artworks::<T>::insert(&ipfs_cid, artwork);
 			ArtworkOwned::<T>::insert(&to, to_owned);
 			ArtworkOwned::<T>::insert(&from, from_owned);
+			ArtworksOnSale::<T>::remove(&ipfs_cid);
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			Self::deposit_event(Event::Transferred { from, to, ipfs_cid });
 
@@ -451,6 +475,8 @@ pub mod pallet {
 			// Ensure the artwork exists and is called by the artwork owner
 			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == who, Error::<T>::NotOwner);
+			// When artwork is transferred, artwork cannot be pledged.
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 
 			// Performs this operation first as it may fail
 			let count = CountForArtworks::<T>::get();
@@ -470,7 +496,11 @@ pub mod pallet {
 				Ok(())
 			})
 			.map_err(|()| Error::<T>::NoArtwork)?;
+
+			// Write updates to storage
 			CountForArtworks::<T>::put(new_count);
+			ArtworksOnSale::<T>::remove(&ipfs_cid);
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			// Deposit a "DestroyArtwork" event.
 			Self::deposit_event(Event::DestroyArtwork { owner: who, ipfs_cid });

@@ -30,8 +30,20 @@ pub mod pallet {
 	pub struct Artwork<T: Config> {
 		// `None` assumes not for sale
 		pub price: Option<BalanceOf<T>>,
+		// Collateral fee, `None` assumes not for collateral
+		pub collateral_fee: Option<BalanceOf<T>>,
+		// Collateral period, sustain for collateral_period blocks,
+		// `None` assumes not for collateral
+		pub collateral_period: Option<u8>,
+		// Collateral interest rate, represented by a percent sign,
+		// `None` assumes not for collateral.
+		pub collateral_interest_rate: Option<u8>,
+		// Ipfs cid, unique identification of the artwork
 		pub ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		// The owner of artwork
 		pub owner: T::AccountId,
+		// To whom artwork was collateral.
+		pub collateral_for: Option<T::AccountId>,
 	}
 
 	/// Configure the pallet by specifying the parameters and types on which it depends.
@@ -93,6 +105,16 @@ pub mod pallet {
 		SetPrice { ipfs_cid: BoundedVec<u8, ConstU32<64>>, price: Option<BalanceOf<T>> },
 		/// A new artwork was successfully destroyed.
 		DestroyArtwork { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// The collateral info of a artwork was successfully set.
+		ArtworkStartToLoan {
+			owner: T::AccountId,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+			collateral_fee: BalanceOf<T>,
+			collateral_period: u8,
+			collateral_interest_rate: u8,
+		},
+		/// Artwork was successfully canceled to loan.
+		ArtworkCancelLoan { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 	}
 
 	#[pallet::error]
@@ -111,6 +133,14 @@ pub mod pallet {
 		NotForSale,
 		/// Ensures that the buying price is greater than the requested price.
 		BuyPriceTooLow,
+		/// Collateral fee must bigger than 0.
+		CollateralFeeMustBiggerThanZero,
+		/// Collateral period must bigger than 0.
+		PeriodMustBiggerThanZero,
+		/// Collateral interest rate must bigger than 100. It is represented by a percent sign.
+		InterestRateMustBiggerThan100,
+		/// Artwork has bean loaned.
+		ArtworkHasBeanLoaned,
 	}
 
 	#[pallet::hooks]
@@ -233,6 +263,75 @@ pub mod pallet {
 
 			Ok(())
 		}
+
+		/// Lend artwork out.
+		///
+		/// Updates storage.
+		#[pallet::call_index(5)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn provide_artwork_loan(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+			collateral_fee: BalanceOf<T>,
+			collateral_period: u8,
+			collateral_interest_rate: u8,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(collateral_fee > 0u8.into(), Error::<T>::CollateralFeeMustBiggerThanZero);
+			ensure!(collateral_period > 0, Error::<T>::PeriodMustBiggerThanZero);
+			ensure!(collateral_interest_rate > 100, Error::<T>::InterestRateMustBiggerThan100);
+
+			// Set the collateral info in storage
+			artwork.collateral_fee = Some(collateral_fee);
+			artwork.collateral_period = Some(collateral_period);
+			artwork.collateral_interest_rate = Some(collateral_interest_rate);
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+
+			// Deposit a "ArtworkStartToLoan" event.
+			Self::deposit_event(Event::ArtworkStartToLoan {
+				owner: sender,
+				ipfs_cid,
+				collateral_fee,
+				collateral_period,
+				collateral_interest_rate,
+			});
+
+			Ok(())
+		}
+
+		/// Cancel lend funds out.
+		///
+		/// Updates storage.
+		#[pallet::call_index(6)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn cancel_loan(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
+
+			// Update the artwork collateral info to `None`.
+			artwork.collateral_fee = None;
+			artwork.collateral_period = None;
+			artwork.collateral_interest_rate = None;
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+
+			// Deposit a "ArtworkCancelLoan" event.
+			Self::deposit_event(Event::ArtworkCancelLoan { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
 	}
 
 	impl<T: Config> Pallet<T> {
@@ -245,8 +344,15 @@ pub mod pallet {
 			who: T::AccountId,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		) -> DispatchResult {
-			let artwork: Artwork<T> =
-				Artwork { price: None, ipfs_cid: ipfs_cid.clone(), owner: who.clone() };
+			let artwork: Artwork<T> = Artwork {
+				price: None,
+				collateral_fee: None,
+				collateral_period: None,
+				ipfs_cid: ipfs_cid.clone(),
+				owner: who.clone(),
+				collateral_interest_rate: None,
+				collateral_for: None,
+			};
 
 			// Check if the artwork does not already exist in our storage map
 			ensure!(!Artworks::<T>::contains_key(&ipfs_cid), Error::<T>::ArtworkAlreadyExist);
@@ -282,6 +388,8 @@ pub mod pallet {
 			let from = artwork.owner;
 
 			ensure!(from != to, Error::<T>::TransferToSelf);
+			// When artwork is transferred, artwork cannot be pledged.
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 			let mut from_owned = ArtworkOwned::<T>::get(&from);
 
 			// Remove artwork from list of owned artworks.
@@ -316,9 +424,14 @@ pub mod pallet {
 				}
 			}
 
-			// Transfer succeeded, update the artwork owner and reset the price to `None`.
+			// Transfer succeeded, update the artwork owner and reset the price and collateral info
+			// to `None`.
 			artwork.owner = to.clone();
 			artwork.price = None;
+			artwork.collateral_fee = None;
+			artwork.collateral_period = None;
+			artwork.collateral_interest_rate = None;
+			artwork.collateral_for = None;
 
 			// Write updates to storage
 			Artworks::<T>::insert(&ipfs_cid, artwork);

@@ -1,6 +1,6 @@
 # MoonLayer
 
-started at Jun. 3th, 2023.
+started at Jun. 20th, 2023.
 
 ## What is MoonLayer?
 

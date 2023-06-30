@@ -4,7 +4,7 @@ defmodule EvmScanRpc.CamelcaseSnakecase do
   end
 
   def valid_fields() do
-    fields = block_fields() ++ withdrawal_fields() ++ transcation_fields()
+    fields = block_fields() ++ withdrawal_fields() ++ transaction_fields()
     Enum.map(fields, fn str -> camelcase_to_snakecase(str) end)
   end
 
@@ -40,7 +40,7 @@ defmodule EvmScanRpc.CamelcaseSnakecase do
     ["index", "validatorIndex", "address", "amount"]
   end
 
-  defp transcation_fields() do
+  defp transaction_fields() do
     [
       "blockHash",
       "blockNumber",

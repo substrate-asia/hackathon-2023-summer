@@ -4,6 +4,9 @@
 
 - project created：`2023-06-09`
 
+## EVMScan Logo
+![logo](./docs/evmscan.png)
+
 ## Introduction
 
 EVMScan is an open source MVP version's explorer(inspired by [etherscan](https://etherscan.io/)) for EVM compatible solutions, such as Ethereum/Sepolia, Arbitrum, Optimism, Coinbase Base, ZKSync era and Polygon zkEVM etc.
@@ -11,10 +14,9 @@ EVMScan is an open source MVP version's explorer(inspired by [etherscan](https:/
 ## Tasks planning during hackathon-2023-summer
 
 ### backend
-
 - [ ] `evmscan_indexer`: the application of syncing blockchain infos for explorer
 - [ ] `evmscan_schema`: the data schema of explorer and some common useful public function  
-- [ ] `evmscan_api`: the graphql api of explorer that use for frontend or third service
+- [ ] `evmscan_api`: the graphql api of explorer that use for frontend or third-party service
 - [ ] `evmscan_rpc`: the SDK of EVM-compatibility solution's rpc service
 - [ ] `api docs`: the docs of graphql public service
 
@@ -23,7 +25,10 @@ EVMScan is an open source MVP version's explorer(inspired by [etherscan](https:/
 - [ ] `Home page`: show latest 10 blocks info, latest 10 transactions info and more stats info
 - [ ] `Searching Bar`: search with address, blocknumber, transaction hash and token name etc
 - [ ] `Block Page`: show block infos
-- [ ] `Transaction Page`: show transactions infos
+- [ ] `Transaction Page`: show transaction infos
+
+## Future Plan
+- [ ] `Multi EVM-Compatible Solutions Select`: multi evm-compatible-chain data integrate
 - [ ] `SmartContract Page`: show smart contract infos
 - [ ] `TokenTransfer Page`: show token transfer infos
 - [ ] `Token Page`: show token infos, such as erc20/erc721/erc1155

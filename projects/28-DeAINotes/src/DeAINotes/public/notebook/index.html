@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Notebook</title>
+    <meta
+      name="renderer"
+      content="webkit" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="../favicon.ico" />
+    <link
+      rel="bookmark"
+      type="image/x-icon"
+      href="../favicon.ico" />
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes" />
+    <meta
+      name="format-detection"
+      content="telephone=no" />
+    <link
+      rel="stylesheet"
+      href="./utils/font-awesome-4.7.0/css/font-awesome.min.css"
+      media="all" />
+    <link
+      rel="stylesheet"
+      href="./css/main.css"
+      media="all" />
+    <link
+      rel="stylesheet"
+      href="./utils/element-ui/index.css"
+      media="all" />
+    <link
+      rel="stylesheet"
+      id="themes"
+      href="./css/markdown/github-dark.css" />
+  </head>
+
+  <body id="body">
+    <div id="toploading">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+    <div id="app">
+      <div class="mini-tab">
+        <i
+          @click="currTabName='doc'"
+          :class="currTabName=='doc'?'curr':''"
+          class="fa fa-files-o"></i>
+        <i
+          @click="currTabName='upload'"
+          :class="currTabName=='upload'?'curr':''"
+          class="fa fa-cloud-upload"></i>
+        <!-- <i @click="currTabName='user'" :class="currTabName=='user'?'curr':''" class="fa fa-user-circle"></i> -->
+        <!-- <i @click="currTabName='config'" :class="currTabName=='config'?'curr':''" class="fa fa-cog"></i> -->
+        <label
+          v-if="isLoading"
+          class="fa fa-spin fa-spinner"></label>
+        <label
+          v-else-if="saveOk"
+          class="fa fa-check"></label>
+        <!-- <i class="fa fa-user-circle" @click="onCessLogin"></i> -->
+      </div>
+      <div
+        class="left-panel"
+        id="panel">
+        <div class="left-panel-in">
+          <div
+            class="tree-pannel"
+            v-if="currTabName=='doc'">
+            <div class="pannel-title">
+              <span>
+                笔记管理器（{{sysconfig.datasource?.curr||'未选择数据源'}}）
+              </span>
+              <label
+                class="r-icons"
+                title="添加根文件夹"
+                @click="addTree('cat')">
+                <i class="fa fa-folder-o"></i>
+                <i class="new">+</i>
+              </label>
+            </div>
+            <div class="form-item">
+              <input
+                type="text"
+                clearable
+                v-model="searchKeyword"
+                class="myinput"
+                placeholder="搜索" />
+              <label
+                class="btn-clear-input"
+                v-if="searchKeyword"
+                @click="searchKeyword=''">
+                x
+              </label>
+              <span
+                v-if="hasLoadAllDoc"
+                class="load-all-doc-ok fa fa-check">
+                已加载所有笔记内容
+              </span>
+              <el-button
+                v-else
+                class="btn-load-all fa fa-cloud-download"
+                type="success"
+                :loading="isLoading"
+                :disabled="isLoading"
+                size="mini"
+                @click="loadAllDoc">
+                加载所有笔记内容(可搜索内容)
+              </el-button>
+            </div>
+            <div
+              class="no-data"
+              v-if="!tree">
+              <span v-if="!sysconfig||!sysconfig.token">
+                <i class="fa fa-ban"></i>
+                未配置账户信息
+              </span>
+              <span v-else>
+                <i class="fa fa-spin fa-spinner"></i>
+                加载中……
+              </span>
+            </div>
+            <el-tree
+              v-else
+              ref="tree2"
+              draggable
+              node-key="id"
+              :default-expanded-keys="expandedKeys"
+              :auto-expand-parent="true"
+              :data="tree"
+              style="background-color: transparent; color: #bbb"
+              highlight-current
+              :props="treeDefaultProps"
+              :filter-node-method="filterNode"
+              @node-drop="onTreeDrop"
+              @node-contextmenu="nodeContextmenu"
+              @node-click="onNodeClick">
+              <span
+                class="custom-tree-node"
+                slot-scope="{ node, data }">
+                <i
+                  class="fa fa-lock"
+                  v-if="data.isPrivate"></i>
+                <i
+                  class="fa fa-file-text-o"
+                  v-else-if="data.type=='content'"></i>
+                <i
+                  class="fa fa-folder-o"
+                  v-else-if="data.type=='cat'"></i>
+                {{ node.label }}
+              </span>
+            </el-tree>
+            <div
+              id="treeContextmenu"
+              class="contextmenu"
+              v-show="treeContextmenu.visible"
+              :style="'left:'+treeContextmenu.left+'px;top:'+treeContextmenu.top+'px;'"
+              @mousedown.prevent.stop>
+              <div
+                v-if="treeContextmenu.currNode?.data?.type=='cat'"
+                class="menu-item"
+                @click="addTree('cat',treeContextmenu.currNode.data)">
+                <i class="fa fa-folder-o"></i>
+                添加文件夹
+              </div>
+              <div
+                v-if="treeContextmenu.currNode?.data?.type=='cat'"
+                class="menu-item"
+                @click="addTree('content',treeContextmenu.currNode.data)">
+                <i class="fa fa-file-code-o"></i>
+                新建文档
+              </div>
+              <div
+                class="menu-item"
+                @click="updateTree(treeContextmenu.currNode.data)">
+                <i class="fa fa-edit"></i>
+                修改
+              </div>
+              <div
+                class="menu-item"
+                @click="delTree(treeContextmenu.currNode)">
+                <i class="fa fa-trash"></i>
+                删除
+              </div>
+              <!-- <div><i class="fa fa-arrow-up"></i> 上移</div>
+                        <div><i class="fa fa-arrow-down"></i> 下移</div> -->
+            </div>
+          </div>
+          <div
+            class="search-pannel"
+            v-else-if="currTabName=='upload'">
+            <div class="pannel-title">
+              <span>数据上链</span>
+            </div>
+            <div class="form-item">
+              <el-button
+                style="width: 100%"
+                :loading="isUpChaining"
+                :disabled="isUpChaining"
+                type="primary"
+                @click="onUploadToCESS">
+                上传
+              </el-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="right-content"
+        v-if="currDocNode&&currDocNode.id">
+        <div
+          :style="'width:'+contentWidth"
+          class="tool-bar"
+          id="toolbar">
+          <button
+            title="粗体"
+            class="fa fa-bold"
+            @click="onToolbarClick('**内容**','**','**')"></button>
+          <button
+            title="下划线"
+            class="fa fa-underline"
+            @click="onToolbarClick('<u>内容<u>','<u>','<u>')"></button>
+          <button
+            title="删除线"
+            class="fa fa-strikethrough"
+            @click="onToolbarClick('~~内容~~','~~','~~')"></button>
+          <label></label>
+          <button
+            title="H1"
+            class="fa editormd-bold"
+            @click="onToolbarClick('# 内容','# ',' ')">
+            H1
+          </button>
+          <button
+            title="H2"
+            class="fa editormd-bold"
+            @click="onToolbarClick('## 内容','## ',' ')">
+            H2
+          </button>
+          <button
+            title="H3"
+            class="fa editormd-bold"
+            @click="onToolbarClick('### 内容','### ',' ')">
+            H3
+          </button>
+          <button
+            title="H4"
+            class="fa editormd-bold"
+            @click="onToolbarClick('#### 内容','#### ',' ')">
+            H4
+          </button>
+          <label></label>
+          <block v-if="editorType != 'div'">
+            <button
+              title="文字链接"
+              class="fa fa-link"
+              @click="onToolbarClick('[文字](链接地址)','[文字](',')')"></button>
+            <button
+              title="图片"
+              class="fa fa-picture-o"
+              @click="onToolbarClick('![文字](链接)','![图片描述](',')')"></button>
+            <label></label>
+            <button
+              title="分隔线"
+              @click="onToolbarClick('----------')">
+              --
+            </button>
+            <button
+              title="引用"
+              class="fa fa-quote-left"
+              @click="onToolbarClick('> 内容','> ',' ')"></button>
+            <button
+              title="表格"
+              class="fa fa-table"
+              @click="onToolbarClick('|  表头   | 表头  | 表头 | 表头 |\n| :---  | ---:  | :--: | ---- |\n| 单元格  | 单元格 |单元格|单元格|\n| 单元格  | 单元格 |单元格|单元格|')"></button>
+          </block>
+          <button
+            title="代码"
+            class="fa fa-file-code-o"
+            @click="onToolbarClick('\n```javascript\n\n\n```','\n```javascript\n','\n```')"></button>
+          <button
+            v-if="editorType == 'div'"
+            title="切换Markdown主题"
+            class="fa fa-dashboard"
+            @click="onChangeMarkdownCSS"></button>
+          <button
+            v-else
+            title="保存"
+            :class="isLoading?'fa fa-spin fa-spinner':'fa fa-save'"
+            @click="onSaveDoc"></button>
+          <button
+            title="切换到编辑模式"
+            v-if="editorType=='div'"
+            class="fa fa-edit fr"
+            @click="onChangeEditor('textarea')"></button>
+          <button
+            title="切换到预览模式"
+            v-else
+            class="fa fa-eye fr"
+            @click="onChangeEditor('div')"></button>
+        </div>
+        <div
+          id="editorCtxmenu"
+          class="contextmenu"
+          v-show="editorCtxmenu.visible"
+          :style="'left:'+editorCtxmenu.left+'px;top:'+editorCtxmenu.top+'px;'"
+          @mousedown.prevent.stop
+          @contextmenu.prevent.stop>
+          <div
+            class="loading-wrapper"
+            v-if="editorCtxmenu.loading">
+            <i class="el-icon-loading"></i>
+            请稍后...
+          </div>
+          <div
+            class="chatgpt-content"
+            v-else-if="chatgpt && chatgpt.output">
+            <div class="output">{{chatgpt.output}}</div>
+            <div class="toolbar">
+              <!-- <el-button
+                type="text"
+                @click="useChatgptResult">
+                对比
+              </el-button> -->
+              <el-button
+                v-if="chatgpt.outputFinished"
+                type="text"
+                @click="copyChatgptResult">
+                复制
+              </el-button>
+              <el-button
+                v-else
+                type="text"
+                @click="chatgpt.stop()">
+                取消
+              </el-button>
+            </div>
+          </div>
+          <template v-else>
+            <div
+              class="menu-item"
+              @click="handleEditorCxtmenuItemClick('polish')">
+              <i class="fa fa-edit"></i>
+              AI润色
+            </div>
+            <div
+              class="menu-item"
+              @click="handleEditorCxtmenuItemClick('writing')">
+              <i class="fa fa-trash"></i>
+              AI续写
+            </div>
+          </template>
+          <!-- <div><i class="fa fa-arrow-up"></i> 上移</div>
+                <div><i class="fa fa-arrow-down"></i> 下移</div> -->
+        </div>
+        <div
+          v-if="editorType=='div'"
+          class="content">
+          <div
+            class="md"
+            id="contentBody"
+            v-html="contentBodyHtml"></div>
+        </div>
+        <div
+          v-else-if="editorType=='textarea'"
+          class="content"
+          @contextmenu="handleEditorCxtmenu">
+          <textarea
+            class="textarea"
+            id="contentBodyInput"
+            v-model="contentBodyMd"
+            @change="onAutoSaveDoc()"
+            @keypress="onAutoSaveDoc()"
+            @keyup="onAutoSaveDoc()"
+            @blur="onSaveDoc()"></textarea>
+        </div>
+        <!-- <div class="float-btns">
+                <i class="fa fa-arrow-up" @click="toTop"></i>
+                <i class="fa fa-arrow-down" @click="toBottom"></i>
+            </div> -->
+      </div>
+      <div
+        v-else
+        class="right-content empty-bg">
+        <div><img src="./img/logo.png" /></div>
+        <span>AI DeNotebook</span>
+      </div>
+
+      <el-dialog
+        title="添加/修改笔记"
+        :close-on-click-modal="false"
+        :visible.sync="dialog.show"
+        width="30%">
+        <div>
+          <div>
+            <el-input
+              v-model="dialog.node.label"
+              placeholder="请输入笔记标题"></el-input>
+          </div>
+          <div style="margin-top: 20px">
+            加密：
+            <el-switch
+              v-model="dialog.node.isPrivate"
+              active-color="#13ce66"
+              inactive-color="#aaa"></el-switch>
+          </div>
+        </div>
+        <span
+          slot="footer"
+          class="dialog-footer">
+          <el-button @click="dialog.show = false">取 消</el-button>
+          <el-button
+            type="primary"
+            @click="onSaveDocNode">
+            确 定
+          </el-button>
+        </span>
+      </el-dialog>
+    </div>
+    <script
+      src="./utils/vue.min.js"
+      charset="utf-8"></script>
+    <script
+      src="./utils/common.js"
+      charset="utf-8"></script>
+    <script
+      src="./utils/copy-to-clipboard.js"
+      charset="utf-8"></script>
+    <script
+      src="./utils/moment.js"
+      charset="utf-8"></script>
+    <script
+      src="./utils/element-ui/index.js"
+      charset="utf-8"></script>
+    <script src="./utils/element-ui-util.js"></script>
+    <script
+      src="./utils/crypto-js-4.1.1/crypto-js.js"
+      type="text/javascript"></script>
+    <script
+      src="./utils/jquery-1.4.3.js"
+      charset="utf-8"></script>
+    <!-- <script src="./utils/socket.io.min.js"></script> -->
+    <script src="./utils/marked.min.js"></script>
+    <script src="./utils/vue-clipboard.min.js"></script>
+    <script src="./js/systemconfig.js"></script>
+
+    <script src="./js/dal/github-gist.js"></script>
+    <script src="./js/dal/cess.js"></script>
+    <script src="./utils/chatgpt.js"></script>
+
+    <!-- <script src="./js/dal/api.js"></script>
+    <script src="./js/dal/local-storage.js"></script> -->
+
+    <script src="./js/dal/index.js"></script>
+    <script
+      src="./js/main.js"
+      charset="utf-8"></script>
+  </body>
+</html>

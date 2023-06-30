@@ -1,0 +1,41 @@
+.auto_read_play.auto_read_play.auto_read_play.auto_read_play {
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/iconCollection3.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/iconCollection3.svg');
+}
+.auto_read_play {
+  -webkit-mask-image:/* webpackIgnore: true */ url('/assets/iconCollection3.svg');
+  mask-image:/* webpackIgnore: true */ url('/assets/iconCollection3.svg');
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
+.root {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 625px;
+  height: 463px;
+  flex: 1;
+  flex-direction: column;
+  place-content: space-between;
+  align-items: flex-start;
+  border-radius: 8px;
+  background-color: rgb(26,27,28);
+  backdrop-filter: blur(8px);
+}
+.frame2810 {
+  width: min-content;
+  height: min-content;
+  padding: 22px 40px 0;
+}
+.youCanAskEGHowDoYouDefineTheTe {
+  /* opacity: 0.3; */
+  color: #fff;
+  font-size: 16px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: 545px;
+  height: min-content;
+  flex-direction: column;
+}

@@ -1,0 +1,13 @@
+[package]
+name = "storage-io"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+parity-scale-codec = { version = "3", default-features = false }
+gstd = { git = "https://github.com/gear-tech/gear.git", rev = "78dfa07" }
+scale-info = { version = "2", default-features = false }
+primitive-types = { version = "0.12.1", default-features = false }
+gmeta = { git = "https://github.com/gear-tech/gear.git", rev = "78dfa07" }

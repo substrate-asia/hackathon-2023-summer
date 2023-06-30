@@ -1,5 +1,8 @@
 # NFT-Fi Twitter
 
+The code is moving to <https://github.com/Web3Hacker-World/web3-rwa-wallet> since 2023/06/23.
+代码已经于 2023/06/23 移到 <https://github.com/Web3Hacker-World/web3-rwa-wallet>
+
 A NFT powered WebExtension ([Chrome](https://developer.chrome.com/docs/extensions/reference/), [FireFox](https://addons.mozilla.org/en-US/developers/), etc.) that provide the Finance solution for Twitter Web.
 
 <p align="center">

@@ -1,8 +1,8 @@
-import {BigNumberish, BytesLike, ethers} from "ethers";
+import {BigNumberish, Bytes, BytesLike, ethers} from "ethers";
 import { DataSource } from "typeorm"
 import {User_address} from "../../entity";
 import {returnResponse} from "../../utils";
-
+import {RedisClient,config} from "../../config";
 export class ChainService{
     constructor(readonly wallet:ethers.Wallet,
                 readonly tokenPaymaster:ethers.Contract,
@@ -17,11 +17,21 @@ export class ChainService{
         let resp:any
 
         try {
+
+            let count = await this.orm.getRepository(User_address).createQueryBuilder("user_address").
+            where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getCount()
+            if (count >= 1){
+                resp = returnResponse("","该账号已经创建了子账号,无法重复创建")
+                return  resp
+            }
+
+            await this.simpleAccountFactory.createAccount(owner_address.owner_address,123456);
             let address = await this.simpleAccountFactory.getAddress(owner_address.owner_address, 2);
 
             let userAddress = new User_address();
             userAddress.AccountOwnerAddress = owner_address.owner_address;
             userAddress.AccountChildAddress = address;
+
            let orm_resp = await this.orm.manager.insert(User_address,userAddress);
 
 
@@ -35,13 +45,17 @@ export class ChainService{
         return resp;
     }
 
-    GetAccount = async (owner_address:any)=>{
+    GetAccount = async (data:any)=>{
 
         let resp:any
         try {
 
+            let query:string = data.query
+            let params:string[] = query.split("?")
+            let ownerAddress:string[] = params[1].split("=")
+
             let orm_resp = await this.orm.getRepository(User_address).
-            createQueryBuilder("user_address").where("user_address.account_owner_address=:param1",{param1:owner_address.owner_address}).getMany();
+            createQueryBuilder("user_address").where("user_address.account_owner_address=:param1",{param1:ownerAddress[1]}).getMany();
 
             resp = returnResponse(orm_resp,"success")
 
@@ -56,26 +70,15 @@ export class ChainService{
          //to: 0xaE17e14F70fE91C1374ff9f779F393051c17268C
 
         let resp:any;
-        class UserOperation{
-            sender!: string;
-            nonce!: BigNumberish;
-            initCode!: BytesLike;
-            callData!: BytesLike;
-            callGasLimit!: BigNumberish;
-            verificationGasLimit!: BigNumberish;
-            preVerificationGas!: BigNumberish;
-            maxFeePerGas!: BigNumberish;
-            maxPriorityFeePerGas!: BigNumberish;
-            paymasterAndData!: BytesLike;
-            signature!: BytesLike;
-        }
 
         try {
-            let userOperation = new UserOperation();
 
-            Object.assign(userOperation,data)
+            let data2 = JSON.stringify(data)
 
-            this.entryPoint.handleOps([data],this.accountOwnerAddress)
+            let isOk = await RedisClient.lPush(config.redis.task_trade!,data2)
+            if (!isOk){
+                return returnResponse("","提交交易失败!")
+            }
 
             resp = returnResponse("","success")
 

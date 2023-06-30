@@ -1,0 +1,209 @@
+.global-navbar-container {
+  /* creator space - model card */
+
+  z-index: 9999;
+  /* Auto layout */
+
+  padding-top: 98.72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0px 0px;
+
+  position: fixed;
+  width: 100%;
+  height: 98.72px;
+  left: 0px;
+  top: 0px;
+  font-family: 'SF Pro';
+
+  background: #0D0E0F;
+}
+
+.global-navbar-container2 {
+  /* Frame 2541 */
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  gap: 0px;
+
+  width: 1728px;
+  height: 52.72px;
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.global-navbar-container .img1 {
+  /* Frame 2542 */
+
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 285px;
+  gap: 12px;
+
+  width: 204.72px;
+  height: 52.72px;
+
+  opacity: 0.9;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.global-navbar-container2 .input-container {
+  /* text field */
+
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 10px;
+
+  width: 444px;
+  height: 48px;
+
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.img2 {
+  /* Frame 2547 */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 290px;
+  padding: 12px 25px;
+  gap: 10px;
+
+  width: 250.72px; 
+  height: 60.72px;
+
+  /* background: #336F87; */
+  border-radius: 12px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+
+}
+
+
+.global-navbar-container2 .img2:hover {
+  cursor: pointer;
+}
+
+.global-navbar-container2 p {
+  background-color: #387B94;
+  /* Set the background color to dark gray */
+  color: white;
+  /* Set the text color to white */
+  padding: 10px;
+  /* Add some padding to the container */
+  margin-right: 290px;
+
+}
+
+.search-bar {
+  /* text field */
+
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 10px;
+
+  width: 444px;
+  height: 56px;
+
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+
+
+}
+
+.creator-space{
+  /* Creator Space */
+
+
+width: 140px;
+height: 19px;
+margin-right: 200px;
+font-family: 'SF Pro';
+font-style: normal;
+font-weight: 540;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+opacity: 0.9;
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+
+
+.error-message {
+  color: #9b1d20; /* This is a dark, rich red, less glaring than pure red */
+  background-color: #fdecea; /* A very light, soft red for the background */
+  border: 1px solid #9b1d20; /* A border that matches the text color */
+  border-radius: 5px; /* Rounded corners for a softer look */
+  padding: 10px; /* Some padding so the text isn't up against the edge of the box */
+  margin: 10px 0; /* Add some space above and below the message */
+  font-family: Arial, sans-serif; /* A clean, readable font */
+  font-size: 16px; /* A readable font size */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* A subtle shadow for a bit of depth */
+}

@@ -1,0 +1,1 @@
+export { WalletService } from "./wallet_service"

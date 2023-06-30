@@ -1,0 +1,26 @@
+<body>
+    <button id="buy_now">Buy now</button>
+</body>
+<script src="https://pay.sandbox.zoksh.com/public/embed.js" ></script>
+<script>
+  document.querySelector('#buy_now').addEventListener('click', async () => {
+    const mp = new Zoksh({
+      mode: 'ramp',
+      apiKey: 'sk_test_9Cy8rnuotQkEZZyhVgDE+g==',
+      environment: 'test', // test , prod
+      prefill: {
+        name: 'Demo user',
+        email: 'demo@demo.com'
+      },
+      rampConfig: {
+        wallets: {
+            ethereum: '0x425d06f5218f19b51fB3415FbAAa00CCCAB61cEf',
+            bitcoin: '0x425d06f5218f19b51fB3415FbAAa00CCCAB61cEf'
+        },
+        networks: ['ethereum', 'bitcoin'],
+        cryptos: ['ETH','BTC']
+      }
+    });
+    mp.init();
+  })
+</script>  

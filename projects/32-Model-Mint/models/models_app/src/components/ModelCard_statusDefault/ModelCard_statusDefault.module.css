@@ -1,0 +1,103 @@
+.modelNameLogo.modelNameLogo {
+  left: 22px;
+  top: 10px;
+}
+.root {
+  opacity: 0.9;
+  position: relative;
+  width: 320px;
+  height: 196px;
+  align-items: flex-start;
+  outline: solid 1px #00000026;
+  background-color: #1e1e1e;
+  /* border-radius: 6px; */
+  /* background-color: #282828, #262626; */
+  overflow: hidden;
+  box-shadow: -10px -10px 200px 0px #187ea505;
+}
+.rectangle1 {
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  height: 45px;
+  background-color: #50505080;
+}
+.gPT3IsTheLanguageModelIMCurren {
+  opacity: 0.5;
+  color: #fff;
+  font-size: 14px;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  position: absolute;
+  left: 22px;
+  bottom: 10px;
+  width: 276px;
+  height: min-content;
+  flex-direction: column;
+}
+.frame5 {
+  position: absolute;
+  right: 0;
+  top: 9px;
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 14px;
+}
+/* .frame {
+  width: 33px;
+  height: 22px;
+} */
+.icon {
+  width: 100%;
+  height: 100%;
+}
+/* .frame4 {
+  width: min-content;
+  height: min-content;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 24px 3px 8px;
+  border-radius: 6px;
+}
+.frame2 {
+  width: 18px;
+  height: 18px;
+} */
+.icon2 {
+  width: 100%;
+  height: 100%;
+}
+.run {
+  color: #3a84a1;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.modelNameGPT3 {
+  opacity: 0.9;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: 'SF Pro', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
+    'Liberation Sans', sans-serif;
+  position: absolute;
+  left: 22px;
+  top: 90px;
+  width: min-content;
+  height: min-content;
+  white-space: nowrap;
+  flex-direction: column;
+}
+.modelImage {
+  width: 100px;
+  height: 100px;
+  margin-left: 10px; /* add 10 pixels of margin to the left of the image */
+}

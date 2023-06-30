@@ -23,14 +23,14 @@ export class Chain{
             this.entryPoint,
             this.rom,
             this.accountOwnerAddress)
-        await this._invoker.listen("/createUser",async (data: any)=>{
+        await this._invoker.listen("chain/createUser",async (data: any)=>{
             let body = JSON.parse(data.body)
             return new Message(await chain_service.CreateAccount(body)).Success();
         },{ method: HttpMethod.POST })
 
         await this._invoker.listen("chain/getUser",async (data:any) =>{
-            let body = JSON.parse(data.body);
-            return new Message(await chain_service.GetAccount(body)).Success();
+            // let body = JSON.parse(data.body);
+            return new Message(await chain_service.GetAccount(data)).Success();
         },{method:HttpMethod.GET})
         await this._invoker.listen("chain/fundsTransfer",async (data:any)=>{
             let body = JSON.parse(data.body)

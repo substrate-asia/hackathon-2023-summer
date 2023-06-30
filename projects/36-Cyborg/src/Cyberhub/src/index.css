@@ -1,0 +1,47 @@
+body {
+  background-color: #292d3e;
+  color: #f8f8f2;
+  font-family: "Fira Code", monospace;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+pre {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1e2132;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+textarea {
+  background-color: transparent;
+  color: #f8f8f2;
+  border: none;
+  border-bottom: 1px solid #f8f8f2;
+  font-family: "Fira Code", monospace;
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 10px;
+  width: 100%;
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background-color: #6272a4;
+  color: #f8f8f2;
+  border: none;
+  border-radius: 5px;
+  font-family: "Fira Code", monospace;
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 10px;
+  margin-top: 10px;
+  display: block;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: #f8f8f2;
+  color: #6272a4;
+}

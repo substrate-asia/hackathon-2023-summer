@@ -39,3 +39,24 @@ export function returnResponse(data:any,msg:any):any{
 
 	return resp;
 }
+
+let codeStr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+export function GetCode(count:number):string {
+
+	let str = '';
+	     // 验证码有几位就循环几次
+	for (let i = 0;i < count;i ++) {
+		let ran = getRandom(0, 62);
+		 str += codeStr.charAt(ran);
+	}
+
+	return str
+}
+ function getRandom(n:number, m:number):number { // param: (Number, Number)
+	if (n > m) {
+		let temp = n;
+		n = m;
+		m = temp;
+	}
+	return Math.floor(Math.random()*(m - n) + n);
+}

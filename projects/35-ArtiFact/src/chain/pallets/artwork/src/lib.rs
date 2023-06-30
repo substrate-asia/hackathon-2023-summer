@@ -2,15 +2,19 @@
 
 pub use pallet::*;
 
+mod coin_price;
+
 #[frame_support::pallet]
 pub mod pallet {
+	use crate::coin_price::CoinPriceInfo;
 	pub use frame_support::pallet_prelude::*;
 	use frame_support::{
 		traits::{Currency, ExistenceRequirement},
 		PalletId,
 	};
 	pub use frame_system::pallet_prelude::*;
-	use sp_runtime::{traits::AccountIdConversion, ArithmeticError};
+	use sp_core::offchain::Duration;
+	use sp_runtime::{offchain::http, traits::AccountIdConversion, ArithmeticError};
 	pub use sp_std::prelude::*;
 
 	const STORAGE_VERSION: StorageVersion = StorageVersion::new(1);
@@ -67,6 +71,10 @@ pub mod pallet {
 	#[pallet::storage]
 	pub type CountForArtworks<T: Config> = StorageValue<_, u64, ValueQuery>;
 
+	/// Real-time artwork price to create an artwork or destroy an artwork.
+	#[pallet::storage]
+	pub type RealTimeArtworkPrice<T: Config> = StorageValue<_, BalanceOf<T>, OptionQuery>;
+
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
@@ -106,7 +114,22 @@ pub mod pallet {
 	}
 
 	#[pallet::hooks]
-	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {}
+	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
+		fn offchain_worker(_block_number: T::BlockNumber) {
+			if let Ok(coin) = Self::fetch_coin_price_info() {
+				log::info!("OCW ==> coin price info: {:?}", coin);
+				let price = sp_std::str::from_utf8(&coin.price)
+					.map_err(|_| {
+						log::warn!("No UTF8 body");
+						http::Error::Unknown
+					})
+					.unwrap();
+				RealTimeArtworkPrice::<T>::set(Some(price.parse::<u8>().unwrap().into()));
+			} else {
+				log::info!("OCW ==> Error while fetch coin price info!");
+			}
+		}
+	}
 
 	#[pallet::call]
 	impl<T: Config> Pallet<T> {
@@ -232,11 +255,10 @@ pub mod pallet {
 			let count = CountForArtworks::<T>::get();
 			let new_count = count.checked_add(1).ok_or(ArithmeticError::Overflow)?;
 
-			let artwork_price = T::ArtworkPrice::get();
 			T::Currency::transfer(
 				&who,
 				&Self::get_pallet_account_id(),
-				artwork_price,
+				Self::pledge_artwork_price(),
 				ExistenceRequirement::KeepAlive,
 			)?;
 
@@ -324,7 +346,7 @@ pub mod pallet {
 			T::Currency::transfer(
 				&Self::get_pallet_account_id(),
 				&who,
-				T::ArtworkPrice::get(),
+				Self::pledge_artwork_price(),
 				ExistenceRequirement::KeepAlive,
 			)?;
 
@@ -341,6 +363,46 @@ pub mod pallet {
 			Self::deposit_event(Event::DestroyArtwork { owner: who, ipfs_cid });
 
 			Ok(())
+		}
+
+		// Fetch coin price info by ocw
+		fn fetch_coin_price_info() -> Result<CoinPriceInfo, http::Error> {
+			// prepare for send request
+			let deadline = sp_io::offchain::timestamp().add(Duration::from_millis(1_000));
+			// TODO btc for now and our currency later
+			let request =
+				http::Request::get("https://data.binance.com/api/v3/avgPrice?symbol=BTCUSDT");
+			let pending = request
+				.add_header("User-Agent", "Substrate-Offchain-Worker")
+				.deadline(deadline)
+				.send()
+				.map_err(|_| http::Error::IoError)?;
+			let response =
+				pending.try_wait(deadline).map_err(|_| http::Error::DeadlineReached)??;
+			if response.code != 200 {
+				log::warn!("Unexpected status code: {}", response.code);
+				return Err(http::Error::Unknown)
+			}
+			let body = response.body().collect::<Vec<u8>>();
+			let body_str = sp_std::str::from_utf8(&body).map_err(|_| {
+				log::warn!("No UTF8 body");
+				http::Error::Unknown
+			})?;
+
+			// parse the response str
+			let coin_price: CoinPriceInfo =
+				serde_json::from_str(body_str).map_err(|_| http::Error::Unknown)?;
+
+			Ok(coin_price)
+		}
+
+		// Fetch the artwork price to create an artwork or destroy an artwork.
+		fn pledge_artwork_price() -> BalanceOf<T> {
+			if let Some(coin) = RealTimeArtworkPrice::<T>::get() {
+				coin
+			} else {
+				T::ArtworkPrice::get()
+			}
 		}
 	}
 }

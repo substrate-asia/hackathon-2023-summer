@@ -64,7 +64,7 @@ pub mod pallet {
 
     #[pallet::pallet]
     #[pallet::without_storage_info]
-    pub struct Pallet<T>(_);
+    pub struct Pallet<T>(_);  //why carry around a T everywhere?
 
     #[pallet::config]
     pub trait Config: frame_system::Config {
@@ -76,7 +76,7 @@ pub mod pallet {
         /// The time-out for reward
         type RoundDuration: Get<Self::BlockNumber>;
 
-        /// The max number of compression validator
+        /// The max number of compression validator  // should there be a max of miners?
         #[pallet::constant]
         type MaxValidatorNum: Get<u32>;
 
@@ -140,7 +140,7 @@ pub mod pallet {
 
         ValidatorNotRegistered,
 
-        LessThenBestCompressionRate,
+        LessThanBestCompressionRate,
 
         NoneUnVerifyProofs,
 
@@ -180,7 +180,7 @@ pub mod pallet {
                     ratios.push(reward_ratio);
 
                 }
-                <RewardRatioPerRound<T>>::insert(current_round, ratios);
+                <RewardRatioPerRound<T>>::insert(current_round, ratios); //在哪里给奖励币RewardRatioPerRound?
 
                 //round数增加1
                 <CurrentRound<T>>::mutate(|i| *i += 1 );
@@ -219,15 +219,15 @@ pub mod pallet {
             let sender = ensure_signed(origin)?;
 
             let validators = <Validators<T>>::get();
-            ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered);
+            ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered); //must submitters be validators????
             let round = <CurrentRound<T>>::get();
             let best_compression_rate = <BestCompressionRate<T>>::get(round);
-            ensure!(best_compression_rate < compression_rate, Error::<T>::LessThenBestCompressionRate);
+            ensure!(best_compression_rate < compression_rate, Error::<T>::LessThanBestCompressionRate);
 
             let proof_count = <ProofCount<T>>::get();
             // 创建新的 Proof 结构体
             let proof = Proof {
-                proof_index: proof_count,
+                proof_index: proof_count,  //make sure proof_count only increases
                 model_index: model_index,
                 account_id: sender.clone(),
                 compression_rate,
@@ -250,7 +250,7 @@ pub mod pallet {
             ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered);
             let mut proofs = <UnVerifyProofs<T>>::get();
 
-            //验证成功或失败的节点打到指定数量后，将Proof从待验证的列表中移除，若验证成功的节点数达标，将Proof存入验证成功的列表
+            //验证成功或失败的节点达到指定数量后，将Proof从待验证的列表中移除，若验证成功的节点数达标，将Proof存入验证成功的列表
             if let Some(mut verification) = <Verifications<T>>::get(&proof_index) {
                 if result {
                     verification.verify_success_account.push(sender);
@@ -285,13 +285,16 @@ pub mod pallet {
                 proof_index: proof_index,
                 verify_success_account: Vec::new(),
                 verify_failed_account: Vec::new(),
+                //然后不goto 254吗????
             };
+            
 
             if result {
                 verification.verify_success_account.push(sender)
             } else {
                 verification.verify_failed_account.push(sender)
             }
+            
 
             <Verifications<T>>::insert(proof_index, verification);
             Ok(())

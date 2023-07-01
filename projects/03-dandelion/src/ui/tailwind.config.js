@@ -50,10 +50,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
-        mono: ['"Roboto Mono"', ...defaultTheme.fontFamily.mono],
-        jp: ['"Noto Sans JP"', ...defaultTheme.fontFamily.sans],
-        roboto: ['"Roboto"', ...defaultTheme.fontFamily.sans],
+        poppins: ["Poppins", "sans-serif"],
+        // sans: ['"Inter"', ...defaultTheme.fontFamily.sans],
+        // mono: ['"Roboto Mono"', ...defaultTheme.fontFamily.mono],
+        // jp: ['"Noto Sans JP"', ...defaultTheme.fontFamily.sans],
+        // roboto: ['"Roboto"', ...defaultTheme.fontFamily.sans],
       },
     },
     screens: {

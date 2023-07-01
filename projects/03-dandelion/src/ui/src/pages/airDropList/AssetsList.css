@@ -38,3 +38,12 @@
   );
   border-image-slice: 1;
 }
+.tooltip-text {
+  /* 隐藏提示语 */
+  display: none;
+}
+
+img:hover + .tooltip-text {
+  /* 鼠标悬停时显示提示语 */
+  display: block;
+}

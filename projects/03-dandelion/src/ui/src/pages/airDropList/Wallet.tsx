@@ -1,11 +1,11 @@
 import { useAccount } from "wagmi";
 import { Logo } from "../../assets";
 import { FaWallet } from "react-icons/fa";
-import {useConn} from "../../web3/hook/UseConn";
+import { useConn } from "../../web3/hook/UseConn";
 
 function Wallet() {
-  const {address} = useAccount() // 当前连接的账号
-  const [, onClick] = useConn() // 连接或断开
+  const { address } = useAccount(); // 当前连接的账号
+  const [, onClick] = useConn(); // 连接或断开
 
   return (
     <div className="flex flex-row ">
@@ -19,7 +19,7 @@ function Wallet() {
         </span>
       </div>
       <div className="px-3 py-1 flex flex-row justify-start items-center border-solid border rounded-3xl ml-10">
-        <img src={Logo} alt="" className="w-8 h-8" />
+        <img src={Logo} alt="" className="w-6 h-6" />
         <span className="pl-1">Dondelion</span>
         {/* <span className="pl-1"> Connect</span> */}
       </div>

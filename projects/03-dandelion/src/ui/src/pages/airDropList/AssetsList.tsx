@@ -2,7 +2,7 @@ import { Tree } from "assets";
 import "./AssetsList.css";
 import { balanceStr } from "../../web3/wagmi/Balance";
 import { useMyNativeBalance, useMyVEBalance } from "../../web3/hook/UseBalance";
-import { Button } from "antd";
+// import { Button } from "antd";
 
 export default function AssetsList() {
   return (
@@ -61,9 +61,20 @@ export default function AssetsList() {
           </div>
         </div>
       </div>
-      <div>
-        <img src={Tree} alt="" className="w-[500px] h-[500px]" />
-        <Button>浇水</Button>
+      <div className="flex flex-col flex-1 items-center">
+        <div className="flex items-center w-full h-[60%] justify-center tooltip relative">
+          {/* TODO: Tree要根据某个值进行判断 */}
+          <img
+            src={Tree}
+            alt=""
+            className="w-[300px] self-end cursor-pointer"
+          />
+          {/* TODO:是否需要判断已经签到的逻辑 */}
+          <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
+            点一点，给植物浇个水签到吧
+          </span>
+        </div>
+        {/* <Button className="w-[80px] mt-5">浇水</Button> */}
       </div>
     </div>
   );

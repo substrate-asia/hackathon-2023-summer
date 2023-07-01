@@ -60,15 +60,28 @@
   line-height: 60px;
 }
 
-/* @keyframes scroll {
+.scrolling-text {
+  white-space: nowrap; /* 保证文本只在一行显示 */
+  overflow: hidden; /* 隐藏超出容器宽度的部分 */
+  width: 100%; /* 设置容器宽度 */
+  padding: 10px; /* 添加内边距，仅为示例 */
+  position: relative; /* 设置相对定位 */
+}
+
+.scrolling-text-inner {
+  position: absolute; /* 设置绝对定位 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 宽度等于容器宽度 */
+}
+.scrolling-text:hover .scrolling-text-inner {
+  animation: scroll-animation 5s infinite linear; /* 鼠标悬停时应用动画 */
+}
+@keyframes scroll-animation {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-100%); /* 根据文本长度调整滚动距离 */
   }
 }
-
-.overflow-hidden:hover {
-  animation: scroll 10s linear infinite;
-} */

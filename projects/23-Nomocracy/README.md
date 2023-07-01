@@ -75,6 +75,16 @@ EightFish was started at the beginning of 2023, so we won't put it into the achi
 
 The GUTP and Discux were newly created projects for this hackathon.
 
+## Intending Lanes
+
+- C1. Parachain or Individual Chain
+- C4. Open Topic
+
+## Intending Bounties
+
+- Aliyun Cloud
+- CESS
+
 ## Planed Targets
 
 **GUTP**
@@ -123,6 +133,10 @@ The GUTP and Discux were newly created projects for this hackathon.
 
 - All stuff of GUTP
 - The backend stuff of Discux, with some compiling errors remaining
+
+## Future Plans
+
+We will test GUTP and Discux in the following three months (Jul. to Sep.), and make them go live in the last quater of 2023. 
 
 
 ## Members of This team

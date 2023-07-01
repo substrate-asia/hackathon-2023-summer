@@ -18,6 +18,7 @@ defmodule EvmscanApi.Graphql.Schema do
   import_types(EvmscanApi.Graphql.Type.SmartContract)
   import_types(EvmscanApi.Graphql.Type.TokenTransfer)
   import_types(EvmscanApi.Graphql.Type.Transaction)
+  import_types(EvmscanApi.Graphql.Type.Withdrawal)
 
   def middleware(middleware, _field, _object) do
     middleware

@@ -6,6 +6,29 @@ import {
   FaGithub as Github,
   FaYoutube as Youtube,
 } from "react-icons/fa";
+import {Address} from "wagmi";
+import AirDrops0 from "./AirDrops0.json";
+import AirDrops1 from "./AirDrops1.json";
+import AirDrops2 from "./AirDrops2.json";
+
+type AirDrop = {
+  id: number;
+  type: string;
+  airtoken: string;
+  logo: string;
+  name: string;
+  title: string;
+  desc: string;
+  rules: string[];
+  startblock: number;
+  endblock: number;
+  StakeToken: Address;
+  AIToken: Address;
+};
+
+const AIR_DROPS_0 = AirDrops0 as unknown as AirDrop[]
+const AIR_DROPS_1 = AirDrops1 as unknown as AirDrop[]
+const AIR_DROPS_2 = AirDrops2 as unknown as AirDrop[]
 
 const DANDELION_DESC = [
   {
@@ -26,75 +49,6 @@ const DANDELION_DESC = [
   },
 ];
 
-type AirDrop = {
-  title: string;
-  id: number;
-  logo: string;
-  desc?: string;
-  rules?: string[];
-};
-const AIRDROPS: AirDrop[] = [
-  {
-    id: 1,
-    title: "Moonbeam 突破 100 万用户,超级空投来袭!",
-    logo: "",
-    desc: `Moonbeam 作为 Polkadot 生态中的先锋平行链项目,经过不断努力终于在今天达到了 100 万用户这一重要里程碑。这标志着 Moonbeam 社区发展到了一个全新的阶段,更广泛的用户群体将共同见证 Moonbeam 的成长与发展。
-  为了感谢社区长期以来的支持与信任,Moonbeam 项目组决定发起一场超级空投活动。本次空投总量高达 10万 glmr 代币,预计将惠及绝大部分 Dandelion 社区成员。
-  
-  此外, Moonbeam 项目方还准备了社区大奖抽取活动,总奖励高达 10000 glmr 代币!只需要参与本次空投即有机会获得大奖!
-  Moonbeam 项目组衷心感谢所有支持者与社区成员长期以来的信任与陪伴。100 万用户只是起点,Moonbeam 将继续努力,推出更多惊喜与价值。让我们共同见证 Moonbeam 社区的快速发展与繁荣!`,
-    rules: [
-      "质押社区vetoken即可等比例领取glmr空投",
-      "每个账号最多可质押1000vetoken",
-      "本次共发放10万glmr代币空投，发完为止，先到先得",
-    ],
-  },
-  {
-    id: 2,
-    title: "Moonbeam 突破 100 万用户,超级空投来袭!",
-    logo: "",
-    desc: `Moonbeam 作为 Polkadot 生态中的先锋平行链项目,经过不断努力终于在今天达到了 100 万用户这一重要里程碑。这标志着 Moonbeam 社区发展到了一个全新的阶段,更广泛的用户群体将共同见证 Moonbeam 的成长与发展。
-  为了感谢社区长期以来的支持与信任,Moonbeam 项目组决定发起一场超级空投活动。本次空投总量高达 10万 glmr 代币,预计将惠及绝大部分 Dandelion 社区成员。
-  
-  此外, Moonbeam 项目方还准备了社区大奖抽取活动,总奖励高达 10000 glmr 代币!只需要参与本次空投即有机会获得大奖!
-  Moonbeam 项目组衷心感谢所有支持者与社区成员长期以来的信任与陪伴。100 万用户只是起点,Moonbeam 将继续努力,推出更多惊喜与价值。让我们共同见证 Moonbeam 社区的快速发展与繁荣!`,
-    rules: [
-      "质押社区vetoken即可等比例领取glmr空投",
-      "每个账号最多可质押1000vetoken",
-      "本次共发放10万glmr代币空投，发完为止，先到先得",
-    ],
-  },
-  {
-    id: 3,
-    title: "Moonbeam 突破 100 万用户,超级空投来袭!",
-    logo: "",
-    desc: `Moonbeam 作为 Polkadot 生态中的先锋平行链项目,经过不断努力终于在今天达到了 100 万用户这一重要里程碑。这标志着 Moonbeam 社区发展到了一个全新的阶段,更广泛的用户群体将共同见证 Moonbeam 的成长与发展。
-  为了感谢社区长期以来的支持与信任,Moonbeam 项目组决定发起一场超级空投活动。本次空投总量高达 10万 glmr 代币,预计将惠及绝大部分 Dandelion 社区成员。
-  
-  此外, Moonbeam 项目方还准备了社区大奖抽取活动,总奖励高达 10000 glmr 代币!只需要参与本次空投即有机会获得大奖!
-  Moonbeam 项目组衷心感谢所有支持者与社区成员长期以来的信任与陪伴。100 万用户只是起点,Moonbeam 将继续努力,推出更多惊喜与价值。让我们共同见证 Moonbeam 社区的快速发展与繁荣!`,
-    rules: [
-      "质押社区vetoken即可等比例领取glmr空投",
-      "每个账号最多可质押1000vetoken",
-      "本次共发放10万glmr代币空投，发完为止，先到先得",
-    ],
-  },
-  {
-    id: 4,
-    title: "Moonbeam 突破 100 万用户,超级空投来袭!",
-    logo: "",
-    desc: `Moonbeam 作为 Polkadot 生态中的先锋平行链项目,经过不断努力终于在今天达到了 100 万用户这一重要里程碑。这标志着 Moonbeam 社区发展到了一个全新的阶段,更广泛的用户群体将共同见证 Moonbeam 的成长与发展。
-  为了感谢社区长期以来的支持与信任,Moonbeam 项目组决定发起一场超级空投活动。本次空投总量高达 10万 glmr 代币,预计将惠及绝大部分 Dandelion 社区成员。
-  
-  此外, Moonbeam 项目方还准备了社区大奖抽取活动,总奖励高达 10000 glmr 代币!只需要参与本次空投即有机会获得大奖!
-  Moonbeam 项目组衷心感谢所有支持者与社区成员长期以来的信任与陪伴。100 万用户只是起点,Moonbeam 将继续努力,推出更多惊喜与价值。让我们共同见证 Moonbeam 社区的快速发展与繁荣!`,
-    rules: [
-      "质押社区vetoken即可等比例领取glmr空投",
-      "每个账号最多可质押1000vetoken",
-      "本次共发放10万glmr代币空投，发完为止，先到先得",
-    ],
-  },
-];
 // partners
 const PARTNERS: string[] = [];
 const NavLinks = [
@@ -140,5 +94,5 @@ const SOCIAL = [
   },
 ];
 
-export { PARTNERS, DANDELION_DESC, AIRDROPS, NavLinks, SOCIAL };
+export { PARTNERS, DANDELION_DESC, NavLinks, SOCIAL, AIR_DROPS_0, AIR_DROPS_1, AIR_DROPS_2 };
 export type { AirDrop };

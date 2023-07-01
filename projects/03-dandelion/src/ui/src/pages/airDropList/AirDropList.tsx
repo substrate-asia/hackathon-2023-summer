@@ -4,7 +4,7 @@ import "./AirDropList.css";
 import Wallet from "./Wallet";
 import AirDropListCard from "./AirDropCard";
 import AssetsList from "./AssetsList";
-// import Button from "components/Button";
+import { AIR_DROPS_0, AIR_DROPS_1, AIR_DROPS_2 } from "../../constants";
 
 function AirDropList() {
   return (
@@ -21,9 +21,18 @@ function AirDropList() {
       <div className={`${styles.paddingX}`}>
         <div className="airdrop-title"> AirDrop List</div>
         <div className=" w-full flex flex-row justify-between mt-1">
-          <AirDropListCard></AirDropListCard>
-          <AirDropListCard></AirDropListCard>
-          <AirDropListCard></AirDropListCard>
+          <AirDropListCard
+            airDropList={AIR_DROPS_0}
+            title='准备空投'
+          ></AirDropListCard>
+          <AirDropListCard
+            airDropList={AIR_DROPS_1}
+            title='正在空投'
+          ></AirDropListCard>
+          <AirDropListCard
+            airDropList={AIR_DROPS_2}
+            title='空投结束'
+          ></AirDropListCard>
         </div>
       </div>
       <div className={` ${styles.paddingX}`}>

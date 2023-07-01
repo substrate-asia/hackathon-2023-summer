@@ -467,8 +467,8 @@ pub mod pallet {
 			block_number: T::BlockNumber,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		) -> DispatchResult {
-			// Make sure the caller is from a signed origin
-			let _ = ensure_signed(origin)?;
+			// Make sure the caller is from sudo account.
+			let _ = ensure_root(origin)?;
 
 			// Get the artwork
 			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
@@ -749,8 +749,8 @@ pub mod pallet {
 				);
 			}
 
-			for (ipfs_cid, value) in ArtworksExpireBlockForLoan::<T>::iter() {
-				if block_number == value {
+			for (ipfs_cid, end_block_num) in ArtworksExpireBlockForLoan::<T>::iter() {
+				if block_number == end_block_num {
 					let results = signer.send_signed_transaction(|_account| Call::pledge_over {
 						block_number,
 						ipfs_cid: ipfs_cid.clone(),

@@ -16,13 +16,19 @@ function AirDropListCard({
         {airDropList.map((item, index) => {
           return (
             <NavLink to={`airdrop/${item.id}`} key={item.id}>
-              <div className="flex flex-row justify-start items-center3">
+              <div className="flex flex-row justify-start items-center">
                 <img src={Astar} alt="" className="w-[30px] h-[30px]" />
-                <div className="flex flex-col pl-3 overflow-hidden">
-                  <span className="font-300"> {item.name}</span>
-                  <span className="flex flex-grow overflow-hidden whitespace-nowrap">
-                    {item.desc}
-                  </span>
+
+                <div className="flex flex-col pl-3 overflow-hidden w-full">
+                  <span className="font-300 text-[18px]"> {item.name}</span>
+                  <div className="scrolling-text">
+                    <div className="scrolling-text-inner text-[14px] whitespace-nowrap">
+                      {item.desc}
+                    </div>
+                  </div>
+                  {/* <span className="overflow-hidden text-[14px] whitespace-nowrap"> */}
+
+                  {/* </span> */}
                 </div>
               </div>
               {index === airDropList.length - 1 ? (
@@ -33,11 +39,9 @@ function AirDropListCard({
             </NavLink>
           );
         })}
-
       </div>
     </div>
   );
 }
 
 export default AirDropListCard;
-

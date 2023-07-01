@@ -1,8 +1,37 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 pub use pallet::*;
+use sp_core::crypto::KeyTypeId;
 
 mod coin_price;
+
+pub const KEY_TYPE: KeyTypeId = KeyTypeId(*b"ocwd");
+pub mod crypto {
+	use super::KEY_TYPE;
+	use sp_core::sr25519::Signature as Sr25519Signature;
+	use sp_runtime::{
+		app_crypto::{app_crypto, sr25519},
+		traits::Verify,
+		MultiSignature, MultiSigner,
+	};
+	app_crypto!(sr25519, KEY_TYPE);
+
+	pub struct OcwAuthId;
+
+	impl frame_system::offchain::AppCrypto<MultiSigner, MultiSignature> for OcwAuthId {
+		type RuntimeAppPublic = Public;
+		type GenericPublic = sp_core::sr25519::Public;
+		type GenericSignature = sp_core::sr25519::Signature;
+	}
+
+	impl frame_system::offchain::AppCrypto<<Sr25519Signature as Verify>::Signer, Sr25519Signature>
+		for OcwAuthId
+	{
+		type RuntimeAppPublic = Public;
+		type GenericPublic = sp_core::sr25519::Public;
+		type GenericSignature = sp_core::sr25519::Signature;
+	}
+}
 
 #[frame_support::pallet]
 pub mod pallet {
@@ -12,17 +41,20 @@ pub mod pallet {
 		traits::{Currency, ExistenceRequirement},
 		PalletId,
 	};
+	use frame_system::offchain::{
+		AppCrypto, CreateSignedTransaction, SendSignedTransaction, Signer,
+	};
 	pub use frame_system::pallet_prelude::*;
 	use sp_core::offchain::Duration;
 	use sp_runtime::{
 		offchain::http,
-		traits::{AccountIdConversion, CheckedSub},
+		traits::{AccountIdConversion, CheckedSub, Zero},
 		ArithmeticError, Permill,
 	};
 	pub use sp_std::prelude::*;
 
 	// The tax rate of pallet is 0.1%.
-	pub const PALLET_TAX_RATE: Permill = Permill::from_parts(1_000);
+	const PALLET_TAX_RATE: Permill = Permill::from_parts(1_000);
 	const STORAGE_VERSION: StorageVersion = StorageVersion::new(1);
 	type BalanceOf<T> =
 		<<T as Config>::Currency as Currency<<T as frame_system::Config>::AccountId>>::Balance;
@@ -54,20 +86,17 @@ pub mod pallet {
 
 	/// Configure the pallet by specifying the parameters and types on which it depends.
 	#[pallet::config]
-	pub trait Config: frame_system::Config {
+	pub trait Config: frame_system::Config + CreateSignedTransaction<Call<Self>> {
 		/// The maximum length of ipfs cid that can be added.
 		#[pallet::constant]
 		type MaxArtworkCapacity: Get<u32>;
-
 		/// Because this pallet emits events, it depends on the runtime's definition of an event.
 		type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
-
 		type Currency: Currency<Self::AccountId>;
-
 		type PalletId: Get<PalletId>;
-
 		#[pallet::constant]
 		type ArtworkPrice: Get<BalanceOf<Self>>;
+		type AuthorityId: AppCrypto<Self::Public, Self::Signature>;
 	}
 
 	#[pallet::storage]
@@ -176,54 +205,12 @@ pub mod pallet {
 	#[pallet::hooks]
 	impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
 		fn offchain_worker(block_number: T::BlockNumber) {
-			// Do...
-			for (ipfs_cid, value) in ArtworksExpireBlockForLoan::<T>::iter() {
-				if block_number == value {
-					// Get the artwork
-					let mut artwork =
-						Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
-					// Compute the tax fee.
-					let tax = artwork
-						.collateral_interest_rate
-						.unwrap()
-						.checked_sub(&PALLET_TAX_RATE)
-						.unwrap();
-					// Compute the total fee.
-					let total_fee = tax.mul_ceil(artwork.collateral_fee.unwrap());
-					T::Currency::transfer(
-						&Self::get_pallet_account_id(),
-						&artwork.owner,
-						total_fee,
-						ExistenceRequirement::KeepAlive,
-					)
-					.unwrap();
+			log::info!("OCW ==> Enter off chain workers!: {:?}", block_number);
 
-					// Update the artwork collateral info to `None`.
-					artwork.collateral_fee = None;
-					artwork.collateral_period = None;
-					artwork.collateral_interest_rate = None;
-					artwork.collateral_for = None;
-					Artworks::<T>::insert(&ipfs_cid, artwork);
-					ArtworksOnLoan::<T>::remove(&ipfs_cid);
+			Self::set_price_by_signed_tx(block_number);
+			Self::pledge_over_by_signed_tx(block_number);
 
-					// Deposit a "ArtworkLoanOver" event.
-					Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
-				}
-			}
-
-			// Get coin price.
-			if let Ok(coin) = Self::fetch_coin_price_info() {
-				log::info!("OCW ==> coin price info: {:?}", coin);
-				let price = sp_std::str::from_utf8(&coin.price)
-					.map_err(|_| {
-						log::warn!("No UTF8 body");
-						http::Error::Unknown
-					})
-					.unwrap();
-				RealTimeArtworkPrice::<T>::set(Some(price.parse::<u8>().unwrap().into()));
-			} else {
-				log::info!("OCW ==> Error while fetch coin price info!");
-			}
+			log::info!("OCW ==> Leave from off chain workers!: {:?}", block_number);
 		}
 	}
 
@@ -437,6 +424,7 @@ pub mod pallet {
 			// Renewal the artwork storage message.
 			artwork.collateral_for = Some(who.clone());
 			Artworks::<T>::insert(&ipfs_cid, artwork.clone());
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			// Compute the total fee.
 			let total_fee = artwork
@@ -449,6 +437,65 @@ pub mod pallet {
 				total_fee,
 				ExistenceRequirement::KeepAlive,
 			)?;
+
+			Ok(())
+		}
+
+		/// Set real-time artwork price.
+		///
+		/// Updates storage.
+		#[pallet::call_index(8)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn set_real_time_artwork_price(
+			origin: OriginFor<T>,
+			price: Option<BalanceOf<T>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a root origin.
+			let _ = ensure_root(origin)?;
+
+			RealTimeArtworkPrice::<T>::set(price);
+			Ok(())
+		}
+
+		/// Over the collateral.
+		///
+		/// Updates storage.
+		#[pallet::call_index(9)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn pledge_over(
+			origin: OriginFor<T>,
+			block_number: T::BlockNumber,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let _ = ensure_signed(origin)?;
+
+			// Get the artwork
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
+			// Compute the tax fee.
+			let tax =
+				artwork.collateral_interest_rate.unwrap().checked_sub(&PALLET_TAX_RATE).unwrap();
+			// Compute the total fee.
+			let total_fee = tax.mul_ceil(artwork.collateral_fee.unwrap());
+
+			T::Currency::transfer(
+				&Self::get_pallet_account_id(),
+				&artwork.owner,
+				total_fee,
+				ExistenceRequirement::KeepAlive,
+			)
+			.unwrap();
+
+			// Update the artwork collateral info to `None`.
+			artwork.collateral_fee = None;
+			artwork.collateral_period = None;
+			artwork.collateral_interest_rate = None;
+			artwork.collateral_for = None;
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
+
+			// Deposit a "ArtworkLoanOver" event.
+			Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
 
 			Ok(())
 		}
@@ -643,6 +690,96 @@ pub mod pallet {
 				coin
 			} else {
 				T::ArtworkPrice::get()
+			}
+		}
+
+		// Transfer vec ceil to type BalanceOf.
+		fn vec_to_balance_ceil(price: &Vec<u8>) -> BalanceOf<T> {
+			let price = sp_std::str::from_utf8(price)
+				.map_err(|_| {
+					log::warn!("No UTF8 body");
+					http::Error::Unknown
+				})
+				.unwrap();
+
+			// Discard fractional part.
+			let split_price: Vec<&str> = price.split('.').collect();
+			let int_part: u32 = split_price[0].parse().unwrap();
+
+			let price: BalanceOf<T> = int_part.into();
+			price
+		}
+
+		// Set real-time artwork price by sending a signed tx.
+		fn set_price_by_signed_tx(block_number: T::BlockNumber) {
+			// Execute once a day
+			if (block_number % 14400u32.into()) == Zero::zero() {
+				let signer = Signer::<T, T::AuthorityId>::all_accounts();
+				if !signer.can_sign() {
+					log::error!(
+					"No local accounts available. Consider adding one via `author_insertKey` RPC."
+				);
+				}
+
+				let price = Self::ocw_get_coin_price();
+				let results = signer.send_signed_transaction(|_account| {
+					Call::set_real_time_artwork_price { price }
+				});
+
+				for (acc, res) in &results {
+					match res {
+						Ok(()) => log::info!(
+							"[{:?}] Submitted real-time artwork price:{:?}",
+							acc.id,
+							price
+						),
+						Err(e) =>
+							log::error!("[{:?}] Failed to submit transaction: {:?}", acc.id, e),
+					}
+				}
+			}
+		}
+
+		// Set real-time artwork price by sending a signed tx.
+		fn pledge_over_by_signed_tx(block_number: T::BlockNumber) {
+			let signer = Signer::<T, T::AuthorityId>::all_accounts();
+			if !signer.can_sign() {
+				log::error!(
+					"No local accounts available. Consider adding one via `author_insertKey` RPC."
+				);
+			}
+
+			for (ipfs_cid, value) in ArtworksExpireBlockForLoan::<T>::iter() {
+				if block_number == value {
+					let results = signer.send_signed_transaction(|_account| Call::pledge_over {
+						block_number,
+						ipfs_cid: ipfs_cid.clone(),
+					});
+
+					for (acc, res) in &results {
+						match res {
+							Ok(()) => log::info!(
+								"[{:?}] Over the collateral successfully at :{:?}",
+								acc.id,
+								block_number
+							),
+							Err(e) =>
+								log::error!("[{:?}] Failed to Over the collateral: {:?}", acc.id, e),
+						}
+					}
+				}
+			}
+		}
+
+		// Get coin price by ocw.
+		fn ocw_get_coin_price() -> Option<BalanceOf<T>> {
+			// Get coin price.
+			if let Ok(coin) = Self::fetch_coin_price_info() {
+				log::info!("coin price info: {:?}", coin);
+				Some(Self::vec_to_balance_ceil(&coin.price))
+			} else {
+				log::info!("Error while fetch coin price info!");
+				None
 			}
 		}
 	}

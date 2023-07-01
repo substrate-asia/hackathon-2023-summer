@@ -6,8 +6,8 @@ function AirDropListCard({
   airDropList = [],
   title = "即将空投",
 }: {
-  airDropList?: AirDrop[];
-  title?: string;
+  airDropList: AirDrop[];
+  title: string;
 }) {
   return (
     <div className="w-[400px] h-[400px] card-bg overflow-scroll">
@@ -33,9 +33,11 @@ function AirDropListCard({
             </NavLink>
           );
         })}
+
       </div>
     </div>
   );
 }
 
 export default AirDropListCard;
+

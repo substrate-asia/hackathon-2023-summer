@@ -6,6 +6,29 @@ import {
   FaGithub as Github,
   FaYoutube as Youtube,
 } from "react-icons/fa";
+import {Address} from "wagmi";
+import AirDrops0 from "./AirDrops0.json";
+import AirDrops1 from "./AirDrops1.json";
+import AirDrops2 from "./AirDrops2.json";
+
+type AirDrop = {
+  id: number;
+  type: string;
+  airtoken: string;
+  logo: string;
+  name: string;
+  title: string;
+  desc: string;
+  rules: string[];
+  startblock: number;
+  endblock: number;
+  StakeToken: Address;
+  AIToken: Address;
+};
+
+const AIR_DROPS_0 = AirDrops0 as unknown as AirDrop[]
+const AIR_DROPS_1 = AirDrops1 as unknown as AirDrop[]
+const AIR_DROPS_2 = AirDrops2 as unknown as AirDrop[]
 
 const DANDELION_DESC = [
   {
@@ -86,5 +109,6 @@ type AirDrop = {
   desc: string;
   rules: string[];
 };
-export { PARTNERS, DANDELION_DESC, NavLinks, SOCIAL };
+
+export { PARTNERS, DANDELION_DESC, NavLinks, SOCIAL, AIR_DROPS_0, AIR_DROPS_1, AIR_DROPS_2 };
 export type { AirDrop };

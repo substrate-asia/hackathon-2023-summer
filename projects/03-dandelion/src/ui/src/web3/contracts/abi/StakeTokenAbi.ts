@@ -185,6 +185,19 @@ export const StakeTokenAbi = [
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_stake_max_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "setStakeMaxAmount",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "signIn3day",
         "outputs": [],

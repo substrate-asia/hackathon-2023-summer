@@ -10,7 +10,7 @@ Project Starts From：2023.05.15
 
 ### Background
 
-Web3 has developed for years, and has achieved huge success in the field of crypto token (e.t. btc, stable coins, DeFi). People began to exploit the challenging realm of Internet, intending to copy the success from asset area, but they met obstacles. Years past, the Web3 app is yet hard to use, with high threshold and low response rate. There are some underlying limitations to explain why couln't the mainstream Web3 tech stack solve the requirements of Internet application (see: (my talk on RustChinaConf 2023)[https://www.bilibili.com/video/BV14X4y1p7De/?spm_id_from=333.999.0.0]) .
+Web3 has developed for years, and has achieved huge success in the field of crypto token (e.t. btc, stable coins, DeFi). People began to exploit the challenging realm of Internet, intending to copy the success from asset area, but they met obstacles. Years past, the Web3 app is yet hard to use, with high threshold and low response rate. There are some underlying limitations to explain why couln't the mainstream Web3 tech stack solve the requirements of Internet application (see: [my talk on RustChinaConf 2023](https://www.bilibili.com/video/BV14X4y1p7De/?spm_id_from=333.999.0.0)) .
 
 ### A New Proposal - EightFish
 
@@ -20,7 +20,7 @@ We did much research on how to bring blockchain technologies to traditional Inte
 
 Based upon this theory, we built a new development framework: [EightFish](https://github.com/eightfish-org/eightfish). 
 
-EightFish is a development framework (maybe the first one) for the Open Data Application (ODA), implementing the Open Data Application Model (ODAM). The theory of the ODA and ODAM is located [here]((https://medium.com/@daogangtang/the-road-to-open-web-b684879a5571)). In short description: EightFish powers ODAs, ODAs constitute the Open Web.
+EightFish is a development framework (maybe the first one) for the Open Data Application (ODA), implementing the Open Data Application Model (ODAM). The theory of the ODA and ODAM is located [here](https://medium.com/@daogangtang/the-road-to-open-web-b684879a5571). In short description: EightFish powers ODAs, ODAs constitute the Open Web.
 
 Concretely, EightFish is a framework to develop a decentralized application in Web2 development style.
 
@@ -118,7 +118,7 @@ The GUTP and Discux were newly created projects for this hackathon.
 ## What have been done during Hackathon
 
 - All stuff of GUTP
-- The backend stuff Discux backend, with some compiling errors
+- The backend stuff of Discux, with some compiling errors remaining
 
 
 ## Members of This team

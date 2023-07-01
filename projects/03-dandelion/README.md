@@ -63,8 +63,8 @@ Dandelion 合约 && Substrate add Evm
 | 姓名         | 角色         | GitHub 帐号  | 微信账号     |
 | ----------- | ----------- | ----------- | ----------- |
 | 聊心       | 区块链后端  | qqliaoxin   | wxliaoxin   |
-| 心       | 区块链后端     |        |        |
-| Zzz     | 区块链后端   |       |        |
-| yan       | 前端        |             |        |
-| 老张       | 前端        |             |         |
-| h2na        | 产品        |             |         |
+| 心       | 区块链后端     |321llljjjfff123|wxid_s598vo46kd8b22|
+| Zzz     | 区块链后端   |Wydumn|lfmin369|
+| yan       | 前端        |joeyan|boyan_ssss|
+| 老张       | 前端        |radiancez|0xRadiance|
+| h2na        | 产品        |zhorsex|AiYoNanaY|

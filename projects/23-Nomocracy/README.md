@@ -114,6 +114,10 @@ The GUTP and Discux were newly created projects for this hackathon.
 - Flow tests
   - [ ] flow tests between GUTP and Discux
 
+- CESS integration
+  - [X] API manipulation
+  - [ ] A picture proxy service bridging CESS and Discux
+
 
 ## What have been done during Hackathon
 

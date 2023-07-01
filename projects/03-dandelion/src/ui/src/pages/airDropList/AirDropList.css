@@ -32,7 +32,7 @@
   align-items: center;
 }
 
-.title {
+.card-title {
   align-items: center;
   background: #ffffff1a;
   border-radius: 6px;
@@ -59,3 +59,16 @@
   margin-left: 6px;
   line-height: 60px;
 }
+
+/* @keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.overflow-hidden:hover {
+  animation: scroll 10s linear infinite;
+} */

@@ -1,17 +1,15 @@
-import AirDropList from "pages/airDropList/AirDropList";
 import "./App.css";
-import Home from "pages/home/Home";
+import NavBar from "components/navbar/NavBar";
+import { Outlet, useLocation } from "react-router-dom";
 // import { Demo } from "./view/demo/Demo";
 
 function App() {
+  const location = useLocation();
   return (
-    <>
-      <div className="w-full  overflow-hidden">
-        {/* <Home></Home> */}
-        <AirDropList />
-      </div>
-      {/* <Demo /> */}
-    </>
+    <div className={`${location.pathname === "/" ? "home-bg" : "bg-primary"}`}>
+      <NavBar></NavBar>
+      <Outlet />
+    </div>
   );
 }
 

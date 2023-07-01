@@ -11,7 +11,7 @@ function MainDes() {
           A Decentralized Airdrop Community, getting The Latest Airdrop Tokens
         </span>
         <div className="text-center">
-          <Button></Button>
+          <Button size="lg"></Button>
         </div>
       </div>
       <img className="w-[500px]" src={HomeMainPic} alt="" />

@@ -109,7 +109,7 @@ class AccountController extends GetxController {
         maskType: EasyLoadingMaskType.black,
         dismissOnTap: false,
       );
-
+      userStatus == 1;
       // 恢复账号 把私钥从ipfs中拉下来
       if (userStatus == 2) {
         // 通过邮箱获取私钥

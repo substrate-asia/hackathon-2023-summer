@@ -35,7 +35,7 @@ class SplashController extends GetxController {
     var _account = HiveService.getWalletData(LocalKeyList.rootAddress);
     // 等待3秒
     await Future.delayed(const Duration(seconds: 3));
-    print("_isGuide $_isGuide");
+    print("_isGuide $_isGuide _account $_account");
     // Get.offAllNamed('/guide');
     // return;
 

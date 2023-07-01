@@ -138,6 +138,7 @@ class Contract {
   int chainId; // 合约所属链id
   String iconUrl; // 合约图标
   bool enabled; // 是否启用
+  bool proxy; // 是否为代理合约
 
   Contract({
     required this.contractAddress,
@@ -147,29 +148,32 @@ class Contract {
     required this.chainId,
     required this.iconUrl,
     this.enabled = true,
+    this.proxy = false,
   });
 
   factory Contract.fromJson(Map<String, dynamic> json) {
     return Contract(
-      contractAddress: json['contractAddress'],
+      contractAddress: json['address'].toLowerCase(),
       name: json['name'],
       symbol: json['symbol'],
       decimals: json['decimals'],
       chainId: json['chainId'],
-      iconUrl: json['iconUrl'],
+      iconUrl: json['logoURI'],
       enabled: json['enabled'] ?? true,
+      proxy: json['proxy'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'contractAddress': contractAddress,
+      'address': contractAddress,
       'name': name,
       'symbol': symbol,
       'decimals': decimals,
       'chainId': chainId,
-      'iconUrl': iconUrl,
+      'logoURI': iconUrl,
       'enabled': enabled,
+      'proxy': proxy,
     };
   }
 }

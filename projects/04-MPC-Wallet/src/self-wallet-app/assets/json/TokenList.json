@@ -1,18 +1,19 @@
 [
     {
-        "name": "Dummy ERC20",
+        "name": "DERC20",
         "chainId": 80001,
-        "contractAddress": "0xfe4f5145f6e09952a5ba9e956ed0c25e3fa4c7f1",
+        "address": "0xfe4f5145f6e09952a5ba9e956ed0c25e3fa4c7f1",
         "symbol": "DERC20",
         "decimals": 18,
-        "iconUrl": "https://www.subdev.studio/icon/usdt.png"
+        "logoURI": "https://www.subdev.studio/icon/usdt.png"
     },
     {
-        "name": "Paymaster Token",
+        "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
         "chainId": 1281,
-        "contractAddress": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-        "symbol": "VDC",
+        "name": "SubVdc",
+        "symbol": "SVDC",
         "decimals": 18,
-        "iconUrl": "https://www.subdev.studio/icon/weth.png"
+        "logoURI": "https://www.subdev.studio/icon/usdt.png",
+        "proxy": true
     }
 ]

@@ -3,12 +3,16 @@ defmodule EvmScanRpc.CamelcaseSnakecase do
     Macro.underscore(camel_str)
   end
 
+  def camelcase_to_snakecase(lx_str) when is_list(lx_str) do
+    Enum.map(lx_str, fn str -> camelcase_to_snakecase(str) end)
+  end
+
   def valid_fields() do
     fields = block_fields() ++ withdrawal_fields() ++ transaction_fields()
     Enum.map(fields, fn str -> camelcase_to_snakecase(str) end)
   end
 
-  defp block_fields() do
+  def block_fields() do
     [
       "baseFeePerGas",
       "difficulty",
@@ -36,11 +40,11 @@ defmodule EvmScanRpc.CamelcaseSnakecase do
     ]
   end
 
-  defp withdrawal_fields() do
+  def withdrawal_fields() do
     ["index", "validatorIndex", "address", "amount"]
   end
 
-  defp transaction_fields() do
+  def transaction_fields() do
     [
       "blockHash",
       "blockNumber",
@@ -56,7 +60,7 @@ defmodule EvmScanRpc.CamelcaseSnakecase do
       "transactionIndex",
       "value",
       "type",
-      "",
+      "accessList",
       "chainId",
       "v",
       "r",

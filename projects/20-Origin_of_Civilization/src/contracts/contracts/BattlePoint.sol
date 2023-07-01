@@ -24,7 +24,7 @@ contract BattlePoint is Ownable{
         BattlePoints[_address] += _points;
     }
 
-    function getBattlePoin(address _address) public view returns(uint256) {
+    function getBattlePoint(address _address) public view returns(uint256) {
         return BattlePoints[_address];
     }
 

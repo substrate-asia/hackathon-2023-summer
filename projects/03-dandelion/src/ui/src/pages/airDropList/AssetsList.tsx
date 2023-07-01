@@ -2,6 +2,7 @@ import { Tree } from "assets";
 import "./AssetsList.css";
 import { balanceStr } from "../../web3/wagmi/Balance";
 import { useMyNativeBalance, useMyVEBalance } from "../../web3/hook/UseBalance";
+import { Button } from "antd";
 
 export default function AssetsList() {
   return (
@@ -62,8 +63,7 @@ export default function AssetsList() {
       </div>
       <div>
         <img src={Tree} alt="" className="w-[500px] h-[500px]" />
-        {/* TODO: 浇水的UI */}
-        <button>浇水</button>
+        <Button>浇水</Button>
       </div>
     </div>
   );

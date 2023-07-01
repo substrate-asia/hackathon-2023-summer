@@ -1,13 +1,15 @@
+import { NavLink } from "react-router-dom";
 import "./Button.css";
-// type Props = {};
-function Button() {
+function Button({ size = "md" }: { size: string }) {
   return (
     <>
       <button
         type="button"
-        className="btn primary outlined contained secondary md"
+        className={`btn primary outlined contained secondary ${size}`}
       >
-        <span>Launch App</span>
+        <NavLink to="/list">
+          <span>Launch App</span>
+        </NavLink>
       </button>
     </>
   );

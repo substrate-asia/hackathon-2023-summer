@@ -19,11 +19,11 @@ contract CombatPower is Ownable{
     mapping(address => Attribute) public Attributelist;
     address playerContractAddress;
 
-    PlayerContract playerContract = PlayerContract(0xd9145CCE52D386f254917e481eB44e9943F39138);
+    PlayerContract playerContract = PlayerContract(playerContractAddress);
 
     
     
-    function PlayerContractAddress(address _ContractAddress_playerData) public onlyOwner {
+    function setPlayerContractAddress(address _ContractAddress_playerData) public onlyOwner {
         playerContractAddress = _ContractAddress_playerData;
     }
 

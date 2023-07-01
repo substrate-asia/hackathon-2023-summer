@@ -7,16 +7,16 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract NFTTest is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
+contract CastleTest is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("NFT-Test", "NFT-TEST") {}
-    string uri = "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/8023";
+    constructor() ERC721("CastleTest", "Castle") {}
+    string uri = "https://api.otherside.xyz/lands/69033";
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq";
+        return "https://api.otherside.xyz/lands";
     }
 
     function safeMint(address to) public onlyOwner {

@@ -1,0 +1,10 @@
+.form-check-input{
+	&:checked {
+		background-color: var(--primary);
+		border-color: var(--primary);	
+	}
+	&:focus {
+		border-color: var(--primary);
+		box-shadow: var(--rgba-primary-1);
+	}
+}

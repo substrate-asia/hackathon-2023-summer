@@ -128,6 +128,12 @@ pub mod pallet {
 	pub type ArtworksOnLoan<T: Config> =
 		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, ()>;
 
+	/// Artwork available for pawn.
+	#[pallet::storage]
+	#[pallet::getter(fn artworks_on_pawn)]
+	pub type ArtworksOnPawn<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, ()>;
+
 	/// Artwork available for sale.
 	#[pallet::storage]
 	#[pallet::getter(fn artworks_on_sale)]
@@ -154,19 +160,27 @@ pub mod pallet {
 		},
 		/// A artwork was successfully transferred.
 		Transferred { from: T::AccountId, to: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
-		/// The price of a artwork was successfully set.
-		SetPrice { ipfs_cid: BoundedVec<u8, ConstU32<64>>, price: Option<BalanceOf<T>> },
+		/// The artwork was successfully updated.
+		ArtworkUpdated {
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+			price: Option<BalanceOf<T>>,
+			collateral_period: Option<u8>,
+			collateral_interest_rate: Option<Permill>,
+		},
 		/// A new artwork was successfully destroyed.
 		DestroyArtwork { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
-		/// The collateral info of a artwork was successfully set.
-		ArtworkStartToLoan {
-			owner: T::AccountId,
-			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
-			collateral_period: u8,
-			collateral_interest_rate: Permill,
-		},
+		/// Add the artwork to ArtworksOnLoan pool.
+		ArtworkStartToLoan { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// Add the artwork to ArtworksOnPawn pool.
+		ArtworkStartToPawn { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// Add the artwork to ArtworksOnSale pool.
+		ArtworkStartToSell { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 		/// Artwork was successfully canceled to loan.
 		ArtworkCancelLoan { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// Artwork was successfully canceled to pawn.
+		ArtworkCancelPawn { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
+		/// Artwork was successfully canceled to sell.
+		ArtworkCancelSale { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 		/// Artwork is over to loan.
 		ArtworkLoanOver { ipfs_cid: BoundedVec<u8, ConstU32<64>>, block_number: T::BlockNumber },
 	}
@@ -197,6 +211,10 @@ pub mod pallet {
 		LendToSelf,
 		/// This artwork is not for loan.
 		NotForLoan,
+		/// This artwork collateral interest rate is none.
+		CollateralInterestRateIsNone,
+		/// This artwork selling price is none.
+		SellPriceIsNone,
 	}
 
 	#[pallet::hooks]
@@ -271,15 +289,17 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Set the price for an artwork.
+		/// Update an artwork.
 		///
 		/// Updates artwork price and updates storage.
 		#[pallet::call_index(3)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn set_price(
+		pub fn update_artwork(
 			origin: OriginFor<T>,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
-			new_price: Option<BalanceOf<T>>,
+			price: Option<BalanceOf<T>>,
+			collateral_period: Option<u8>,
+			collateral_interest_rate: Option<u32>,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let sender = ensure_signed(origin)?;
@@ -289,17 +309,34 @@ pub mod pallet {
 			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
 
 			// Set the price in storage
-			artwork.price = new_price;
+			artwork.price = price;
+			// Set the collateral info in storage
+			artwork.collateral_period = collateral_period;
+			// Transfer 1 to 1%.
+			let mut permil_rate: Option<Permill> = None;
+			if collateral_interest_rate.is_some() {
+				permil_rate = Some(Permill::from_parts(collateral_interest_rate.unwrap() * 10_000));
+				artwork.collateral_interest_rate = permil_rate;
+			}
 			Artworks::<T>::insert(&ipfs_cid, artwork);
 
 			// Updates `ArtworksOnSale` storage.
-			match new_price {
-				None => ArtworksOnSale::<T>::remove(&ipfs_cid),
-				Some(_) => ArtworksOnSale::<T>::insert(&ipfs_cid, ()),
+			if price.is_none() {
+				ArtworksOnSale::<T>::remove(&ipfs_cid);
+			}
+			// Updates `ArtworksOnLoan`, `ArtworksOnPawn` storage.
+			if collateral_interest_rate.is_none() {
+				ArtworksOnLoan::<T>::remove(&ipfs_cid);
+				ArtworksOnPawn::<T>::remove(&ipfs_cid);
 			}
 
-			// Deposit a "SetPrice" event.
-			Self::deposit_event(Event::SetPrice { ipfs_cid, price: new_price });
+			// Deposit a "ArtworkUpdated" event.
+			Self::deposit_event(Event::ArtworkUpdated {
+				ipfs_cid,
+				price,
+				collateral_period,
+				collateral_interest_rate: permil_rate,
+			});
 
 			Ok(())
 		}
@@ -328,32 +365,22 @@ pub mod pallet {
 		pub fn start_lend_artwork(
 			origin: OriginFor<T>,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
-			collateral_period: u8,
-			collateral_interest_rate: u32,
 		) -> DispatchResult {
 			// Make sure the caller is from a signed origin
 			let sender = ensure_signed(origin)?;
 
 			// Ensure the artwork exists and is called by the artwork owner
-			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
-			ensure!(collateral_period > 0, Error::<T>::PeriodMustBiggerThanZero);
+			ensure!(
+				artwork.collateral_interest_rate.is_some(),
+				Error::<T>::CollateralInterestRateIsNone
+			);
 
-			// Set the collateral info in storage
-			artwork.collateral_period = Some(collateral_period);
-			// Transfer 1 to 1%.
-			artwork.collateral_interest_rate =
-				Some(Permill::from_parts(collateral_interest_rate * 10_000));
-			Artworks::<T>::insert(&ipfs_cid, artwork);
 			ArtworksOnLoan::<T>::insert(&ipfs_cid, ());
 
 			// Deposit a "ArtworkStartToLoan" event.
-			Self::deposit_event(Event::ArtworkStartToLoan {
-				owner: sender,
-				ipfs_cid,
-				collateral_period,
-				collateral_interest_rate: Permill::from_parts(collateral_interest_rate),
-			});
+			Self::deposit_event(Event::ArtworkStartToLoan { owner: sender, ipfs_cid });
 
 			Ok(())
 		}
@@ -371,14 +398,10 @@ pub mod pallet {
 			let sender = ensure_signed(origin)?;
 
 			// Ensure the artwork exists and is called by the artwork owner
-			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
 			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 
-			// Update the artwork collateral info to `None`.
-			artwork.collateral_period = None;
-			artwork.collateral_interest_rate = None;
-			Artworks::<T>::insert(&ipfs_cid, artwork);
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			// Deposit a "ArtworkCancelLoan" event.
@@ -416,7 +439,9 @@ pub mod pallet {
 			// Renewal the artwork storage message.
 			artwork.collateral_for = Some(who.clone());
 			Artworks::<T>::insert(&ipfs_cid, artwork.clone());
+			ArtworksOnSale::<T>::remove(&ipfs_cid);
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
+			ArtworksOnPawn::<T>::remove(&ipfs_cid);
 
 			// Compute the total fee.
 			let deposit = Self::pledge_artwork_price();
@@ -488,14 +513,113 @@ pub mod pallet {
 			.unwrap();
 
 			// Update the artwork collateral info to `None`.
-			artwork.collateral_period = None;
-			artwork.collateral_interest_rate = None;
 			artwork.collateral_for = None;
 			Artworks::<T>::insert(&ipfs_cid, artwork);
-			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
 			// Deposit a "ArtworkLoanOver" event.
 			Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
+
+			Ok(())
+		}
+
+		/// Start to pawn artwork for currency, adding the artwork to ArtworksOnPawn pool.
+		///
+		/// Updates storage.
+		#[pallet::call_index(10)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn start_to_pawn_artwork_for_currency(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(
+				artwork.collateral_interest_rate.is_some(),
+				Error::<T>::CollateralInterestRateIsNone
+			);
+
+			ArtworksOnPawn::<T>::insert(&ipfs_cid, ());
+
+			// Deposit a "ArtworksOnPawn" event.
+			Self::deposit_event(Event::ArtworkStartToLoan { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Start to sell artwork, adding the artwork to ArtworksOnSale pool.
+		///
+		/// Updates storage.
+		#[pallet::call_index(11)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn start_to_sell(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(artwork.collateral_interest_rate.is_some(), Error::<T>::SellPriceIsNone);
+
+			ArtworksOnSale::<T>::insert(&ipfs_cid, ());
+
+			// Deposit a "ArtworkStartToSell" event.
+			Self::deposit_event(Event::ArtworkStartToSell { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Cancel pawn artwork for currency.
+		///
+		/// Updates storage.
+		#[pallet::call_index(12)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn cancel_pawn_artwork_for_currency(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
+
+			ArtworksOnPawn::<T>::remove(&ipfs_cid);
+
+			// Deposit a "ArtworkCancelPawn" event.
+			Self::deposit_event(Event::ArtworkCancelPawn { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Cancel selling artwork for currency.
+		///
+		/// Updates storage.
+		#[pallet::call_index(13)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn cancel_sale_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let sender = ensure_signed(origin)?;
+
+			// Ensure the artwork exists and is called by the artwork owner
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+
+			ArtworksOnSale::<T>::remove(&ipfs_cid);
+
+			// Deposit a "ArtworkCancelSale" event.
+			Self::deposit_event(Event::ArtworkCancelSale { owner: sender, ipfs_cid });
 
 			Ok(())
 		}
@@ -604,6 +728,7 @@ pub mod pallet {
 			ArtworkOwned::<T>::insert(&from, from_owned);
 			ArtworksOnSale::<T>::remove(&ipfs_cid);
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
+			ArtworksOnPawn::<T>::remove(&ipfs_cid);
 
 			Self::deposit_event(Event::Transferred { from, to, ipfs_cid });
 
@@ -644,6 +769,7 @@ pub mod pallet {
 			CountForArtworks::<T>::put(new_count);
 			ArtworksOnSale::<T>::remove(&ipfs_cid);
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
+			ArtworksOnPawn::<T>::remove(&ipfs_cid);
 
 			// Deposit a "DestroyArtwork" event.
 			Self::deposit_event(Event::DestroyArtwork { owner: who, ipfs_cid });

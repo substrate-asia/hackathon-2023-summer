@@ -1,0 +1,39 @@
+[package]
+authors = ['Dynamo Dev']
+description = 'Pallet for registering channel info'
+name = 'pallet-onboard'
+repository = 'https://github.com/DynamoTTM/substrate-parachain-template'
+version = '0.1.0'
+edition = '2021'
+
+[dependencies]
+codec = { package = "parity-scale-codec", version = "3.0.0", default-features = false, features = ["derive", "max-encoded-len"] }
+scale-info = { version = "2.3.1", default-features = false, features = ["derive"] }
+
+sp-runtime = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false }
+sp-std = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false }
+sp-core = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false  }
+sp-io = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false  }
+
+frame-benchmarking = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false, optional = true }
+frame-support = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false }
+frame-system = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.43", default-features = false }
+
+[features]
+default = ["std"]
+runtime-benchmarks = [
+  "frame-benchmarking/runtime-benchmarks",
+  "frame-support/runtime-benchmarks",
+  "frame-system/runtime-benchmarks",
+]
+std = [
+  "codec/std",
+  "sp-std/std",
+  "sp-runtime/std",
+  "sp-io/std",
+  "sp-core/std",
+  "frame-support/std",
+  "frame-system/std",
+  "frame-benchmarking?/std",
+]
+try-runtime = ["frame-support/try-runtime"]

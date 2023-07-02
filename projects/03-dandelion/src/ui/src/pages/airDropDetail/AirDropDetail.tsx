@@ -3,17 +3,16 @@ import { Button, Progress } from "antd";
 import { useNavigate } from "react-router-dom";
 import { AIR_DROP_LIST } from "../../assets";
 
-function AirDropDetail() {
+export default function AirDropDetail() {
   let { id } = useParams();
   const navigate = useNavigate();
   const idNumber = id ? Number(id) : null;
   const airdrop = AIR_DROP_LIST.find((item) => item.id === idNumber)!;
   const desc = airdrop.desc.replace(/\\n/g, "\n");
-  // 请计算percentage
-  const percentage = 50;
   const clickBack = () => {
     navigate("/list");
   };
+
   return (
     <>
       <div className=" flex flex-row  items-center px-10 pt-5 text-grey">
@@ -29,28 +28,12 @@ function AirDropDetail() {
             className="w-[140px] h-[140px] mb-3"
           />
           <span className="text-[28px] text-white">{airdrop.name}</span>
-          <Progress
-            percent={percentage}
-            size={["80%", 18]}
-            trailColor="#fff"
-            className="text-center mt-5"
-          />
+          <AirDropProgress/>
           <div className="flex flex-col mt-2">
-            <Button
-              className="my-3  bg-blue rounded-full font-semibold w-[120px] h-[40px]"
-              onClick={() => {}}
-            >
-              质押
-            </Button>
-            <Button
-              className="my-3 bg-blue rounded-full w-[120px] h-[40px]"
-              disabled
-            >
-              claim
-            </Button>
-            <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]">
-              打赏
-            </Button>
+            <StakeButton/>
+            <GainButton/>
+            <UnstakeButton/>
+            <TipButton/>
           </div>
         </div>
 
@@ -75,4 +58,48 @@ function AirDropDetail() {
   );
 }
 
-export default AirDropDetail;
+function AirDropProgress() {
+  return (
+    <Progress
+      percent={50}
+      size={["80%", 18]}
+      trailColor="#fff"
+      className="text-center mt-5"
+    />
+  )
+}
+
+function StakeButton() {
+  return (
+    <Btn text='质押'/>
+  );
+}
+
+function GainButton() {
+  return (
+    <Btn text='Claim'/>
+  );
+}
+
+function UnstakeButton() {
+  return (
+    <Btn text='解押'/>
+  );
+}
+
+function TipButton() {
+  return (
+    <Btn text='打赏'/>
+  );
+}
+
+function Btn({text, disabled}: {
+  text: string
+  disabled?: boolean
+}) {
+  return (
+    <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]" disabled={disabled}>
+      {text}
+    </Button>
+  );
+}

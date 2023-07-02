@@ -1,11 +1,13 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Progress} from "antd";
 import {AIR_DROP_LIST} from "../../assets";
-import {Address, useBlockNumber, useSendTransaction} from "wagmi";
+import {Address, useAccount, useBlockNumber, useSendTransaction} from "wagmi";
 import {useWagmiTransaction, WagmiTransaction} from "../../libs/wagmi/hook/UseContractWrite";
-import {StakeToken} from "../../web3/contracts/Contracts";
+import {stakeTokenContract, VEToken} from "../../web3/contracts/Contracts";
 import {NoArgs} from "../../libs/wagmi/abi/WagmiAbiType";
 import {parseEther} from "ethers/lib/utils";
+import {BigNumber} from "ethers";
+import {useWagmiRead} from "../../libs/wagmi/hook/UseContractRead";
 
 export default function AirDropDetail() {
   let { id } = useParams();
@@ -37,9 +39,9 @@ export default function AirDropDetail() {
             endblock={airdrop.endblock}
           />
           <div className="flex flex-col mt-2">
-            <StakeButton/>
-            <GainButton/>
-            <UnstakeButton/>
+            <StakeOrApproveButton stakeToken={airdrop.StakeToken}/>
+            <GainButton stakeToken={airdrop.StakeToken}/>
+            <UnstakeButton stakeToken={airdrop.StakeToken}/>
             <TipButton
               to='0x5543e4b0768FD806Ba51130BC885d1d2f34ccC80'
             />
@@ -89,10 +91,34 @@ function percent(start: number, end: number, current?: number): number {
   return (current - start) / (end - start)
 }
 
-function StakeButton() {
-  const input: string = "1"
+function StakeOrApproveButton({stakeToken}: {
+  stakeToken: Address
+}) {
+  const input: string = "2" // TODO
+  const amount = parseEther(input)
 
-  const [stake, write] = useWagmiTransaction(StakeToken, 'stake', [parseEther(input)], {
+  const {address} = useAccount()
+  const {data} = useWagmiRead(VEToken, 'allowance', [address!, stakeToken])
+
+  if (data === undefined) {
+    return <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]" disabled>
+      加载中...
+    </Button>
+  }
+
+  if (data.gte(amount)) {
+    return <StakeButton stakeToken={stakeToken} amount={amount}/>
+  } else {
+    return <ApproveButton stakeToken={stakeToken} amount={amount}/>
+  }
+}
+
+function StakeButton({stakeToken, amount}: {
+  stakeToken: Address
+  amount: BigNumber
+}) {
+  const contract = stakeTokenContract(stakeToken)
+  const [stake, write] = useWagmiTransaction(contract, 'stake', [amount], {
     waitForTransaction: {
       onSuccess: () => {
         // 成功
@@ -109,8 +135,32 @@ function StakeButton() {
   );
 }
 
-function GainButton() {
-  const [gainBlockReward, write] = useWagmiTransaction(StakeToken, 'gainBlockReward', NoArgs, {
+function ApproveButton({stakeToken, amount}: {
+  stakeToken: Address
+  amount: BigNumber
+}) {
+  const [approve, write] = useWagmiTransaction(VEToken, 'approve', [stakeToken, amount], {
+    waitForTransaction: {
+      onSuccess: () => {
+        // 成功
+      },
+      onError: () => {
+        // 失败
+      },
+    },
+  });
+  console.log('[approve]', approve)
+
+  return (
+    <TransactionBtn text='质押前授权' transaction={approve} onClick={write}/>
+  );
+}
+
+function GainButton({stakeToken}: {
+  stakeToken: Address
+}) {
+  const contract = stakeTokenContract(stakeToken)
+  const [gainBlockReward, write] = useWagmiTransaction(contract, 'gainBlockReward', NoArgs, {
     waitForTransaction: {
       onSuccess: () => {
         // 成功
@@ -127,8 +177,11 @@ function GainButton() {
   );
 }
 
-function UnstakeButton() {
-  const [unStake, write] = useWagmiTransaction(StakeToken, 'unStake', NoArgs, {
+function UnstakeButton({stakeToken}: {
+  stakeToken: Address
+}) {
+  const contract = stakeTokenContract(stakeToken)
+  const [unStake, write] = useWagmiTransaction(contract, 'unStake', NoArgs, {
     waitForTransaction: {
       onSuccess: () => {
         // 成功
@@ -148,13 +201,14 @@ function UnstakeButton() {
 function TipButton({to}: {
   to: Address
 }) {
-  const input: string = "0.01"
+  const input: string = "0.01" // TODO
+  const amount = parseEther(input)
 
   const { isLoading, sendTransaction } = useSendTransaction({
     mode: "recklesslyUnprepared",
     request: {
       to: to,
-      value: parseEther(input),
+      value: amount,
     }
   })
 

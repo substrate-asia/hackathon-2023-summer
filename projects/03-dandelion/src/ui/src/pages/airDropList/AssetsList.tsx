@@ -1,7 +1,7 @@
 import { AIR_DROP_LIST, Tree } from "assets";
 import { balanceStr } from "../../web3/wagmi/Balance";
 import {useMyNativeBalance, useMyVEBalance, useMySignBalance, useMyBalance} from "../../web3/hook/UseBalance";
-import { useWagmiTransaction } from "../../libs/wagmi/hook/UseContractWrite";
+import {isWagmiError, useWagmiTransaction} from "../../libs/wagmi/hook/UseContractWrite";
 import { SignToken } from "../../web3/contracts/Contracts";
 import { BigNumber } from "ethers";
 import { NoArgs } from "../../libs/wagmi/abi/WagmiAbiType";
@@ -85,7 +85,7 @@ function MyTree() {
   // 签到token的余额
   const balance = useMySignBalance(true);
   // 树的状态
-  const treeStatus = treeStatusOf(balance?.value)
+  const treeImage = treeImageOf(balance?.value)
 
   // 签到操作
   const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', NoArgs, {
@@ -99,24 +99,21 @@ function MyTree() {
     },
   });
 
-  // signIn3day.prepareStatus === 'error' 表示无法进行合约写操作，应该是签到的3天时间间隔限制
   // signIn3day.busy 正在进行合约写操作
-  console.log('tree:', treeStatus, signIn3day, signIn3day.prepareStatus, signIn3day.busy)
+  console.log('signIn3day:', signIn3day)
 
   return (
     <div className="flex flex-col flex-1 items-center">
       <div className="flex items-center w-full h-[60%] justify-center tooltip relative">
         {`活跃度：${balanceStr(balance, 0)}`}
-        {/* TODO: Tree要根据某个值进行判断 */}
         <img
-          src={Tree}
+          src={treeImage}
           alt=""
           className="w-[300px] self-end cursor-pointer"
           onClick={write}
         />
-        {/* TODO:是否需要判断已经签到的逻辑 */}
         <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
-            点一点，给植物浇个水签到吧
+          {isWagmiError(signIn3day.prepareStatus) ? '现在不能浇水，晚点再来吧' : '点一点，给植物浇个水签到吧'}
         </span>
       </div>
       {/* <Button className="w-[80px] mt-5">浇水</Button> */}
@@ -124,25 +121,26 @@ function MyTree() {
   )
 }
 
+// TODO
 // 0=图1 ，1到10=图2，11到30=图3，31到60等于图4，61到100=图5，100到150=图6
-function treeStatusOf(balance?: BigNumber): number {
+function treeImageOf(balance?: BigNumber): string {
   if (!balance) {
-    return 0; // 还未获取树的状态
+    return Tree; // 还未获取树的状态
   }
   if (balance.lte(BigNumber.from(0).pow(18))) {
-    return 1;
+    return Tree;
   }
   if (balance.lte(BigNumber.from(10).pow(18))) {
-    return 2;
+    return Tree;
   }
   if (balance.lte(BigNumber.from(30).pow(18))) {
-    return 3;
+    return Tree;
   }
   if (balance.lte(BigNumber.from(60).pow(18))) {
-    return 4;
+    return Tree;
   }
   if (balance.lte(BigNumber.from(100).pow(18))) {
-    return 5;
+    return Tree;
   }
-  return 6;
+  return Tree;
 }

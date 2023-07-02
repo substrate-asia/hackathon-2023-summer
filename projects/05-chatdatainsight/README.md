@@ -28,9 +28,9 @@
 - 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
 
 **backend**
-  - [ ] Transaction Data Analysis
-  - [ ] Polkadot Ecosystem News
-  - [ ] Polkadot Token Price Chart
+  - [ ] Transaction Data Analysis(`analyze_community_activity, analyze_solved_needs, search_token_distribution, search_inovation, search_economy_model, search_roadmap_and_historical_events, search_onchain_info, stablecoin_agent,  dex_agent, project_agent, cex_agent,  onchain_info_agent, search_on_internet`)
+  - [ ] Polkadot Ecosystem News (`get_top_headlines`)
+  - [ ] Polkadot Token Price Chart (`dune_weekly_dex_exchange_volume_by_chain, dune_daily_dex_exchange_volume, stablecoin_supply_and_growth, get_binance_prams`)
 
 **front end**
   - [ ] Ask and show answer

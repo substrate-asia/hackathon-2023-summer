@@ -91,7 +91,6 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 - `pallet\spiral-dao`
 
 
-  - [ ] advertise, Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
   - [ ] promoter-dao, Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
   - [ ] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
   - [ ] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)

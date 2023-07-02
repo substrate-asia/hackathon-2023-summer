@@ -121,7 +121,6 @@ function MyTree() {
   )
 }
 
-// TODO
 // 0=图1 ，1到10=图2，11到30=图3，31到60等于图4，61到100=图5，100到150=图6
 function treeImageOf(balance?: BigNumber): string {
   if (!balance) {

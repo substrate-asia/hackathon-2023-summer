@@ -77,9 +77,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 
 - 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
 
-**objective:** 
-
-__The main objective of our hackathon is to validate the feasibility of a completely decentralized and fully private promotion platform. Additionally, combining the establishment of promoter DAOs with crowdfunding and ensuring that each DAO has its own token is an interesting endeavor. Lastly, building upon these foundations, the aim is to make the project as comprehensive as possible.__
+**Objective:** __The main objective of our hackathon is to validate the feasibility of a completely decentralized and fully private promotion platform. Additionally, combining the establishment of promoter DAOs with crowdfunding and ensuring that each DAO has its own token is an interesting endeavor. Lastly, building upon these foundations, the aim is to make the project as comprehensive as possible.__
 
 **区块链端**
 

@@ -10,6 +10,9 @@
 
 ### 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
 
+<p align="center">
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-background0.png"><br/>
+</p>
 
 <p align="center">
 <img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-background.png"><br/>

@@ -78,7 +78,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 
 - `pallet\spiral-dao`
   - [ ] advertise, Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
-  - [ ] promoter-dao,  Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
+  - [ ] promoter-dao, Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
   - [ ] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
   - [ ] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)
   - [ ] promoter-dao, Close one action the action have been Verified & reward in private contract. (`fn union_task_action_finish()`)
@@ -89,14 +89,19 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 
 **隐私合约**
 
-- `sprial-contract`
+- `sprial-contract/src/lib.rs`
   - [ ] PRIVTE-CONTRACT Creation and data structure definition, generating privacy accounts. (`fn new()`)
-  - [ ] PRIVTE-CONTRACT seal the account  of S3 storage and others. (`fn seal_credentials()`)
-  - [ ] PRIVTE-CONTRACT seal action of task  (`fn seal_actions()`)
+  - [ ] PRIVTE-CONTRACT Seal the account  of S3 storage and others. (`fn seal_credentials()`)
+  - [ ] PRIVTE-CONTRACT Seal action of task  (`fn seal_actions()`)
   - [ ] PRIVTE-CONTRACT Generating hierarchical propagation relationships. (`fn invite_from()`)
   - [ ] PRIVTE-CONTRACT Verified & reward  the action of user taken(will call pallet) (`fn do_task_action()`)
   - [ ] PRIVTE-CONTRACT Draw the reward for promoter (`fn reward_draw()`)
-  
+
+
+**数据索引**
+
+- `spiral-subquery`
+  - [ ] Index promoter-dao data. (`fn handleUnionDaoAddedEvent()`)
 
 **客户端**
 
@@ -105,10 +110,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [ ] NFT 产品创建流程
   - [ ] NFT 产品购买流程
 
-- hybrid (react-native)
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

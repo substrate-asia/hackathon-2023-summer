@@ -146,6 +146,12 @@ pub mod pallet {
 	pub type ArtworksExpireBlockForLoan<T: Config> =
 		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, T::BlockNumber>;
 
+	/// Artwork will expire on which block number.
+	#[pallet::storage]
+	#[pallet::getter(fn artworks_expire_block_for_pawn)]
+	pub type ArtworksExpireBlockForPawn<T: Config> =
+		StorageMap<_, Blake2_128Concat, BoundedVec<u8, ConstU32<64>>, T::BlockNumber>;
+
 	#[pallet::event]
 	#[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event<T: Config> {
@@ -183,6 +189,8 @@ pub mod pallet {
 		ArtworkCancelSale { owner: T::AccountId, ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 		/// Artwork is over to loan.
 		ArtworkLoanOver { ipfs_cid: BoundedVec<u8, ConstU32<64>>, block_number: T::BlockNumber },
+		/// Artwork is over to pawn.
+		ArtworkPawnOver { ipfs_cid: BoundedVec<u8, ConstU32<64>> },
 	}
 
 	#[pallet::error]
@@ -209,12 +217,20 @@ pub mod pallet {
 		ArtworkHasBeanLoaned,
 		/// Trying to lend a artwork from oneself.
 		LendToSelf,
+		/// Trying to pawn a artwork from oneself.
+		PawnToSelf,
 		/// This artwork is not for loan.
 		NotForLoan,
+		/// This artwork is not for pawning.
+		NotForPawn,
 		/// This artwork collateral interest rate is none.
 		CollateralInterestRateIsNone,
 		/// This artwork selling price is none.
 		SellPriceIsNone,
+		/// This artwork is on loaning.
+		ArtworkOnLoaning,
+		/// This artwork is on pawning.
+		ArtworkOnPawning,
 	}
 
 	#[pallet::hooks]
@@ -307,6 +323,14 @@ pub mod pallet {
 			// Ensure the artwork exists and is called by the artwork owner
 			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
 			ensure!(artwork.owner == sender, Error::<T>::NotOwner);
+			ensure!(
+				!ArtworksExpireBlockForLoan::<T>::contains_key(&ipfs_cid),
+				Error::<T>::ArtworkOnLoaning
+			);
+			ensure!(
+				!ArtworksExpireBlockForPawn::<T>::contains_key(&ipfs_cid),
+				Error::<T>::ArtworkOnPawning
+			);
 
 			// Set the price in storage
 			artwork.price = price;
@@ -428,7 +452,7 @@ pub mod pallet {
 
 			ensure!(owner != who, Error::<T>::LendToSelf);
 			ensure!(ArtworksOnLoan::<T>::get(&ipfs_cid) != None, Error::<T>::NotForLoan);
-			// When artwork is pledged, artwork cannot be transferred.
+			// When artwork is pledged, artwork cannot be borrowed.
 			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 
 			// Compute the expired block number.
@@ -472,7 +496,7 @@ pub mod pallet {
 			Ok(())
 		}
 
-		/// Over the lending.
+		/// Over the lending, automatic trigger.
 		///
 		/// Updates storage.
 		#[pallet::call_index(9)]
@@ -515,6 +539,8 @@ pub mod pallet {
 			// Update the artwork collateral info to `None`.
 			artwork.collateral_for = None;
 			Artworks::<T>::insert(&ipfs_cid, artwork);
+			// Remove from the pool.
+			ArtworksExpireBlockForLoan::<T>::remove(&ipfs_cid);
 
 			// Deposit a "ArtworkLoanOver" event.
 			Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
@@ -527,7 +553,7 @@ pub mod pallet {
 		/// Updates storage.
 		#[pallet::call_index(10)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn start_to_pawn_artwork_for_currency(
+		pub fn start_to_pawn_artwork_for_token(
 			origin: OriginFor<T>,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		) -> DispatchResult {
@@ -580,7 +606,7 @@ pub mod pallet {
 		/// Updates storage.
 		#[pallet::call_index(12)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn cancel_pawn_artwork_for_currency(
+		pub fn cancel_pawn_artwork_for_token(
 			origin: OriginFor<T>,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
 		) -> DispatchResult {
@@ -620,6 +646,98 @@ pub mod pallet {
 
 			// Deposit a "ArtworkCancelSale" event.
 			Self::deposit_event(Event::ArtworkCancelSale { owner: sender, ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Provide token to loan.
+		///
+		/// Updates storage.
+		#[pallet::call_index(14)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn provide_token_loan(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let who = ensure_signed(origin)?;
+
+			// Get the artwork
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			let owner = artwork.owner.clone();
+
+			ensure!(owner != who, Error::<T>::PawnToSelf);
+			ensure!(ArtworksOnPawn::<T>::get(&ipfs_cid) != None, Error::<T>::NotForPawn);
+			// When artwork is pledged, artwork cannot be pawned.
+			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
+
+			// Compute the expired block number.
+			let expired_block_num: T::BlockNumber = frame_system::Pallet::<T>::block_number() +
+				artwork.collateral_period.unwrap().into();
+			ArtworksExpireBlockForPawn::<T>::insert(&ipfs_cid, expired_block_num);
+
+			// Renewal the artwork storage message.
+			artwork.collateral_for = Some(who.clone());
+			Artworks::<T>::insert(&ipfs_cid, artwork.clone());
+			ArtworksOnSale::<T>::remove(&ipfs_cid);
+			ArtworksOnLoan::<T>::remove(&ipfs_cid);
+			ArtworksOnPawn::<T>::remove(&ipfs_cid);
+
+			T::Currency::transfer(
+				&who,
+				&artwork.owner,
+				Self::pledge_artwork_price(),
+				ExistenceRequirement::KeepAlive,
+			)?;
+
+			Ok(())
+		}
+
+		/// Redemption the artwork, Manual trigger.
+		///
+		/// Updates storage.
+		#[pallet::call_index(15)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn redemption_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from a signed origin
+			let who = ensure_signed(origin)?;
+
+			// Get the artwork
+			let mut artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
+			// Compute the fee, `PALLET_TAX_RATE` to exchequer.
+			let total_fee =
+				artwork.collateral_interest_rate.unwrap().mul_ceil(Self::pledge_artwork_price());
+			let to_exchequer = PALLET_TAX_RATE.mul_ceil(total_fee);
+			let to_collateral_for = total_fee.checked_sub(&to_exchequer).unwrap();
+
+			// Give interest to the exchequer
+			T::Currency::transfer(
+				&who,
+				&Self::get_pallet_account_id(),
+				to_exchequer,
+				ExistenceRequirement::KeepAlive,
+			)
+			.unwrap();
+			// Give interest and principal to the collateral_for
+			T::Currency::transfer(
+				&who,
+				&artwork.collateral_for.unwrap(),
+				to_collateral_for,
+				ExistenceRequirement::KeepAlive,
+			)
+			.unwrap();
+
+			// Update the artwork collateral info to `None`.
+			artwork.collateral_for = None;
+			Artworks::<T>::insert(&ipfs_cid, artwork);
+			// Remove from the pool.
+			ArtworksExpireBlockForPawn::<T>::remove(&ipfs_cid);
+
+			// Deposit a "ArtworkPawnOver" event.
+			Self::deposit_event(Event::ArtworkPawnOver { ipfs_cid });
 
 			Ok(())
 		}

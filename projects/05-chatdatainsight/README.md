@@ -19,7 +19,7 @@
 
 ### Technology Architecture
 - ![](./docs/architecture.jpg)
-  
+
 ### logo
 ![](./docs/logo.png)
 

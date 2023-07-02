@@ -128,7 +128,7 @@ TBD
 
 ## 队员信息
 
-Name: Bruce
-Role: Full Stack Developer
-Github: NftTopBest
-Wx: Web3Hacker
+
+| 姓名  | 角色         | GitHub 帐号 | 微信账号   |
+|-----| ----------- | -- |--------|
+| anthony | 区块链后端  |  web3pionner  | .. |

@@ -1,4 +1,4 @@
-![image](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/50791b1f-7774-4e08-a6ee-5426d95217e9)## 基本资料
+![logo](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/5e7dee7a-041a-40df-aaaa-6a58b24b6205)![image](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/50791b1f-7774-4e08-a6ee-5426d95217e9)## 基本资料
 
 项目名称：CryptoSpiral
 
@@ -84,16 +84,18 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [ ] promoter-dao, Close one action the action have been Verified & reward in private contract. (`fn union_task_action_finish()`)
   
 
-- `pallet\spiral-collective`
-  - support mutli collective
+- `pallet\spiral-collective` : Enhancing the collective module to support multiple collectives.
  
-  - [ ] 
+
 **隐私合约**
 
-- `pallet-nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
+- `sprial-contract`
+  - [ ] PRIVTE-CONTRACT Creation and data structure definition, generating privacy accounts. (`fn new()`)
+  - [ ] PRIVTE-CONTRACT seal the account  of S3 storage and others. (`fn seal_credentials()`)
+  - [ ] PRIVTE-CONTRACT seal action of task  (`fn seal_actions()`)
+  - [ ] PRIVTE-CONTRACT Generating hierarchical propagation relationships. (`fn invite_from()`)
+  - [ ] PRIVTE-CONTRACT Verified & reward  the action of user taken(will call pallet) (`fn do_task_action()`)
+  - [ ] PRIVTE-CONTRACT Draw the reward for promoter (`fn reward_draw()`)
   
 
 **客户端**

@@ -10,17 +10,20 @@
 
 ### 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
 
-The project named "cryptoSpiral" is a decentralized privacy promotion platform. Its key feature revolves around localized and specialized promoters, utilizing DAO and privacy to facilitate efficient and secure promotion and dissemination for web3 projects.
 
 <p align="center">
 <img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-background.png"><br/>
 </p>
 
-We will build a Chrome Extension to provide a web3 way of payment platform with every Twitter timeline and comment.
 
 ### 项目介绍
 
 The project named "cryptoSpiral" is a decentralized privacy promotion platform. Its key feature revolves around localized and specialized promoters, utilizing DAO and privacy to facilitate efficient and secure promotion and dissemination for web3 projects.
+
+<p align="center">
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-background-2.png"><br/>
+</p>
+
 
 
 

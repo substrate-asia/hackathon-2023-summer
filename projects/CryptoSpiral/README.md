@@ -50,7 +50,7 @@ data index(subquery)  start from  commit：https:github.com/subquery/nodle-subql
 
 **objective:** 
 
-__The main objective of this hackathon is to validate the feasibility of a completely decentralized and fully private promotion platform. Additionally, combining the establishment of promoter DAOs with crowdfunding and ensuring that each DAO has its own token is an interesting endeavor. Lastly, building upon these foundations, the aim is to make the project as comprehensive as possible.__
+__The main objective of our hackathon is to validate the feasibility of a completely decentralized and fully private promotion platform. Additionally, combining the establishment of promoter DAOs with crowdfunding and ensuring that each DAO has its own token is an interesting endeavor. Lastly, building upon these foundations, the aim is to make the project as comprehensive as possible.__
 
 
 **区块链端**

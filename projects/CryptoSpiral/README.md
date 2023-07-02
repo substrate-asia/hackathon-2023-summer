@@ -1,4 +1,4 @@
-## 基本资料
+![image](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/50791b1f-7774-4e08-a6ee-5426d95217e9)## 基本资料
 
 项目名称：CryptoSpiral
 
@@ -77,10 +77,11 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 **区块链端**
 
 - `pallet\spiral-dao`
-  - [ ] advertise Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
-  - [ ] promoter-dao  Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
-  - [ ] promoter-dao Participating in crowdfunding. (`fn union_dao_mint()`)
-  - [ ] 
+  - [ ] advertise, Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
+  - [ ] promoter-dao,  Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
+  - [ ] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
+  - [ ] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)
+  - [ ] promoter-dao, Close one action the action have been Verified & reward in private contract. (`fn union_task_action_finish()`)
   
 
 - `pallet\spiral-collective`

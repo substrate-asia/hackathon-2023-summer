@@ -240,6 +240,7 @@ pub mod pallet {
 
 			Self::set_price_by_signed_tx(block_number);
 			Self::lend_over_by_signed_tx(block_number);
+			Self::automatic_redemption_artwork_by_signed_tx(block_number);
 
 			log::info!("OCW ==> Leave from off chain workers!: {:?}", block_number);
 		}
@@ -354,7 +355,7 @@ pub mod pallet {
 				ArtworksOnPawn::<T>::remove(&ipfs_cid);
 			}
 
-			// Deposit a "ArtworkUpdated" event.
+			// Deposit an "ArtworkUpdated" event.
 			Self::deposit_event(Event::ArtworkUpdated {
 				ipfs_cid,
 				price,
@@ -403,7 +404,7 @@ pub mod pallet {
 
 			ArtworksOnLoan::<T>::insert(&ipfs_cid, ());
 
-			// Deposit a "ArtworkStartToLoan" event.
+			// Deposit an "ArtworkStartToLoan" event.
 			Self::deposit_event(Event::ArtworkStartToLoan { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -428,7 +429,7 @@ pub mod pallet {
 
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 
-			// Deposit a "ArtworkCancelLoan" event.
+			// Deposit an "ArtworkCancelLoan" event.
 			Self::deposit_event(Event::ArtworkCancelLoan { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -501,7 +502,7 @@ pub mod pallet {
 		/// Updates storage.
 		#[pallet::call_index(9)]
 		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
-		pub fn lend_over(
+		pub fn automatic_lend_over(
 			origin: OriginFor<T>,
 			block_number: T::BlockNumber,
 			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
@@ -542,7 +543,7 @@ pub mod pallet {
 			// Remove from the pool.
 			ArtworksExpireBlockForLoan::<T>::remove(&ipfs_cid);
 
-			// Deposit a "ArtworkLoanOver" event.
+			// Deposit an "ArtworkLoanOver" event.
 			Self::deposit_event(Event::ArtworkLoanOver { ipfs_cid, block_number });
 
 			Ok(())
@@ -570,7 +571,7 @@ pub mod pallet {
 
 			ArtworksOnPawn::<T>::insert(&ipfs_cid, ());
 
-			// Deposit a "ArtworksOnPawn" event.
+			// Deposit an "ArtworkStartToLoan" event.
 			Self::deposit_event(Event::ArtworkStartToLoan { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -595,7 +596,7 @@ pub mod pallet {
 
 			ArtworksOnSale::<T>::insert(&ipfs_cid, ());
 
-			// Deposit a "ArtworkStartToSell" event.
+			// Deposit an "ArtworkStartToSell" event.
 			Self::deposit_event(Event::ArtworkStartToSell { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -620,7 +621,7 @@ pub mod pallet {
 
 			ArtworksOnPawn::<T>::remove(&ipfs_cid);
 
-			// Deposit a "ArtworkCancelPawn" event.
+			// Deposit an "ArtworkCancelPawn" event.
 			Self::deposit_event(Event::ArtworkCancelPawn { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -644,7 +645,7 @@ pub mod pallet {
 
 			ArtworksOnSale::<T>::remove(&ipfs_cid);
 
-			// Deposit a "ArtworkCancelSale" event.
+			// Deposit an "ArtworkCancelSale" event.
 			Self::deposit_event(Event::ArtworkCancelSale { owner: sender, ipfs_cid });
 
 			Ok(())
@@ -736,7 +737,39 @@ pub mod pallet {
 			// Remove from the pool.
 			ArtworksExpireBlockForPawn::<T>::remove(&ipfs_cid);
 
-			// Deposit a "ArtworkPawnOver" event.
+			// Deposit an "ArtworkPawnOver" event.
+			Self::deposit_event(Event::ArtworkPawnOver { ipfs_cid });
+
+			Ok(())
+		}
+
+		/// Over the pawning, automatic trigger.
+		///
+		/// Updates storage.
+		#[pallet::call_index(16)]
+		#[pallet::weight(10_000 + T::DbWeight::get().writes(1).ref_time())]
+		pub fn automatic_redemption_artwork(
+			origin: OriginFor<T>,
+			ipfs_cid: BoundedVec<u8, ConstU32<64>>,
+		) -> DispatchResult {
+			// Make sure the caller is from sudo account.
+			let _ = ensure_root(origin)?;
+
+			// Get the artwork
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork).unwrap();
+
+			// Give deposit to the lender
+			T::Currency::transfer(
+				&Self::get_pallet_account_id(),
+				&artwork.collateral_for.unwrap(),
+				Self::pledge_artwork_price(),
+				ExistenceRequirement::KeepAlive,
+			)
+			.unwrap();
+
+			Self::sudo_destroy_artwork(ipfs_cid.clone()).unwrap();
+
+			// Deposit an "ArtworkPawnOver" event.
 			Self::deposit_event(Event::ArtworkPawnOver { ipfs_cid });
 
 			Ok(())
@@ -864,10 +897,6 @@ pub mod pallet {
 			// When artwork is transferred, artwork cannot be pledged.
 			ensure!(artwork.collateral_for == None, Error::<T>::ArtworkHasBeanLoaned);
 
-			// Performs this operation first as it may fail
-			let count = CountForArtworks::<T>::get();
-			let new_count = count.checked_sub(1).ok_or(ArithmeticError::Underflow)?;
-
 			T::Currency::transfer(
 				&Self::get_pallet_account_id(),
 				&who,
@@ -875,9 +904,22 @@ pub mod pallet {
 				ExistenceRequirement::KeepAlive,
 			)?;
 
+			Self::sudo_destroy_artwork(ipfs_cid).unwrap();
+
+			Ok(())
+		}
+
+		// Sudo destroys an artwork and does not return of down-payment.
+		// Enforce and dispose of defaulting users' artwork.
+		fn sudo_destroy_artwork(ipfs_cid: BoundedVec<u8, ConstU32<64>>) -> DispatchResult {
+			let artwork = Artworks::<T>::get(&ipfs_cid).ok_or(Error::<T>::NoArtwork)?;
+			// Performs this operation first as it may fail
+			let count = CountForArtworks::<T>::get();
+			let new_count = count.checked_sub(1).ok_or(ArithmeticError::Underflow)?;
+
 			Artworks::<T>::remove(ipfs_cid.clone());
 			// Remove the ipfs_cid
-			ArtworkOwned::<T>::try_mutate(&who, |ipfs_cid_vec| {
+			ArtworkOwned::<T>::try_mutate(&artwork.owner, |ipfs_cid_vec| {
 				ipfs_cid_vec.retain(|x| *x != ipfs_cid);
 				Ok(())
 			})
@@ -888,9 +930,12 @@ pub mod pallet {
 			ArtworksOnSale::<T>::remove(&ipfs_cid);
 			ArtworksOnLoan::<T>::remove(&ipfs_cid);
 			ArtworksOnPawn::<T>::remove(&ipfs_cid);
+			// Remove from the pool.
+			ArtworksExpireBlockForLoan::<T>::remove(&ipfs_cid);
+			ArtworksExpireBlockForPawn::<T>::remove(&ipfs_cid);
 
-			// Deposit a "DestroyArtwork" event.
-			Self::deposit_event(Event::DestroyArtwork { owner: who, ipfs_cid });
+			// Deposit an "DestroyArtwork" event.
+			Self::deposit_event(Event::DestroyArtwork { owner: artwork.owner, ipfs_cid });
 
 			Ok(())
 		}
@@ -993,9 +1038,8 @@ pub mod pallet {
 
 			for (ipfs_cid, end_block_num) in ArtworksExpireBlockForLoan::<T>::iter() {
 				if block_number == end_block_num {
-					let results = signer.send_signed_transaction(|_account| Call::lend_over {
-						block_number,
-						ipfs_cid: ipfs_cid.clone(),
+					let results = signer.send_signed_transaction(|_account| {
+						Call::automatic_lend_over { block_number, ipfs_cid: ipfs_cid.clone() }
 					});
 
 					for (acc, res) in &results {
@@ -1007,6 +1051,39 @@ pub mod pallet {
 							),
 							Err(e) =>
 								log::error!("[{:?}] Failed to Over the lending: {:?}", acc.id, e),
+						}
+					}
+				}
+			}
+		}
+
+		// Over the pawning by sending a signed tx.
+		fn automatic_redemption_artwork_by_signed_tx(block_number: T::BlockNumber) {
+			let signer = Signer::<T, T::AuthorityId>::all_accounts();
+			if !signer.can_sign() {
+				log::error!(
+					"No local accounts available. Consider adding one via `author_insertKey` RPC."
+				);
+			}
+
+			for (ipfs_cid, end_block_num) in ArtworksExpireBlockForPawn::<T>::iter() {
+				if block_number == end_block_num {
+					let results = signer.send_signed_transaction(|_account| {
+						Call::automatic_redemption_artwork { ipfs_cid: ipfs_cid.clone() }
+					});
+
+					for (acc, res) in &results {
+						match res {
+							Ok(()) => log::info!(
+								"[{:?}] Force overing the pawning successfully at :{:?}",
+								acc.id,
+								block_number
+							),
+							Err(e) => log::error!(
+								"[{:?}] Failed to force overing the pawning: {:?}",
+								acc.id,
+								e
+							),
 						}
 					}
 				}

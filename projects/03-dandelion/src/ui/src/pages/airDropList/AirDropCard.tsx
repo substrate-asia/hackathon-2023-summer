@@ -1,4 +1,3 @@
-import { Astar } from "assets";
 import { AirDrop } from "constants/index";
 import { NavLink } from "react-router-dom";
 
@@ -17,7 +16,7 @@ function AirDropListCard({
           return (
             <NavLink to={`airdrop/${item.id}`} key={item.id}>
               <div className="flex flex-row justify-start items-center">
-                <img src={Astar} alt="" className="w-[30px] h-[30px]" />
+                <img src={item.logo} alt="" className="w-[30px] h-[30px]" />
 
                 <div className="flex flex-col pl-3 overflow-hidden w-full">
                   <span className="font-300 text-[18px]"> {item.name}</span>

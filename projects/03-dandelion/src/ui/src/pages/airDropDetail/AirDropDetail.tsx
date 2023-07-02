@@ -1,15 +1,13 @@
 import { useParams } from "react-router-dom";
-import airlist from "assets/list.json";
-import type { AirDrop } from "constants/index";
 import { Button, Progress } from "antd";
 import { useNavigate } from "react-router-dom";
+import { AIR_DROP_LIST } from "../../assets";
+
 function AirDropDetail() {
   let { id } = useParams();
   const navigate = useNavigate();
   const idNumber = id ? Number(id) : null;
-  const airdrop = airlist.filter(
-    (item) => item.id === idNumber
-  )[0] as unknown as AirDrop;
+  const airdrop = AIR_DROP_LIST.find((item) => item.id === idNumber)!;
   const desc = airdrop.desc.replace(/\\n/g, "\n");
   // 请计算percentage
   const percentage = 50;

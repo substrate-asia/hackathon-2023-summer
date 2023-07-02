@@ -125,7 +125,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [ ] Participating in crowdfunding.
   - [ ] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
   - [ ] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
-  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.
+  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.(see in spiral-front/README.md)
 
 
 

@@ -1,4 +1,4 @@
-# ColossusVault: A Decentralized Private Social Experience
+# ColossusVault: A Decentralized Private Social Application
 
 ##  Basic Information
 

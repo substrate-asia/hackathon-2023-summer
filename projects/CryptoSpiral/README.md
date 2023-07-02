@@ -1,6 +1,6 @@
 ## 基本资料
 
-项目名称：NFT-Fi-Twitter
+项目名称：CryptoSpiral
 
 项目立项日期 (哪年哪月)：2023-0517
 
@@ -68,10 +68,26 @@ We use the [vitesse-webext](https://github.com/antfu/vitesse-webext) open-source
 
 ## 黑客松期间计划完成的事项
 
-- [ ] User can post new twitter with encrypted content
-- [ ] User can comment on other user's twitter with encrypted content
-- [ ] User can pay with ERC20 Token to mint NFT that attach to any twitter content
-- [ ] User can unlock encrypted content while they have the relative NFT
+- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+
+**区块链端**
+
+- `pallet-nft`
+  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
+  - [ ] NFT 转帐函数 (`fn transfer()`)
+  - [ ] NFT 销毁函数 (`fn burn_token()`)
+
+**客户端**
+
+- web 端
+  - [ ] 用户注册页面
+  - [ ] NFT 产品创建流程
+  - [ ] NFT 产品购买流程
+
+- hybrid (react-native)
+  - [ ] 用户注册页面
+  - [ ] NFT 产品创建流程
+  - [ ] NFT 产品购买流程
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

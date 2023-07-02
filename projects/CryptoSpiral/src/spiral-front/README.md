@@ -14,6 +14,8 @@
   - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.
  
 
+- 执行任务动作
+  
 ```javascript 
           window.PolkadotWeb3JSSample.unionTaskActionPay(account, taskAction.taskId, taskAction.actionId, BigInt(taskAction.price),
 							function (  myEvent, status ) {							
@@ -60,3 +62,45 @@
 						var no_money  = e.message.indexOf("Inability to pay some fees");
 						
 					})
+
+
+
+- 任务动作的验证与奖励
+  
+```javascript 
+window.PolkadotWeb3JSSample.doTaskActionInTEE(mnemonic, taskContract, parseInt(taskId), parseInt(actionId), tokenMd5, fromAddr
+					).then(res => {
+						var reulstJson = JSON.parse(JSON.stringify(res));
+						var resultStr = JSON.stringify(res);//deep copy the result for callback, not be changed ...
+						var playload_  = reulstJson.output?.ok;
+						if(playload_ !=null){
+							if(playload_.err!=null){								
+								console.log("contract error: "+playload_.err);
+							}
+							
+							if(actionType == "vpn" && playload_.ok !=null ){//处理VPN生成
+								var playload  = JSON.parse(playload_.ok);
+								console.log(playload);
+								if(playload .code == 200){								
+									
+
+								}	
+								}else{
+									console.log(" vpn server faild ");
+
+								}	
+
+							}
+
+							if(true){//其它action处理
+
+							}
+							
+													
+						}else{
+							console.log("unkown error");
+						}
+
+					}).catch(e => {
+						
+					});

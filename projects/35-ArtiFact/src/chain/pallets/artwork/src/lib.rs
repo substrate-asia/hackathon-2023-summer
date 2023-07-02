@@ -3,7 +3,11 @@
 pub use pallet::*;
 use sp_core::crypto::KeyTypeId;
 
+#[cfg(feature = "runtime-benchmarks")]
+mod benchmarking;
 mod coin_price;
+#[cfg(test)]
+mod mock;
 
 pub const KEY_TYPE: KeyTypeId = KeyTypeId(*b"ocwd");
 pub mod crypto {

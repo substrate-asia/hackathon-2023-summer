@@ -7,7 +7,7 @@
 项目立项日期 (哪年哪月)：2023-0517
 
 <p align="center">
-<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-info.png"><br/>
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-info.png?v=1"><br/>
 </p>
 
 

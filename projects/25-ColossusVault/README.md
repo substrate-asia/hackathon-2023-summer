@@ -25,11 +25,11 @@ The revolutionary features of our project include:
 
 - **Data Privacy and Sovereignty:** Our solution mitigates the risk of data misuse by centralized platforms and provides a secure environment where privacy data is protected and not publicly stored.
 
-- **User-friendly Privacy Content Sharing:** In response to the existing web3 products' unfriendly mechanisms for privacy content sharing, ColossusVault provides a user-centric approach that respects and prioritizes user convenience.
+- **User-friendly Privacy Content Sharing:** In response to the existing web3 products' unfriendly mechanisms for privacy content sharing, Pshare provides a user-centric approach that respects and prioritizes user convenience.
 
 - **Creator Incentives:** Recognizing the need for a motivating factor for creators in current social products, our platform integrates an incentive mechanism to encourage continuous content creation.
 
-In summary, ColossusVault is a solution crafted with the vision to empower individuals in the web3 era. It provides a safe and reliable storage platform, reminiscent of the protective stature of the Colossus of Rhodes, ensuring personal data protection and accessibility. Like Helios overlooking Rhodes, we aim to offer a product that watches over your digital social interactions.
+In summary, Pshare is a solution crafted with the vision to empower individuals in the web3 era. It provides a safe and reliable storage platform, reminiscent of the protective stature of the Colossus of Rhodes, ensuring personal data protection and accessibility. Like Helios overlooking Rhodes, we aim to offer a product that watches over your digital social interactions.
 
 
 ## Technology Architecture

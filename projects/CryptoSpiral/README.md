@@ -1,4 +1,4 @@
-![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.png)
+![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.jpg)
 
 ## 基本资料
 

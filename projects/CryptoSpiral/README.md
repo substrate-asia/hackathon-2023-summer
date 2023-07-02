@@ -1,4 +1,4 @@
-![logo](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/1be87c29-87dd-4f6d-8293-26aaf0e62802)## 基本资料
+![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.png)## 基本资料
 
 项目名称：CryptoSpiral
 

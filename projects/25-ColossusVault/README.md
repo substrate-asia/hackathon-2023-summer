@@ -76,6 +76,7 @@ explain the technology architecture of your project, such as how the front end, 
   - github: TecSong
 - Lenny（Team Captain, Dapp Development Engineer, Corresponding Author）
   - Graduate student, research on Distributed storage and blockchain
+  - contact email: lennymo.work@gmail.com
   - github: lenny-mo
 
 

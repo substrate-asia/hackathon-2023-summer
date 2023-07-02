@@ -1,4 +1,4 @@
-## 基本资料
+![logo](https://github.com/web3pioneer/hackathon-2023-summer/assets/92438448/1be87c29-87dd-4f6d-8293-26aaf0e62802)## 基本资料
 
 项目名称：CryptoSpiral
 
@@ -113,9 +113,12 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 **客户端**
 
 - web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+  - [ ] Creating an advertising landing page
+  - [ ] Creating a promotion DAO.
+  - [ ] Participating in crowdfunding.
+  - [ ] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
+  - [ ] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
+  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.
 
 
 

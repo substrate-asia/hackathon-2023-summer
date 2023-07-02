@@ -55,13 +55,17 @@ TBD
 ### 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
 
 <p>
-Pallet 起始 commit 是这个：https://github.com/paritytech/substrate/tree/v3.0.0   
+Pallet start from commit：https://github.com/paritytech/substrate/tree/v3.0.0   
 
-，同时集成了 Substrate-dex:  https://github.com/paritytech/substrate-dex
+，Simultaneously integrated with Substrate-dex:  https://github.com/paritytech/substrate-dex
 </p>
 
 <p>
-隐私合约 起始 commit 是这个：https://github.com/Phala-Network/tokenomic-contract
+Pivate Contract  start from  commit：https://github.com/Phala-Network/tokenomic-contract
+</p>
+
+<p>
+data index(subquery)  start from  commit：https://github.com/subquery/nodle-subql-starter.git
 </p>
 
 
@@ -72,10 +76,24 @@ Pallet 起始 commit 是这个：https://github.com/paritytech/substrate/tree/v3
 
 **区块链端**
 
+- `pallet\spiral-dao`
+  - [ ] advertise Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
+  - [ ] promoter-dao  Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
+  - [ ] promoter-dao Participating in crowdfunding. (`fn union_dao_mint()`)
+  - [ ] 
+  
+
+- `pallet\spiral-collective`
+  - support mutli collective
+ 
+  - [ ] 
+**隐私合约**
+
 - `pallet-nft`
   - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
   - [ ] NFT 转帐函数 (`fn transfer()`)
   - [ ] NFT 销毁函数 (`fn burn_token()`)
+  
 
 **客户端**
 

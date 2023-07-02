@@ -18,9 +18,9 @@
 - TBD
 
 ### Technology Architecture
-- ![](./docs/architecture.jpg)
+![](./docs/architecture.jpg)
 
-### logo
+### Logo
 ![](./docs/logo.png)
 
 ## 黑客松期间计划完成的事项

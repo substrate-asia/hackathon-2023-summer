@@ -94,8 +94,9 @@ function MyTree() {
     },
   });
 
-  /* busy正在进行合约写操作 */
-  console.log('tree:', balance, signIn3day, treeStatus, signIn3day.busy)
+  // signIn3day.prepareStatus === 'error' 表示无法进行合约写操作，应该是签到的3天时间间隔限制
+  // signIn3day.busy 正在进行合约写操作
+  console.log('tree:', treeStatus, signIn3day, signIn3day.prepareStatus, signIn3day.busy)
 
   return (
     <div className="flex flex-col flex-1 items-center">

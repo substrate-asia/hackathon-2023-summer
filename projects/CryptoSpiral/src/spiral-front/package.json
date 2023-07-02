@@ -1,0 +1,46 @@
+{
+  "name": "samples",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpack.config.js --progress "
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "forrest",
+  "license": "ISC",
+  "dependencies": {
+    "@phala/sdk": "^0.4.0",
+    "@phala/typedefs": "^0.2.32",
+    "@polkadot/api": "^10.3.4",
+    "@polkadot/api-contract": "^10.3.4",
+    "@polkadot/extension-dapp": "^0.44.6",
+    "@polkadot/util": "^10.1.12",
+    "@polkadot/util-crypto": "^10.1.12",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "terser-webpack-plugin": "^5.3.1",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "assert": "^2.0.0",
+    "babel-loader": "^8.2.5",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.9.2"
+  }
+}

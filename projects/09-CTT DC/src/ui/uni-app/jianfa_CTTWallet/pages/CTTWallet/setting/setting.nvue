@@ -1,0 +1,781 @@
+<template>
+	<view style="width: 100%;height: 100%;">
+		<!--顶部图片-->
+		<view class="imgheight" >
+			<image src="../../../static/newIcon/newImg1.png" style="width: 750upx;height: 400upx;"></image>
+		</view>	
+		
+		<!--浮动的层-->
+		<view class="float_bao" @touchmove.stop.prevent="moveHandle" style="height: auto;top: 125upx;">
+			<view class="float_view1_change1" style="width: 675upx;z-index: 23;margin-top: 0upx;">
+				<view style="margin-left: 0upx;width: 675upx;height: 100upx;margin-top: 0upx;">
+					<view style="flex-direction: row; align-items: center;width: 675upx;">
+						<view style="width: 135upx;margin-left: 30upx;">
+							<view style="width:80upx;height: 80upx;">
+								<image v-if="headPortrait1==''" style="width:80upx;height: 80upx;border-radius:80upx;" :src="logo3"></image>
+								<image v-if="headPortrait1!=''" style="width:80upx;height: 80upx;border-radius:80upx;" :src="headPortrait1"></image>
+							</view>
+						</view>
+						<view style="width: 270upx;height: 100%;flex-direction: column;justify-content: center;color: #000;">
+							<text style="font-size: 30upx;margin-left: 10upx; ">{{userName}}</text>
+							<text style="font-size: 22upx;margin-top: 20upx;margin-left: 0upx;color: #EFF1F1;">【{{roleTypeText}}】</text>
+						</view>
+					</view>
+				</view>
+				<view style="margin-left: 0upx;width: 675upx;height: 80upx;margin-top: 0upx;flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width:540upx;height: 80upx;flex-direction: row;align-items: center;">
+						<text style="margin-left: 30upx;font-size: 28upx;color: #FFFFFF;">{{pubKey}}</text>
+					</view>
+				</view>
+			</view>	
+		</view>
+		<view class="float_bao" @touchmove.stop.prevent="moveHandle" style="height: auto;top: 400upx;background-color: #EFF1F1;">
+			<scroll-view scroll-y="true" @scroll="scroll" class="pushContent scro_ctt" :style="{ height: height }" show-scrollbar="false" >
+				<view class="float_view2" style="margin-top: 50upx; background-color: #FFFFFF;width: 675upx;flex-direction: column;justify-content: center;height: auto;">
+					<view @tap="toRemoteNode()" style="width: 675upx;height: 100upx;flex-direction: row;justify-content: center;margin-top: 20upx; ">
+						<view style="width: 228upx;height: 100upx;flex-direction: row;align-items: center;margin-top: 0upx;">
+							<text style="margin-left: 20upx;font-size: 30upx;color: #000000;">远程节点</text>
+						</view>
+						<view style="width: 380upx;height: 100upx;flex-direction: column;justify-content: center;margin-top: 0upx;">
+							<text style="margin-left: 20upx;font-size: 30upx;color: #999;">{{dataList.name}}</text>
+						</view>
+						<view style="width: 67upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;margin-top: 0upx;">
+							<image src="../../../static/next.png" class="img2"></image>
+						</view>
+					</view>
+					
+					
+					<view @tap="toAddressManager()" style="width: 675upx;height: 100upx;flex-direction: row;justify-content: center;margin-top: 0upx;">
+						<view style="width: 228upx;height: 100upx;flex-direction: row;align-items: center;">
+							<text style="margin-left: 20upx;font-size: 30upx;color: #000000;">地址管理</text>
+						</view>
+						<view style="width: 380upx;height: 100upx;flex-direction: column;justify-content: center;">
+							<text style="font-size: 28upx;color: #999999;"></text>
+						</view>
+						<view style="width: 67upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+							<image src="../../../static/next.png" class="img2"></image>
+						</view>
+					</view>
+					
+					<view @tap="toProposalManager()" style="width: 675upx;height: 100upx;flex-direction: row;justify-content: center;margin-top: 0upx;">
+						<view style="width: 228upx;height: 100upx;flex-direction: row;align-items: center;">
+							<text style="margin-left: 20upx;font-size: 30upx;color: #000000;">提案管理</text>
+						</view>
+						<view style="width: 380upx;height: 100upx;flex-direction: column;justify-content: center;">
+							<text style="font-size: 28upx;color: #999999;"></text>
+						</view>
+						<view style="width: 67upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+							<image src="../../../static/next.png" class="img2"></image>
+						</view>
+					</view>
+					
+					<view @tap="toAboutWallet()" style="width: 675upx;height: 100upx;flex-direction: row;align-items: center; justify-content: center;margin-top: 0upx;">
+						<view style="width: 228upx;height: 100upx;flex-direction: row;align-items: center;">
+							<text style="margin-left: 20upx;font-size: 30upx;color: #000000;">关于钱包</text>
+						</view>
+						<view style="width: 380upx;height: 100upx;flex-direction: column;justify-content: center;">
+							<text style="font-size: 28upx;color: #999999;"></text>
+						</view>
+						<view style="width: 67upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+							<image src="../../../static/next.png" class="img2"></image>
+						</view>
+					</view>
+					<view style="width: 675upx;height: 100upx;flex-direction: row;justify-content: center;margin-top: 100upx;margin-bottom: 30upx;">
+						
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="web-view">
+			<web-view class="web-view" :src="url" ref="webview" @pagestart="onPageStart" @onPostMessage="handlePostMessage"
+			 @pagefinish="onPageFinish" @error="onError" @receivedtitle="onReceivedTitle">
+			</web-view>
+		</view>
+		<!--#ifdef APP-PLUS-NVUE --><!--仅app-->
+		<!-- <view class="h_50 w_percent100" style=" width: 100%;height: 50upx;position: fixed;z-index: 1;top: 0;background-color:#C11ACE;"></view> -->
+		<view style="flex-direction: row;align-items: center; height: 105upx;position: fixed;z-index: 999; top: 0upx;width: 750upx;margin-top: 50upx;">
+			<view @tap="up()" class="w_percent10" style="height: 60upx;width: 75upx;flex-direction: row;align-items: center;">
+				<image src="../../../static/img/up_white2.png" class="img38upx" style="margin-left: 20upx;"></image>
+			</view>
+			<view style="font-size: 28upx;width:600upx;height: 80upx;flex-direction: row;flex-direction: row; align-items: center;justify-content: center;">
+				<text style="margin-left: 15upx;color: #FFFFFF;">设置</text>
+			</view>
+			<view @tap="showRightDrawer()" class="w_percent20" style="font-size: 35upx;width: 75upx;">
+				<image :src="img_menu" class="select" style="margin-left: 20upx;"></image>
+			</view>
+		</view>
+		<!--#endif-->
+		<!--#ifndef APP-PLUS-NVUE--><!--除了app-->
+		<view style="display: flex;align-items: center;flex-direction: row;height: 80upx;position: fixed;z-index: 2; top: 0upx;width: 100%;margin-top: 10upx;">
+			<view @tap="up()" class="w_percent10" style="height: 60upx;width: 10%;">
+				<image src="../../../static/img/up_white2.png" class="img38upx" style="margin-left: 20upx;"></image>
+			</view>
+			<view  style="font-size: 28upx;width: 80%;display: flex;flex-direction: row;align-items: center;justify-content: center;">
+				<text style="margin-left: 15upx;color: #FFFFFF;">设置</text>
+			</view>
+			<view @tap="showRightDrawer()" style="font-size: 35upx;width: 10%;">
+				<image :src="img_menu" class="select" style="margin-left: 20upx;"></image>
+			</view>
+		</view>
+		<!--#endif-->
+		<block  v-if="viewStatus">
+			<view  @tap="closeView()" class="uni-mask drawer_view"   @touchmove.stop.prevent="moveHandle"  :style="{ height: height2 }">
+			</view>
+			<view v-if="viewType==1" class="uni-mask2 drawer_view"   @touchmove.stop.prevent="moveHandle"  :style="{ height: height3 }">
+				<view style="width: 750upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 650upx;height: 100upx;flex-direction: row;align-items: center;">
+						<text style="font-size: 35upx;color: #000000;margin-left: 30upx;font-weight: bold;">修改密码</text>
+					</view>
+					<view @tap="closeView()" style="width: 100upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+						<image src="../../../static/close.png" class="img1"></image>
+					</view>
+				</view>
+				<view style="width: 750upx;height:110upx;margin-top:50upx; flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 600upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center; border-top-width: 1upx;border-top-color: #CCCCCC;border-bottom-width: 1upx;border-bottom-color: #CCCCCC;">
+						<input v-model="password" class="input" type="text" placeholder="请输入助记词" style="z-index: 1;text-align: center;width: 600upx;height: 100upx;" />
+					</view>
+				</view>
+				<view style="width: 750upx;height:110upx;margin-top:0upx; flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 600upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center; border-top-width: 0upx;border-top-color: #CCCCCC;border-bottom-width: 1upx;border-bottom-color: #CCCCCC;">
+						<input v-model="password" class="input" type="text" placeholder="请输入新密钥保护密码" style="z-index: 1;text-align: center;width: 600upx;height: 100upx;" />
+					</view>
+				</view>
+				<view style="width: 750upx;height:110upx;margin-top:0upx; flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 600upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center; border-top-width: 0upx;border-top-color: #CCCCCC;border-bottom-width: 1upx;border-bottom-color: #CCCCCC;">
+						<input v-model="password" class="input" type="text" placeholder="请确认新密钥保护密码" style="z-index: 1;text-align: center;width: 600upx;height: 100upx;" />
+					</view>
+				</view>
+				<view style="width: 750upx;height: 100upx;margin-top: 100upx; flex-direction: row;align-items: center;justify-content: center;">
+					
+					<view @tap="toExportAccount()" style="margin-left: 0upx; border-width: 1upx;border-color: #C11ACE;background-color: #C11ACE; width: 400upx;height: 80upx;border-radius: 30upx;flex-direction: row;align-items: center;justify-content: center;">
+						<text style="margin-left: 0upx;font-size: 42upx;color: #FFFFFF;">确定</text>
+					</view>
+				</view>
+			</view>
+			<view v-if="viewType==2" class="uni-mask2 drawer_view"   @touchmove.stop.prevent="moveHandle"  :style="{ height: height3 }">
+				<view style="width: 750upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 650upx;height: 100upx;flex-direction: row;align-items: center;">
+						<text style="font-size: 35upx;color: #000000;margin-left: 30upx;font-weight: bold;">帐户导出</text>
+					</view>
+					<view @tap="closeView()" style="width: 100upx;height: 100upx;flex-direction: row;align-items: center;justify-content: center;">
+						<image src="../../../static/close.png" class="img1"></image>
+					</view>
+				</view>
+				<view style="width: 750upx;height:200upx;margin-top:100upx; flex-direction: row;align-items: center;justify-content: center;">
+					<view style="width: 600upx;height: 130upx;flex-direction: row;align-items: center;justify-content: center; border-top-width: 1upx;border-top-color: #CCCCCC;border-bottom-width: 1upx;border-bottom-color: #CCCCCC;">
+						<input v-model="password" class="input" type="text" placeholder="请输入密钥保护密码" style="z-index: 1;text-align: center;width: 600upx;height: 100upx;" />
+					</view>
+				</view>
+				<view style="width: 750upx;height: 100upx;margin-top: 100upx; flex-direction: row;align-items: center;justify-content: center;">
+					
+					<view @tap="toExportAccount()" style="margin-left: 0upx; border-width: 1upx;border-color: #C11ACE;background-color: #C11ACE; width: 400upx;height: 80upx;border-radius: 30upx;flex-direction: row;align-items: center;justify-content: center;">
+						<text style="margin-left: 0upx;font-size: 42upx;color: #FFFFFF;">确定</text>
+					</view>
+				</view>
+			</view>
+			
+		</block>
+	</view>
+</template>
+
+<script>
+	import api from '@/common/api.js';
+	import {
+		mapState,
+		mapMutations,
+	} from 'vuex';
+	var currentWebview;
+	var wv;
+	export default {
+		computed: {
+			...mapState(['hasLogin', 'pubKey', 'userId', 'userName', 'token', 'uuid', 'phone', 'roleType', 'headPortrait'])
+		},
+		data() {
+			return {
+				password:'',
+				viewStatus:'',
+				viewType:'',
+				baseData:{
+					"accountName":'',
+					"transType":'',
+					"money":'',
+					"moneyRate":'1.0000',
+					"transRate":'0.2%'
+				},
+				account_code:'',
+				CTTCodeStatus:false,
+				
+				sysheight2:'',
+				sysheight:'',
+				sysheight3:'',
+				height3:'',
+				height:'',
+				height2:'',
+				
+				params: {},
+				url: '/hybrid/html/index.html',
+				webviewStyles: {
+					progress: '#FFFFFF'
+				},
+				pagestart: '',
+				pagefinish: '',
+				error: '',
+				canGoBack: false,
+				canGoForward: false,
+				PageStart: false, // 记录网页请求的加载状态，true 加载成功 false 加载失败
+				isgetData: false,
+				newData: '',
+				name1: '',
+				pass1: '',
+				
+				dataList:{
+					"name":''
+				},
+				
+				newOrderImg:  '',
+				newRebackImg:  '',
+				newJianbieImg: '',
+				newReceiveImg:  '',
+				newWaitPay: '',
+				img_CTT: '',
+				img_CTTCode: '',
+				img_QRCode: '',
+				img_transfer: '',
+				img_menu_drawer1: '',
+				img_menu_drawer2: '',
+				img_menu_drawer3: '',
+				img_menu_drawer4: '',
+				
+				rightDrawerVisible:false,
+				selectStatus:0,
+				img_select_green: '',
+				img_select: '',
+				img_KPT: '',
+				img_application2: '',
+				img_application1: '',
+				img_flower: '',
+				img_menu: '',
+				imageURL: '',
+				roleTypeText:'',
+				headPortrait1:'',
+				logo3: '',
+				
+				scrollTop: 0,
+				old: {
+					scrollTop: 0
+				},
+			};
+		},
+		created() {
+			this.sysheight2 = uni.getSystemInfoSync().windowHeight;
+			this.sysheight = uni.getSystemInfoSync().windowHeight-150;
+			this.sysheight3 = uni.getSystemInfoSync().windowHeight-400;
+			this.height = `${this.sysheight}px`;
+			this.height2 = `${this.sysheight2}px`;
+			this.height3 = `${this.sysheight3}px`;
+		},
+		onLoad() {
+			var that = this;
+			that.name1 = "aaa";
+			that.pass1 = "123456";
+		},
+		onShow() {
+			this.rightDrawerVisible = false;
+			var that = this;
+			try {
+			    const value = uni.getStorageSync('roleTypeText');
+			    if (value) {
+					that.roleTypeText=value;
+			    }
+			} catch (e) {
+			    // error
+			}
+			this.headPortrait1=api.NewApiRootUrl + this.headPortrait;
+			this.getAgentNodeList();
+		},
+		methods: {     
+			getAgentNodeList(){
+				var that=this;
+				var Nodedata='';
+				try {
+				    const value = uni.getStorageSync('Nodedata');
+				    if (value) {
+				        console.log(JSON.stringify(value))
+				    	if(value!=''){
+				    		if(value.length>0){
+				    			//如果之前有存储过这个用户的节点
+				    			for(var a=0;a<value.length;a++){
+				    				if(that.userId==value[a].userId){
+				    					Nodedata=value[a].data;
+				    				}
+				    			}
+				    		}
+				    	}
+				    }
+				} catch (e) {
+				    // error
+				}
+				console.log("Nodedata:"+Nodedata)
+				if(Nodedata==''){
+					var that = this;
+					uni.request({
+						url: api.getAgentNodeList,
+						data: {
+							type:'default'
+						},
+						header: {
+							'content-type': 'application/x-www-form-urlencoded',
+							'uuid': this.uuid,
+							'token': this.token
+						},
+						method: 'POST', //HTTP请求类型
+						success: (res) => {
+							console.log(res.data);
+							//console.log(JSON.stringify(res.data));
+							if (res.data.code == 200) {
+								that.dataList=res.data.data[0];
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: res.data.msg,
+									duration: 4000
+								});
+							}
+						}
+					});
+				}else{
+					that.dataList=Nodedata;
+				}
+			},
+			
+			
+			toKPT(){
+				uni.navigateTo({
+					url:'../CTTWallet_nvue/CTTWallet_nvue'
+				})
+			},
+			toAccountManager(){
+				uni.navigateTo({
+					url:'../accountManager/accountManager'
+				})
+			},
+			toDemocraticVote(){
+				uni.navigateTo({
+					url:'../NewDemocraticVote_nvue/NewDemocraticVote_nvue'
+				})
+			},
+			toSetting(){
+				this.rightDrawerVisible = false;
+			},
+			toAboutWallet(){
+				uni.navigateTo({
+					url:'../AboutWallet/AboutWallet'
+				})
+			},
+			toAddressManager(){
+				uni.navigateTo({
+					url:'../AddressManager/AddressManager'
+				})
+			},
+			toProposalManager(){
+				uni.navigateTo({
+					url:'../ProposalManager/ProposalManager'
+				})
+			},
+			showView(status){
+				this.viewStatus=true;
+				this.viewType=status
+			},
+			closeView(){
+				this.viewStatus=false;
+			},
+			toExportAccount(){
+				uni.navigateTo({
+					url:'../ExportAccount/ExportAccount'
+				})
+			},
+			toEditPwd(){
+				
+			},
+			toRemoteNode(){
+				uni.navigateTo({
+					url:'../RemoteNode/RemoteNode'
+				})
+			},
+			toCoefficientOfKP(){
+				uni.navigateTo({
+					url:'../CoefficientOfKP/CoefficientOfKP'
+				})
+			},
+			toModelIssue(){
+				uni.navigateTo({
+					url:'../ModelIssue/ModelIssue'
+				})
+			},
+			toApplicationLicense(){
+				uni.navigateTo({
+					url:'../ApplicationLicense/ApplicationLicense'
+				})
+			},
+			toCoreDevelopmentAndManagemente(){
+				uni.navigateTo({
+					url:'../CoreDevelopmentAndManagemente/CoreDevelopmentAndManagemente'
+				})
+			},
+			toFinancingVote(){
+				uni.navigateTo({
+					url:'../FinancingVote/FinancingVote'
+				})
+			},
+			makeCollections(){
+				this.CTTCodeStatus = false;
+			},
+			changStatus(status){
+				this.selectStatus=status;
+			},
+			showCTTCode(){
+				this.CTTCodeStatus = true;
+			},
+			closeCTTCode(){
+				this.CTTCodeStatus = false;
+			},
+			closeRightDrawer() {
+				this.rightDrawerVisible = false;
+			},
+			showRightDrawer() {
+				console.log("click menu button:")
+				this.rightDrawerVisible = true;
+				console.log("rightDrawerVisible:"+this.rightDrawerVisible);
+			},
+			toAccountTransactions(){
+				uni.navigateTo({
+					url:'../accountTransactions_nvue/accountTransactions_nvue'
+				})
+			},
+			scroll: function(e) {
+				// console.log(e)
+				//console.log("scroll")
+				this.old.scrollTop = e.detail.scrollTop
+			},
+			moveHandle(){},
+			up(){
+				uni.navigateBack(1);
+			},
+			savePubKey(){
+				console.log("获取数据成功：" );
+				//生成测试数据
+
+			},
+			handlePostMessage: function(evt) {
+				var that = this;
+				console.log('接收到的消息：' + JSON.stringify(evt.detail.data));
+				let msg = evt.detail.data[0];
+				switch (msg.action) {
+					case 'keyringReady':
+
+						this.$refs.webview.evalJs('createAccount("' + that.name1 + '", "' + that.pass1 + '");');
+						break;
+					case 'createAccountResult':
+						console.log("create account result:", msg.data);
+						//测试其他的函数时注释下面两行
+						that.newData = msg.data;
+						//uni.hideLoading();
+						that.savePubKey();
+						//测试用的结束
+						break;
+					default:
+						console.log("unknow msg");
+						break;
+				}
+			},
+			onBackPress(e) {
+				// 这里可以自定义返回逻辑，比如下面跳转其他页面
+				if (this.isgetData) {
+					uni.navigateBack(1);
+				}
+				// return true 表示禁止默认返回
+				return true
+			},
+
+			onPageStart: function(e) {
+				console.log(e);
+				// 监听页面加载成功
+				this.PageStart = true;
+				// 其实页面也可以使用这个方法传参
+				//this.$refs.webview.evalJs("setLoginToken('我就是个参数啊')");
+				// uni.showLoading({
+				// 	title: '创建中',
+				// })
+
+			},
+			onPageFinish: function(e) {
+				console.log(`onPageFinish`);
+			},
+			onError: function(e) {
+				// 监听页面加载错误
+				conosle.log(`error:${e}`);
+				this.error = url;
+			},
+			onReceivedTitle: function(e) {
+
+			},
+			reloadWebviewUrl() {
+				// 刷新网页
+				var webview = weex.requireModule('webview');
+				webview.reload(this.$refs.webview);
+			}
+		},
+	}
+</script>
+
+<style>
+/* 	@import url("../../../css/myViewImg.css"); */
+	@import url("../../../css/imgeList.css");
+	@import url("../../../css/image.css");
+	.input{
+		font-size: 28upx;
+	}
+	.float_view_bottom_center{
+		width: 250upx;
+		height: 120upx;
+		background-color: #ffc000;
+		flex-direction: row;
+		align-items: center;justify-content: center;
+	}
+	.float_view_bottom_right{
+		width: 250upx;
+		height: 120upx;
+		background-color: #00b0f0;
+		flex-direction: row;
+		align-items: center;justify-content: center;
+	}
+	.float_view_bottom_left{
+		width: 250upx;
+		height: 120upx;
+		background-color: #C11ACE;
+		flex-direction: row;
+		align-items: center;justify-content: center;
+	}
+	.float_view_bottom{
+		width: 750upx;
+		height: 120upx;
+		background-color: #FFFFFF;
+		flex-direction: row;
+		align-items: center;justify-content: center;
+		position: fixed;
+		bottom: 0;
+		z-index: 997;
+	}
+	.uni-mask3 {
+		width:675upx;
+		position: fixed;
+		z-index: 999;
+		top: 150upx;
+		right: 0upx;
+		bottom: 0upx;
+		left: 37.5upx;
+		background-color:#FFFFFF;
+		}
+		.uni-mask2_change {
+			width:675upx;
+			position: fixed;
+			z-index: 999;
+			top: 150upx;
+			right: 0upx;
+			bottom: 0upx;
+			left: 37.5upx;
+			background-color:#FFFFFF;
+			}
+		.uni-mask2 {
+			width:375upx;
+			position: fixed;
+			z-index: 999;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 375upx;
+			background-color:#FFFFFF;
+			}
+	.uni-mask {
+			position: fixed;
+			z-index: 998;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+	.drawer_view{
+		z-index: 999; flex-direction: column;align-items: center;
+	}
+	.scro_ctt{
+		margin-top: 30upx;
+		background-color: #EFF1F1;
+		flex-direction: column;width: 735upx;height: 80%;align-items: center;
+	}
+	.web-view {
+	  height: 1upx;
+	  flex: 1;
+	  flex-direction: column;
+	  background-color: #000;
+	}
+	 
+	.sendMessage {
+	  width: 750rpx;
+	  position: fixed;
+	  bottom: 0rpx;
+	}
+	.float_view2{
+		width: 85%;
+		height: 150upx;
+		border-radius: 20upx;
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		align-items: center;
+	}
+	.float_view1_change1{
+		width: 85%;
+		height: 270upx;
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: column;
+		align-items: center;justify-content: center;
+	}
+	.float_view1{
+		width: 85%;
+		height: 270upx;
+		background-color: #FFFFFF;
+		border-radius: 20upx;
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: column;
+		align-items: center;justify-content: center;
+	}
+	.float_bao{
+		position: fixed;z-index: 2;top: 170upx;;
+		width: 750upx;
+		height: 100%;
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: column;
+		align-items: center;
+	}
+	.imgheight{
+		width: 750upx;
+		height: 400upx;
+		/* background-repeat: no-repeat; background-size: 100% 100%; */
+		/* background: url('../../../static/newIcon/newImg1.png') repeat fixed center; */
+		position: fixed;z-index: 1;
+		flex: 1;
+		top: 0upx;
+		background-color: #EFF1F1;
+	}
+	.viewheight{
+		width: 100%;
+		height: 30%;
+		top: 0upx;
+		background-color: #EFF1F1;
+	}
+	.page1{
+		width: 750upx;
+		/* background-color: #EFF1F1; */
+	}
+	/* html,body {    width: 100%;    height: 100%;    margin: 0;    padding: 0;} */
+	
+	.web-view {
+		bottom: 1upx;
+		height: 1upx;
+		flex: 1;
+		flex-direction: column;
+		background-color: #000;
+	}
+
+	.sendMessage {
+		width: 750rpx;
+		position: fixed;
+		bottom: 0rpx;
+	}
+	.enableColor {
+		color: #999999
+	}
+	
+	.drawer_selectText2 {
+		margin-top: 30upx;
+		margin-left: 30upx;
+		font-size: 28upx;
+		color: #999999;
+	}
+	
+	.drawer_selectText1 {
+		margin-top: 30upx;
+		margin-left: 32upx;
+		font-size: 28upx;
+	}
+	
+	.drawer_selectimg {
+		width: 70upx;
+		height: 70upx;
+		margin-left: 50upx;
+	}
+	
+	.drawer_selectBox {
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		margin-top: 25upx;
+	}
+	
+	.drawer_titleItem {
+		margin-left: 100upx;
+		color: #7030A0;
+	}
+	
+	.drawer_title {
+		margin-top: 20upx;
+		
+		width: 80%;
+		height: 75upx;
+		margin-left: 10%;
+		/* #ifndef APP-PLUS-NVUE */
+		border-bottom: 1upx solid #C8C7CC;
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		font-size: 30upx;
+		color: #9861c2;
+	}
+	
+	.drawer_headText {
+		margin-top: 10upx;
+		margin-left: 50upx;
+		color: #000;
+		font-size: 30upx;
+		font-weight: bold;
+	}
+	
+	.drawer_headImg {
+		margin-top: 10upx;
+		/* #ifndef APP-PLUS-NVUE */
+		border: 2upx solid #C11ACE;
+		/* #endif */
+		border-radius: 50upx;
+		padding: 6upx;
+		width: 30upx;
+		height: 30upx;
+	}
+	
+	.drawer_head {
+		width: 100%;
+		/* #ifndef APP-PLUS-NVUE */
+		display: flex;
+		/* #endif */
+		flex-direction: row;
+		margin-top: 10%;
+	}
+</style>

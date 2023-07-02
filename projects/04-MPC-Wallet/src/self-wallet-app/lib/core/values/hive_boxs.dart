@@ -14,8 +14,13 @@ class LocalKeyList {
   static String tokenPrefix = "erc20-";
   static String walletList = "wallet-list";
   static String rootAddress = "root-address";
+  static String payPassword = "pay-password";
   static String guideStatus = "is-guide";
   static String swapSelected = "swap-selected";
   static String transferSelected = "transfer-selected";
   static String passwordLock = "password-lock-number";
+  static String biometrics = "biometrics";
+  static String noPassword = "no-password";
+  static String isBiometrics = "is-biometrics";
+  static String isNoPassword = "is-no-password";
 }

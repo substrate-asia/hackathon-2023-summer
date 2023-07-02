@@ -9,6 +9,8 @@ import 'package:sunrise/app/data/services/isar_service.dart';
 import 'package:sunrise/core/theme/color_schemes.g.dart';
 
 import 'app/controllers/wallet_controller.dart';
+import 'app/data/services/chat_service.dart';
+import 'app/data/services/swap_service.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -24,7 +26,9 @@ void main() async {
 
   // 初始化加载合约abi文件
   EthService.initAbiFile();
+  SwapService.initContract();
 
+  Get.put<Rx<Operation>>(Rx(Operation(type: -1)));
   // 初始化全局的Controller
   Get.put(WalletController());
 

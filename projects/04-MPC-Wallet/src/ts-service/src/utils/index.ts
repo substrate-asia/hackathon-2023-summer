@@ -9,5 +9,7 @@ import {GetCode} from "./util";
 
 import {SendEmail,IsEmail} from "./email"
 
+import {TradeTrade} from "./task"
+
 export { Message }
-export {loadExampleAbi,loadExampleAddress,returnResponse,SendEmail,GetCode,IsEmail}
+export {loadExampleAbi,loadExampleAddress,returnResponse,SendEmail,GetCode,IsEmail,TradeTrade}

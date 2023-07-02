@@ -6,6 +6,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
 import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/modules/home/controllers/swap_controller.dart';
+import 'package:sunrise/app/modules/home/widgets/swap_token.dart';
 import 'package:sunrise/app/widgets/image_widget.dart';
 import 'package:sunrise/core/utils/common.dart';
 import 'package:web3dart/web3dart.dart';
@@ -59,8 +60,8 @@ class TabSwapView extends StatelessWidget {
                                           style: _smallTitle,
                                         ),
                                         Text(
-                                          weiToEth(controller
-                                              .outputAccount?.balance),
+                                          weiToEth(
+                                              controller.enterAccount?.balance),
                                           style: _smallTitle.merge(TextStyle(
                                               color: Colors.green[500])),
                                         )
@@ -69,12 +70,16 @@ class TabSwapView extends StatelessWidget {
                                     SizedBox(height: 8.w),
                                     Row(
                                       children: [
-                                        controller.outputAccount != null
+                                        controller.enterAccount != null
                                             ? _swapButton(
-                                                controller.outputAccount!,
-                                                false,
-                                                controller.selectToken)
-                                            : SizedBox(),
+                                                controller.enterAccount!, false,
+                                                onTap: (account, isEnter) {
+                                                controller.selectToken(
+                                                    account, isEnter);
+                                              },
+                                                chainId: controller.swapChainId,
+                                                status: 1)
+                                            : const SizedBox(),
                                         const Expanded(child: SizedBox()),
                                         // TextField 输出金额
                                         SizedBox(
@@ -97,7 +102,7 @@ class TabSwapView extends StatelessWidget {
                                               inputFormatters: [
                                                 FilteringTextInputFormatter
                                                     .allow(RegExp(
-                                                        r'^\d+\.?\d{0,2}')),
+                                                        r'^\d+\.?\d{0,6}')),
                                               ],
                                               onChanged: (value) {
                                                 controller.calculate();
@@ -112,9 +117,11 @@ class TabSwapView extends StatelessWidget {
                                 height: 4.w,
                                 child: Center(
                                   child: LinearProgressIndicator(
-                                    value: 0,
+                                    value: controller.progress,
                                     minHeight: 1.w,
-                                    color: Colors.green[500],
+                                    color: Colors.greenAccent,
+                                    // valueColor: const AlwaysStoppedAnimation<Color>(
+                                    //     Colors.greenAccent),
                                     backgroundColor: Colors.transparent,
                                   ),
                                 ),
@@ -143,8 +150,8 @@ class TabSwapView extends StatelessWidget {
                                           style: _smallTitle,
                                         ),
                                         Text(
-                                          weiToEth(
-                                              controller.enterAccount?.balance),
+                                          weiToEth(controller
+                                              .outputAccount?.balance),
                                           style: _smallTitle.merge(TextStyle(
                                               color: Colors.green[500])),
                                         )
@@ -153,12 +160,16 @@ class TabSwapView extends StatelessWidget {
                                     SizedBox(height: 8.w),
                                     Row(
                                       children: [
-                                        controller.enterAccount != null
+                                        controller.outputAccount != null
                                             ? _swapButton(
-                                                controller.enterAccount!,
-                                                true,
-                                                controller.selectToken)
-                                            : SizedBox(),
+                                                controller.outputAccount!, true,
+                                                onTap: (account, isEnter) {
+                                                controller.selectToken(
+                                                    account, isEnter);
+                                              },
+                                                chainId: controller.swapChainId,
+                                                status: 1)
+                                            : const SizedBox(),
                                         const Expanded(child: SizedBox()),
                                         // TextField 输入金额
                                         SizedBox(
@@ -181,7 +192,7 @@ class TabSwapView extends StatelessWidget {
                                               inputFormatters: [
                                                 FilteringTextInputFormatter
                                                     .allow(RegExp(
-                                                        r'^\d+\.?\d{0,2}')),
+                                                        r'^\d+\.?\d{0,6}')),
                                               ],
                                               onChanged: (value) {
                                                 controller.reverseCalculate();
@@ -222,7 +233,17 @@ class TabSwapView extends StatelessWidget {
                               ))
                         ],
                       ),
-                      SizedBox(height: 30.w),
+                      SizedBox(
+                        height: 50.w,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "1 ${controller.enterAccount?.tokenName} ≈ ${controller.swapRatio.toStringAsFixed(6)} ${controller.outputAccount?.tokenName}",
+                            style: TextStyle(
+                                color: Colors.white70, fontSize: 10.sp),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 45.w,
                         width: 345.w,
@@ -234,11 +255,17 @@ class TabSwapView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20.w)),
                                 onPrimary: Colors.green[500],
                                 backgroundColor: Colors.white30),
-                            onPressed: controller.isValidInput ? () {} : null,
+                            onPressed: controller.isValidInput &&
+                                    controller.isSupportSwap
+                                ? () {
+                                    controller.swapToken();
+                                  }
+                                : null,
                             child: Text("兑换",
                                 style: TextStyle(
                                     fontSize: 16.sp,
-                                    color: controller.isValidInput
+                                    color: controller.isValidInput &&
+                                            controller.isSupportSwap
                                         ? Colors.white
                                         : Colors.white24))),
                       ),
@@ -342,7 +369,7 @@ class TabSwapView extends StatelessWidget {
                                   ),
                                   const Expanded(child: SizedBox()),
                                   Text(
-                                    "0.1%",
+                                    "3%",
                                     style: TextStyle(
                                         fontSize: 12.sp, color: Colors.white),
                                   )
@@ -381,7 +408,7 @@ class TabSwapView extends StatelessWidget {
                                   ),
                                   const Expanded(child: SizedBox()),
                                   Text(
-                                    "0 ETH",
+                                    "${controller.estimatedFee} DEV",
                                     style: TextStyle(
                                         fontSize: 12.sp, color: Colors.white),
                                   )
@@ -402,7 +429,9 @@ class TabSwapView extends StatelessWidget {
       TextStyle(fontSize: 12.sp, color: Colors.white54);
 
   Widget _swapButton(Balance account, bool isEnter,
-      Function(Balance account, bool isEnter) onTap) {
+      {int chainId = 1281,
+      int status = 0,
+      required Function(Balance account, bool isEnter) onTap}) {
     return SizedBox(
       height: 40.w,
       child: ElevatedButton(
@@ -412,9 +441,7 @@ class TabSwapView extends StatelessWidget {
               backgroundColor: Colors.transparent),
           onPressed: () async {
             Balance? result = await Get.bottomSheet(
-              TokenSelectWidget(
-                chainId: 1281,
-              ),
+              SwapTokenWidget(chainId: chainId, status: status),
               isScrollControlled: true,
               useRootNavigator: true,
               backgroundColor: const Color(0xFF0a0a0a),
@@ -443,7 +470,7 @@ class TabSwapView extends StatelessWidget {
                 children: [
                   Text(
                     account.isContract
-                        ? account.tokenSymbol
+                        ? account.tokenName
                         : account.nativeSymbol,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -453,7 +480,7 @@ class TabSwapView extends StatelessWidget {
                   ),
                   SizedBox(height: 2.w),
                   Text(
-                    account.networkName,
+                    "Moonbase",
                     style: TextStyle(
                         letterSpacing: 0,
                         fontSize: 12.sp,

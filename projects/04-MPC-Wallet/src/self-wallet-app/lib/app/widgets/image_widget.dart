@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,7 @@ class ImageWidget extends StatelessWidget {
       imageUrl: imageUrl,
       width: width,
       height: height,
+      cacheManager: DefaultCacheManager(),
       placeholder: (BuildContext context, String url) {
         return Container(
           width: width,

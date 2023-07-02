@@ -1,40 +1,85 @@
-## 基本资料
+## Basic Information
 
-项目名称：Decentralized AI Notes
+Project Name: Decentralized AI Notes
 
-项目立项日期 (哪年哪月)：
+Project Launched Date: June 2023
 
-## 项目整体简介
+[README.zh_CN](./README.zh_CN.md)
 
-项目简介，英文提交。包括但不限于：
+[Operation Manual](./docs/OperationManual.md)
 
-- 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。
-- 项目介绍
-- 项目Demo
-- 技术架构
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
-框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
+[Demo Video]()
 
-## 黑客松期间计划完成的事项
+[PPT]()
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+## Overall Project Description
 
-**区块链端**
+### Project Background
+With the development of the Internet technology, more and more people are using the network to get and share information, learn and work. However, most of the current network applications are based on centralized servers and databases to store and manage user data, which poses some problems and risks such as data security, privacy, reliability, and scalability. On the other hand, when people use network applications, they also face challenges such as information overload, fragmentation, and low efficiency, and need better tools to help them record and manage their personal learning notes and knowledge.
+
+In order to solve these problems, we proposed the Decentralized AI Notes project, which is a decentralized AI notes application that aims to help users to record and manage their personal learning notes and knowledge. The application uses blockchain technology and CESS distributed storage to realize decentralized storage and management of data, and at the same time uses artificial intelligence technology and natural language processing technology to provide intelligent note management and search functions. Users can create personal notebooks, add notes, tags and attachments, and use intelligent search and recommendation functions to browse and find notes.
+
+### Project Introduction
+Decentralized AI Notes is a decentralized notes application that combines blockchain and artificial intelligence technology, which can help users to record and manage their personal learning notes and knowledge safely, efficiently, and intelligently. This application does not rely on any centralized server or database, but uses blockchain technology based on CESS distributed storage to encrypt and disperse user data to multiple nodes, thus ensuring the security, privacy, reliability and scalability of the data.
+
+At the same time, the application also uses artificial intelligence technology and natural language processing technology to provide users with intelligent note management and search functions, such as automatic classification, summarization, keyword extraction, semantic retrieval, similar note recommendation, etc.
+
+Users can conveniently create personal notebooks, add notes, tags and attachments, and use intelligent search and recommendation functions to quickly browse and find notes. Decentralized AI Notes is committed to providing users with a secure, efficient and intelligent note management tool to improve their learning and work efficiency.
+
+### Project Demo
+http://139.224.19.104:3007/
+
+### Technical Framework
+
+#### Web End
+- vue@2
+- element-ui
+- marked
+- jquery
+- chatgpt@3.5
+  
+#### Blockchain End
+- @polkadot
 
 
-**客户端**
+### Project Logo
+![img](./docs/assets/logo.png)
+
+### Initial Commit of the Project
+fd2a2dbc623ef16d122911ec2760c15d465dd5fc
 
 
-## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
+## Task Plan to be Completed During the Hackathon
+### Blockchain End
+- Binding Wallet Account
+- Data on Chain
+- Synchronizing Data on Chain (Synchronizing Notes)
 
-- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
+### Web End
+- Synchronizing Notes/Catalogs
+- Data on Chain
+- Note/Catalog Management
+- Note Preview/Editing (markdown)
+- Note AI Polishing/Writing
 
-## 队员信息
+## Completed Items During the Hackathon
 
-包含参赛者名称及介绍
-在团队中担任的角色
-GitHub 帐号
-微信账号（如有请留下，方便及时联系）
+### Blockchain End
+- [x] Binding Wallet Account
+- [x] Data on Chain
+- [x] Synchronizing Data on Chain (Synchronizing Notes)
+
+### Web End
+- [x] Synchronizing Notes/Catalogs
+- [x] Data on Chain
+- [x] Note/Catalog Management
+- [x] Note Preview/Editing (markdown)
+- [x] Note AI Polishing/Writing
+  
+## Team Member Information
+
+| 姓名      | 角色                 | Github                        |
+| --------- | -------------------- | ----------------------------- |
+| Yoite-X   | Project Lead/Product | https://github.com/yeyeyeoye  |
+| CloudSail | Development          | https://github.com/vCloudSail |
+| hanbon    | Development          | https://github.com/hanbon     |

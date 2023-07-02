@@ -102,7 +102,7 @@ function StakeButton() {
       },
     },
   });
-  console.log('stake', stake)
+  console.log('[stake]', stake)
 
   return (
     <TransactionBtn text='质押' transaction={stake} onClick={write}/>
@@ -120,7 +120,7 @@ function GainButton() {
       },
     },
   });
-  console.log('gainBlockReward', gainBlockReward)
+  console.log('[gainBlockReward]', gainBlockReward)
 
   return (
     <TransactionBtn text='Claim' transaction={gainBlockReward} onClick={write}/>
@@ -138,7 +138,7 @@ function UnstakeButton() {
       },
     },
   });
-  console.log('unStake', unStake)
+  console.log('[unStake]', unStake)
 
   return (
     <TransactionBtn text='解押' transaction={unStake} onClick={write}/>
@@ -151,10 +151,11 @@ function TipButton({to}: {
   const input: string = "0.01"
 
   const { isLoading, sendTransaction } = useSendTransaction({
-    mode: 'recklesslyUnprepared',
-    to: to,
-    data: null,
-    value: parseEther(input)
+    mode: "recklesslyUnprepared",
+    request: {
+      to: to,
+      value: parseEther(input),
+    }
   })
 
   return (

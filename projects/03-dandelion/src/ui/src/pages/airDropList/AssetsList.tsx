@@ -91,16 +91,16 @@ function MyTree() {
   const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', NoArgs, {
     waitForTransaction: {
       onSuccess: () => {
-        // 浇水成功
+        // 成功
       },
       onError: () => {
-        // 浇水失败
+        // 失败
       },
     },
   });
 
   // signIn3day.busy 正在进行合约写操作
-  console.log('signIn3day:', signIn3day)
+  console.log('[signIn3day]', signIn3day)
 
   return (
     <div className="flex flex-col flex-1 items-center">

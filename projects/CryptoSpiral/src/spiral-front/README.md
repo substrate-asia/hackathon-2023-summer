@@ -49,7 +49,7 @@
 								}
 
 								if(myEvent.humanIndex == "web3Dao.TaskActionPayed"){
-									window.havorld.jsCallAndroidTaskCallback(id, type, param, JSON.stringify({code:"200", msg: ""}));
+									//succeed
 								}
 								
 							}	

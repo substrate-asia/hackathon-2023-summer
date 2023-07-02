@@ -54,8 +54,17 @@ TBD
 
 ### 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
 
-起始 commit 是这个： https://github.com/NftTopBest/NFT-Fi-Twitter
-这是基于 [vitesse-webext](https://github.com/antfu/vitesse-webext) 开源代码基础上加了一些 ReadMe 说明，还未开始开发功能代码的状态下。
+<p>
+Pallet 起始 commit 是这个：https://github.com/paritytech/substrate/tree/v3.0.0   
+
+，同时集成了 Substrate-dex:  https://github.com/paritytech/substrate-dex
+</p>
+
+<p>
+隐私合约 起始 commit 是这个：https://github.com/Phala-Network/tokenomic-contract
+</p>
+
+
 
 ## 黑客松期间计划完成的事项
 

@@ -1,4 +1,4 @@
-import { AIR_DROP_LIST, Tree } from "assets";
+import {AIR_DROP_LIST, Tree1, Tree2, Tree3, Tree4, Tree5, Tree6} from "assets";
 import { balanceStr } from "../../web3/wagmi/Balance";
 import {useMyNativeBalance, useMyVEBalance, useMySignBalance, useMyBalance} from "../../web3/hook/UseBalance";
 import {isWagmiError, useWagmiTransaction} from "../../libs/wagmi/hook/UseContractWrite";
@@ -104,7 +104,7 @@ function MyTree() {
 
   return (
     <div className="flex flex-col flex-1 items-center">
-      <div className="flex items-center w-full h-[60%] justify-center tooltip relative">
+      <div className="flex flex-col items-center w-full h-[60%] justify-center tooltip relative">
         {`活跃度：${balanceStr(balance, 0)}`}
         <img
           src={treeImage}
@@ -125,22 +125,22 @@ function MyTree() {
 // 0=图1 ，1到10=图2，11到30=图3，31到60等于图4，61到100=图5，100到150=图6
 function treeImageOf(balance?: BigNumber): string {
   if (!balance) {
-    return Tree; // 还未获取树的状态
+    return ''; // 还未获取树的状态
   }
   if (balance.lte(BigNumber.from(0).pow(18))) {
-    return Tree;
+    return Tree1;
   }
   if (balance.lte(BigNumber.from(10).pow(18))) {
-    return Tree;
+    return Tree2;
   }
   if (balance.lte(BigNumber.from(30).pow(18))) {
-    return Tree;
+    return Tree3;
   }
   if (balance.lte(BigNumber.from(60).pow(18))) {
-    return Tree;
+    return Tree4;
   }
   if (balance.lte(BigNumber.from(100).pow(18))) {
-    return Tree;
+    return Tree5;
   }
-  return Tree;
+  return Tree6;
 }

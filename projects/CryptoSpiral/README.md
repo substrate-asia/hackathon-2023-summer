@@ -44,18 +44,13 @@ TBD
 
 ### 技术架构
 
-We use the [vitesse-webext](https://github.com/antfu/vitesse-webext) open-source code to init our chrome extension.
+<p align="center">
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-tech-0.png"><br/>
+</p>
 
-- ⚡️ **Instant HMR** - use **Vite** on dev (no more refresh!)
-- 🥝 Vue 3 - Composition API, [`<script setup>` syntax](https://github.com/vuejs/rfcs/blob/master/active-rfcs/0040-script-setup.md) and more!
-- 💬 Effortless communications - powered by [`webext-bridge`](https://github.com/antfu/webext-bridge) and [VueUse](https://github.com/antfu/vueuse) storage
-- 🌈 [UnoCSS](https://github.com/unocss/unocss) - The instant on-demand Atomic CSS engine.
-- 🦾 [TypeScript](https://www.typescriptlang.org/) - type safe
-- 📦 [Components auto importing](./src/components)
-- 🌟 [Icons](./src/components) - Access to icons from any iconset directly
-- 🖥 Content Script - Use Vue even in content script
-- 🌍 WebExtension - isomorphic extension for Chrome, Firefox, and others
-- 📃 Dynamic `manifest.json` with full type support
+<p align="center">
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-tech-1.png"><br/>
+</p>
 
 
 ### 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。

@@ -1,38 +1,79 @@
-# ColossusVault web3.0时代的巨人之橋
+# ColossusVault: A Decentralized Private Social Experience
 
-## 基本资料
+##  Basic Information
 
-项目名称：ColossusVault
+Name of our project：ColossusVault
 
-项目立项日期 (哪年哪月)：（请在此处填写项目立项日期）
+Project approval date: 7 June, 2023
 
-## 项目整体简介
+## Logo
 
-项目简介，英文提交。包括但不限于：
 
-- 项目背景/原由/要解决的问题：ColossusVault 是一款个人数据存储和共享应用程序，其灵感来自罗得岛巨像，这是一座矗立在罗得岛港口入口处的希腊神赫利俄斯的巨型雕像。正如Colossus是城市力量和保护的象征，ColossusVault在Web3时代为个人提供了一个安全可靠的存储平台。借助 ColossusVault，用户可以相信他们的个人信息受到保护并且始终触手可及，就像 Helios 守望罗得岛一样。
-- 项目介绍：
-- 项目Demo：
-- 技术架构：
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的。
+## Abstract
+As the internet and social media landscape currently stands, issues of data privacy and security are becoming increasingly pronounced. Centralized social platforms pose the risk of data exploitation, leaving users bereft of true data sovereignty. Decentralized social platforms, while addressing the issue of data sovereignty to some extent, store data publicly, rendering private data unprotected. Furthermore, the methods of private content sharing in existing Web3 products are not user-friendly, and incentives for content creators are insufficient. In response to these pain points, we have designed a decentralized, private domain social product based on Subsocial. This product aims to overcome the data sovereignty issues prevalent in centralized social media, the privacy protection issues in decentralized platforms, and improve the user experience of privacy content sharing in Web3 products. It also provides an effective incentive mechanism for content creators. Our goal is to enable users to enjoy the convenience of social interaction while having the authority to dictate the use of their data, stimulating content creators' enthusiasm and fostering a healthy and sustainable social ecosystem.
 
-## 黑客松期间计划完成的事项
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+## Introduction
 
-**区块链端**
-- （请在此处填写）
 
-**客户端**
-- web 端
-  - （请在此处填写）
+ColossusVault is a cutting-edge project designed to address the pressing issues plaguing current internet social products. It is rooted in the philosophy of decentralization and privacy protection, offering a robust solution to the significant data privacy concerns present in both centralized and decentralized social products.
 
-- hybrid (react-native)
-  - （请在此处填写）
+### Key Features
+The revolutionary features of our project include:
 
-## 队员信息
+- **Decentralized Private Social Experience:** Leveraging the power of subsocial, we have created a decentralized private social product capable of overcoming the challenges that exist in the current social landscape.
 
-- Lenny（项目Leader、技术开发）github: lenny-mo
-- Frank（市场调研、产品设计）github: Frank2333333
-- Yiko（技术开发、产品设计）github: TecSong
+- **Data Privacy and Sovereignty:** Our solution mitigates the risk of data misuse by centralized platforms and provides a secure environment where privacy data is protected and not publicly stored.
+
+- **User-friendly Privacy Content Sharing:** In response to the existing web3 products' unfriendly mechanisms for privacy content sharing, ColossusVault provides a user-centric approach that respects and prioritizes user convenience.
+
+- **Creator Incentives:** Recognizing the need for a motivating factor for creators in current social products, our platform integrates an incentive mechanism to encourage continuous content creation.
+
+In summary, ColossusVault is a solution crafted with the vision to empower individuals in the web3 era. It provides a safe and reliable storage platform, reminiscent of the protective stature of the Colossus of Rhodes, ensuring personal data protection and accessibility. Like Helios overlooking Rhodes, we aim to offer a product that watches over your digital social interactions.
+
+
+## Technology Architecture
+
+explain the technology architecture of your project, such as how the front end, back end, and blockchain are connected, and the role and function of each part.
+
+![DappArchitecture.jpeg | 800](https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/DappArchitecture.jpeg)
+
+
+## Things to be done during the hackathon
+**Blockchain**
+
+- [ ] Implement on-chain storage and retrieval of user data.
+- [ ] Design and implement smart contracts for user data encryption.
+- [ ] Design and implement smart contracts for user data decryption.
+- [ ] Design and implement smart contracts for user data permissions management.
+- [ ] Design and implement smart contracts for user data transactions.
+
+**Frontend**
+
+- [ ] Design and implement user registration and login interfaces.
+- [ ] Design and implement interfaces for user data upload and download.
+- [ ] Design and implement interfaces for user data encryption and decryption.
+- [ ] Design and implement interfaces for user data permissions management.
+- [ ] Design and implement interfaces for user data transactions.
+
+**Backend**
+
+- [ ] Design and implement services for user data storage and retrieval.
+- [ ] Design and implement services for user data encryption and decryption.
+- [ ] Design and implement services for user data permissions management.
+- [ ] Design and implement services for user data transactions.
+- [ ] Design and implement services for user data auditing and monitoring.
+
+
+
+## Infomation of Team Members
+
+- Frank（Market Research, Product Manager）
+  - Blockchain company product manager
+  - github: Frank2333333
+- Yiko（Smart Contract Engineer, Product Manager）
+  - Senior development engineer, with 8 years of experience in the blockchain field, worked in crypto.com and Debank
+  - github: TecSong
+- Lenny（Team Captain, Dapp Development Engineer, Corresponding Author）
+  - github: lenny-mo
+  - Graduate student, research direction Distributed storage and blockchain

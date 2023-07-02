@@ -6,19 +6,16 @@
 
 ## 项目整体简介
 ### Background
-```
-In the Web3 industry, data is growing at an unprecedented rate. However, this has also brought some urgent and serious problems: the data explosion has brought about the difficulty of extracting effective and valuable information; technical barriers make it difficult for most people to independently Complete data analysis; difficulties in data retrieval/classification; challenges of on-chain/off-chain data integration. These problems hinder the progress of the industry, and we have the responsibility and ability to solve them.
-```
+
+- In the Web3 industry, data is growing at an unprecedented rate. However, this has also brought some urgent and serious problems: the data explosion has brought about the difficulty of extracting effective and valuable information; technical barriers make it difficult for most people to independently Complete data analysis; difficulties in data retrieval/classification; challenges of on-chain/off-chain data integration. These problems hinder the progress of the industry, and we have the responsibility and ability to solve them.
+
 
 ### Project Description
-```
-Using generative AI as a converter of natural language and query statements, it provides users with advanced data analysis functions through the process of demand-logic-analysis-result generation. Provide people with decision-making aids.
-```
+- Using generative AI as a converter of natural language and query statements, it provides users with advanced data analysis functions through the process of demand-logic-analysis-result generation. Provide people with decision-making aids.
+
 
 ### Demo
-```
-TBD
-```
+- TBD
 
 ### Technology Architecture
 - ![](./docs/architecture.jpg)

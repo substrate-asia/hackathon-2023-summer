@@ -5,6 +5,7 @@ import { useMyNativeBalance, useMyVEBalance, useMySignBalance } from "../../web3
 import { useWagmiTransaction } from "../../libs/wagmi/hook/UseContractWrite";
 import { SignToken } from "../../web3/contracts/Contracts";
 import { BigNumber } from "ethers";
+import {NoArgs} from "../../libs/wagmi/abi/WagmiAbiType";
 
 export default function AssetsList() {
   return (
@@ -85,12 +86,14 @@ function MyTree() {
   const treeStatus = treeStatusOf(balance?.value)
 
   // 签到操作
-  const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', undefined, {
-    onSuccess: () => {
-      // 浇水成功
-    },
-    onError: () => {
-      // 浇水失败
+  const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', NoArgs, {
+    waitForTransaction: {
+      onSuccess: () => {
+        // 浇水成功
+      },
+      onError: () => {
+        // 浇水失败
+      },
     },
   });
 

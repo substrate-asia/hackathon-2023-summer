@@ -34,7 +34,9 @@ function Approve() {
 
     // 授权操作
     const [result, write] = useWagmiTransaction(VEToken, 'approve', [spender, BigNumber.from(amount)], {
-        enabled: Boolean(spender && amount)
+        prepareWrite: {
+            enabled: Boolean(spender && amount),
+        },
     })
     console.log('approve:', result)
 

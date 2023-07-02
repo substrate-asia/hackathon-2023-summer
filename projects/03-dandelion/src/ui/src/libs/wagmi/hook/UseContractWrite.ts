@@ -8,6 +8,7 @@ import {
 import {Hash, PrepareWriteContractResult, Signer} from "@wagmi/core";
 import {AAFA, AAFAM, ABI, AbiArgs, AbiFunctionWrite} from "../abi/WagmiAbiType";
 import {WagmiContract} from "../contract/WagmiContract";
+import {TransactionReceipt} from "@ethersproject/abstract-provider/src.ts";
 
 export function useWagmiPrepareWrite<TAbi extends ABI, TFunctionName extends string, TChainId extends number, TSigner extends Signer>(
     contract: WagmiContract<TAbi>,
@@ -66,12 +67,21 @@ export function useWagmiTransaction<TAbi extends ABI, TFunctionName extends stri
     contract: WagmiContract<TAbi>,
     functionName: AbiFunctionWrite<TAbi, TFunctionName>,
     args: AbiArgs<TAbi, TFunctionName>,
-    config?: Omit<UsePrepareContractWriteConfig<TAbi, TFunctionName, TChainId, TSigner>, AAFA>,
+    configs?: {
+        prepareWrite?: Omit<UsePrepareContractWriteConfig<TAbi, TFunctionName, TChainId, TSigner>, AAFA>,
+        waitForTransaction?: {
+            onSuccess?: (data: TransactionReceipt) => void,
+            onError?: (err: Error) => void,
+        }
+    },
 ): [WagmiTransaction, WagmiWrite | undefined] {
-    const resPrepare = useWagmiPrepareWrite(contract, functionName, args, config)
+    const resPrepare = useWagmiPrepareWrite(contract, functionName, args, configs?.prepareWrite)
     const resWrite = useWagmiWrite(resPrepare.config)
     const txHash = resWrite.data?.hash
-    const resTransaction = useWaitForTransaction({hash: txHash})
+    const resTransaction = useWaitForTransaction({
+        ...configs?.waitForTransaction,
+        hash: txHash,
+    })
     const busy = resWrite.status === 'loading' || resTransaction.status === 'loading'
 
     return [{

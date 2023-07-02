@@ -1,8 +1,15 @@
-![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.png)## 基本资料
+![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.png)
+
+## 基本资料
 
 项目名称：CryptoSpiral
 
 项目立项日期 (哪年哪月)：2023-0517
+
+<p align="center">
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-info.png"><br/>
+</p>
+
 
 ## 项目整体简介
 

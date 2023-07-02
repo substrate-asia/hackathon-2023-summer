@@ -1,7 +1,11 @@
-import { useParams } from "react-router-dom";
-import { Button, Progress } from "antd";
-import { useNavigate } from "react-router-dom";
-import { AIR_DROP_LIST } from "../../assets";
+import {useNavigate, useParams} from "react-router-dom";
+import {Button, Progress} from "antd";
+import {AIR_DROP_LIST} from "../../assets";
+import {Address, useBlockNumber, useSendTransaction} from "wagmi";
+import {useWagmiTransaction, WagmiTransaction} from "../../libs/wagmi/hook/UseContractWrite";
+import {StakeToken} from "../../web3/contracts/Contracts";
+import {NoArgs} from "../../libs/wagmi/abi/WagmiAbiType";
+import {parseEther} from "ethers/lib/utils";
 
 export default function AirDropDetail() {
   let { id } = useParams();
@@ -28,12 +32,17 @@ export default function AirDropDetail() {
             className="w-[140px] h-[140px] mb-3"
           />
           <span className="text-[28px] text-white">{airdrop.name}</span>
-          <AirDropProgress/>
+          <AirDropProgress
+            startblock={airdrop.startblock}
+            endblock={airdrop.endblock}
+          />
           <div className="flex flex-col mt-2">
             <StakeButton/>
             <GainButton/>
             <UnstakeButton/>
-            <TipButton/>
+            <TipButton
+              to='0x5543e4b0768FD806Ba51130BC885d1d2f34ccC80'
+            />
           </div>
         </div>
 
@@ -58,10 +67,14 @@ export default function AirDropDetail() {
   );
 }
 
-function AirDropProgress() {
+function AirDropProgress({startblock, endblock}: {
+  startblock: number,
+  endblock: number,
+}) {
+  const { data } = useBlockNumber()
   return (
     <Progress
-      percent={50}
+      percent={percent(startblock, endblock, data)}
       size={["80%", 18]}
       trailColor="#fff"
       className="text-center mt-5"
@@ -69,36 +82,95 @@ function AirDropProgress() {
   )
 }
 
+function percent(start: number, end: number, current?: number): number {
+  if (!current) {
+    return 0;
+  }
+  return (current - start) / (end - start)
+}
+
 function StakeButton() {
+  const input: string = "1"
+
+  const [stake, write] = useWagmiTransaction(StakeToken, 'stake', [parseEther(input)], {
+    waitForTransaction: {
+      onSuccess: () => {
+        // 成功
+      },
+      onError: () => {
+        // 失败
+      },
+    },
+  });
+  console.log('stake', stake)
+
   return (
-    <Btn text='质押'/>
+    <TransactionBtn text='质押' transaction={stake} onClick={write}/>
   );
 }
 
 function GainButton() {
+  const [gainBlockReward, write] = useWagmiTransaction(StakeToken, 'gainBlockReward', NoArgs, {
+    waitForTransaction: {
+      onSuccess: () => {
+        // 成功
+      },
+      onError: () => {
+        // 失败
+      },
+    },
+  });
+  console.log('gainBlockReward', gainBlockReward)
+
   return (
-    <Btn text='Claim'/>
+    <TransactionBtn text='Claim' transaction={gainBlockReward} onClick={write}/>
   );
 }
 
 function UnstakeButton() {
+  const [unStake, write] = useWagmiTransaction(StakeToken, 'unStake', NoArgs, {
+    waitForTransaction: {
+      onSuccess: () => {
+        // 成功
+      },
+      onError: () => {
+        // 失败
+      },
+    },
+  });
+  console.log('unStake', unStake)
+
   return (
-    <Btn text='解押'/>
+    <TransactionBtn text='解押' transaction={unStake} onClick={write}/>
   );
 }
 
-function TipButton() {
+function TipButton({to}: {
+  to: Address
+}) {
+  const input: string = "0.01"
+
+  const { isLoading, sendTransaction } = useSendTransaction({
+    mode: 'recklesslyUnprepared',
+    to: to,
+    data: null,
+    value: parseEther(input)
+  })
+
   return (
-    <Btn text='打赏'/>
+    <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]" disabled={!sendTransaction || isLoading} onClick={() => sendTransaction?.()}>
+      打赏
+    </Button>
   );
 }
 
-function Btn({text, disabled}: {
+function TransactionBtn({text, transaction, onClick}: {
   text: string
-  disabled?: boolean
+  transaction: WagmiTransaction
+  onClick?: () => void
 }) {
   return (
-    <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]" disabled={disabled}>
+    <Button className="my-3 bg-blue rounded-full w-[120px] h-[40px]" disabled={!onClick || transaction.busy} onClick={onClick}>
       {text}
     </Button>
   );

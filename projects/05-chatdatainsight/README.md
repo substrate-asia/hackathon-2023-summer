@@ -1,17 +1,28 @@
 ## 基本资料
 
-项目名称：Chatdatainsight
+项目名称：ChatData Insight - A tool to analyze blockchain data through chat, using LLM.
 
 项目立项日期 (哪年哪月)：2023.5
 
 ## 项目整体简介
 ### Background
 
-- In the Web3 industry, data is growing at an unprecedented rate. However, this has also brought some urgent and serious problems: the data explosion has brought about the difficulty of extracting effective and valuable information; technical barriers make it difficult for most people to independently Complete data analysis; difficulties in data retrieval/classification; challenges of on-chain/off-chain data integration. These problems hinder the progress of the industry, and we have the responsibility and ability to solve them.
+Crypto market capitalization has grown from $17B USD at the start of 2017 to a staggering $2.9T USD in November 2021, indicating a significant surge in the volume of financial data within the ecosystem.
+
+1. The rapid growth of blockchain data complicates analysis and understanding, especially for non-experts using existing platforms.
+
+2. Technical barriers hinder individual data analysis, data retrieval, classification, and on-chain/off-chain integration pose additional challenges.
+
+
+These issues impede the industry's progress, and we bear both the responsibility and the capacity to address them.
 
 
 ### Project Description
-- Using generative AI as a converter of natural language and query statements, it provides users with advanced data analysis functions through the process of demand-logic-analysis-result generation. Provide people with decision-making aids.
+ChatData Insight is a tool to analyze blockchain data through chat, like chatGPT for web3:
+1. Seamless user interaction through natural language processing.
+2. Highly intelligent data analysis based on generative artificial intelligence.
+3. Provide intelligent recommendations based on user preferences and behaviors.
+4. Customized dashboards and insight sharing.
 
 
 ### Demo
@@ -45,26 +56,23 @@
 
 ## 队员信息
 
-**Dylan Lan**
-- MANAGEMENT AND TECH
-- Serial entrepreneur with experience in web2/3 technologies and AI. PhD in CS, Nordic. Earlier employee in a nordic startup (exit for 60M SEK).
+**Dapeng Lan**
+- Serial entrepreneur with experience in web2/3 technologies and AI. Earlier employee in a nordic startup (exit for 60M SEK).
+- PhD in Computer Science in a top 100 University in Nordic. 
+- Over 9 years experiences in development and project management, engaged in work related to blockchain and artificial intelligence.
 - github: https://github.com/DapengLan
 
 **Harry Liu**
-- MANAGEMENT AND TECH
-- Senior researcher in a renown Top 500 company. PhD in CS, Nordic.
-- github: https://github.com/HITliuyu
+- Senior researcher in artificial intelligence a renown Top 500 company. 
+- PhD in Computer Science in Nordic.
+- Over 9 years experiences in development, engaged in work related to data analytics and artificial intelligence.
+- Github: https://github.com/HITliuyu
 
-**Kai**
-- TECH AND OPERATION
-- BI expert in a renown Top 500 company. PhD in Data visulization, Nordic. Data analytics consultant company founder.
-- github: https://github.com/KahinAkramHassan
-- 
 **Smith Li**
 - Blockchain Developer
 - Over 9 years of working experience in various aspects of computer programming.
 - Worked in the blockchain industry for 3+ years,  a blockchain development engineer, familiar with polkadot, bitshares, fabric, etc.
-- github: https://github.com/baidang201
+- Github: https://github.com/baidang201
 
 **yiwei Shi**  
 - FULL STACK
@@ -83,5 +91,3 @@
 - Eight years of experience in advertising industry. Provided storyboarding, graphic design, UI design, and other visual content for customers. Worked on projects for Dyson, Sony, Bank of China, Carrefour, Cadillac and other brands. Did graphic and UI design for several web 3 projects out of interest in the area. 
 - Github: https://github.com/youyou0921
 - Wechat: 18516611762
-
-

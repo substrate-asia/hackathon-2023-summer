@@ -75,5 +75,7 @@ explain the technology architecture of your project, such as how the front end, 
   - Senior development engineer, with 8 years of experience in the blockchain field, worked in crypto.com and Debank
   - github: TecSong
 - Lenny（Team Captain, Dapp Development Engineer, Corresponding Author）
+  - Graduate student, research on Distributed storage and blockchain
   - github: lenny-mo
-  - Graduate student, research direction Distributed storage and blockchain
+
+

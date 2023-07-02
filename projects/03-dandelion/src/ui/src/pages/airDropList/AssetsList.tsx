@@ -1,8 +1,10 @@
 import { Tree } from "assets";
 import "./AssetsList.css";
 import { balanceStr } from "../../web3/wagmi/Balance";
-import { useMyNativeBalance, useMyVEBalance } from "../../web3/hook/UseBalance";
-// import { Button } from "antd";
+import { useMyNativeBalance, useMyVEBalance, useMySignBalance } from "../../web3/hook/UseBalance";
+import { useWagmiTransaction } from "../../libs/wagmi/hook/UseContractWrite";
+import { SignToken } from "../../web3/contracts/Contracts";
+import { BigNumber } from "ethers";
 
 export default function AssetsList() {
   return (
@@ -61,21 +63,7 @@ export default function AssetsList() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col flex-1 items-center">
-        <div className="flex items-center w-full h-[60%] justify-center tooltip relative">
-          {/* TODO: Tree要根据某个值进行判断 */}
-          <img
-            src={Tree}
-            alt=""
-            className="w-[300px] self-end cursor-pointer"
-          />
-          {/* TODO:是否需要判断已经签到的逻辑 */}
-          <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
-            点一点，给植物浇个水签到吧
-          </span>
-        </div>
-        {/* <Button className="w-[80px] mt-5">浇水</Button> */}
-      </div>
+      <MyTree/>
     </div>
   );
 }
@@ -88,4 +76,67 @@ function MyNativeBalance() {
 function MyVEBalance() {
   const balance = useMyVEBalance(true);
   return <div>{balanceStr(balance, 4)}</div>;
+}
+
+function MyTree() {
+  // 签到token的余额
+  const balance = useMySignBalance(true);
+  // 树的状态
+  const treeStatus = treeStatusOf(balance?.value)
+
+  // 签到操作
+  const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', undefined, {
+    onSuccess: () => {
+      // 浇水成功
+    },
+    onError: () => {
+      // 浇水失败
+    },
+  });
+
+  /* busy正在进行合约写操作 */
+  console.log('tree:', balance, signIn3day, treeStatus, signIn3day.busy)
+
+  return (
+    <div className="flex flex-col flex-1 items-center">
+      <div className="flex items-center w-full h-[60%] justify-center tooltip relative">
+        {`活跃度：${balanceStr(balance, 0)}`}
+        {/* TODO: Tree要根据某个值进行判断 */}
+        <img
+          src={Tree}
+          alt=""
+          className="w-[300px] self-end cursor-pointer"
+          onClick={write}
+        />
+        {/* TODO:是否需要判断已经签到的逻辑 */}
+        <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
+            点一点，给植物浇个水签到吧
+        </span>
+      </div>
+      {/* <Button className="w-[80px] mt-5">浇水</Button> */}
+    </div>
+  )
+}
+
+// 0=图1 ，1到10=图2，11到30=图3，31到60等于图4，61到100=图5，100到150=图6
+function treeStatusOf(balance?: BigNumber): number {
+  if (!balance) {
+    return 0; // 还未获取树的状态
+  }
+  if (balance.lte(BigNumber.from(0).pow(18))) {
+    return 1;
+  }
+  if (balance.lte(BigNumber.from(10).pow(18))) {
+    return 2;
+  }
+  if (balance.lte(BigNumber.from(30).pow(18))) {
+    return 3;
+  }
+  if (balance.lte(BigNumber.from(60).pow(18))) {
+    return 4;
+  }
+  if (balance.lte(BigNumber.from(100).pow(18))) {
+    return 5;
+  }
+  return 6;
 }

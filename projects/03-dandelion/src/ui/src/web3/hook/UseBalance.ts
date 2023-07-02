@@ -1,5 +1,5 @@
 import {Address, useAccount, useBalance} from "wagmi";
-import {VETokenAddress} from "../contracts/Contracts";
+import {SignTokenAddress, VETokenAddress} from "../contracts/Contracts";
 import {FetchBalanceResult} from "@wagmi/core";
 
 export function useMyBalance(token: Address | undefined, watch?: boolean): FetchBalanceResult | undefined  {
@@ -18,4 +18,8 @@ export function useMyNativeBalance(watch?: boolean): FetchBalanceResult | undefi
 
 export function useMyVEBalance(watch?: boolean): FetchBalanceResult | undefined {
   return useMyBalance(VETokenAddress, watch)
+}
+
+export function useMySignBalance(watch?: boolean): FetchBalanceResult | undefined {
+  return useMyBalance(SignTokenAddress, watch)
 }

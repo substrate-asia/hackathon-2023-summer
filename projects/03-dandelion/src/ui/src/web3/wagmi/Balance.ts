@@ -1,6 +1,6 @@
 import {FetchBalanceResult} from "@wagmi/core";
 
-export function balanceStr(balance: FetchBalanceResult | undefined, decimalPlaces: number): string {
+export function balanceStr(balance: FetchBalanceResult | undefined, fractionDigits: number): string {
   if (!balance) {
     return ''
   }
@@ -8,6 +8,6 @@ export function balanceStr(balance: FetchBalanceResult | undefined, decimalPlace
   if (isNaN(num)) {
     return `${balance.formatted} ${balance.symbol}`
   }
-  const roundedNum: string = num.toFixed(decimalPlaces);
+  const roundedNum: string = num.toFixed(fractionDigits);
   return `${roundedNum} ${balance.symbol}`
 }

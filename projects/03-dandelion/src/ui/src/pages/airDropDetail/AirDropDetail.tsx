@@ -24,7 +24,7 @@ export default function AirDropDetail() {
 
   return (
     <>
-      <div className=" flex flex-row  items-center px-10 pt-5 text-grey ">
+      <div className=" flex flex-row  items-center px-10 pt-5 text-grey">
         <span className="ml-2 text-grey cursor-pointer" onClick={clickBack}>
           {"< 返回空投列表页"}
         </span>

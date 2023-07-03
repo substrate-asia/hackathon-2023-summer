@@ -3,15 +3,30 @@
 Project name: Origin of Civilization
 
 Project approval date: 2023-06-06
+<!-- Project Background/Origin/Problems to be Solved/Project Introduction/Project Demonstration/Technical Architecture/Project Logo/Project Initial Review Version/Team Information/Track Track -->
+## LOGO
+![Logo](LOGO2.png)
+****
 
+## What problem is solved
+**Traditional Games**
+- Items cannot be freely traded
+- Rely on centralized services
+- Data opaque and unverifiable
+
+**Current blockchain game**
+- Poor game quality and low playability
+- high barriers to entry
+- not good enough
+
+
+****
 ## Project Description
 
-Project introduction, submitted in English. including but not limited to:
-
-- Project background: view the documentation in docs
-- Project Introduction
 Origins of Civilization is an epic game that combines management simulation, real-time strategy, and action-adventure. In the game, you will play the role of a civilization founder, starting from the most basic tribe, and gradually building a powerful civilization empire. You need to manage resources, develop technology, build cities, and fight or cooperate with other civilization players. The adventure elements in the game are also very exciting, you can explore mysterious maps, discover treasures, and challenge tasks of various difficulties. The Origin of Civilization will take you into a world full of challenges and fun, come join us and start your civilization journey!
 
+
+****
 ## Game route planning:
 
 1. Resource gathering and infrastructure building: At the beginning of the game, players need to gather resources, build infrastructure, and ensure that the basic needs of the people are met, such as food, shelter, and safety. These resources can be obtained through means such as gathering, farming and mining.
@@ -25,6 +40,8 @@ Origins of Civilization is an epic game that combines management simulation, rea
 5. World Exploration: Players can explore the world and discover new resources and territories. During the exploration, players need to pay attention to the dangers and challenges encountered, such as wild animals, natural disasters and other threats to civilization.
 
 6. Rise of civilization: In the final stage of the game, players need to manage the development of the entire civilization and ensure the continued development of cities and countries. Players need to consider how to maintain the peace and prosperity of civilization, but also need to deal with various challenges and threats.
+
+****
 
 
 ## Project Development Plan
@@ -40,11 +57,11 @@ Origins of Civilization is an epic game that combines management simulation, rea
 - Fourth stage:
  At this stage, the various gameplays of the game have basically been developed. Players on each chain can play against each other, and will expand their influence by holding events.
 
+****
 ## Things planned to be done during the hackathon
 
-
 **Blockchain side**
-Smart Contract
+- **Smart Contract**
 
  - [x] User Registration-Smart Contract
  - [x] Players create forces and store data on the chain
@@ -52,14 +69,14 @@ Smart Contract
  - [x] Gameplay - part of the smart contract
 
 
-**Client**
-Web Side
+**client**
+- **web terminal**
  - [x] Project home page development: [Home](https://civi.ink/)
  - [x] User registration page, create forces: [Dapp](https://app.civi.ink)
  - [x] NFT novice gift pack collection: [Dapp](https://app.civi.ink)
  - [x] NFT product purchase process: [Dapp](https://app.civi.ink)
 
-
+****
 ## Items completed during the hackathon (submitted before the first review at 11:59 am on July 4, 2023)
  - [x] Project home page development: [Home](https://civi.ink/)
  - [x] Dapp Development: [Dapp](https://app.civi.ink/)
@@ -71,12 +88,34 @@ Web Side
  - [x] Player Combat Power Calculation-Smart Contract/UI
 
 
-## Dev Information
+****
+## Project Demo
+
+[demo video](https://www.youtube.com/@OriginofCivilization/featured)
+****
+
+## Technology Architecture
+**data storage**
+- Some data, such as (user registration, role creation) and other information are stored in separate contracts, so that these data can be used without loss when other contracts are upgraded later
+- Each function uses a separate contract, and the contracts call each other to facilitate later upgrades and only modify part of the contract
+****
+
+
+**Competitive gameplay**
+- Develop trusted services to allow user data to be mapped to games
+- Deploy a game network all over the world, so that players can play games online with low latency, making the game experience better
+
+****
+
+## Player Information
 
 | Name | Role | GitHub Account | WeChat Account |
-| -------------| ------------ | ----------- | ----------- |
+| -------------| ------------| ----------- | ----------- |
 | Wang Zhou | Founder & dev | differs | chatid8146701ae86 |
 
-
+****
+## Belonging track
+|Open Proposition|Smart Contract|
+|-------|-------|
 
 

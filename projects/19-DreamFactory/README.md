@@ -244,17 +244,14 @@ In other words, you can recreate a table's state by replaying all of the events 
 
 **blockcain**
 
-- `pallet-dynamic nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
+- `dynamic nft smartcontract`
+- 
+`Deployment of dynamic NFT contract`
+`Update dynamic NFT metadata`
+  
 
-**客户端**
 
-- web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+  
 
 
 
@@ -263,10 +260,13 @@ In other words, you can recreate a table's state by replaying all of the events 
 
 ### Team information/
 
-- jack：软件工程师，具有 Rust 和区块链开发经验。
-- soywang：区块链开发人员，具有 Substrate 和 Solidity, Solana 开发经验。
-- ciconianigra：区块链开发人员
-- yiko：区块链开发人员
+- Jack: Software engineer with experience in Rust and blockchain development.
+
+- Soywang: Blockchain developer with experience in Substrate, Solidity, and Solana.
+
+- Ciconianigra: Blockchain developer.
+
+- Yiko: Blockchain developer.
 
 ### Track affiliation
 
@@ -275,12 +275,111 @@ Smart Contracts (and related)
 Blockchain Products and Tools
 
 ### Project demonstration
-Videos: 
+#### Videos: 
 
-Show how demo works:
+#### Show how demo works:
 
-Contract Example Online:
+1. First, obtain user contribution data through the GitHub API.
+
+https://github.com/OpenSource-DreamFactory/rectianjh
+
+2. Then render and generate an SVG image based on the user's open-source shared data.
+https://github.com/OpenSource-DreamFactory/rectianjh/blob/master/github-metrics.svg
+
+3. Use a dynamic NFT contract on the Astar blockchain to create a dynamic NFT of the changing SVG image. The user's shared open-source data will be constantly updated, and the dynamic NFT image can be updated in real-time through a URL link.
+
+![image.png](https://upload-images.jianshu.io/upload_images/528413-a36c4c86b2de0adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+[https://raw.githubusercontent.com/rectinajh/rectianjh/3d78820ec33c461f04976c33565678e366c82345/github-metrics.svg?token=AA2NLHYINBMLJG2OVUFGUATEUM4T6](https://metrics.lecoq.io/rectinajh?template=classic&base.repositories=0&base.metadata=0&achievements=1&activity=1&languages=1&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&languages=false&languages.limit=8&languages.threshold=0%25&languages.other=false&languages.colors=github&languages.sections=most-used&languages.indepth=false&languages.analysis.timeout=15&languages.analysis.timeout.repositories=7.5&languages.categories=markup%2C%20programming&languages.recent.categories=markup%2C%20programming&languages.recent.load=300&languages.recent.days=14&achievements=false&achievements.threshold=C&achievements.secrets=true&achievements.display=detailed&achievements.limit=0&activity=false&activity.limit=5&activity.load=300&activity.days=14&activity.visibility=all&activity.timestamps=false&activity.filter=all&config.timezone=Asia%2FShanghai)
+
+![image.png](https://upload-images.jianshu.io/upload_images/528413-a79879cf1b0f1953.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+
+4，update nft 
+![image.png](https://upload-images.jianshu.io/upload_images/528413-54d3f958817ac799.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+
+#### Dynamic SmartContract Explanation:
+
+![image.png](https://upload-images.jianshu.io/upload_images/528413-95b4f1259ef6d965.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+DreamFactoryNFT's contract example implements an NFT contract based on ERC721 and integrates with Tableland to provide metadata.
+
+Core logic:
+
+Dynamic NFT metadata link implementation (logic for dynamically updating NFT):
+
+```source-shell
+/**
+     *  @dev Must override the default implementation, which simply appends a `tokenId` to _baseURI.
+     *  tokenId - The id of the NFT token that is being requested
+     */
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        require(
+            _exists(tokenId),
+            "ERC721Metadata: URI query for nonexistent token"
+        );
+        string memory baseURI = _baseURI();
+
+        if (bytes(baseURI).length == 0) {
+            return "";
+        }
+
+        string memory query = string(
+            abi.encodePacked(
+                "SELECT%20json_object%28%27id%27%2Cid%2C%27name%27%2Cname%2C%27image%27%2Cimage%2C%27description%27%2Cdescription%2C%27attributes%27%2Cjson_group_array%28json_object%28%27trait_type%27%2Ctrait_type%2C%27value%27%2Cvalue%29%29%29%20FROM%20",
+                mainTable,
+                "%20JOIN%20",
+                attributesTable,
+                "%20ON%20",
+                mainTable,
+                "%2Eid%20%3D%20",
+                attributesTable,
+                "%2Emain_id%20WHERE%20id%3D"
+            )
+        );
+        // Return the baseURI with a query string, which looks up the token id in a row.
+        // `&mode=list` formats into the proper JSON object expected by metadata standards.
+        return
+            string(
+                abi.encodePacked(
+                    baseURI,
+                    query,
+                    Strings.toString(tokenId),
+                    "%20group%20by%20id"
+                )
+            );
+    }
+```
+Here are the main structure and functions of the contract:
+
+Inherits from ERC721 Contract: The DreamFactoryNFT contract inherits OpenZeppelin's ERC721 contract to implement the functionality of the ERC721 standard.
+
+Constructor: The constructor of the contract accepts three parameters, namely baseURI (used to set the base URI of the contract), _mainTable (the name of the main metadata table), and _attributesTable (the name of the attributes table).
+
+Public Variables: The contract defines several public variables, including baseURIString (to store a string representing the base URI), mainTable (the name of the main metadata table), attributesTable (the name of the attributes table), _tokenIdCounter (a counter for tracking NFT tokenIds), and _maxTokens (the maximum number of NFTs).
+
+_baseURI function: Overrides default implementation, returns the base URI of the contract.
+
+totalSupply function: Returns total number of existing NFTs.
+
+tokenURI function: Overrides default implementation, returns metadata URI for a given tokenId. It uses Tableland's query language to retrieve metadata corresponding to tokenId.
+
+mint function: Used for minting new NFTs. It checks if maximum number of NFTs has already been minted and securely mints a new NFT to caller's address.
+
+
 
 
 Other Files:
-Project Pitch Deck: 
+Project Pitch Deck(ppt): 
+
+https://www.canva.com/design/DAFnmvFHlRg/_G_lNDGE48m69eQCYFzwJg/edit?utm_content=DAFnmvFHlRg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

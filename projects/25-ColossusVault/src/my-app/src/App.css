@@ -1,0 +1,190 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+body {
+  background-color: hsl(220, 33%, 98%);
+  color: hsl(0, 0%, 13%);
+}
+
+main {
+  max-width: 745px;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+a {
+  color: hsl(327, 82%, 55%);
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  filter: brightness(1.2);
+  text-decoration: underline;
+}
+
+.chip {
+  border-radius: 0.5em;
+}
+
+.chip.default {
+  color: hsl(0, 0%, 53%);
+  background-color: hsl(216, 45%, 96%);
+}
+
+.chip.green {
+  background-color: hsl(105, 42%, 93%);
+  color: hsl(103, 42%, 23%);
+}
+
+.chip.blue {
+  background-color: hsl(203, 42%, 93%);
+  color: hsl(211, 42%, 23%);
+}
+
+.chip.small {
+  padding: 0.125em 0.625em;
+}
+
+.chip.large {
+  font-size: 0.875rem;
+  padding: 0.5em 1em;
+  border-radius: 2em;
+}
+
+.button {
+  font-size: 1rem;
+  color: hsl(327, 82%, 55%);
+  border: 1px solid hsl(327, 82%, 55%);
+  border-radius: 0.5em;
+  background-color: transparent;
+  padding: 0.5em 1.25em;
+  cursor: pointer;
+  transition: box-shadow 150ms ease-out;
+  position: relative;
+}
+
+.button.active {
+  color: white;
+  background-color: hsl(327, 82%, 55%);
+}
+
+.button:hover {
+  box-shadow: 0px 0px 0px 2px hsla(327, 82%, 55%, 0.2);
+}
+
+.button:active {
+  top: 1px;
+  filter: brightness(0.8);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+}
+
+.connection-container {
+  margin-bottom: 1rem;
+}
+
+.connection {
+  margin-bottom: 0.5rem;
+}
+
+.connection-chip {
+  display: inline;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.button-container > * {
+  margin-right: 1rem;
+  flex: 1;
+}
+
+.button-container > *:last-child {
+  margin-right: 0;
+}
+
+.dev-console-notice {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: #435985;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.dev-console-notice img {
+  margin-bottom: 1rem;
+}
+
+.space {
+  display: flex;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0px 0px 20px hsl(214, 32%, 91%);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+}
+
+.space img {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.space .space-content {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.space .name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.space .summary {
+  margin-bottom: 1rem;
+}
+
+.space .tags {
+  display: flex;
+  align-items: stretch;
+}
+
+.space .tags > * {
+  margin-right: 0.5rem;
+}
+
+.space-full-response {
+  color: #435985;
+  text-align: center;
+  margin-top: 2rem;
+}

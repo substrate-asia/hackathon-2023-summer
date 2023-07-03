@@ -1,18 +1,19 @@
 [
   {
     "index": 1,
-    "address": "https://huggingface.co/THUDM/chatglm2-6b/tree/main"
+    "address": "https://github.com/THUDM/ChatGLM-6B"
   },
   {
     "index": 2,
-    "address": "???????"
+    "address": "https://huggingface.co/tiiuae/falcon-7b-instruct"
   },
   {
-    "index": 3
+    "index": 3,
+    "address": "https://github.com/Lightning-AI/lit-llama"
   },
   {
-    "index": 4
-  },
+    "index": 4,
+    "address": "https://github.com/bentoml/OpenLLM"
   {
     "index": 5
   },

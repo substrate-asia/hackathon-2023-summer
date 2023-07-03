@@ -9,9 +9,6 @@ https://app.cbindex.finance/ is CBIndex App (mainly built on the centralized ser
 ## Overall Presentation
 - Deck: https://docsend.com/view/wd2hbcfzt7tmw582
 - Demo video: https://www.youtube.com/watch?v=m_v9qnvWXXg
-- https://dapp.cbindex.finance/ is the demo of CBIndex DApp (fully built on the blockchain), which has the copy-investing feature now. The mutual fund (active and index funds) investment feature will be added.
-- https://app.cbindex.finance/ is the demo of CBIndex App (mainly built on the centralized server), which has a crypto index fund building and management feature, mutual fund (active fund and index fund) creation and investment simulator, copy-investing simulator, and various analysis tools for crypto investment.
-- CBIndex App (https://www.youtube.com/watch?v=m_v9qnvWXXg)
 
 ## Components
 

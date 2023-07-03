@@ -584,94 +584,10 @@ pub mod pallet {
 
 
 
-		/// 加入一个推广社群“议会”
-		/// 需要是投资者
-		/// 我们修改了substrate collective pallet ,让他可以支持动态生成多个，而不是全局在代码里配置 
-        #[pallet::weight(10_000)]
-        pub fn union_dao_council_join(
-            origin: OriginFor<T>,
-            dao_id: T::DaoId,
-            //account_id_min: T::AccountId,
-            
-        ) -> DispatchResultWithPostInfo {
-            let who = ensure_signed(origin)?;
 
 
-            let  mut dao = Daos::<T>::get(&dao_id).ok_or(Error::<T>::DaoNotFound)?;
-            let  (my_asset_id, deposited_account_id) = 
-                (dao.my_asset_id.clone(),   dao.deposited_account_id.clone() );
-
-            let my_asset_id_u32: u32 = TryInto::<u32>::try_into(my_asset_id.clone()).ok().unwrap();
-            let dao_id_u64: u64 = dao_id.try_into().ok().unwrap();//好像必需经过中间u64转换
-            let my_asset_id_u64: u64 = my_asset_id_u32.into();
-
-            ensure!(my_asset_id_u64 == dao_id_u64, Error::<T>::FirstDaoIdNeeded);
-
-            //let app_advertise_exist = AppAdvertises::<T>::get(&dao_id).ok_or(Error::<T>::AppAdvertiseNotFound)?;
-            let mut dao_council = DaoCouncils::<T>::get(&dao_id).unwrap_or_default();
-            //排序。。
-           
-
-            //end 排序。。
-
-            //取得资格需要对应的钱，要把在active dao里的钱也算进去       
-            let mut investors: BTreeMap<T::AccountId, BalanceOf<T>> = match KeyDaos::<T>::get(my_asset_id.clone())   {
-                //Some(dao_id) => dao.investors.clone(),
-                Some(active_dao_id) => Daos::<T>::get(&active_dao_id).unwrap().investors.clone(),
-                None => BTreeMap::new(), 
-            };  
-            let mut asset_balance = pallet_assets::Pallet::<T>::balance(my_asset_id, &who);   
-
-            let value_indao : BalanceOf<T>  = *investors.entry(who.clone()).or_default();
-            let value_indao: T::Balance = TryInto::<u128>::try_into(value_indao).ok().unwrap().try_into().ok().unwrap(); 
-            asset_balance = asset_balance + value_indao;
-            ensure!(asset_balance > <T as pallet_assets::Config>::Balance::zero(), Error::<T>::NotEnoughBalance);
-           
-
-
-            let old_count: u32 = dao_council.admins.len().try_into().unwrap();
-
-            if dao_council.admins.len() >=<T as pallet_dao_collective::Config<Instance4>>::MaxMembers::get().try_into().unwrap() {//必需ban一个人下来。
-                let mut balance_min: T::Balance = asset_balance.clone();
-                let mut account_id_min: T::AccountId = who.clone();
-                for (account_t, banlance_t) in  dao_council.admins.clone() {
-                    //let asset_balance_t: u128 = pallet_assets::Pallet::<T>::balance(asset_id, account_t).try_into().unwrap_or(0u128);
-                    //顺带更新一下每个的钱。。。 
-                    let mut asset_balance_t = pallet_assets::Pallet::<T>::balance(my_asset_id, &account_t);
-
-                    let value_indao : BalanceOf<T>  = *investors.entry(account_t.clone()).or_default();
-                    let value_indao: T::Balance = TryInto::<u128>::try_into(value_indao).ok().unwrap().try_into().ok().unwrap(); 
-                    asset_balance_t = asset_balance_t + value_indao;
-
-                    dao_council.admins.insert(account_t.clone(), asset_balance_t.clone());
-
-                    if asset_balance_t < balance_min  {
-                        account_id_min = account_t;
-                        balance_min = asset_balance_t;
-                    }  
-                    
-                }                
-                
-                ensure!(account_id_min != who, Error::<T>::NotEnoughBalance);
-                dao_council.admins.remove(&account_id_min);                
-            }
-
-            dao_council.admins.insert(who.clone(), asset_balance);
-
-            let members: Vec<T::AccountId> = dao_council.admins.keys().cloned().collect();
-
-           
-            pallet_dao_collective::Pallet::<T, Instance4>::do_set_dao_members(Option::Some(dao_id.clone().try_into().ok().unwrap()), members, Option::None, old_count)?;
-            
-            
-            DaoCouncils::<T>::insert(dao_id, Some(dao_council));
-
-            Ok(().into())
-
-            
-        }
-
-        /// 创新广告落地页，刚创新的时候是属于个人的，但他也可转让给一个推广社群来维护.
+        /// 创新广告落地页，刚创新的时候是属于个人的，但后面可转让给一个推广社群来维护.
+		/// Innovate advertising landing page, initially owned by an individual, but later can be transferred to a promotion community for maintenance.
         #[pallet::weight(10_000)]
         pub fn app_advertise_create(
             origin: OriginFor<T>,
@@ -751,7 +667,10 @@ pub mod pallet {
 
 
         /// 更新广告落地页，注意如果这个广告落地而属于一个社群，再创建方需要是社群的集体账号.
-		/// 我们修改了substrate collective pallet ,让他可以支持动态生成多个，而不是全局在代码里配置 
+		/// 我们增强了substrate collective pallet ,让他可以支持动态生成多个，而不是全局在代码里配置 
+		/// Update advertising landing page, note that if this landing page belongs to a community, the creator needs to be the collective account of the community.
+		/// We have enhanced the substrate collective pallet to support dynamic generation of multiple pallets, rather than globally configuring them in the code.
+		/// multiple-collective pallet, the ensure code : let  union_id_org = T::ExternalOrigin::ensure_origin(origin)?; 
         #[pallet::weight(10_000)]
         pub fn app_advertise_update(
             origin: OriginFor<T>,
@@ -798,7 +717,9 @@ pub mod pallet {
         }
 
 
-
+		
+		/// 广告或任务的动作定义，也可写到phala隐私合约里，也可以写到substrate链上
+		/// The definition of actions for advertisements or tasks can also be written in the Phala privacy contract or on the Substrate chain.
 		#[pallet::weight(0)]
 		pub fn put_advertise_allowed_actions(
             origin: OriginFor<T>,
@@ -847,6 +768,8 @@ pub mod pallet {
 
         /// 创建一个推广社群，创建社群的时候，同时会发起一次众筹.
 		/// 创建社群的时候，同时会产生一个当前社群的代币，用于他们自身的治理
+		/// When creating a promotion community, a crowdfunding campaign will be initiated simultaneously.
+		/// When creating a community, a token specific to the community will be generated, which will be used for their self-governance.
         #[pallet::weight(10_000)]
         pub fn union_dao_create(
             origin: OriginFor<T>,
@@ -1011,6 +934,7 @@ pub mod pallet {
         }
 
         /// 有时候一次众筹不够，那就追加众筹.
+		/// Sometimes a single crowdfunding campaign is not enough, so additional crowdfunding can be added.
         #[pallet::weight(10_000)]
         pub fn union_dao_append(
             origin: OriginFor<T>,
@@ -1034,6 +958,7 @@ pub mod pallet {
         }
 
         /// 更新推广社群信息.
+		/// Update promotion community information.
         #[pallet::weight(10_000)]
         pub fn union_dao_update(
             origin: OriginFor<T>,
@@ -1051,6 +976,7 @@ pub mod pallet {
         }
 
         /// 推广社群进行众筹的时候，新用户就是通过这个接口进行投资的
+		/// When the promotion community conducts crowdfunding, new users invest through this interface.
         #[pallet::weight(10_000)]
         pub fn union_dao_mint(
             origin: OriginFor<T>,
@@ -1075,6 +1001,7 @@ pub mod pallet {
 
 
          /// 众筹结束时间到，众筹条件满足 , 这时就可以调用这接口触发众筹结束操作.（谁调用都可以）
+		 /// When the crowdfunding deadline is reached and the crowdfunding conditions are met, this interface can be called to trigger the crowdfunding completion operation. (Can be called by anyone)
          #[pallet::weight(10_000)]
          pub fn union_dao_finish(
              origin: OriginFor<T>,
@@ -1091,6 +1018,7 @@ pub mod pallet {
 
 
          ///众筹结束时间到，众筹条件不满足 , 这时只能取消众筹结束操作了.（谁调用都可以）
+		 /// When the crowdfunding deadline is reached and the crowdfunding conditions are not met, only the cancellation of the crowdfunding completion operation is possible. (Can be called by anyone)
          #[pallet::weight(10_000)]
          pub fn union_dao_abort(
              origin: OriginFor<T>,
@@ -1105,6 +1033,7 @@ pub mod pallet {
 
 
         /// 增加一个推广任务到推广社群，主要是指定这次推广要投入多少钱等内容， 一个推广任务可以用多个“转换操作”
+		/// Add a promotion task to the promotion community, mainly specifying the budget and other details for this promotion. A promotion task can have multiple "conversion actions".
         #[pallet::weight(10_000)]
         pub fn union_task_append(
             origin: OriginFor<T>,
@@ -1132,6 +1061,10 @@ pub mod pallet {
 		/// 这里其实只记录了”转换操作“的转账，真正的信息是在TEE隐私合约里，
 		/// 如果这个”转换操作“跟钱无关，或是链下web2.0的”转换操作“，是不走这里的
 		/// todo 交易的发起人可以不是新用户，而是TEE合约的内置账户，这样有助于用户隐私。但这项目主要还是保护推广者的隐私
+		/// When a conversion action of a new user is executed, it indicates that a new user has converted.
+		/// Here, only the transfer of the "conversion action" is recorded, while the actual information is stored in the TEE privacy contract.
+		/// If the "conversion action" is unrelated to money or is a web2.0 off-chain conversion action, it does not go through this process.
+		/// todo: The initiator of the transaction can be the built-in account of the TEE contract, which helps protect user privacy. However, the main focus of this project is still to protect the privacy of the promoters.
         #[pallet::weight(10_000)]
         pub fn union_task_action_pay(
             origin: OriginFor<T>,
@@ -1203,6 +1136,9 @@ pub mod pallet {
 		/// 新用户进行了“转换操作”后， 可以在TEE 合约里进行验证。
 		/// TEE 合约 里进行验证用户所执行的操作，然后会把奖励等发给新用户与推广者
 		/// 当奖励发完后，需要结束用户的这次的“转换操作”
+		/// After a new user performs a "conversion action," it can be verified in the TEE contract.
+		/// The TEE contract verifies the actions performed by the user and then distributes rewards to the new user and the promoter.
+		/// Once the rewards are distributed, the "conversion action" of the user needs to be concluded.
         #[pallet::weight(10_000)]
         pub fn union_task_action_finish(
             origin: OriginFor<T>,
@@ -1248,6 +1184,7 @@ pub mod pallet {
 
 
         /// 推广者提取佣金
+		/// Extract commission for the advertiser
         #[pallet::weight(10_000)]
         pub fn union_task_reward(
             origin: OriginFor<T>,
@@ -1266,6 +1203,7 @@ pub mod pallet {
             let nonce_ = TaskNounces::<T>::get(&nonce).ok_or(Error::<T>::NounceNotFound)?;
 
             //完成TEE来源认证
+			// Complete TEE source authentication
             ensure!(
                 task.tee_account_id == tee_account_id,
                 Error::<T>::ErrorTeeAccountId
@@ -1280,6 +1218,38 @@ pub mod pallet {
             Ok(().into())
         }
 
+
+		/// 加入一个推广社群“议会”
+		/// 需要是投资者
+		/// 我们增强了substrate collective pallet ,让他可以支持动态生成多个，而不是全局在代码里配置 
+		/// Join a promotion community "Parliament"
+		/// Need to be an investor
+		/// We enhance the Substrate Collective pallet to support dynamic generation of multiple instances instead of configuring globally in the code.
+        #[pallet::weight(10_000)]
+        pub fn union_dao_council_join(
+            origin: OriginFor<T>,
+            dao_id: T::DaoId,
+            //account_id_min: T::AccountId,
+            
+        ) -> DispatchResultWithPostInfo {
+            let who = ensure_signed(origin)?;
+
+			/some code have been removed here for it is just under dev/test
+			//but it exist in the released binary for test
+
+            //dao_council.admins.insert(who.clone(), asset_balance);
+
+            //let members: Vec<T::AccountId> = dao_council.admins.keys().cloned().collect();
+           
+            //pallet_dao_collective::Pallet::<T, Instance4>::do_set_dao_members(Option::Some(dao_id.clone().try_into().ok().unwrap()), members, Option::None, old_count)?;
+            
+            
+            //DaoCouncils::<T>::insert(dao_id, Some(dao_council));
+
+            Ok(().into())
+
+            
+        }
        
 
         /// Add liquidity from already deposited amounts to a pool

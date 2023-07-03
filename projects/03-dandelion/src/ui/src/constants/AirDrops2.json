@@ -1,0 +1,72 @@
+[
+    {
+        "id": 8,
+        "type": "空投结束",
+        "startblock": 4585638,
+        "endblock": 4628838,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "equilibrium",
+        "airtoken": "EQL",
+        "logo": "https://bafybeigbjvsyye2q3xomoqugagt56hldio2aeexftur4zcpyr5ktdmebly.ipfs.w3s.link/equilibrium.6259831e.png",
+        "title": "稳定币新时代,Equilibrium全面启动!10亿美元TVL达成,代币超级空投来袭!",
+        "desc": "Equilibrium 作为全球首屈一指的跨链 DeFi 项目,历经长期发展终于达成重要里程碑—稳定币 pool 总额突破 10 亿美元!这标志着 Equilibrium 在打通多链资本隔离、聚合跨链流动性方面已达成关键突破,为用户提供超高效的稳定币跨链交易与配置服务。\\n为庆祝这一重要进展,Equilibrium 项目组联合生态合作伙伴决定启动前所未有的超级空投活动。本次空投总额高达 10万 EQL 代币与各生态项目代币,将覆盖 Dandelion 社区绝大部分成员。\\n除空投活动外,Equilibrium 还联合各大交易所推出“跨链无限”挑战赛,通过在 Equilibrium 平台体验跨链稳定币交易,你将有机会获得高达 2万 EQL 代币奖励!机会立即到来,跨链新纪元已经开启!\\nEquilibrium 项目组由衷感谢全球社区成员和生态伙伴长期以来的信任与支持。有了你们,Equilibrium 跨链 DeFi 网络才得以蓬勃发展至今日的规模。让我们共同见证多链资本如何融合,Equilibrium 为你打开跨链之门,迎接全新时代!",
+        "rules": "[\"1)社区活跃度≥10的用户可以领取本次空投\",\"2)每个账号可领取100枚空投代币\",\"3)本次共发放10万空投代币，发完为止，先到先得。\"]"
+    },
+    {
+        "id": 9,
+        "type": "空投结束",
+        "startblock": 4585638,
+        "endblock": 4628838,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "Parallel",
+        "airtoken": "PARA",
+        "logo": "https://bafybeigh6zfofvvu24yaooje6hp4ase5b4uglemhizthj3xoaknhz5nhoe.ipfs.w3s.link/heiko.29f4674e.png",
+        "title": "DeFi新时代来袭,ParallelFinance全面启动!3亿美元TVL达成,代币超级空投来袭!",
+        "desc": "Parallel Finance 作为全球首屈一指的跨链 DeFi 超级应用,历经长期发展终于达成重要里程碑—总质押量突破 3 亿美元!这标志着 Parallel Finance 在打通跨链资本、构建 DeFi 产品矩阵方面已达成关键突破,为用户提供超高效的一站式 DeFi 服务。\\n为庆祝这一重要进展,Parallel Finance 项目组联合生态合作伙伴决定启动前所未有的超级空投活动。本次空投总额高达 5万 PARA 代币与各生态项目代币,将覆盖 Dandelion 社区绝大部分成员。\\n除空投活动外,Parallel Finance 还联合各大交易所推出“DeFi 无限”大赛,通过在 Parallel Finance 平台体验各 DeFi 产品,你将有机会获得高达 2 万 PARA 代币奖励!机会立即到来,DeFi 新时代已经开启!\\nParallel Finance 项目组由衷感谢全球社区成员和生态伙伴长期以来的信任与支持。有了你们,Parallel Finance 跨链 DeFi 超级应用网络才得以蓬勃发展至今日的规模。让我们共同见证 DeFi 产品矩阵如何构建,Parallel Finance 为你打开 DeFi 之门,迎接全新时代!",
+        "rules": "[\"1)质押社区vetoken即可等比例领取空投代币\",\"2)每个账号最多可质押1000vetoken\",\"3)本次共发放5万空投代币，发完为止，先到先得。\"]"
+    },
+    {
+        "id": 10,
+        "type": "空投结束",
+        "startblock": 4585638,
+        "endblock": 4628838,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "interlay",
+        "airtoken": "ILK",
+        "logo": "https://bafybeiab64zdjlcpoazfoywcbdx3rkadist7be4atzbxg3bjx4llmpkxxq.ipfs.w3s.link/interlay.040c09b2.png",
+        "title": "BTC跨链新时代来袭,Interlay全面启动!100万BTC抵押成功,代币超级空投来袭!",
+        "desc": "Interlay 作为全球首屈一指的 BTC 跨链网络,历经长期发展终于达成重要里程碑—BTC 抵押量突破 100 万枚!这标志着 Interlay 在实现 BTC 跨链流动与构建去中心化资产抵押网络方面已达成关键突破,为用户提供安全高效的 BTC 跨链服务。\\n为庆祝这一重要进展,Interlay 项目组联合生态合作伙伴决定启动前所未有的超级空投活动。本次空投总额高达 10万 ILK 代币与各生态项目代币,将覆盖 Dandelion社区绝大部分成员。\\n除空投活动外,Interlay 还联合各大交易所推出“BTC 跨链无限”大赛,通过在 Interlay 平台体验 BTC 抵押,你将有机会获得高达 2 万 ILK 代币奖励!机会立即到来,BTC 跨链新时代已经开启!\\nInterlay 项目组由衷感谢全球社区成员和生态伙伴长期以来的信任与支持。有了你们,Interlay BTC 跨链网络才得以蓬勃发展至今日的规模。让我们共同见证 BTC 如何实现跨链,Interlay 为你打开 BTC 新世界之门,迎接全新时代!",
+        "rules": "[\"1)用户可按照社区vetoken持有量等比例领取空投\",\"2)本次共发放10万空投代币，请符合条件的用户尽快领取，活动结束后未领取的空投将回收。\"]"
+    },
+    {
+        "id": 13,
+        "type": "空投结束",
+        "startblock": 4585638,
+        "endblock": 4628838,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "phala",
+        "airtoken": "PHA",
+        "logo": "https://bafybeicfm4c5inz4nbhrtzydipszszlo75k5sut6za4w6yikpfi7xwzj5i.ipfs.w3s.link/phala.5cd02d2d.png",
+        "title": "隐私计算新纪元,Phala网络正式启动!超级空投来袭!",
+        "desc": "Phala 作为全球首个支持 TEE 隐私计算的公链网络,经过长期努力终于启动主网并正式运行!这标志着区块链世界将拥有一个安全高效的隐私计算和服务环境,开启去中心化隐私计算新纪元。\\n为庆祝这一重要进展,Phala 项目组联合生态合作伙伴决定启动前所未有的超级空投活动。本次空投总额高达 10万 Phala 代币 PHA,将覆盖 Dandelion社区绝大部分成员。\\n除空投活动外,Phala 还联合各大交易所推出“隐私无限”大赛,通过在 Phala 平台体验各种隐私计算服务,你将有机会获得高达 2 万 PHA 代币奖励!机会立即到来,隐私计算新时代已经开启!\\nPhala 项目组由衷感谢全球社区成员和生态伙伴长期以来的信任与支持。有了你们,Phala 才有可能创建一个安全高效的隐私计算网络环境。让我们共同见证跨链 DeFi 与隐私计算如何结合,Phala 为你打开去中心化隐私计算大门,迎接全新时代!",
+        "rules": "[\"1)用户可按照社区活跃度token持有量等比例领取空投\",\"2)本次共发放10万空投代币，请符合条件的用户尽快领取，活动结束后未领取的空投将回收。\"]"
+    },
+    {
+        "id": 14,
+        "type": "空投结束",
+        "startblock": 4585638,
+        "endblock": 4628838,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "bit.country",
+        "airtoken": "NEER",
+        "logo": "https://bafybeids5r7nbfbzt77ddvqs2csx3f3aw3as4tfrfmyw4zgwon5d636f6m.ipfs.w3s.link/pioneer.7650d461.png",
+        "title": "Bit.Country元界开启新纪元,活跃用户突破百万大关!代币超级空投来袭!",
+        "desc": "Bit.Country 作为集 NFT、DeFi 与游戏体验为一体的区块链元界,经过长期发展终于达成重要里程碑—活跃用户正式突破 100 万!这标志着 Bit.Country 已成为全球首个拥有超过百万实际用户的区块链游戏与资产网络,领先同行一个巨大跨越。\\n为庆祝这个重要时刻,Bit.Country 项目组联合生态合作伙伴决定启动前所未有的超级空投活动。本次空投总额高达 8万 NEER 代币与各生态项目代币,将覆盖 Dandelion 社区绝大部分成员。\\n除空投活动外,Bit.Country 还联合各大交易所推出“星际疆域”大奖赛,通过在 Bit.Country 世界中完成指定任务,你将有机会获得高达 2 万 NEER 代币奖励!这个机会只属于真正的 Bit.Country 元界探险家!\\nBit.Country 项目组由衷感谢全球百万社区玩家和生态伙伴长期以来的信任与支持。有了你们,Bit.Country 才有可能发展成今日模样,成为区块链游戏与资产元界的领导者。让我们继续一起书写 Bit.Country 传奇,共同开启区块链新纪元!联合我们,迎接更壮丽Bit.Country 元界!",
+        "rules": "[\"1)社区活跃度≥10的用户可以领取本次空投\",\"2)每个账号可领取100枚空投代币\",\"3)本次共发放8万空投代币，发完为止，先到先得。\"]"
+    }
+]

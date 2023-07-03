@@ -1,0 +1,72 @@
+[
+    {
+        "id": 2,
+        "type": "准备空投",
+        "startblock": 4772038,
+        "endblock": 4815238,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "bajun",
+        "airtoken": "AJUNA",
+        "logo": "https://bafybeiata246gfx47difygw62676qc4gz67v3c5o3ymywrnfg7aym3h6vm.ipfs.w3s.link/bajun.f627b7d6.png",
+        "title": "Ajuna推出虚拟现实游戏,现实世界的工作生活即将实现!超级空投活动来袭!",
+        "desc": "Ajuna 项目作为功能完备的区块链游戏平台,一直致力于为玩家带来有趣而非凡的游戏体验。今天,Ajuna 终于推出了首款虚拟现实游戏 - Ajuna 生活!,玩家可以在虚拟世界体验真实的工作生活。在游戏里上班、约会、社交......一切你现实生活中所做的,都可以在这里实现!\\n为庆祝 Ajuna 生活!的全新上线,Ajuna 项目组启动了超级空投活动。本次空投总额高达 10万 Ajuna 代币,将覆盖绝大部分Dandelion社区成员。\\n除空投活动外,Ajuna生活!首发期间还提供其他丰厚福利,限时特价购买道具、VIP 特权体验等你不容错过!Dandelion社区的朋友们,我们把最有价值的游戏带给你们了!\\nAjuna 项目组由衷感谢社区玩家长期以来的厚爱,正是有了你们,我们的游戏才变得越来越好。Ajuna生活!只是起点,我们将持续打造更多元与有趣的游戏体验,这也是我们向社区表达感谢的最佳方式!\\n希望Ajuna生活!带给你们惊喜与无穷乐趣!我们的虚拟生活从现在开始!",
+        "rules": "[\"1)质押社区vetoken即可等比例领取空投代币\",\"2)每个账号最多可质押1000vetoken\",\"3)本次共发放10万空投代币，发完为止，先到先得。\"]"
+    },
+    {
+        "id": 3,
+        "type": "准备空投",
+        "startblock": 4772038,
+        "endblock": 4815238,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "bifrost",
+        "airtoken": "BNC",
+        "logo": "https://bafybeigfky7t5ej7kbs6ffmfkdvjh77a3g7y7pekpnjhoy3sszx52dqk6m.ipfs.w3s.link/bifrost.42f1933c.svg",
+        "title": "BifrostStaking震撼1亿美元!代币超级空投来袭!",
+        "desc": "Bifrost 作为 Polkadot 生态中的 DeFi 领先项目,其 Staking 机制一直深受社区信任与支持。今日,Bifrost Staking 质押总量终于突破 1 亿美元这一历史性大关,这标志着 Bifrost Staking 已进入新的成长阶段,其在 Polkadot 生态 DeFi 领域的影响力将进一步扩大。\\n为感谢 Bifrost 社区长期以来的信任与支持,Bifrost 项目组决定启动代币超级空投活动。本次空投总量高达 10万BNC 代币,预计将惠及绝大部分 Dandelion社区成员。\\n除空投活动外,Bifrost 还联合各大交易平台准备了社区大奖赛,总奖励高达 3万 BNC 代币!只要参与本次空投活动即有机会获得大奖!\\nBifrost 项目组由衷感谢所有社区成员长期以来的信任与支持,你们是 Bifrost 发展的动力源泉。1 亿美元只是一个开始,让我们携手共进,推动 Bifrost Staking 到达新高度!Bifrost 未来可期,让我们共同见证!",
+        "rules": "[\"1)用户可按照社区vetoken持有量等比例领取空投\",\"2)本次共发放10万空投代币，请符合条件的用户尽快领取，活动结束后未领取的空投将回收。\"]"
+    },
+    {
+        "id": 5,
+        "type": "准备空投",
+        "startblock": 4772038,
+        "endblock": 4815238,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "clover",
+        "airtoken": "CLOVER",
+        "logo": "https://bafybeihgwqgqosy7yg7j2nu34kklfuze3arw2zcok5pacya2c4wgmrm5hy.ipfs.w3s.link/clover.b07a9773.png",
+        "title": "Clover2.0重磅上线!代币超级空投至你手,全新去中心化应用时代来袭!",
+        "desc": "Clover 作为全球首屈一指的去中心化应用开发平台,经过长期努力终于推出全新的 2.0 版本。Clover 2.0在框架结构与功能上做出巨大升级,将为开发者提供前所未有的去中心化应用开发体验。\\n为庆祝 Clover 2.0 的重磅上线,Clover 项目组联合各大生态合作项目决定启动空前的超级空投活动。本次空投总额高达 8万 Clover 代币与各生态项目代币,预计覆盖绝大部分 Dandelion社区成员与开发者。\\n除空投活动外,Clover还联合各大交易所推出“新应用总动员”大赛,通过参与体验 Clover 2.0 开发去中心化应用,你将有机会获得高达 2 万 Clover 代币的奖励!这个机会你绝对不容错过!\\nClover 项目组由衷感谢全球开发者和社区成员长期以来的支持。有了你们,Clover 才有机会不断进步与突破。让我们共同见证区块链技术如何改变世界,Clover 2.0 为开发者带来史无前例的创新机遇!全新去中心化应用蓬勃开花,新时代已经来临!",
+        "rules": "[\"1)质押社区vetoken即可等比例领取空投代币\",\"2)每个账号最多可质押1000vetoken\",\"3)本次共发放8万空投代币，发完为止，先到先得。\"]"
+    },
+    {
+        "id": 6,
+        "type": "准备空投",
+        "startblock": 4772038,
+        "endblock": 4815238,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "crust",
+        "airtoken": "CRU",
+        "logo": "https://bafybeig7y7bxti37hrwjp2cxmcycxev3re4g6kuxbbvp3memqs7ochk2b4.ipfs.w3s.link/crust.3a83f0b3.svg",
+        "title": "Crust数据存储突破10PB!代币超级空投来袭,去中心化存储新时代到来!",
+        "desc": "Crust 作为全球首屈一指的去中心化存储网络,经过长期发展终于达成重要里程碑—网络数据存储总量突破 10PB!这标志着 Crust 进一步巩固了区块链存储领域的领先地位,为用户提供卓越的去中心化存储服务。\\n为庆祝这一重要进展,Crust 项目组决定启动史无前例的超级空投活动。本次空投总额高达 10万Cru代币,将覆盖绝大部分Dandelion社区成员。\\n除空投活动外,Crust 还联合各大交易所推出“存储未来”大赛,通过体验 Crust 去中心化存储服务,你将有机会获得高达 2 万 Cru 代币的奖励!机会就在眼前,储存新时代已经来临!\\nCrust 项目组由衷感谢全球社区成员和存储节点长期以来的信任与支持。有了你们, Crust 网络数据存储量才能稳步增长至今日的规模。让我们共同见证区块链技术如何改变数据存储的未来,全新的去中心化存优选时代即将开启!",
+        "rules": "[\"1)用户可按照社区活跃度token持有量等比例领取空投\",\"2)本次共发放10万空投代币，请符合条件的用户尽快领取，活动结束后未领取的空投将回收。\"]"
+    },
+    {
+        "id": 7,
+        "type": "准备空投",
+        "startblock": 4772038,
+        "endblock": 4815238,
+        "StakeToken": "0x45f9799669BC3f5029E01439dA8338B6bC90Ccd1",
+        "AIToken": "0x4eA8b9B299dD2f16533905a627e61D2AD347F454",
+        "name": "efinity",
+        "airtoken": "ENJ",
+        "logo": "https://bafybeic3cizovjg4zo2sb6fx4vlsfl56zo3ggq36fsfahtecimvybt3esy.ipfs.w3s.link/efinity.0b7b7048.png",
+        "title": "Efinity,开放网络新纪元!代币超级空投来袭,新工具新体验惊喜连连!",
+        "desc": "Efinity 作为全球首屈一指的开放区块链平台,经过长期发展终于迈上新的台阶。Efinity 在网络功能、治理机制以及开发工具等方面均有重大升级,这将为用户和开发者带来前所未有的体验。\\n为庆祝 Efinity 的重大进展,Efinity 项目组联合各大生态合作伙伴一起启动前所未见的超级空投活动。本次空投总额高达 10万ENJ 代币与伙伴代币,将覆盖绝大部分 Dandelion 社区成员。\\n除空投活动外,Efinity 还联合各交易所推出“开放网络总动员”大赛,通过体验 Efinity 新工具与服务,你将有机会获得高达 2万 ENJ 代币奖励!机会立即到来,开放网络新时代已开启!\\nEfinity 项目组由衷感谢全球社区成员和合作伙伴长期以来的信任与支持。有了你们,Efinity 网络才得以不断升级,为用户与开发者带来更丰富体验。让我们共同见证区块链技术如何推动网络进步,Efinity 带你感受开放网络带来的全新体验!新时代,新起点,新机遇,全部在这里!",
+        "rules": "[\"1)用户可按照社区vetoken持有量等比例领取空投\",\"2)本次共发放10万空投代币，请符合条件的用户尽快领取，活动结束后未领取的空投将回收。\"]"
+    }
+]

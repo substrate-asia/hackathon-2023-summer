@@ -11,7 +11,7 @@ function AirDropListCard({
   return (
     <div className="w-[400px] h-[400px] card-bg overflow-scroll">
       <div className="text-white w-full card-title text-[28px] ">{title}</div>
-      <div className="flex flex-col justify-start w-full px-2">
+      <div className="flex flex-col justify-start w-full px-2 scrollbar-hide overflow-auto">
         {airDropList.map((item, index) => {
           return (
             <NavLink to={`airdrop/${item.id}`} key={item.id}>

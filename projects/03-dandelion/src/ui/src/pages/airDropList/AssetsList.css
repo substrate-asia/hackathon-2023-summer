@@ -47,3 +47,14 @@ img:hover + .tooltip-text {
   /* 鼠标悬停时显示提示语 */
   display: block;
 }
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.scrollbar-hide::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}

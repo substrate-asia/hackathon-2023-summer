@@ -24,13 +24,13 @@ export default function AirDropDetail() {
 
   return (
     <>
-      <div className=" flex flex-row  items-center px-10 pt-5 text-grey">
+      <div className=" flex flex-row  items-center px-10 pt-5 text-grey ">
         <span className="ml-2 text-grey cursor-pointer" onClick={clickBack}>
           {"< 返回空投列表页"}
         </span>
       </div>
       {/* <InputModal visible /> */}
-      <div className="flex flex-row h-screen py-10 px-10">
+      <div className="flex flex-row h-screen py-10 px-10 max-w-[1500px] m-0 mx-auto ">
         <div className="w-[400px] flex flex-col items-center ">
           <img
             src={airdrop.logo}

@@ -36,20 +36,19 @@ export default function AssetsList() {
 
   return (
     <div className="flex flex-row justify-between w-full">
-      <div className="w-[40%] max-[700px]:">
+      <div className="w-[40%] max-w-[700px]:">
         <div className="container h-72">
           <div className="container-title">用户持有代币列表</div>
           <MyToken name="Dandelion" balance={nativeBalance} />
           <MyToken name="VEToken" balance={veBalance} />
         </div>
-
-        <div className="separator w-full mt-10 h-[2px]"></div>
+        <div className="separator w-full mt-10 h-[2px] max-w-[700px]"></div>
 
         <div className="container  mt-10">
           <div className="container-title">参与的空投项目</div>
-          {
-            AIR_DROP_LIST.map((airDrop) => <MyAirDropTokenOrNull key={airDrop.id} airDrop={airDrop} /> )
-          }
+          {AIR_DROP_LIST.map((airDrop) => (
+            <MyAirDropTokenOrNull key={airDrop.id} airDrop={airDrop} />
+          ))}
         </div>
       </div>
       <MyTree />
@@ -59,16 +58,16 @@ export default function AssetsList() {
 
 function MyAirDropTokenOrNull({ airDrop }: { airDrop: AirDrop }) {
   const contract = new WagmiContract(airDrop.StakeToken, StakeTokenAbi);
-  const { address } = useAccount()
+  const { address } = useAccount();
   const { data } = useWagmiRead(contract, "depositTimestamps", [address!], {
     enabled: address !== undefined,
     watch: true,
   });
 
   if (data && data.lt(BigNumber.from(0))) {
-    return <MyAirDropToken airDrop={airDrop}/>
+    return <MyAirDropToken airDrop={airDrop} />;
   } else {
-    return null
+    return null;
   }
 }
 
@@ -125,8 +124,9 @@ function MyTree() {
       },
     }
   );
+  // TODO: 逻辑待确定
   const clickCheckIn = () => {
-    const enableCheckIn = isWagmiError(signIn3day.prepareStatus);
+    const enableCheckIn = !isWagmiError(signIn3day.prepareStatus);
     if (enableCheckIn && write) {
       write();
     } else {
@@ -143,27 +143,24 @@ function MyTree() {
     <>
       {contextHolder}
       <div className="flex flex-col flex-1 items-center ">
-        <div className="flex flex-col bg-cardbg tree-card-bg rounded-md   h-[60%] items-center justify-center tooltip relative">
-          <img
-            src={treeImage}
-            alt=""
-            className="w-[300px] self-center cursor-pointer"
-          />
+        <div className="flex flex-col bg-cardbg tree-card-bg rounded-md  items-center justify-center tooltip relative">
+          <img src={treeImage} alt="" className="w-[300px] self-center" />
           {/* onClick={write} */}
-          {/* <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
-          {isWagmiError(signIn3day.prepareStatus)
-            ? "现在不能浇水，晚点再来吧"
-            : "给植物浇个水签到吧"}
-        </span> */}
-          <div className="mt-7">
-            <span>{`活跃度：${balanceStr(balance, 0) || "0"}`}</span>
-            <Button
-              className="w-[80px]  bg-blue border-none ml-4"
-              onClick={clickCheckIn}
-            >
-              浇水
-            </Button>
-          </div>
+          <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 ">
+            {/* TODO: 逻辑待确定 */}
+            {isWagmiError(signIn3day.prepareStatus) || !write
+              ? "现在不能浇水，晚点再来吧"
+              : "给植物浇个水签到吧"}
+          </span>
+        </div>
+        <div className="mt-7">
+          <span>{`活跃度：${balanceStr(balance, 0) || "0"}`}</span>
+          <Button
+            className="w-[80px]  bg-blue border-none ml-4"
+            onClick={clickCheckIn}
+          >
+            浇水
+          </Button>
         </div>
       </div>
     </>

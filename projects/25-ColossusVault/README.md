@@ -7,7 +7,9 @@ Name of our project：Pshare
 Project approval date: 7 June, 2023
 
 ## Logo
-![image.png | 500](https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png)
+<img src="https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png" alt="Image" style="width: 200px; height: auto;">
+
+![image.png](https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png)
 
 ## Abstract
 As the internet and social media landscape currently stands, issues of data privacy and security are becoming increasingly pronounced. Centralized social platforms pose the risk of data exploitation, leaving users bereft of true data sovereignty. Decentralized social platforms, while addressing the issue of data sovereignty to some extent, store data publicly, rendering private data unprotected. Furthermore, the methods of private content sharing in existing Web3 products are not user-friendly, and incentives for content creators are insufficient. In response to these pain points, we have designed a decentralized, private domain social product based on Subsocial. This product aims to overcome the data sovereignty issues prevalent in centralized social media, the privacy protection issues in decentralized platforms, and improve the user experience of privacy content sharing in Web3 products. It also provides an effective incentive mechanism for content creators. Our goal is to enable users to enjoy the convenience of social interaction while having the authority to dictate the use of their data, stimulating content creators' enthusiasm and fostering a healthy and sustainable social ecosystem.

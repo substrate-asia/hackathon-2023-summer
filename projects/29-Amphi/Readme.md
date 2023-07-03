@@ -1,7 +1,12 @@
-## Project Information 基本资料
-Project Name: Amphi 项目名称：Amphi
+## Project Information 
+## 基本资料
+Project Name: Amphi 
 
-Project Initiation Date (Year-Month):2022.7 项目立项日期 (哪年哪月)：2022.7
+项目名称：Amphi
+
+Project Initiation Date (Year-Month):2022.7 
+
+项目立项日期 (哪年哪月)：2022.7
 
 ## Project Overview
 ## 项目整体简介

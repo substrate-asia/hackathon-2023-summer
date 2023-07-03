@@ -40,7 +40,8 @@ MatrixAI is committed to breaking the current centralized monopoly, bringing inn
 ### MatrixAI's Solution
 
 - How it works
-![jpg英文](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/5fad6386-2d4a-402a-834b-4689e06f2bdc)
+![jpgEN](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/9f19db63-34d6-447b-874c-0605d440d965)
+
 
 
 
@@ -146,7 +147,8 @@ The client is an application written in **go** and runs on the **linux** server.
 
 ## Member information
 
-![MatrixAI 1 0_10](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/2570b9f6-d20f-4036-8c1c-9115586e802d)
+![MatrixAI 1 0_10](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/07266787-fcc8-4d0b-b0eb-6e8e930e4772)
+
 
 
 

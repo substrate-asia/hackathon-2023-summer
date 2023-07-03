@@ -1,23 +1,56 @@
+import { Modal } from "antd";
 import Input from "antd/es/input/Input";
 import { useState } from "react";
-
-const InputModal = ({ onConfirm }: { onConfirm: (val: string) => void }) => {
+import "./InputModal.css";
+const InputModal = ({
+  title = "请输入数量",
+  onConfirm,
+  visible = false,
+  onCancel,
+}: {
+  title?: string;
+  visible?: boolean;
+  onConfirm?: (val: string) => void;
+  onCancel?: () => void;
+}) => {
   const [number, setNumber] = useState("");
-
   const handleInputConfirm = () => {
-    onConfirm(number);
+    onConfirm && onConfirm(number);
     setNumber("");
   };
 
   return (
-    <div className="w-[200px] h-[300px] bg-slate-300">
+    <Modal
+      title={title}
+      open={visible}
+      bodyStyle={{}}
+      onOk={handleInputConfirm}
+      onCancel={onCancel}
+      centered
+      okText="确定"
+      cancelText="取消"
+      // FIX: tailwind与ant的样式冲突
+      cancelButtonProps={{
+        styles: {
+          icon: {
+            color: "rgba(0,0,0, 0.88)",
+          },
+        },
+        className: "modal-cancel-button",
+      }}
+      okButtonProps={{
+        style: {
+          background: "#4096ff",
+        },
+      }}
+    >
       <Input
         type="number"
         value={number}
+        className="w-[70%] "
         onChange={(e) => setNumber(e.target.value)}
       />
-      <button onClick={handleInputConfirm}>确定</button>
-    </div>
+    </Modal>
   );
 };
 

@@ -55,7 +55,7 @@ My apologies for the misunderstanding. Let's revise and continue the plan:
 
 **On-chain and Off-chain Interaction**
 
-- DNS Resolver
+- DNS Proxy
    - [ ] [Query DNS Records Version](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L72C24-L72C34) (`fn GetVersion()`)
    - [ ] [Caches Frequently Accessed DNS Records](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L90C24-L90C35) (`fn GetSnapshot()`)
    - [ ] [Query DNS Record From Dns Proxy](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L48C24-L48C33) (`fn GetRecord()`)
@@ -63,16 +63,12 @@ My apologies for the misunderstanding. Let's revise and continue the plan:
 **Off-chain Development**
 
 - Edge DNS Resolution
-   - [ ] [Perform Edge DNS Resolution](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L600) (`fn perform_edge_dns_resolution()`)
-   - [ ] [Real-time On-chain Data Synchronization](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L625) (`fn sync_on_chain_data()`)
+   - [ ] [Perform Edge DNS Resolution](https://github.com/FrontMage/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-server/clashdns/server.go) (`func ServeDNS()`)
+   - [ ] [Real-time On-chain Data Synchronization](https://github.com/FrontMage/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-server/main.go) (`func main()`)
 
 - Edge DNS Service
-   - [ ] [Edge DNS Service Deployment](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L650) (`fn deploy_edge_dns_service()`)
-   - [ ] [Edge DNS Service Configuration](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L675) (`fn configure_edge_dns_service()`)
-
-- User Interface
-   - [ ] [Edge DNS Service Management](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L700) (`fn manage_edge_dns_service()`)
-   - [ ] [DNS Query Log](https://github.com/AegisResolve/hackathon-2023-summer/blob/main/teams/AegisResolve/src/aegisresolve-node/pallets/dns/src/lib.rs#L725) (`fn dns_query_log()`)
+   - [ ] [Edge DNS Service Deployment](https://github.com/FrontMage/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-server/main.go) (`func main()`)
+   - [ ] [Edge DNS Service Configuration](https://github.com/FrontMage/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-server/main.go) (`defaultDNS`)
 
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)

@@ -1,0 +1,7 @@
+#progressDiv {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	color: #333333;
+	font-size: 0.875rem;
+}

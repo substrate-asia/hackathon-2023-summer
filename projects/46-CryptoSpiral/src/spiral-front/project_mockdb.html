@@ -1,0 +1,2878 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>Web3Express</title>
+		<script src="./js/jquery.min.js"></script>
+		
+		<script src="js/vue.min.js"></script>
+
+		<script src="./js/qrcode.min.js"></script>		
+		<script src="js/unpkg.com_index.js"></script>
+		<script src="./js/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./dist/index_substrate.js?v=1.00076"></script>
+		<script src="./dist/index_call-app.min.js"></script>
+
+		<script src="./js/md5.js"></script>
+		<script src="js/moment.min.js"></script>
+		
+		
+		<link rel="stylesheet" href="css/theme-chalk_index.css">
+		<link rel="stylesheet" href="css/project.css">
+		<link rel="stylesheet" href="css/mescroll.min.css">
+		
+
+		<!-- 引入样式 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nutui/nutui@2.2.5/dist/nutui.css">
+<!-- 引入Vue -->
+
+<!-- 引入组件库 -->
+<script src="https://cdn.jsdelivr.net/npm/@nutui/nutui@2.2.5/dist/nutui.js"></script>
+
+		
+
+
+
+		<style type="text/css">
+			body{
+				margin: 0;
+			}
+			.cover {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.6) url(live_weixin.png) top right no-repeat;
+				background-size: 70%;
+			}
+			
+			.active-img {
+				background: url(../img/icon-saoma.png) no-repeat center;
+				background-size: 40px;
+				padding-top: 24px;
+				width: 40px;
+				height: 40px;
+			}
+			.el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover {
+			    -webkit-box-shadow: 0 2px 12px 0 #ffffff;
+			    box-shadow: 0 2px 12px 0 #ffffff;
+			}
+			
+			.active {
+				position: absolute;
+			    background: url(../img/active.png) no-repeat center;
+			    background-size: 100%;
+			    width: 23px;
+			    height: 23px;
+			}
+			#qrcode img{
+				width: 160px;
+				height: 160px;
+			}
+			.margin-16 {
+				margin-top: 15px;
+				margin-bottom: 5px;
+			}
+			.showmore {
+				-webkit-line-clamp: 15!important;
+			}
+			.el-card__body {
+				padding: 20px 28px;
+			}
+			.mescroll {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				height: auto;
+				/*如设置bottom:50px,则需height:auto才能生效*/
+			}
+
+
+			#buttomDownload
+			{
+				position:fixed;
+				right:10px;
+				bottom:0px;
+				width:100%;
+				height:48px;
+				background-color: #FFFFFF;
+			}
+
+			
+			.injectselect {
+				width: 90%;
+				background-repeat: no-repeat;
+				background-position: top center;
+				background-size: 20%;
+				padding-top: 20px;
+				overflow: hidden;
+			}
+			
+		</style>
+		
+		
+		<script>
+
+	var androidMock = {
+		name: "大毛",
+		mock:true,
+		makeSound: function(){ alert("喵喵喵"); },
+		jsCallAndroid: function(skey, svalue){ 
+			localStorage.setItem(skey, svalue);
+			console.log("jsCallAndroid "+ skey +":"+svalue);
+		},
+
+		jsCallAndroidReadByKey : function(skey){ 
+			var svalue = localStorage.getItem(skey);
+			console.log("jsCallAndroidReadByKey "+ skey +":"+svalue)
+			return svalue == null ? "" : svalue;
+		},
+
+		jsCallAndroidReadMNKServerList: function(){ 
+			var svalue = localStorage.getItem("jsCallAndroidReadMNKServerList");
+			return svalue == null ? "[]" : svalue;
+			
+			//return '[{"addedTime":1629022737011,"id":"2ca6b5112e13402d8978db53489c3607","configType":"VLESS","configVersion":3,"outboundBean":{"mux":{"concurrency":8,"enabled":false},"protocol":"vless","settings":{"vnext":[{"address":"pxf.zkhj.cc","port":443,"users":[{"encryption":"none","flow":"xtls-rprx-direct","id":"a9527103-1147-4ae7-9da6-2124828436b5","level":8,"security":"auto"}]}]},"streamSettings":{"network":"tcp","security":"xtls","tcpSettings":{"header":{"type":"none"}},"xtlsSettings":{"allowInsecure":false,"serverName":"pxf.zkhj.cc"}},"tag":"proxy"},"remarks":"pxf.zkhj.cc_VLESS_XTLS/TLS-direct_TCP","subscriptionId":"","subscriptionType":""}]';
+			//localStorage.setItem("jsCallAndroidEventBlock_"+ skey, svalue);
+		},
+
+		jsCallAndroidReadMNKSelectedId: function(){ 
+			var svalue = localStorage.getItem("jsCallAndroidReadMNKSelectedId");
+			return svalue==null ? "" : svalue;
+		},
+
+		jsCallAndroidReadVpnRunning: function(){ 
+			return false;
+		},
+
+		jsCallAndroidSelectVPNeServer: function(uuid){ 
+			//真实android里，如果有在vpn在运行，这里会切换并运行
+			localStorage.setItem("jsCallAndroidReadMNKSelectedId", uuid);
+		},
+
+		jsCallAndroidRemoveVPNServer : function(uuid){ 
+			var svalue = localStorage.getItem("jsCallAndroidReadMNKServerList");
+			svalue = svalue == null ? "[]" : svalue;
+			var serverList  = JSON.parse(svalue);
+
+			const find = serverList.findIndex(e => (e.id==uuid) );
+			serverList.splice(find,1);
+			var newValue =  JSON.stringify(serverList);
+			localStorage.setItem("jsCallAndroidReadMNKServerList", newValue);
+		},
+
+		jsCallAndroidAddVpnByCfg: function(cfg, uuid){ 
+			cfg =  cfg.substr("vmess://".length);
+			cfg =  atob(cfg);
+			var cfgJosn =   JSON.parse(cfg);
+			//console.log("333333333333:" + JSON.stringify(cfgJosn));
+			//真实android里，如果有在vpn在运行，这里会切换并运行
+			var svalue = localStorage.getItem("jsCallAndroidReadMNKServerList");
+			svalue = svalue == null ? "[]" : svalue;
+			var serverList  = JSON.parse(svalue);
+
+			var timestamp=new Date().getTime();
+			uuid = uuid == "" ? (timestamp + "") : uuid;
+
+			var server = {"id":uuid,"configType":"VLESS","configVersion":3,"outboundBean":{"mux":{"concurrency":8,"enabled":false},"protocol":"vless","settings":{"vnext":[{"address":cfgJosn.add,"port":cfgJosn.port,"users":[{"encryption":"none","flow":"","id":"","level":8,"security":"auto"}]}]},"streamSettings":{"network":"tcp","security":"tls","tcpSettings":{"header":{"type":"none"}},"tlsSettings":{"allowInsecure":false,"serverName":""}},"tag":"proxy"},"remarks":"","subscriptionId":""};
+			serverList.push(server);
+			var newValue =  JSON.stringify(serverList);
+			localStorage.setItem("jsCallAndroidReadMNKServerList", newValue);
+		},
+
+		jsCallAndroidDisableApppList: function(){ 
+		},
+
+		jsCallAndroidAllowApppList: function(applist){ 
+		},
+
+		jsCallAndroidRunTask: function(id, type, params,status){ 
+			var task_ = {id:id, type:type, params:params, status:status};
+			localStorage.setItem("jsCallAndroidRunTask", JSON.stringify(task_));
+			console.log("jsCallAndroidRunTask (" +id +"):" + type +", "+params +  ", " +status);				
+		},
+
+		jsCallAndroidTaskCallback: function(id, type, params,status){ 
+			var task_ = {id:id, type:type, params:params, status:status};
+			localStorage.setItem("jsCallAndroidRunTask", JSON.stringify(task_));
+			console.log("jsCallAndroidRunTask (" +id +"):" + type +", "+params +  ", " +status);				
+		},
+		jsCallAndroidTranser: function(id, address, toaddr, money, status){ 
+		
+		},
+
+		jsCallAndroidDeleteTranser: function(id){ 
+			
+		}
+	};
+
+
+	if(window.havorld==null){
+		window.havorld = Object.create(androidMock);
+		window.havorld.mock = true;
+	}
+
+</script>
+
+
+		
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+
+			var mescroll = new MeScroll("mescroll", {
+					down: {
+						auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+						callback: () => {
+							try {
+								app.fresh_dao_and_others();
+								console.log("1111");
+							} catch (e) {
+							}
+							setTimeout(mescroll.endSuccess.bind(mescroll), 1000)
+						} //下拉刷新的回调
+					}
+				});
+
+
+		});
+
+
+	</script>
+	<script>
+
+/*
+// 唤起 转转
+window.callApp = new CallApp({
+  path: 'zhuanzhuan://jump/shortVideo/videoHome/jump', // 带 prefix
+  channelId: '', //  渠道id ，下载渠道包
+  deeplinkId: '', // 后台配置项
+  targetApp: 'zz', // zz 代表转转，zlj 代表找靓机，zzHunter 代表采货侠；默认 zz
+  callStart() {
+    console.log('ZZDOWNLOADH5 callStart')
+  },
+  callSuccess() {
+    console.log('ZZDOWNLOADH5 callSuccess')
+  },
+  callFailed() {
+    console.log('ZZDOWNLOADH5 callFailed')
+  },
+  callDownload() {
+    console.log('ZZDOWNLOADH5 callDownload')
+  },
+  callError: () => {
+    console.log('内部异常')
+  }
+})
+
+// 执行唤起
+window.callApp.start()
+// 执行下载
+window.callApp.download()
+
+*/
+
+	</script>
+
+
+
+
+	</head>
+	<body>
+		<div id="app">
+			
+			<div id="mescroll" class="mescroll" v-show="div_full">
+				<div style="background: #0053cf;color: #FFFFFF;padding-left: 28px;padding-right: 21px;">
+					<ul style="list-style-type: none;padding: 0;margin: 0;">
+						<li style="height: 112px;">
+							<div style="padding: 0;display: flex;justify-content: space-between;">
+								<div style="height: 32px;padding-top: 19px;padding-bottom: 11px;">
+									{{baseInfo.title}}<i class="el-icon-edit" style="padding-left: 5px;"   @click="base_edit();"></i>
+								</div>
+								<div style="width: 48px;display: flex;justify-content: center;" >
+									<div class="active-img" @click="Web3Inject_login();" ></div>
+								</div>
+							</div>
+							
+							<div style="padding: 0;display: flex;justify-content: space-between;color: #d3d3d3;">
+								<div>
+									<div style="height: 17px;font-size: 12px;font-weight: 400;">你的推荐者：{{addrBrief(addrFrom)}}</div>
+								</div>
+								
+								<div style="display: flex;align-items: center;font-size: 12px;" >
+									<span style="border: 1px solid #d3d3d3;padding: 0 5px;border-radius: 2px;" @click="Web3Inject_login();" >{{injectorAccountSelected?.meta?.name}}</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				
+			
+
+
+				<el-card class="box-card" >
+
+					
+					<!-- 项目介绍 -->
+					<div style="padding: 0 15px;margin: 0 -15px;border-radius: 4px;background: #F2F6F9;">
+						<br/>
+						<div style="padding: 0 0 23px 0;height: 22px;">
+							<label class="drawer-label" style="font-size: 16px;color: #152A4A;font-weight: 700;">{{baseInfo.title}}|介绍</label>
+						</div>
+						<div v-if="isOffical" style="font-size: 13px;color: #384B56; 
+						display: -webkit-box;
+						-webkit-line-clamp: 3;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						-webkit-box-orient: vertical;" :class="{showmore:brandFold}"  v-html="baseInfo.desp">
+						
+						</div>
+						<div v-else style="font-size: 13px;color: #384B56; 
+						display: -webkit-box;
+						-webkit-line-clamp: 3;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						-webkit-box-orient: vertical;" :class="{showmore:brandFold}">
+						{{baseInfo.desp}}						
+						</div>
+						<div v-if="baseInfo.desp!=null && baseInfo.desp.length > 80" @click="changeFoldState" style="text-align: right;font-size: 12px;color: #0053D0;font-weight: 400;">
+							 <span v-if="brandFold">收起<i class="el-icon-arrow-up" style="padding-left: 5px;"></i></span>
+							 <span v-else>展开更多<i class="el-icon-arrow-down" style="padding-left: 5px;"></i></span>
+						 </div>
+						 <br/>
+					</div>
+					
+					<!-- 权利与义务 -->
+					<div style="padding: 0 15px;margin: 0 -15px;border-radius: 4px;">
+						<div style="padding: 10px 0 23px 0;height: 22px;">
+							<label class="drawer-label" style="font-size: 16px;color: #152A4A;font-weight: 700;">权利与义务</label>
+						</div>
+						<div style="padding-bottom: 18px;">
+							<label class="drawer-label" style="font-size: 13px;color: #152A4A;font-weight: 700;">权利</label>
+							<label class="drawer-label" style="font-size: 13px;color: #384B56;font-weight: 400;padding-left: 9px;">{{baseInfo.right}}</label>
+						</div>
+						<div style="padding-bottom: 18px;">
+							<label class="drawer-label" style="font-size: 13px;color: #152A4A;font-weight: 700;">义务</label>
+							<label class="drawer-label" style="font-size: 13px;color: #384B56;font-weight: 400;padding-left: 9px;">{{baseInfo.duty}}</label>
+						</div>
+
+
+						<div>
+							<div>
+								<a href="" target="_blank"><span style="color: #0053D0;">我是快乐网友</span></a>
+							</div>
+						</div>
+
+						<!-- 只针对洛地页，原则上每个advertise都可自己的洛地页，但直接用project.html+看看做落地页最简单-->
+						<!--但怎么判断是不是落地页呢，用是不是有用户存在来替代吧-->
+
+						<div v-if="this.account_address==null || this.account_address == ''" style="padding: 10px 0 23px 0;height: 22px;">
+							<label class="drawer-label" style="font-size: 16px;color: #152A4A;font-weight: 700;">你可能需要</label>
+						</div>
+
+						<div v-if="this.account_address==null || this.account_address == ''">
+						
+							
+
+							<div v-for="(item, key) in this.baseInfo.taskActions" style="padding-bottom: 18px;">
+								<label class="drawer-label" style="font-size: 13px;color: #152A4A;font-weight: 700;">{{baseInfo.unionId}}</label>
+								<label class="drawer-label" style="font-size: 13px;color: #384B56;font-weight: 400;padding-left: 9px;">{{item.title}}</label>
+								<span  style="color: #384B56;font-size: 13px;float: right;">										
+									<a :href="'web3express://web3express.app/openwith?cid='+scid+'&taskcontract='+item.taskContract+ '&daoId=' + (baseInfo.unionId==null ? '' : baseInfo.unionId)  +'&taskid='+ item.taskId +'&actionId='+item.actionId+'&from='+addrFrom"><span style="color: #0053D0;">{{item.linkNick}}</span></a>
+								</span>
+							</div>
+
+							<!--
+							<div v-if="this.account_address==null || this.account_address == ''" style="padding-bottom: 18px;">
+								<label class="drawer-label" style="font-size: 13px;color: #152A4A;font-weight: 700;">1</label>
+								<label class="drawer-label" style="font-size: 13px;color: #384B56;font-weight: 400;padding-left: 9px;">最清洁的网络加速小程序</label>
+								<span  style="color: #384B56;font-size: 13px;float: right;">										
+									<a href="web3express://web3express.app/openwith?taskid=123"><span style="color: #0053D0;">看看</span></a>
+								</span>
+							</div>-->
+						</div>
+
+					</div>
+					
+					<!-- 独白 -->
+					<div  v-if="!isOffical" class="module_container module_margin explain" style="text-align: left;color: #7E8E98;padding: 15px 0;font-size: 13px;">
+						你好，欢迎来到Web3Express种子用户平台，对你的项目或你看好的项目发起推广。
+						通过该平台，你可以有效组织所处行业内各类人员进行推广，你可有效组织众筹，形成项目的良性发展！
+					</div>
+					
+					
+					<!-- 二维码 -->
+					<div style="padding-top: 10px;text-align: center;">
+						<label class="drawer-label" style="color: #152A4A;font-size: 12px;font-weight: 700;">WebExpress【种子用户平台】二维码：</label>
+					</div>
+					<div style="padding-top: 10px;text-align: center;">
+						<div id="qrcode" style="display: inline-table;"></div>
+					</div>
+					<el-divider class="margin-16" style="margin: 16px 0;"></el-divider>
+
+					<div>
+						<div>
+							<a href="" target="_blank"><span style="color: #0053D0;">我是资深用户</span></a>
+						</div>
+					</div>
+
+					<div  style="padding: 0 15px;margin: 0 -15px;background: #F2F6F9;border-radius: 4px;">
+						<!-- 活动 -->
+						<div style="padding-top: 10px;text-align: left;">
+							<label class="drawer-label" style="padding-right: 5px;unionIdfont-size: 16px;font-weight: 700;">
+								推广赏金
+							</label>
+							<span class="active"></span>
+							
+						</div>
+
+						<div v-if="baseInfo.unionId!=null">
+							<div  v-if="!initialed">
+								<div v-if="loadSubstrate">
+									<img width="30" src="img/loading.gif" />
+								</div>
+							</div>
+							<div  v-else>
+								发起推广赏金  &gt;&gt; <a @click="show_new_task()"><span style="color: #0053D0;">发起</span></a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 所有任务列表 -->
+					<div style="padding-top: 10px;text-align: center;">
+						<ul style="list-style-type: none;padding: 0;margin: 0;">
+							<li v-for="(item, key) in taskRecentList" style="height: 6.6875rem;border-bottom: 1px solid #E7EDF2;">
+								<div style="display: flex;justify-content: space-between;height: 21px;padding: 15px 0 7px 0;">
+									<div class="detail_title" style="color: #384B56;font-size: 13px;font-weight: 400;">
+										总赏金：{{ item.rewardTotal }} |已完成：{{ item.payAcc }} 
+									</div>
+									<div style="color: #384B56;font-size: 13px;" >
+										<span>{{covertTime(item.createDatetime)}}</span>
+									</div>
+								</div>
+								<div style="padding: 0;display: flex;justify-content: space-between;" >
+									<span style="color: #152A4A;font-size: 14px;font-weight: 700;">
+										{{ item.desp }} 
+									</span>
+									<span  style="color: #384B56;font-size: 13px;float: right;">										
+										<a @click="show_new_task()"><span style="color: #0053D0;">详细</span></a>
+									</span>
+								</div>
+								<div>
+									<div>
+										<a :href="'task_mockdb.html?addr='+ account_address + '&tid=' + item.id" target="_blank"><span style="color: #0053D0;">我要参与</span></a>
+									</div>
+								</div>
+								
+							</li>
+						</ul>
+
+						
+					
+					</div>
+
+
+					<el-divider class="margin-16" style="margin: 16px 0;"></el-divider>
+
+
+					<div>
+						<div>
+							<a href="" target="_blank"><span style="color: #0053D0;">我是社区大佬</span></a>
+						</div>
+					</div>
+
+
+					<div  style="padding: 0 15px;margin: 0 -15px;background: #F2F6F9;border-radius: 4px;">
+
+						<!-- {{JSON.stringify(activeDaoInfo)}} -->
+						<!-- 进度条 -->
+						<div  v-if="dao_active_exist">
+							<!-- 已筹额度 -->
+							<div style="display: flex;justify-content: space-between;">
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;">
+									<span style="color: #050505;">众筹已达：(币)</span>
+								</div>
+								
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;" >
+
+									<span style="color: #7E8E98;">{{activeDaoInfo.status}}</span>
+
+								</div>
+							</div>
+							
+							<div style="display: flex;justify-content: space-between;height: 40px;padding-top: 6px;">
+								<div style="height: 40px;padding-bottom: 4px;font-size: 22px;">
+									<span style="color: #0053D0;font-weight: 500;">{{ activeDaoInfo.fund }}</span>
+									<span v-if="daoCouncilInfo.my_join == null" style="color: #829cc2;font-size: 16px;">
+										|我{{ activeDaoInfo.my_invest }},
+										<span v-if="!my_join_loading" style="color: #0053D0;font-weight: 500;">
+											"非管理成员"-><a @click="daoCouncilJoin()">加入</a>
+										</span>									
+										<img v-else width="30" src="img/loading.gif" />									
+									</span>
+									<span v-else style="color: #829cc2;font-size: 16px;">|我{{ activeDaoInfo.my_invest }},"管理成员"</span>
+								</div>
+							</div>
+							
+							<!-- 众筹额度 -->
+							<div style="height: 17px;opacity: 1;color: rgba(126,142,152,1);font-size: 12px;font-weight: 400;padding: 11px 0;">
+								<span style="color: #7E8E98;">众筹额度：</span>
+								<span style="color: #050505;">{{ activeDaoInfo.min }}-{{ activeDaoInfo.max }}</span>
+								<span style="color: #0053D0;padding-left: 10px;">详细规则</span>
+								
+							</div>
+							
+							<!-- 进度条 -->
+							<el-progress color="red" :stroke-width="8" :percentage="checkUse(activeDaoInfo)"></el-progress>
+							
+							<!-- 开始结束时间 -->
+							<div style="padding-top: 13px;display: flex;justify-content: space-between;">
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;">
+									<span style="color: #7E8E98;">开始时间：</span>
+									<span style="color: #050505;">{{ covertTime(activeDaoInfo.createDatetime) }}</span>
+								</div>
+								
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;" >
+									<span style="color: #7E8E98;">结束时间≈</span>
+									<span style="color: #050505;">{{commonInfo!=null ? covertTime(commonInfo.now + (activeDaoInfo.deadline - commonInfo.number)*this.commonInfo.expectedBlockTime) : "-" }}</span>
+								</div>
+							</div>
+						</div>
+
+
+						<div  v-if="!dao_active_exist && baseInfo.unionId!=null">
+							<!-- 已筹额度 -->
+							<div style="display: flex;justify-content: space-between;">
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;">
+									<span style="color: #050505;">众筹已达：</span>
+									<div v-if="initialed" style="display: inline;">追加众筹 &gt;&gt; <a @click="show_new_dao()"><span style="color: #0053D0;">发起</span></a></div>
+									
+									
+								</div>
+								
+								<div style="height: 17px;padding-bottom: 4px;font-size: 12px;font-weight: 400;" >
+
+									<span style="color: #7E8E98;">{{adminDaoInfo.status}}</span>
+
+								</div>
+							</div>
+							
+							<div style="display: flex;justify-content: space-between;height: 40px;padding-top: 6px;">
+								<div style="height: 40px;padding-bottom: 4px;font-size: 22px;">
+									<span style="color: #0053D0;font-weight: 500;">{{ adminDaoInfo.fund }}</span>
+									<span v-if="daoCouncilInfo.my_join == null" style="color: #829cc2;font-size: 16px;">
+										|我{{ adminDaoInfo.my_invest }},
+										<span v-if="!my_join_loading" style="color: #0053D0;font-weight: 500;">
+											"非管理成员"-><a @click="daoCouncilJoin()">加入</a>
+										</span>									
+										<img v-else width="30" src="img/loading.gif" />									
+									</span>
+									<span v-else style="color: #829cc2;font-size: 16px;">|我{{ adminDaoInfo.my_invest }},"管理成员"</span>
+								</div>
+							</div>
+							
+							
+						</div>
+						
+
+						<!-- 独白 -->
+						<div class="module_container module_margin explain" style="text-align: left;color: #7E8E98;padding: 15px 0;font-size: 13px;">
+							众筹目的：{{activeDaoInfo.desp}}<br/><br/>
+						</div>
+						
+						
+					
+						<!-- 输入框 -->
+						<div  v-if="dao_active_exist && activeDaoInfo.status=='Normal' && commonInfo.number<activeDaoInfo.deadline " style="padding-top: 10px;">
+							<el-form :inline="true" class="demo-form-inline" >
+							<el-form-item style="margin-bottom: 0;" >
+								<el-input v-model="amount" placeholder=""></el-input>
+							</el-form-item>
+							
+							<el-form-item style="margin-bottom: 0;" >
+								<el-button plain style="color: #0053D0;border:1px solid #0053D0;" @click="to_dao_mint()">参与众筹</el-button>
+							</el-form-item>
+							</el-form>
+						</div>
+
+						<div v-if="!dao_active_exist && baseInfo.unionId==null">
+							<div  v-if="!initialed">
+								<div v-if="loadSubstrate">
+									<img width="30" src="img/loading.gif" />
+								</div>
+							</div>
+							<div  v-else>
+								还没有众筹成立自治组织  &gt;&gt; <a @click="show_new_dao()"><span style="color: #0053D0;">发起</span></a>
+							</div>
+						</div>
+
+
+						<div v-if="dao_active_exist && activeDaoInfo.status=='Normal' && commonInfo.number>activeDaoInfo.deadline && parseInt(activeDaoInfo.min)> parseInt(activeDaoInfo.fund) ">
+							<div  v-if="!initialed">
+								<div v-if="loadSubstrate">
+									<img width="30" src="img/loading.gif" />
+								</div>
+							</div>
+							<div  v-else>
+								当前众筹未完成已超时 &gt;&gt; <br/>
+								<a @click="to_deadline_update()"><span style="color: #0053D0;">发起延期提案</span></a> 
+								&nbsp;&nbsp;或&nbsp;&nbsp;
+								<a @click="to_dao_abort()"><span style="color: #0053D0;">执行众筹撤销</span></a>
+							</div>
+						</div>
+
+
+						<div v-if="dao_active_exist && activeDaoInfo.status=='Normal' && commonInfo.number>activeDaoInfo.deadline && parseInt(activeDaoInfo.min) <= parseInt(activeDaoInfo.fund) ">
+							<div  v-if="!initialed">
+								<div v-if="loadSubstrate">
+									<img width="30" src="img/loading.gif" />
+								</div>
+							</div>
+							<div  v-else>
+								当前众筹已达成已截至 &gt;&gt;
+								<a @click="to_dao_finish()"><span style="color: #0053D0;">执行众筹分配</span></a>
+							</div>
+						</div>
+
+					</div>
+					
+					<!-- 底部数据 -->
+					<div style="padding-top: 10px;text-align: center;">
+						<ul style="list-style-type: none;padding: 0;margin: 0;">
+							<li v-for="(item, key) in activeDaoInfo.investors" style="height: 4.6875rem;border-bottom: 1px solid #E7EDF2;">
+								<div style="display: flex;justify-content: space-between;height: 21px;padding: 15px 0 7px 0;">
+									<div class="detail_title" style="color: #384B56;font-size: 13px;font-weight: 400;">
+										Paid
+									</div>
+									<div style="color: #384B56;font-size: 13px;" >
+										<span>- hours ago</span>
+									</div>
+								</div>
+								<div style="padding: 0;display: flex;justify-content: space-between;" >
+									<span style="color: #152A4A;font-size: 14px;font-weight: 700;">
+										{{ item }} 
+									</span>
+									<span  style="color: #384B56;font-size: 13px;float: right;">
+										{{ addrBrief(key) }} 
+										<i class="el-icon-link" style="color: #0053D0;font-weight: 700;"></i>
+									</span>
+								</div>
+							</li>
+						</ul>
+					
+					</div>
+
+					
+
+
+
+
+				</el-card>
+				
+				
+			
+				<!-- 标题：{{baseInfo.title}}--  代码{{baseInfo.code}}<br/>
+				你的推荐者：{{addrBrief(addrFrom)}}<br/>
+
+				<br/>
+				<br/>
+				说明：<br/>
+				{{baseInfo.desp}}  <a >阅读更多</a>
+				<br/><br/>
+				
+				权利:<br/>
+				{{baseInfo.right}} 
+				<br><br>
+
+				义务:<br/>
+
+				{{baseInfo.duty}} 
+				<br><br>
+
+				
+				
+
+				种子用户平台、下载二维码：<br/>
+				<div id="qrcode"></div>
+
+				<a class="download_btn" href="./SBrowser.apk">立即下载</a>
+				-->
+
+				<!--这个  cover 不能删除，是微信下面显示“打开浏览器的  cover -->
+				<div v-if="cover" class="cover" ></div>
+				<br/>
+				<br/>
+
+
+				<!--这个image  不能删除，用来免填邀请码用-->
+				<img id="imgIdInvite" style="width:1px;height:1px;"/>
+				
+				<!-- 立即下载 -->
+				<!--  todo 会有两个版本，一个APP里的用户，一个是落地下载页 <div style="display: flex;justify-content: center;padding-top: 2.25rem;position: sticky;bottom: 0;background: #FFFFFF;">-->
+				<div v-if="!cover" id="buttomDownload"  style="display: flex;justify-content: center;padding-top: 1.25rem;">  
+						<a href="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/SBrowser.apk" class="ui-btn-lg ui-btn-primary" 
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;">
+							立即下载
+						</a>
+					</div>
+			</div>
+			
+			
+			
+			<div  v-if="false">
+				
+			
+				你好，欢迎来到Web3Express种子用户平台，对你的项目或你看好的项目发起推广。
+				通过该平台，你可以有效组织所处行业内各类人员进行推广，你可有效组织众筹，形成项目的良性发展！
+				<br/>
+				<br/>
+				<br/>
+				
+				成立分享传播：{{dialogContent}}<br/>
+				传播代码 <input type="text" v-model="baseInfo.code" placeholder="3-8个大写字母或数字"><br/>
+				标题：<input type="text"  v-model="title" placeholder="推广项目标题"><br/>
+				CID/URL ：<input type="text"  v-model="cid" placeholder="https://?? 或CID"><br/>
+				所属标签/类别：<input type="text"  v-model="tag" placeholder="-"><br/>
+				说明：<br/><textarea v-model="desp"  cols="30" rows="10"></textarea><br/>
+				种子用户权利：<br/><textarea v-model="right"  cols="30" rows="10"></textarea><br/>
+				种子用户义务：<br/><textarea v-model="duty"  cols="30" rows="10"></textarea><br/>
+				<a @click="uploadIPFS">保存传播资料</a>
+			</div>
+
+
+			<div  v-if="div_base">
+
+				<el-card class="box-card"  style="background-color: #F7F8FA;" >
+					<div v-if="!scid">
+						<div   style=" font-size: 16px; text-align: left;padding: 0 15px;margin: 0 -15px;background: #F2F6F9;border-radius: 4px;">
+							你好，欢迎来到Web3Express种子用户平台，对你的项目或你看好的项目发起推广。
+							通过该平台，你可以有效组织各类人员进行推广，你可有效组织众筹，形成项目的良性发展！
+						</div>
+						<div  style="padding-top: 10px;">
+							<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+								发起传播型分享：
+							</label>
+						</div>
+					</div>
+					<div v-else style="padding-top: 10px;">
+						<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+							修改分享资料：
+						</label>
+					</div>
+
+					<!-- 项目介绍 -->
+					<div v-if="scid" style="padding: 0 15px;margin: 0 -15px;border-radius: 4px;background: #F2F6F9;">
+						<br/>
+						<div v-if="baseInfo.unionId==null" style="padding: 0 0 23px 0;height: 22px;">
+							<label class="drawer-label" style="font-size: 16px;color: #152A4A;font-weight: 700;">所属账号:{{ addrBrief(baseInfo.ownerId) }} {{ baseInfo.ownerId == account_address? "[我]" :  ""  }}</label>
+						</div>
+
+						<div v-else style="padding: 0 0 23px 0;height: 22px;">
+							<label class="drawer-label" style="font-size: 16px;color: #152A4A;font-weight: 700;">所属组织:&nbsp;&nbsp;ID-{{ addrBrief(activeDaoInfo.id) }} 
+								&nbsp;成员数:{{daoCouncilInfo.admins == null ? '出错' : Object.keys(daoCouncilInfo.admins).length  }}  
+								&nbsp;{{ daoCouncilInfo.admins!=null && daoCouncilInfo.admins[account_address] != null? "[已加入]" : "[未加入]"   }}   </label>
+						</div>
+						
+						<div v-if="baseInfo.unionId==null" style="font-size: 13px;color: #384B56; 
+						display: -webkit-box;
+						-webkit-line-clamp: 3;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						-webkit-box-orient: vertical;" :class="{showmore:brandFold}">
+						所有者为个人，由所有者操作即可完成修改。					
+						</div>
+
+						<div v-else style="font-size: 13px;color: #384B56; 
+						display: -webkit-box;
+						-webkit-line-clamp: 3;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						-webkit-box-orient: vertical;" :class="{showmore:brandFold}">
+						所有者为组织，需要1/2以上人同意才能完成修改。							
+						</div>
+						<div v-if="baseInfo.desp!=null && baseInfo.desp.length > 80" @click="changeFoldState" style="text-align: right;font-size: 12px;color: #0053D0;font-weight: 400;">
+							 <span v-if="brandFold">收起<i class="el-icon-arrow-up" style="padding-left: 5px;"></i></span>
+							 <span v-else>展开更多<i class="el-icon-arrow-down" style="padding-left: 5px;"></i></span>
+						 </div>
+						 <br/>
+					</div>
+
+					<div style="display: flex;flex-direction: row; align-items: end;justify-content: space-between;">
+						<el-col :span="17">
+							<div style="padding-top: 10px;">
+								<label class="drawer-label">
+									标题：
+								</label>
+								<el-input type="text" v-model="baseInfo_title" placeholder="标题">
+								</el-input>
+							</div>
+							<div style="padding-top: 10px;" id="codeid">
+								<el-input placeholder="传播代币" v-model="baseInfo_asset_id">
+									<template slot="prepend" style="background-color: red;">传播代币：</template>
+								  </el-input>
+							</div>
+						</el-col>
+
+						<el-col :span="8" style="display: contents;">
+							<div class="grid-content" style="height: 90px;width: 90px;background-color: #FFFFFF;border:1px solid rgb(203 205 209);">
+								<div style="text-align: center;padding-top: 20px;">
+									<div>
+										<!-- <img src="img/uploading.png"  width="30px" height="30px"/> -->
+										<el-upload
+										  class="avatar-uploader"
+										  action="https://jsonplaceholder.typicode.com/posts/"
+										  :show-file-list="false"
+										  :on-success="handleAvatarSuccess"
+										  :before-upload="beforeAvatarUpload">
+										  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+										  <i v-else class="el-icon-plus avatar-uploader-icon" style="font-size: 30px;color: #0053d0;"></i>
+										</el-upload>
+									</div>	
+									<div>
+										<span>LOGO</span>
+									</div>
+								</div>
+							</div>
+						</el-col>
+					</div>
+
+					<div v-if="baseInfo_type=='ipfs'"  style="padding-top: 10px;">
+						<label class="drawer-label">
+							CID/URL：<span style="border: 1px solid #d3d3d3;padding: 0 5px;border-radius: 2px;" @click="baseInfo_type='apk';" >切换为App</span>
+						</label>
+						<el-input type="text" v-model="baseInfo_cid" placeholder="3-8个大写字母或数字">
+						</el-input>
+					</div>
+
+					<div v-if="baseInfo_type=='apk'" style="padding-top: 10px;">
+						<label class="drawer-label">
+							AnroidApp: <span style="border: 1px solid #d3d3d3;padding: 0 5px;border-radius: 2px;" @click="baseInfo_type='ipfs';" >切换为网站</span>
+						</label>
+						<el-input type="text" v-model="baseInfo_cid" placeholder="请正确输入apk下载地址或Ipfs-CID">
+						</el-input>
+						<el-input type="text" v-model="baseInfo_package" placeholder="请正确输入androidApp的包名">
+						</el-input>
+					</div>
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">
+							所属标签/类别：
+						</label>
+						<el-input type="text"  v-model="baseInfo_tag" placeholder="所属标签/类别">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">说明：</label>
+						<el-input type="textarea" :rows="2" v-model="baseInfo_desp" placeholder="">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">种子用户权利：</label>
+						<el-input type="textarea" :rows="2" v-model="baseInfo_right" placeholder="-">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">种子用户义务：</label>
+						<el-input type="textarea" :rows="2" v-model="baseInfo_duty" placeholder="-">
+						</el-input>
+					</div>
+
+					<div  v-if="scid" style="display: flex;justify-content: center;padding-top: 2.25rem;">
+						<span @click="div_full=true; div_base=false" class="ui-btn-lg ui-btn-primary"
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgb(121 138 163);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;margin-right: 15px;">
+							返回
+						</span>
+
+						<span v-if="baseInfo.unionId==null" @click="uploadIPFS()" class="ui-btn-lg ui-btn-primary" 
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;">
+						提交修改
+						</span>
+
+						<span v-else @click="uploadIPFS()" class="ui-btn-lg ui-btn-primary" 
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;">
+						提交修改提案
+						</span>
+
+
+					</div>
+
+					<div v-else style="display: flex;justify-content: center;padding-top: 2.25rem;">
+						<button @click="uploadIPFS()" class="ui-btn-lg ui-btn-primary" style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;">
+							创建传播型分享
+						</button>
+					</div>
+
+				</el-card>
+					
+					
+			</div>
+	
+	
+	
+			<br/><br/>
+	
+			
+	
+	
+			<div  v-if="div_dao">
+				<!-- 创建推广众筹 -->
+				<el-card class="box-card" style="border: 0;">
+					
+					
+					<div v-if="baseInfo.unionId==null" style="padding-top: 10px;">
+						<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+							众筹成立自治组织：
+						</label>
+						<div style="height: 17px;font-size: 12px;font-weight: 400;">(注，该操作需额外支付“1个币”永久固定组织的账户上)</div>
+					</div>
+					<div v-if="baseInfo.unionId!=null" style="padding-top: 10px;">
+						<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+							追加众筹到自治组织：
+						</label>
+					</div>
+					
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">本次众筹目的：</label>
+						<el-input type="textarea" :rows="2" v-model="activeDaoInfo_desp" placeholder="本次众筹目的">
+						</el-input>
+					</div>
+					  
+					<div v-if="baseInfo.unionId==null" style="padding-top: 10px;">
+						<label class="drawer-label">组织ID（自选）：</label>
+						<el-input type="number"  v-model="activeDaoInfo_my_asset_id" placeholder="（估价）">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">软顶(最低）：</label>
+						<el-input type="number" v-model="activeDaoInfo_min" placeholder="">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">硬顶（最大）：</label>
+						<el-input type="number" v-model="activeDaoInfo_max" placeholder="">
+						</el-input>
+					</div>
+					
+					
+					<div style="padding-top: 10px;">
+						<nut-cell :show-icon="true" :is-link="true" @click.native="switchPicker"  style="padding: 0px 10px 0px 0px;">
+							<span slot="title">
+							<label>截至区块高度（时间）：</label>
+							</span>
+							<div slot="desc" class="selected-option">
+							<span class="show-value">{{recordDateTime ? recordDateTime : ''}}</span>
+							</div>
+						</nut-cell>
+						<el-input type="text" v-model="activeDaoInfo_deadline" @click.native="switchPicker" placeholder="">
+						</el-input>
+						<nut-datepicker
+								:is-visible="isVisible"
+								title="选择时间（高度自动换算）"
+								type="datetime"
+								:start-date="defaultDateTime"
+								:end-date="endDateTime"
+								:default-value="defaultDateTime"
+								@close="switchPicker"
+								@choose="setChooseValue"
+							></nut-datepicker>
+					</div>
+
+				
+					
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">销毁比例：<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a></label>
+						<el-input type="number" v-model="activeDaoInfo_keepRate" placeholder="">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">我的投资（第一笔）：<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a></label>
+						<el-input type="number" v-model="activeDaoInfo_mint" placeholder="">
+						</el-input>
+					</div>
+					<div v-if="baseInfo.unionId==null" style="padding-top: 10px;">
+						<label class="drawer-label">租用节点：<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a></label>
+						<el-checkbox   :checked="true"  disabled="disabled" >采用零知识认明</el-checkbox>
+						<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a>
+						<el-input type="text" v-model="activeDaoInfo_stak_account_id" placeholder="">
+						</el-input>
+					</div>
+
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">转换当前所有权：<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a></label>
+						<el-checkbox   :checked="true"  disabled="disabled" >是</el-checkbox> 本页ID {{baseInfo.code}}
+					</div>
+					
+					
+					<div style="display: flex;justify-content: center;padding-top: 2.25rem;">
+						<span @click="div_full=true; div_dao=false" class="ui-btn-lg ui-btn-primary"
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgb(121 138 163);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;margin-right: 15px;">
+							返回
+						</span>
+						<span @click="new_dao" class="ui-btn-lg ui-btn-primary" 
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;">
+							创建 推广众筹
+						</span>
+					</div>
+				</el-card>
+				
+				<!-- <a @click="div_full=true; div_dao=false">返回</a><br/>
+				
+				组织推广众筹：<br/>	
+				传播代码 {{baseInfo.code}}<br/>	
+				本次众筹目的：<textarea   v-model="activeDaoInfo.desp"  ></textarea><br/>
+				社区币与本币兑换比列：<input type="text"  v-model="activeDaoInfo.rate"  placeholder="">（估价）<br/>
+				众筹本币最小数：<input type="text" v-model="activeDaoInfo.min" placeholder=""><br/>
+				众筹本币最大数：<input type="text" v-model="activeDaoInfo.max" placeholder=""><br/>
+				众筹截至区块高度：<input type="text" v-model="activeDaoInfo.deadline" placeholder=""><br/>
+				众筹留存比例：<input type="text"  v-model="activeDaoInfo.keepRate" placeholder=""><br/>
+				众筹留存账号：<input type="text" v-model="activeDaoInfo.keepAccount"  placeholder=""><br/>			
+	
+	
+				<br/><br/>
+	
+				<a @click="new_dao">创建 推广众筹</a> -->
+			</div>
+
+
+			<div  v-if="div_task">
+				<!-- 创建推广任务 -->
+				<el-card class="box-card" style="border: 0;">
+
+								
+					<div v-if="baseInfo.unionId==null" style="padding-top: 10px;">
+						<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+							出错！，需要先成立自治组织：
+						</label>
+					</div>
+					<div v-if="baseInfo.unionId!=null" style="padding-top: 10px;">
+						<label class="drawer-label" style="font-size: 16px;font-weight: 700;">
+							你的账户：{{addrBrief(this.account_address)}}<br/>
+							创建推广任务，需要三步骤：<br/>
+							1，需要先部署隐私推广合约，获取到合约自动生成账户<br/>
+							2，创建任务并打款（当前界面）<br/>
+							3，投票并启动任务
+						</label>
+					</div>
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">隐私合约ID：<a href="https://phat.phala.network/contracts/add" target="_blank">&nbsp;&nbsp;部署合约获取账户&nbsp;&nbsp;</a></label>
+						<el-input type="text" v-model="taskInfo_tee_contract_id" placeholder="0x...">
+						</el-input>
+					</div>
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">隐私合约推广账户：</label>
+						<el-input type="text" v-model="taskInfo_tee_account_id" placeholder="0x...">
+						</el-input>
+					</div>
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">隐私合约收账账户：</label>
+						<el-input type="text" v-model="taskInfo_tee_desk_account_id" placeholder="0x...">
+						</el-input>
+					</div>
+
+				
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">本次任务说明：</label>
+						<el-input type="textarea" :rows="2" v-model="taskInfo_desp" placeholder="本次众筹目的">
+						</el-input>
+					</div>
+					  
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">组织的投入({{baseInfo.accountFree}}&nbsp;可用)：</label>
+						<el-input type="number" v-model="taskInfo_reward_from_treasury" placeholder="">
+						</el-input>
+					</div>
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">我的投入({{accountInfo.accountFree}}&nbsp;可用)：</label>
+						<el-input type="number" v-model="taskInfo_reward_this" placeholder="">
+						</el-input>
+					</div>
+					
+					
+					<div style="padding-top: 10px;">
+						<nut-cell :show-icon="true" :is-link="true" @click.native="switchPicker"  style="padding: 0px 10px 0px 0px;">
+							<span slot="title">
+							<label>截至区块高度（时间）：</label>
+							</span>
+							<div slot="desc" class="selected-option">
+							<span class="show-value">{{recordDateTime ? recordDateTime : ''}}</span>
+							</div>
+						</nut-cell>
+						<el-input type="text" v-model="taskInfo_deadline" @click.native="switchPicker" placeholder="">
+						</el-input>
+						<nut-datepicker
+								:is-visible="isVisible"
+								title="选择时间（高度自动换算）"
+								type="datetime"
+								:start-date="defaultDateTime"
+								:end-date="endDateTime"
+								:default-value="defaultDateTime"
+								@close="switchPicker"
+								@choose="setChooseValue"
+							></nut-datepicker>
+					</div>
+
+				
+					
+
+
+
+
+					<div style="padding-top: 10px;">
+						<label class="drawer-label">转换当前所有权：<a href="">&nbsp;&nbsp;?&nbsp;&nbsp;</a></label>
+						<el-checkbox   :checked="true"  disabled="disabled" >是</el-checkbox> 本页ID {{baseInfo.code}}
+					</div>
+					
+					
+					<div style="display: flex;justify-content: center;padding-top: 2.25rem;">
+						<span @click="div_full=true; div_task=false" class="ui-btn-lg ui-btn-primary"
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgb(121 138 163);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;margin-right: 15px;">
+							返回
+						</span>
+						<span @click="new_task" class="ui-btn-lg ui-btn-primary" 
+						style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgba(0,83,208,1);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;">
+							创建任务
+						</span>
+					</div>
+				</el-card>
+
+			</div>
+
+			<!-- inject 用户选择 窗口 -->
+			<div id="injectorSelectDiv" class="ui-dialog injectselect"   v-if="injectorSelectShow" >
+				<div class="ui-dialog-cnt">
+					<br/>
+					<div class="ui-dialog-bd">
+						<div  style="background-color:#F2F6F9;margin-top: 8px;padding: 0.625rem 0.625rem;width: 90%;" >
+							钱包插件用户选择
+						</div>
+
+						
+
+					</div>
+				</div>
+			</div>
+
+
+			<el-dialog
+				:modal="false"
+				:visible.sync="injectorSelectShow"
+				width="75%"
+				:show-close="true"
+				:close-on-click-modal="false"
+			>
+				<div class="ui-dialog" >
+					<div class="ui-dialog-cnt">
+						<div class="ui-dialog-bd" style="text-align: center;">
+							<h3 >钱包插件用户选择</h3>
+							<div class="question" style="text-align:center;line-height: 2rem; ">
+								当前选择:<span style="font-weight: bold;">"{{injectorAccountSelected?.meta?.name}}"</span>:<br/>
+	
+								<div v-for="item in injectorAccounts"  @click="Web3Inject_select(item);">
+									<label><input name="taskRadio" type="radio" :value="item.address" />{{item?.meta?.name}}</label>
+								</div>
+	
+							</div>
+
+						</div>
+						
+					</div>
+				</div>
+			</el-dialog>
+			
+
+
+			<el-dialog
+				:modal="false"
+				:visible.sync="loading"
+				width="50%"
+				:show-close="false"
+				:close-on-click-modal="false"
+			 >
+				<div class="ui-dialog" >
+					<div class="ui-dialog-cnt">
+						<div class="ui-dialog-bd" style="text-align: center;">
+							<img width="30" src="img/loading.gif" />
+						</div>
+					</div>
+				</div>
+			</el-dialog>
+			<el-dialog
+				:modal="false"
+				:visible.sync="dialogShow"
+				width="75%"
+				:show-close="true"
+				:close-on-click-modal="false"
+			 >
+				<div class="ui-dialog" >
+					<div class="ui-dialog-cnt">
+						<div class="ui-dialog-bd" style="text-align: center;">
+							<h3 >提示</h3>
+							<p>{{ dialogContent }}</p>
+						</div>
+						<div  style="display: flex;justify-content: center;padding-top: 2.25rem;">
+							<span @click="dialogShow=false" class="ui-btn-lg ui-btn-primary"
+							style="width: 80%;height: 40px;border-radius: 4px;opacity: 1;background: rgb(121 138 163);font-size: 14px;text-align: center;line-height: 40px;color: #FFFFFF;text-decoration: none;margin-right: 15px;">
+								确定
+							</span>
+						</div>
+					</div>
+				</div>
+			</el-dialog>
+
+			<el-dialog
+				:modal="false"
+				:visible.sync="confirmShow"
+				width="75%"
+				:show-close="true"
+				:close-on-click-modal="false"
+			 >
+				<div class="ui-dialog" >
+					<div class="ui-dialog-cnt">
+						<div class="ui-dialog-bd" style="text-align: center;">
+							<h3 >提示</h3>
+							<p>{{ dialogContent }}</p>
+						</div>
+						<div style="display: flex;justify-content: center;padding-top: 2.25rem;">
+							<el-button @click="confirmShow=false">取 消</el-button>
+							<el-button type="primary" @click="confirmShow=false; dao_confirm_callback()">提交 </el-button>
+						  </div>
+					</div>
+				</div>
+			</el-dialog>
+
+			<!-- <div class="ui-dialog" :class="{ show: dialogShow }">
+				<div class="ui-dialog-cnt">
+					<div class="ui-dialog-bd">
+						<h3 v-if="!loading">提示</h3>
+						<img v-else width="30" src="img/loading.gif" />
+						<p>{{ dialogContent }}</p>
+					</div>
+					<div v-if="!loading" class="ui-dialog-ft">
+						<button type="button" data-role="button" @click="dialogShow=false">确定</button>
+					</div>
+				</div>
+			</div> -->
+
+
+		</div>
+
+
+
+		<script>
+			function getQueryString(name, url) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                if (!url || url == ""){
+                        url = window.location.search;
+                }else{
+                        url = url.substring(url.indexOf("?"));
+                }
+                r = url.substr(1).match(reg)
+                if (r != null) return unescape(r[2]); return null;
+        	}
+
+			var DOT_DECIMAL_PLACES = 1000000000000;
+
+			var app = new Vue({
+				el: '#app',
+				data: {
+
+					PRIVATE_APP_LIST: 'PRIVATE_APP_LIST',
+					INJECTORAACCOUNTSELECTED: 'INJECTORAACCOUNTSELECTED',
+					WEB3EXPRESSID: "0",
+
+					account_address: "",
+
+					cover: false,//微信打开时，提示“右上角浏览器打开”
+					div_full: false,
+					div_base: false,
+					div_dao: false,
+					div_task: false,
+					dao_active_exist: false,
+					initialed: false,//等加载的速度比较慢(特别是dao)，所以在这里要先显示loading 
+					isOffical: false,
+
+					injectorSelectShow: false,//inject 插件
+					injectorAccounts: [],
+					injectorAccountSelected: {},
+
+
+					dialogShow: false,
+					dialogContent: "正在处理",
+					loading: false,
+					confirmShow: false,
+					confirmCallback:null,
+					loadSubstrate: true,//这个参数不应该用，主要是为了应付https下面不有使用某些节点下 substrate的http兼容，干脆不加载了
+
+
+					commonInfo: {},//区块的基本信息
+					accountInfo: {},
+				
+					scid: "",
+					addrFrom: "",
+					baseInfo: {},
+					activeDaoInfo: {},
+					adminDaoInfo: {},
+					amount: 1,
+
+
+					//针对base info的修改
+					imageUrl: '',
+					baseInfo_cid: '',
+					baseInfo_type: 'ipfs',
+					baseInfo_package: '',
+					baseInfo_tag: '',
+					baseInfo_desp: '',
+					baseInfo_right: '',
+					baseInfo_duty: '',
+					baseInfo_title: '',
+					//baseInfo_code: '',
+					baseInfo_asset_id: null,
+
+					//针对修改与新增dao
+					activeDaoInfo_desp: "",
+					//activeDaoInfo_rate: 10,
+					activeDaoInfo_my_asset_id: 1,
+					activeDaoInfo_min: 1000,
+					activeDaoInfo_max: 2000,
+					activeDaoInfo_deadline: 1000000,
+					activeDaoInfo_keepRate: 80,
+					activeDaoInfo_mint: 1,
+					activeDaoInfo_stak_account_id: "",
+					//activeDaoInfo_keepAccount: "",
+
+
+					taskInfo_desp: "",
+					taskInfo_my_asset_id: 1,
+					taskInfo_tee_contract_id: "",
+					taskInfo_tee_desk_account_id: "",
+					taskInfo_tee_account_id: "",
+					taskInfo_reward_from_treasury: 0,
+					taskInfo_reward_this: 0,
+					taskInfo_deadline: 0,
+					taskRecentList: [],
+
+
+					isVisible: false,
+					defaultDateTime: '',
+					endDateTime: '',
+					recordDateTime: '',
+
+
+
+					//my_invest: 0,
+
+					daoCouncilInfo : {},
+					my_join_loading: false,
+					
+					brandFold: false
+				},
+				methods: {
+					covertTime: function(time) {
+						if(time==null){
+							return "";
+						}
+						let now = new Date();
+						const t = new Date(time);
+						var result = "";
+						if(t.getFullYear() == now.getFullYear() ){
+							result = moment(t).format('MM-DD HH:mm');
+
+						}else{
+							result = moment(t).format('YYYY-MM-DD HH:mm');
+						}
+						return result;
+					},
+					changeFoldState() {
+					    this.brandFold = !this.brandFold
+					},
+					checkUse(item){
+						console.log(item)
+						if(item.fund===0){
+							return 0;
+						}
+						return ((item.fund)*100/(item.max)).toFixed(2) ;
+						//return Math.round((item.fund)*100/(item.max));
+					},
+					addrBrief: function (addr) {
+						if(addr!=null && addr.length>42){
+							return addr.substring(0, 4) + '....' + addr.substring(42);
+						}else{
+							return addr;
+						}
+					},
+					isWeiXin: function() {
+						const ua = window.navigator.userAgent.toLowerCase();
+						if (ua.indexOf('micromessenger') > -1){
+							return true;
+						} else {
+							return false;
+						}
+					},
+					
+					switchPicker() {
+						this.isVisible = !this.isVisible;
+					},
+					setChooseValue(param) {
+						console.log('param:' + param);
+						const theDate = param[5];
+						this.recordDateTime = theDate;
+						//console.log(param);
+						var someDate = new Date(theDate);
+						//console.log(this.commonInfo);
+						//console.log(this.commonInfo.now);
+						this.activeDaoInfo_deadline = someDate.getTime() - this.commonInfo.now;
+						//console.log(this.activeDaoInfo_deadline);
+						this.activeDaoInfo_deadline = Math.round(this.activeDaoInfo_deadline/this.commonInfo.expectedBlockTime) +  this.commonInfo.number;
+						//为了简单一点，就不会是哪个点了，都给设置上
+						this.taskInfo_deadline = this.activeDaoInfo_deadline;
+					},
+					getDateTime() {
+						let now = new Date();
+						let year = now.getFullYear();
+						let month = now.getMonth() + 1;
+						let day = now.getDate();
+						let hour = now.getHours();
+						let minute = now.getMinutes();
+						let time = `${year}-${month}-${day} ${hour}:${minute}`;
+						console.log('time:' + time);
+						this.defaultDateTime = time;		
+						this.recordDateTime = time;
+						let time2 = `${year+10}-${month}-${day} ${hour}:${minute}`;
+						this.endDateTime = time2;
+					},
+
+					Unit22S:function(money){
+						var moneyInt =  parseInt(money*1000);//就可以输入小数了。
+						var money = BigInt(moneyInt.toString());
+						//var DOT_DECIMAL_PLACES2 = 1000000000n;//前面已经有6个0，这里就不需要了
+						//return money * DOT_DECIMAL_PLACES2;
+						var DOT_DECIMAL_PLACES2 = 1000000000;//前面已经有6个0，这里就不需要了
+						return money * BigInt(DOT_DECIMAL_PLACES2);
+					},
+					S2Unit:function(balance){
+						//var DOT_DECIMAL_PLACES = 1000000000000;
+						var money =  (balance / DOT_DECIMAL_PLACES).toFixed(2);						
+						return money;
+					},
+					DaoS2Unit: function(activeDaoInfo){						
+
+						activeDaoInfo.fund = app.S2Unit(activeDaoInfo.fund);
+						activeDaoInfo.min = app.S2Unit(activeDaoInfo.min);
+						activeDaoInfo.max = app.S2Unit(activeDaoInfo.max);
+						for (var key in activeDaoInfo.investors) {
+							var balance = activeDaoInfo.investors[key];
+							activeDaoInfo.investors[key] = app.S2Unit(balance);
+						};
+						//activeDaoInfo.desp = app.hexCharCodeToStr(activeDaoInfo.desp);
+
+						var addr = app.account_address;// window.havorld.jsCallAndroidReadByKey("account_address");
+						console.log(activeDaoInfo.investors[addr]);
+						if(activeDaoInfo.investors[addr]!=null){
+							activeDaoInfo.my_invest = activeDaoInfo.investors[addr];
+						}else{
+							activeDaoInfo.my_invest = 0;
+						}
+						
+
+						return activeDaoInfo;
+					},
+					imgIdInvite: function(cid) {//免填邀请码用
+						//http://211.159.227.141:8081/ipfs/QmaqATK1qT2t56Yyn9LDZUGt1gKjBdH4pnQMvoz3mkMHta/?addr=5H6maZFkxbzFvwfDhLugVFhCS3ZA1M9V5NeAzgD3q98DZPvG&cid=undefined
+						var lurl = window.location.href;
+						//var cid = document.getElementById("ipfscid").value;  
+						if(cid!=null && cid!=""){
+								if(lurl.indexOf('?')>0){ 
+										lurl = lurl+"&cid="+cid;
+								}else{
+										lurl = lurl+"?cid="+cid;
+								}
+						}
+						var username = getQueryString("username", lurl); 
+						console.log("rferer url=" + lurl)
+						var referer = encodeURIComponent(lurl);
+						console.log(username);
+
+						//不要使用下面的 "from.js",  会被很多浏览器给阻止。用img就不会
+						//后面会用phala的内嵌的http-server替代
+						document.getElementById("imgIdInvite").src = "http://211.159.227.141:8080/from?"+"username="+ username + "&referer="+referer;
+
+						//一般ipfs的gateway 都是https, 原则上，浏览器是不让访问 http的，但国内的手机浏览器都是不太有原则。都可以访问http
+						//var jsUrl = "http://211.159.227.141:8080/from.js?"+"username="+ username + "&referer="+referer;
+						//with(document)with(body)with(insertBefore(createElement("script"), firstChild))setAttribute("exparams","username="+ username + "&referer="+referer, id = "web3-invite", src = jsUrl);
+
+					},
+
+					handleAvatarSuccess(res, file) {
+						this.imageUrl = URL.createObjectURL(file.raw);
+					},
+					beforeAvatarUpload(file) {
+						return true;
+					},
+
+					base_edit: function(){
+
+						this.baseInfo_type = this.baseInfo.type;
+						this.baseInfo_title = this.baseInfo.title;
+						//this.baseInfo_code = this.baseInfo.code;
+						this.baseInfo_cid = this.baseInfo.cid;
+						this.baseInfo_package = this.baseInfo.package;
+						this.baseInfo_tag = this.baseInfo.tag;
+						this.baseInfo_desp = this.baseInfo.desp;
+						this.baseInfo_right = this.baseInfo.right;
+						this.baseInfo_duty = this.baseInfo.duty;
+						
+
+						this.div_base=true;
+						this.div_full=false;
+						this.div_dao=false;
+
+					},
+					uploadIPFS: function () {
+						console.log("11111111111111111");
+						/*
+						if (!this.baseInfo_code) {
+							this.dialog('传播代码必填！')
+							return;
+						}*/
+						if (!this.baseInfo_title) {
+							this.dialog('传播主题必填！')
+							return;
+						}
+
+						if (!this.baseInfo_tag) {
+							this.dialog('传播标签/分类必填！')
+							return;
+						}
+
+						if (!this.baseInfo_desp) {
+							this.dialog('传播描述必填！')
+							return;
+						}
+
+						if (!this.baseInfo_right) {
+							this.dialog('传播种子用户权利说明必填！')
+							return;
+						}
+						if (!this.baseInfo_duty) {
+							this.dialog('传播种子用户义务说明必填！')
+							return;
+						}
+						
+						console.log("1111111111111111122");
+						var code = this.baseInfo.code;
+						var cid = this.baseInfo_cid;
+						var tag = this.baseInfo_tag;
+						var title = this.baseInfo_title;
+						var subTitle = "";
+						var desp = this.baseInfo_desp;
+						var right = this.baseInfo_right;
+						var duty = this.baseInfo_duty;
+						var balance =  0;//app.baseInfo.balance;
+						var type = this.baseInfo_type;
+						var package = this.baseInfo_package;						
+						
+						//this.uploadIPFSShow = false;
+						this.dialogShow = false;
+						this.loading =  true;
+
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						
+						var unionId = this.baseInfo?.unionId;
+						var threshold = this.baseInfo?.unionId == null ? 0 : Object.keys(this.daoCouncilInfo.admins).length;
+						console.log("1111111111111111133:"+ threshold);
+						console.log("1111111111111111133:"+ signer);
+
+
+						window.PolkadotWeb3JSSample.appAdvertisePut(signer, unionId, threshold, code, cid, tag , "86", title, subTitle, desp, right, duty, type, package, null, null, "",
+							function (  myEvent, status ) {
+								console.log(status.type);
+								if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+									return;
+								}
+
+								console.log("777777777:"+ JSON.stringify(myEvent));
+								console.log("888888888:"+ JSON.stringify(myEvent.humanError));
+								console.log("888888888:"+ JSON.stringify(myEvent.humanIndex));
+								
+
+								//处理我关心的错误信息
+								if(myEvent.humanError != null) {
+									app.loading =  false;
+									if(myEvent.humanError == "web3Dao.RequireOwner"){										
+										app.dialogContent = "你不是所有者！";
+
+									}else if(myEvent.humanError == "BadOrigin"){
+										app.dialogContent = "不能以个人签名直接调用！";							
+
+									}else{
+										app.dialogContent = "未知错误！"+myEvent.humanError;	
+									}
+
+									app.dialogShow = true;	
+									return;
+								}
+
+								////先处理我们不关的事件
+								if(myEvent.humanIndex != "web3Dao.AppAdvertiseAdded"
+									&& myEvent.humanIndex != "web3Dao.AppAdvertiseUpdated"
+								) {
+									return;
+								}
+							
+								//  system.ExtrinsicSuccess
+								
+								//到了这里是处理gas成功
+
+								app.loading =  false;
+								app.dialogContent = "操作成功";
+								app.dialogShow = true;	
+
+								var shareItem  = null;
+								var timestamp=new Date().getTime();
+
+								if(myEvent.humanIndex == "web3Dao.AppAdvertiseAdded"){
+
+									console.log("77777777788:"+ myEvent.data[0]);
+									code = myEvent.data[0].toString();
+									
+
+									var appCode = code;
+									//var toplist = JSON.parse(response["data"]["list"]);
+									
+									shareItem = {
+										code: code,
+										appCode: appCode,//响应返回的 作为appcode, 其实是个CID， 是用户推荐相关信息在 ipfs上保存的CID
+										top: 1,
+										url: cid,//用户推荐的 ipfs 内容的 cid 也可能是网站URL;   存在apkfilename,
+										cid: cid,
+										package: package,
+										tag: tag,
+										balance: balance,
+										title: title,
+										subTitle: subTitle,
+										desp: desp,
+										right: right,
+										duty: duty,
+										updateDate: timestamp,
+										type: type
+									}
+									//刷新原有对象
+									app.baseInfo= shareItem;
+								}else{
+
+									//console.log("77777777788:"+ myEvent.data[0]);
+									//console.log(myEvent);
+									
+									app.baseInfo.tag = tag;
+									app.baseInfo.title = title;
+									app.baseInfo.cid = cid;
+									app.baseInfo.url = cid;
+									app.baseInfo.subTitle = subTitle;
+									app.baseInfo.desp = desp;
+									app.baseInfo.right = right;
+									app.baseInfo.duty = duty;
+									app.baseInfo.updateDate = timestamp;
+									shareItem = app.baseInfo;
+
+								}
+
+								
+
+								app.div_base=false;
+								app.div_full=true;
+								app.div_dao=false;
+
+								let shareItems = window.havorld.jsCallAndroidReadByKey(app.PRIVATE_APP_LIST);
+								shareItems = shareItems == "" ? [] : JSON.parse(shareItems);
+								const find = shareItems.findIndex(e => (e.code==code) );
+								if(find>-1){
+									shareItems[find] = shareItem;
+								}else{
+									shareItems.push(shareItem);
+								}
+
+
+								var shareItems_ = shareItems.filter(item => item.code.toString() != app.WEB3EXPRESSID);
+								window.havorld.jsCallAndroid(app.PRIVATE_APP_LIST, JSON.stringify(shareItems_));
+
+								console.log(shareItem);
+							
+								var lurl = window.location.href;							
+								//var  scid =getQueryString("scid", lurl);
+								var  scid = app.scid;
+								if(scid == "" || scid == null){
+									var address = app.account_address;//window.havorld.jsCallAndroidReadByKey("account_address");
+									window.location = "./project.html?addr="+address+"&scid="+shareItem.appCode;
+								}
+
+								
+							}			
+
+						).then(res => {
+							console.log(res);
+							//window.havorld.jsCallAndroidTaskCallback(id, type, param, "200");
+							//alert(res);
+						}).catch(e => {
+							console.log(e);
+							app.loading =  false;
+							app.dialogContent = "操作失败";
+							app.dialogShow = true;	
+							alert(e);
+						})
+
+					},
+					fresh_dao_and_others: function(){
+						console.log("fffffffffffffffffffffffff1:" );
+
+						//todo ，这里已经返回一个列表，当中包括有活动的一个unionDao
+						if(this.baseInfo.unionId !=null){
+							var assetId = parseInt(this.baseInfo.unionId);
+							console.log("fffffffffffffffffffffffff2:" );
+
+							// 里有bug, 当任务结束了，没有activeDaoInfo了，就不起引发watch了，
+							// 就不会引用 daoCouncilJoinTest 来判断我是不是管理成员了
+							//this.daoCouncilJoinTest();	
+
+							//res.unionId 就是root unionID, 就是 assertId 
+							window.PolkadotWeb3JSSample.getActiveDaoInfoByAssetId(assetId).then(activeDaoInfo => {
+								//console.log("66666677:" + JSON.stringify(res));
+								console.log("22222222222222222222222:" );
+								console.log(activeDaoInfo);
+
+								if(activeDaoInfo == null){//没有acitve dao
+									console.log("app.activeDaoInfo: null");
+									app.activeDaoInfo = {};
+									app.dao_active_exist = false;	
+
+								}else{
+									app.activeDaoInfo = app.DaoS2Unit(activeDaoInfo);	
+									//app.activeDaoInfo = activeDaoInfo;	
+									//(dataList[2] / DOT_DECIMAL_PLACES).toFixed(2)
+									console.log(app.activeDaoInfo.my_invest);									
+
+									app.dao_active_exist = true;
+								}
+
+
+								if(activeDaoInfo!=null && activeDaoInfo.id.toString() == assetId.toString()){
+									app.adminDaoInfo = activeDaoInfo;
+								}else{
+
+									window.PolkadotWeb3JSSample.getUnionDao(assetId).then(adminDaoInfo => {
+										//console.log("66666677:" + JSON.stringify(res));
+										console.log("1111111111111111122:" );
+										console.log(adminDaoInfo);
+
+										app.adminDaoInfo = app.DaoS2Unit(adminDaoInfo);	
+										app.baseInfo.unionId = adminDaoInfo.id;
+										app.baseInfo.ownerId = adminDaoInfo.depositedAccountId;//feng todo 没有测试
+										//app.div_base=false;
+										//app.div_full=true;
+										//app.div_dao=false;
+										//app.dao_active_exist = true;
+										
+										if(adminDaoInfo.depositedAccountId!="" && adminDaoInfo.depositedAccountId!=null){
+											window.PolkadotWeb3JSSample.accountinfo(adminDaoInfo.depositedAccountId, function(accountinfo) {
+
+												app.baseInfo.accountFree = (accountinfo.data.free / DOT_DECIMAL_PLACES).toFixed(2);
+												app.baseInfo.accountFeeFrozen =  (accountinfo.data.feeFrozen / DOT_DECIMAL_PLACES).toFixed(2);
+												app.baseInfo.accountReserved =  (accountinfo.data.reserved / DOT_DECIMAL_PLACES).toFixed(2);							
+
+											}).then(res => {
+												console.log(res);
+
+											}).catch(e => {
+												console.log(e);
+												//alert(e);
+											});
+										}
+										
+									});
+
+								}
+
+								app.initialed = true;
+								
+							});		
+
+
+
+							window.PolkadotWeb3JSSample.getTaskRecentList(parseInt(this.baseInfo.unionId), function(taskRecentList) {
+								console.log("fffffffffffffffffffffffff:" + JSON.stringify(taskRecentList));
+								//app.adminDaoInfo = app.DaoS2Unit(adminDaoInfo);	
+
+								var taskRecentList = taskRecentList.map(function(elem){
+									elem.rewardTotal =  app.S2Unit(elem.rewardFromTreasury + elem.rewardThis);		
+									elem.rewardFromTreasury = app.S2Unit(elem.rewardFromTreasury);
+									elem.rewardThis = app.S2Unit(elem.rewardThis);		
+										
+									return elem;
+								});
+
+								app.taskRecentList = taskRecentList;		
+
+							}).then(res => {
+								console.log(res);
+
+							}).catch(e => {
+								console.log(e);
+								//alert(e);
+							});
+
+						
+							
+							//app.daoCouncilJoinTest();	
+
+
+						}else{
+							app.initialed = true;
+						}
+
+
+						window.PolkadotWeb3JSSample.getCommonInfo().then(res => {
+							console.log("11111111111111111commonInfo:" );
+							console.log(res);
+							//console.log(res.number.toString());
+
+							app.commonInfo = res;
+						
+						});
+
+
+
+
+					},
+					show_new_dao: function(){
+						var addr = this.account_address;//window.havorld.jsCallAndroidReadByKey("account_address");
+
+						this.activeDaoInfo_deadline = this.commonInfo?.number;
+						this.activeDaoInfo_stak_account_id = this.commonInfo?.validators[0];
+						if(this.adminDaoInfo.id!=null){
+							this.activeDaoInfo_my_asset_id = this.adminDaoInfo.id;
+							this.activeDaoInfo_stak_account_id = this.adminDaoInfo.stakAccountId;
+							this.activeDaoInfo_keepRate = this.adminDaoInfo.status == "Finish"?  100 : this.activeDaoInfo_keepRate;//append 的要100%,  因为已经有pool池了。23/01/17这个不准确，因为first可能abort
+						}
+						/*
+						if(this.activeDaoInfo.keepAccount == null){
+							//this.activeDaoInfo_rate = 10;
+							this.activeDaoInfo_deadline = this.commonInfo?.number;
+							//this.activeDaoInfo_min = 1000;
+							//this.activeDaoInfo_max = 2000;
+							//this.activeDaoInfo_keepRate = 80;
+							//this.activeDaoInfo_keepAccount = addr;
+							this.activeDaoInfo_stak_account_id = this.commonInfo?.validators[0];
+						}else{
+							//this.activeDaoInfo_rate = this.activeDaoInfo.rate;
+							this.activeDaoInfo_deadline = this.activeDaoInfo.deadline;
+							//this.activeDaoInfo_min = this.activeDaoInfo.min;
+							this.activeDaoInfo_max = this.activeDaoInfo.max;
+							this.activeDaoInfo_keepRate = this.activeDaoInfo.keepRate;
+							//this.activeDaoInfo_keepAccount = this.activeDaoInfo.keepAccount;
+
+						}*/
+
+						this.div_base=false;
+						this.div_full=false;
+						this.div_dao=true;
+
+					},
+
+					show_new_task: function(){
+						var addr = this.account_address;//window.havorld.jsCallAndroidReadByKey("account_address");
+
+						/*
+						taskInfo_desp: "",
+					taskInfo_my_asset_id: 1,
+					taskInfo_tee_account_id: "",
+					taskInfo_reward_from_treasury: null,
+					taskInfo_reward_this: null,
+					*/
+
+						this.taskInfo_deadline = this.commonInfo?.number;
+						//this.taskInfo_tee_account_id = "";
+						if(this.adminDaoInfo.id!=null){
+							this.taskInfo_my_asset_id = this.adminDaoInfo.id;
+						}
+						
+
+						this.div_base=false;
+						this.div_full=false;
+						this.div_task=true;
+
+					},
+
+					new_dao: function () {
+
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");// 都这个数据库里读
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+					
+						var desp= this.activeDaoInfo_desp;//"aaaa";
+						var myAssetId = this.activeDaoInfo_my_asset_id;//先写死 null 
+						var payAssetId = null;//"t3";  // 来自界面面，代币名称
+						var deadline = this.activeDaoInfo_deadline ;//1000000;  //  来自界面面, 截至时间
+						//var rate = this.activeDaoInfo_rate ;//10;  //来自界面 兑换比例
+						var min = this.Unit22S(this.activeDaoInfo_min) ;//1000;  //来自界面  最小
+						var max = this.Unit22S(this.activeDaoInfo_max) ;//1000000000;  //来自界面， 最大
+						var mint = this.Unit22S(this.activeDaoInfo_mint) ;
+						var keepRate = this.activeDaoInfo_keepRate ;//80;  //来自界面 ， 留存比列， 不过个界面上的是百分比，这里是万份比，X100 倍
+						var stakAccountId = this.activeDaoInfo_stak_account_id;
+						var appAdvertiseId = this.baseInfo.code;
+						var keepAccount = this.activeDaoInfo_keepAccount;  //来自界面 ，
+
+						//async addBasicDao(PHRASE, desp,  myAssetId, payAssetId, deadline, min, max, keepRate, mint,  stakAccountId, appAdvertiseId, callback){
+
+
+						this.dialogShow = false;
+						this.loading =  true;
+
+						if(this.baseInfo.unionId == null){
+						
+							window.PolkadotWeb3JSSample.addBasicDao(signer, desp, myAssetId, payAssetId, deadline, min, max, keepRate, mint, stakAccountId, appAdvertiseId,
+								function (  myEvent, status ) {
+									if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+										return;
+									}
+
+									//处理我关心的错误信息
+									if(myEvent.humanError != null) {
+										app.loading =  false;
+										if(myEvent.humanError == "web3Dao.AssetNotAllowed"
+											|| myEvent.humanError == "DaoDuplicated"
+										){										
+											app.dialogContent = "资产ID已经被占用！";
+
+										}else if(myEvent.humanError == "web3Dao.DaoIdTooLarge"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.ArgOverflow"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoMaxReached"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoAliveDuplicated"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoDeadlineReached"){
+											app.dialogContent = "截至时间(区块高度）小于当前时间！";							
+
+										}else{
+											app.dialogContent = "未知错误！"+myEvent.humanError;		
+										}
+										app.dialogShow = true;	
+										return;
+									}
+
+									////处理各种事件
+									if(myEvent.humanIndex == "web3Dao.DaoAdded") {
+										console.log("1111111111111111122:"+myEvent.data[1] );
+										app.baseInfo.unionId = parseInt(myEvent.data[1].toString());
+										//app.baseInfo.ownerId = activeDaoInfo.depositedAccountId;//feng todo 没有测试
+										app.fresh_dao_and_others();	
+										app.loading =  false;
+										app.dialogContent = "操作成功";
+										app.dialogShow = true;		
+
+										{
+											app.div_base=false;
+											app.div_full=true;
+											app.div_dao=false;
+											app.dao_active_exist = true;
+										}
+
+										/*
+										window.PolkadotWeb3JSSample.getUnionDao(parseInt(myEvent.data[1].toString())).then(activeDaoInfo => {
+											//console.log("66666677:" + JSON.stringify(res));
+											console.log("1111111111111111122:" );
+											console.log(activeDaoInfo);
+
+											if(activeDaoInfo == null){
+
+											}else{											
+												app.activeDaoInfo = app.DaoS2Unit(activeDaoInfo);	
+												app.baseInfo.unionId = activeDaoInfo.id;
+												app.baseInfo.ownerId = activeDaoInfo.depositedAccountId;//feng todo 没有测试
+												app.div_base=false;
+												app.div_full=true;
+												app.div_dao=false;
+												app.dao_active_exist = true;
+											}
+
+											app.loading =  false;
+											app.dialogContent = "操作成功";
+											app.dialogShow = true;		
+											
+										});
+										*/
+										
+										return;
+									}
+									if(myEvent.humanIndex == "web3Dao.DaoAssetToMined") {
+										//不用处理，因为已经在 DaoAdded 更新了
+										//console.log("todo feng....web3Dao.DaoAssetToMined")
+									}
+
+									if(myEvent.humanIndex == "web3Dao.AppAdvertiseOwnerUpdated") {
+										console.log("todo feng....web3Dao.AppAdvertiseOwnerUpdated")
+									}
+									//AssetNotAllowed
+								}			
+
+							).then(res => {
+								console.log(res);
+								//window.havorld.jsCallAndroidTaskCallback(id, type, param, "200");
+								//alert(res);
+							}).catch(e => {
+								console.log(e);
+								var no_money  = e.message.indexOf("Inability to pay some fees");
+								if(no_money){
+									app.dialogContent = "账户余额不足！";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}else{
+									app.dialogContent = "系统错误";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}
+							})
+							//end  window.PolkadotWeb3JSSample.addBasicDao
+						}else{
+							//start window.PolkadotWeb3JSSample.addBasicDao
+							//appendBasicDao(PHRASE, myAssetId,  desp,  deadline, min, max,  mint,  stakAccountId, callback){
+
+							window.PolkadotWeb3JSSample.appendBasicDao(signer, myAssetId, desp, deadline, min, max, keepRate, mint, stakAccountId, 
+								function (  myEvent, status ) {
+									if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+										return;
+									}
+									
+
+									//处理我关心的错误信息
+									if(myEvent.humanError != null) {
+										app.loading =  false;
+										if(myEvent.humanError == "web3Dao.DaoNotFound"){
+											app.dialogContent = "找不到‘根’自治组织！";							
+
+										}else if(myEvent.humanError == "web3Dao.FirstDaoStatusInvalid"){
+											app.dialogContent = "‘根’自治组织状态异常，需要已经正常众筹结束！";							
+
+										}else if(myEvent.humanError == "web3Dao.ArgOverflow"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoMaxReached"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoAliveDuplicated"){
+											app.dialogContent = "存在进行中的众筹！";							
+
+										}else if(myEvent.humanError == "web3Dao.DaoDeadlineReached"){
+											app.dialogContent = "截至时间(区块高度）小于当前时间！";							
+
+										}else{
+											app.dialogContent = "未知错误！"+myEvent.humanError;		
+										}
+										app.dialogShow = true;	
+										return;
+									}
+
+									////处理各种事件
+									if(myEvent.humanIndex == "web3Dao.DaoAppended") {
+										console.log("1111111111111111122:"+myEvent.data[1] );
+										window.PolkadotWeb3JSSample.getUnionDao(parseInt(myEvent.data[1].toString())).then(activeDaoInfo => {
+											//console.log("66666677:" + JSON.stringify(res));
+											console.log("1111111111111111122:" );
+											console.log(activeDaoInfo);
+
+											if(activeDaoInfo == null){
+
+											}else{											
+												app.activeDaoInfo = app.DaoS2Unit(activeDaoInfo);	
+												app.div_full=true;
+												app.div_dao=false;
+												app.dao_active_exist = true;
+											}
+
+											app.loading =  false;
+											app.dialogContent = "操作成功";
+											app.dialogShow = true;		
+											
+										});
+										
+										return;
+									}
+									if(myEvent.humanIndex == "web3Dao.DaoAssetToMined") {
+										//不用处理，因为已经在 DaoAdded 更新了
+										//console.log("todo feng....web3Dao.DaoAssetToMined")
+									}
+
+								}			
+
+							).then(res => {
+								console.log(res);
+								//window.havorld.jsCallAndroidTaskCallback(id, type, param, "200");
+								//alert(res);
+							}).catch(e => {
+								console.log(e);
+								var no_money  = e.message.indexOf("Inability to pay some fees");
+								if(no_money){
+									app.dialogContent = "账户余额不足！";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}else{
+									app.dialogContent = "系统错误";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}
+							})
+
+						}
+					},
+
+					new_task: function () {						
+
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						var desp= this.taskInfo_desp;//"aaaa";
+						var myAssetId = this.taskInfo_my_asset_id;
+						var rewardFromTreasury = this.Unit22S(this.taskInfo_reward_from_treasury) ;//1000;  //来自界面  最小
+						var rewardThis = this.Unit22S(this.taskInfo_reward_this) ;//1000000000;  //来自界面， 最大
+						var deadline = this.taskInfo_deadline ;//1000000;  //  来自界面面, 截至时间
+						//var rate = this.activeDaoInfo_rate ;//10;  //来自界面 兑换比例
+						var teeAccountId = this.taskInfo_tee_account_id;
+						var teeDeskAccountId = this.taskInfo_tee_desk_account_id;
+						var teeContractId = this.taskInfo_tee_contract_id;
+						var scid =  this.scid;
+
+						// appendUnionTask(PHRASE, myAssetId,  desp, rewardFromTreasury, rewardThis, deadline, tee_account_id, callback)
+
+
+						this.dialogShow = false;
+						this.loading =  true;
+
+						if(this.baseInfo.unionId != null){
+							window.PolkadotWeb3JSSample.appendUnionTask(signer, myAssetId, scid, desp, rewardFromTreasury, rewardThis, deadline, teeContractId, teeAccountId, teeDeskAccountId,
+								function (  myEvent, status ) {
+									if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+										return;
+									}
+									
+
+									//处理我关心的错误信息
+									if(myEvent.humanError != null) {
+										app.loading =  false;
+										if(myEvent.humanError == "web3Dao.DaoNotFound"){
+											app.dialogContent = "找不到自治组织！";							
+
+										}else if(myEvent.humanError == "web3Dao.FirstDaoStatusInvalid"){
+											app.dialogContent = "自治组织状态异常，需要已经正常众筹结束！";							
+
+										}else if(myEvent.humanError == "web3Dao.NotEnoughBalance"){
+											app.dialogContent = "你的资金或组织的资金不足！";							
+
+										}else{
+											app.dialogContent = "未知错误！"+myEvent.humanError;		
+										}
+										app.dialogShow = true;	
+										return;
+									}
+
+									////处理各种事件  TaskAppended{who: T::AccountId, dao_id: T::DaoId, task_id: T::TaskId, my_asset_id: T::AssetId},
+									if(myEvent.humanIndex == "web3Dao.TaskAppended") {
+										console.log("1111111111111111122:"+myEvent.data[2] );
+										
+										window.PolkadotWeb3JSSample.getUnionTask(parseInt(myEvent.data[2].toString())).then(taskInfo => {
+											//console.log("66666677:" + JSON.stringify(res));
+											console.log("1111111111111111122:" );
+											console.log(taskInfo);
+
+											if(taskInfo == null){
+
+											}else{											
+												//app.taskInfo = app.DaoS2Unit(taskInfo);	
+												app.div_full=true;
+												app.div_task=false;
+											}
+
+											app.loading =  false;
+											app.dialogContent = "操作成功";
+											app.dialogShow = true;		
+											
+										});
+										
+										
+										return;
+									}
+									if(myEvent.humanIndex == "web3Dao.DaoAssetToMined") {
+										//不用处理，因为已经在 DaoAdded 更新了
+										//console.log("todo feng....web3Dao.DaoAssetToMined")
+									}
+
+								}			
+
+							).then(res => {
+								console.log(res);
+								//window.havorld.jsCallAndroidTaskCallback(id, type, param, "200");
+								//alert(res);
+							}).catch(e => {
+								console.log(e);
+								var no_money  = e.message.indexOf("Inability to pay some fees");
+								if(no_money){
+									app.dialogContent = "账户余额不足！";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}else{
+									app.dialogContent = "系统错误";
+									app.dialogShow = true;
+									app.loading =  false;
+
+								}
+							})
+
+						}
+					},
+					dao_confirm_callback: function(){
+						console.log("dao_confirm_callback..........");
+						if(this.confirmCallback != null){
+							if(typeof this.confirmCallback == 'function'){
+								this.confirmCallback()
+								this.confirmCallback=null;
+							}
+						}else{
+							this.dao_mint();
+						}						
+					},	
+					to_dao_mint: function(){	
+						this.dialogContent = "金额：" + this.amount + "币, 确定参与众筹？";
+						app.confirmCallback = function () {
+							this.dao_mint();
+						};		
+						this.confirmShow = true;
+					},					
+					to_deadline_update: function(){
+						app.dialogContent = "暂不支持应该操作，如实在需要，可以通过“链议会”进行投票修改截至时间？";						
+						app.dialogShow = true;							
+
+					},
+					to_dao_abort: function(){
+						app.dialogContent = "提交对当前的众筹的撤销交易？";
+						app.confirmCallback = function () {
+							//alert("dao_abort");
+							this.dao_abort();
+						};
+						app.confirmShow = true;							
+
+					},
+					to_dao_finish: function(){
+						app.dialogContent = "提交对当前的众筹的分配交易？";
+						app.confirmCallback = function () {
+							this.dao_finish();
+						};
+						app.confirmShow = true;	
+					},
+					dao_mint: function(){
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");// 都这个数据库里读， 留存对象，（为了测试方便，可以先写死）
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						var assetId = this.baseInfo.code;
+						var daoId = this.activeDaoInfo.id;
+						var amount = this.Unit22S(this.amount);
+						var amountUnit = this.amount;//保存一下，怕异步过程中，界面有bug被改变
+
+						this.dialogShow = false;
+						this.loading =  true;
+
+						window.PolkadotWeb3JSSample.basicDaoMint(signer, daoId, amount,
+							function (  myEvent, status ) {
+								console.log(status.type);
+								if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+									return;
+								}
+
+								//处理我关心的错误信息
+								if(myEvent.humanError != null) {
+									app.loading =  false;
+									if(myEvent.humanError == "web3Dao.DaoNotFound"){										
+										app.dialogContent = "自治组织编号找不到！";
+
+									}else if(myEvent.humanError == "web3Dao.DaoStatusInvalid"){
+										app.dialogContent = "自治组织可能已结束当前众筹！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoMaxReached"){
+										app.dialogContent = "已到达众筹硬顶！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoDeadlineReached"){
+										app.dialogContent = "已到达众筹截至时间！";							
+
+									}else{
+										app.dialogContent = "未知错误:"+myEvent.humanError;	
+									}
+
+									app.dialogShow = true;	
+									return;
+								}
+
+								////处理各种事件
+								if(myEvent.humanIndex == "web3Dao.DaoAssetToMined") {
+									
+									window.havorld.jsCallAndroidTranser("", this.account_address, "join funding to '"+ assetId +"'", amountUnit, "0");
+									window.PolkadotWeb3JSSample.getUnionDao(daoId).then(activeDaoInfo => {
+										//console.log("66666677:" + JSON.stringify(res));
+										console.log("1111111111111111122:" );
+										console.log(activeDaoInfo);
+
+										if(activeDaoInfo == null){
+
+										}else{
+											console.log(JSON.stringify(activeDaoInfo));
+											app.activeDaoInfo = app.DaoS2Unit(activeDaoInfo);																					
+											//(dataList[2] / DOT_DECIMAL_PLACES).toFixed(2)
+											app.dao_active_exist = true;
+										}	
+										app.dialogShow = true;
+										app.dialogContent = "操作成功";
+										app.loading =  false;
+										
+									});
+
+									app.div_base=false;
+									app.div_full=true;
+									app.div_dao=false;
+								}
+
+								
+							}			
+
+						).then(res => {
+							console.log(res);
+							//window.havorld.jsCallAndroidTaskCallback(id, type, param, "200");
+							//alert(res);
+						}).catch(e => {
+							console.log(e);
+							var no_money  = e.message.indexOf("Inability to pay some fees");
+							if(no_money){
+								app.dialogContent = "账户余额不足！";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}else{
+								app.dialogContent = "系统错误";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}
+						})
+					
+
+					},
+					
+					dao_finish: function(){
+
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");// 都这个数据库里读， 留存对象，（为了测试方便，可以先写死）
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						
+						var assetId = this.baseInfo.code;
+						var daoId = this.activeDaoInfo.id;
+
+						this.dialogShow = false;
+						this.loading =  true;
+
+						window.PolkadotWeb3JSSample.basicDaoFinish(signer,  daoId,
+							function (  myEvent, status ) {
+								console.log(status.type);
+								if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+									return;
+								}
+
+								//处理我关心的错误信息
+								if(myEvent.humanError != null) {
+									app.loading =  false;
+									if(myEvent.humanError == "web3Dao.DaoNotFound"){										
+										app.dialogContent = "自治组织编号找不到！";
+
+									}else if(myEvent.humanError == "web3Dao.DaoMinNotReached"){
+										app.dialogContent = "当前众筹资金未达标（小于软顶），只能撤销！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoStatusInvalid"){
+										app.dialogContent = "当前众筹状态并不是在进行中！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoDeadlineNotReached"){
+										app.dialogContent = "众筹未到截至时间！";							
+
+									}else{
+										app.dialogContent = "未知错误:"+myEvent.humanError;	
+									}
+
+									app.dialogShow = true;	
+									return;
+								}
+
+								////处理各种事件
+								if(myEvent.humanIndex == "web3Dao.DaoFinished") {
+									app.fresh_dao_and_others();	
+									app.dialogContent = "操作成功";
+									app.dialogShow = true;
+									app.loading =  false;								
+								}
+							}			
+
+						).then(res => {
+							console.log(res);
+						}).catch(e => {
+							console.log(e);
+							var no_money  = e.message.indexOf("Inability to pay some fees");
+							if(no_money){
+								app.dialogContent = "账户余额不足！";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}else{
+								app.dialogContent = "系统错误";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}
+						})
+
+					},
+
+					dao_abort: function(){
+
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");// 都这个数据库里读， 留存对象，（为了测试方便，可以先写死）
+						
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						var assetId = this.baseInfo.code;
+						var daoId = this.activeDaoInfo.id;
+
+						this.dialogShow = false;
+						this.loading =  true;
+
+						window.PolkadotWeb3JSSample.basicDaoAbort(signer,  daoId,
+							function (  myEvent, status ) {
+								console.log(status.type);
+								if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+									return;
+								}
+
+								//处理我关心的错误信息
+								if(myEvent.humanError != null) {
+									app.loading =  false;
+									if(myEvent.humanError == "web3Dao.DaoNotFound"){										
+										app.dialogContent = "众筹编号找不到！";
+
+									}else if(myEvent.humanError == "web3Dao.DaoMinNotReached"){
+										app.dialogContent = "当前众筹资金未达标（小于软顶），只能撤销！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoStatusInvalid"){
+										app.dialogContent = "当前众筹状态并不是在进行中！";							
+
+									}else if(myEvent.humanError == "web3Dao.DaoDeadlineNotReached"){
+										app.dialogContent = "众筹未到截至时间！";							
+
+									}else{
+										app.dialogContent = "未知错误:"+myEvent.humanError;	
+									}
+
+									app.dialogShow = true;	
+									return;
+								}
+
+								////处理各种事件
+								if(myEvent.humanIndex == "web3Dao.DaoAborted") {
+									app.fresh_dao_and_others();	
+									app.dialogContent = "操作成功";
+									app.dialogShow = true;
+									app.loading =  false;								
+								}
+							}			
+
+						).then(res => {
+							console.log(res);
+						}).catch(e => {
+							console.log(e);
+							var no_money  = e.message.indexOf("Inability to pay some fees");
+							if(no_money){
+								app.dialogContent = "账户余额不足！";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}else{
+								app.dialogContent = "系统错误";
+								app.dialogShow = true;
+								app.loading =  false;
+
+							}
+						})
+
+					},
+
+					daoCouncilJoinTest: function(){
+						window.PolkadotWeb3JSSample.getUnionDaoCouncil(this.baseInfo.unionId).then(daoCouncilInfo => {
+							//console.log("66666677:" + JSON.stringify(res));
+							console.log("3333333333333333333:" + JSON.stringify(daoCouncilInfo));
+							console.log(daoCouncilInfo);
+
+							if(daoCouncilInfo == null && this.activeDaoInfo.my_invest !=0 ){//这种情况下，默认直接加入
+								//alert("你要加入组织吗");
+								this.daoCouncilInfo  = {};
+								this.daoCouncilJoin();
+
+							}else{
+								var addr = this.account_address;//window.havorld.jsCallAndroidReadByKey("account_address");
+								daoCouncilInfo.my_join = daoCouncilInfo.admins[addr];
+								this.daoCouncilInfo  = daoCouncilInfo;
+							}
+							
+						});		
+					},
+					daoCouncilJoin: function(){
+						//console.log("9999999999999999999");
+						//var account = window.havorld.jsCallAndroidReadByKey("account_mnemonic");
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+						var dao_id = this.adminDaoInfo.id;
+						this.my_join_loading =  true;
+						
+						window.PolkadotWeb3JSSample.basicDaoCouncilJoin(signer, this.adminDaoInfo.id,
+							function (  myEvent, status ) {
+								console.log(status.type);
+								if(status.type != "InBlock"){//todo 暂只处理Ready, 不处理 Finalized
+									return;
+								}
+
+
+								if(myEvent.humanError != null) {
+									app.my_join_loading =  false;
+
+									if(myEvent.humanError == "web3Dao.DaoNotFound"){										
+										app.dialogContent = "自治组织编号不存在！";
+
+									}else if(myEvent.humanError == "web3Dao.FirstDaoIdNeeded"){
+										app.dialogContent = "请使用自治组织的“根”编号！";							
+
+									}else if(myEvent.humanError == "web3Dao.NotEnoughBalance"){
+										app.dialogContent = "你没有投资过应该组织，或投资金额不足！";							
+
+									}else{
+										app.dialogContent = "未知错误！"+myEvent.humanError;	
+									}
+
+									
+									app.dialogShow = true;	
+									return;
+								}
+
+								////处理各种事件
+								if(myEvent.humanIndex == "system.ExtrinsicSuccess") {
+									console.log("加入成功:"+status.type);
+									window.PolkadotWeb3JSSample.getUnionDaoCouncil(dao_id).then(daoCouncilInfo => {
+										//console.log("66666677:" + JSON.stringify(res));
+										console.log("3333333333333333333:" + JSON.stringify(daoCouncilInfo));
+										console.log(daoCouncilInfo);
+
+										if(daoCouncilInfo == null ){//这种情况下，默认直接加入
+											app.daoCouncilInfo  = {};
+
+										}else{
+											var addr = app.account_address;//window.havorld.jsCallAndroidReadByKey("account_address");
+											daoCouncilInfo.my_join = daoCouncilInfo.admins[addr];
+											app.daoCouncilInfo  = daoCouncilInfo;										
+										}
+										
+									});										
+
+									app.my_join_loading =  false;
+								}
+
+							}						
+						).then(result => {
+							//console.log("66666677:" + JSON.stringify(res));
+							console.log("444444444444:"+ JSON.stringify(result));
+							//console.log(result);
+							
+						});		
+
+					},
+					Web3Inject_select: function(item){
+						this.injectorAccountSelected = item;	
+						window.havorld.jsCallAndroid(app.INJECTORAACCOUNTSELECTED, JSON.stringify(item));
+											
+
+					},
+					Web3Inject_login: function(){
+						//window.PolkadotWeb3JSSample.web3Inject_enable().then(res1 => {
+							window.PolkadotWeb3JSSample.web3Inject_login().then(res => {
+								accounts = res;
+								app.injectorAccounts = accounts;
+								console.log(accounts);
+								if(accounts.length>0 && app.injectorAccountSelected?.address == null){
+									app.injectorAccountSelected = accounts[0];
+									window.havorld.jsCallAndroid(app.INJECTORAACCOUNTSELECTED, JSON.stringify(accounts[0]));
+								}	
+								console.log("11111");
+								app.injectorSelectShow = true;						
+								
+							}).catch(e => {
+								console.log(e);
+								//alert("");
+								app.dialogContent = "钱包插件没有正常工作！";
+								app.dialogShow = true;	
+							})
+
+						//})
+						
+
+					},
+					get_signer: function(){
+						var account = window?.havorld?.jsCallAndroidReadByKey("account_mnemonic");// 都这个数据库里读
+
+						console.log("999 " + account);
+						account = (account==null || account == "") ? this.injectorAccountSelected?.address :  account;
+						if(account == null || account == ""){
+							app.dialogContent = "请生成账户或安装插件钱包！";
+							app.dialogShow = true;
+							app.loading =  false;
+							return null;
+						}
+
+						return account;
+					}
+
+					
+
+				},	
+				watch: {
+					//'activeDaoInfo.my_invest': function (val) {
+					'adminDaoInfo.my_invest': function (val) {		
+						console.log("8888888888888888899");	
+						this.daoCouncilJoinTest();		
+						
+					},
+
+					'taskInfo_tee_contract_id': function (val){
+						console.log("8888888888888888899  taskInfo_tee_contract_id:" +val);	
+						var tee_contract_id = val.length == 64 ? "0x"+val : val;
+						if(tee_contract_id.length!=66){
+							console.log("taskInfo_tee_contract_id 格式错误");
+							return;
+						}
+
+
+						//var mnemonic = window.havorld.jsCallAndroidReadByKey("account_mnemonic");
+						var signer = this.get_signer();
+						if(signer == null){return;}
+
+
+						window.PolkadotWeb3JSSample.tee_get_metadata(signer, tee_contract_id
+						).then(res => {
+							var reulstJson = JSON.parse(JSON.stringify(res));
+							var resultStr = JSON.stringify(res);//deep copy the result for callback, not be changed ...
+							console.log("9999999999999999999999999999999999999");
+							console.log(reulstJson);
+
+
+							var playload_  = reulstJson.output;
+							if(playload_ !=null){
+								console.log("9999999999999999999999999999999999999 11");
+								if(playload_.err!=null){								
+									console.log("contract error: "+playload_.err);
+								}
+								if(playload_.ok !=null ){
+									console.log("9999999999999999999999999999999999999 22");
+									var playload  = JSON.parse(playload_.ok);
+									console.log(playload);
+									this.taskInfo_tee_account_id = "0x"+playload.executorAccount;
+									this.taskInfo_tee_desk_account_id = "0x" +playload.deskAccount;									
+
+								}
+														
+							}else{
+								console.log("unkown error");
+							}
+
+							
+							//console.log("999999999999999999999999999999999999911");
+
+						}).catch(e => {
+							console.log(e);
+							//alert(e);
+						});
+						
+
+
+						
+						
+					},
+					
+					deep: true,
+					immediate: true
+				},			
+				mounted: function() {
+					//判断是创建，还是显示存在的
+					//获取dao信息
+					window.PolkadotWeb3Url = 'ws://124.156.133.87:9944';
+					window.PolkadotWeb3Url = 'ws://52.186.16.105:9944';
+					//window.PolkadotWeb3Url = 'ws://43.154.226.88:9944';
+					//window.PolkadotWeb3Url = 'ws://121.5.118.181:9944';
+					//window.PolkadotWeb3Url = 'ws://localhost:9944';
+					
+					
+					//window.PolkadotWeb3Url = 'wss://poc5.phala.network/ws';
+					
+					this.account_address = window.havorld?.jsCallAndroidReadByKey("account_address");
+					var injectedAccountStr =  window.havorld?.jsCallAndroidReadByKey(this.INJECTORAACCOUNTSELECTED);
+					if(injectedAccountStr!=null && injectedAccountStr!=""){
+						this.injectorAccountSelected = JSON.parse(injectedAccountStr);
+						this.account_address = (this.account_address == "" || this.account_address == null) ? this.injectorAccountSelected.address : this.account_address;
+
+					}
+
+
+					var lurl = window.location.href;
+					this.addrFrom =getQueryString("addr", lurl);
+					//var  scid =getQueryString("scid", lurl);
+					var  scid = this.scid;
+					if(scid == "" || scid == null){
+						console.log("4444444444444444444444444444444");
+						return;
+					}
+									
+					//this.scid = scid;
+				
+
+					//二维码
+					var qrcode = new QRCode(document.getElementById("qrcode"), {
+							width: 160,
+							height: 160,
+							correctLevel: QRCode.CorrectLevel.M
+					});
+					var url_project = window.location.href;
+					qrcode.makeCode(url_project);
+					
+					/*
+				
+					window.PolkadotWeb3JSSample.getRuntimeMetadata().then(res => {
+
+						console.log("6666667711:" + JSON.stringify(res));
+
+
+					});*/
+
+
+						
+					window.PolkadotWeb3JSSample.getAppAdvertise(parseInt(this.scid)).then(res => {
+						//console.log("66666677:" + JSON.stringify(res));
+						console.log("11111111111111111:" );
+						console.log(res);
+						app.baseInfo = JSON.parse(res.body);
+						app.baseInfo.code = res.id.toString();
+						app.baseInfo.appCode = res.id.toString();
+						app.baseInfo.unionId = res.unionId?.toString();
+						app.baseInfo.ownerId = res.ownerId?.toString();
+						app.baseInfo.taskActions=res.taskActions;
+						console.log(app.baseInfo);
+						app.fresh_dao_and_others();
+					});
+
+
+					
+
+
+										
+					if(this.account_address!="" && this.account_address!=null){
+						window.PolkadotWeb3JSSample.accountinfo(this.account_address, function(accountinfo) {
+
+							app.accountInfo.accountFree = (accountinfo.data.free / DOT_DECIMAL_PLACES).toFixed(2);
+							app.accountInfo.accountFeeFrozen =  (accountinfo.data.feeFrozen / DOT_DECIMAL_PLACES).toFixed(2);
+							app.accountInfo.accountReserved =  (accountinfo.data.reserved / DOT_DECIMAL_PLACES).toFixed(2);							
+
+						}).then(res => {
+							console.log(res);
+
+						}).catch(e => {
+							console.log(e);
+							//alert(e);
+						});
+					}
+
+
+					
+
+				},
+				created: function() {
+					this.cover = this.isWeiXin();
+					var lurl = window.location.href;
+					this.addrFrom =getQueryString("addr", lurl);
+					var  scid =getQueryString("scid", lurl);
+					var  op =getQueryString("op", lurl);
+					this.getDateTime();
+
+					var address = window.PolkadotWeb3JSSample.myEncodeAddress("0x4e2b99c119359928e4ca057f5ebc2e47d036ed4b91dc7323f85e9665f7df3734", 42);
+
+					console.log(address);
+							//const addressString = new TextDecoder().decode(address);
+							//console.log(addressString);
+							// 4e2b99c119359928e4ca057f5ebc2e47d036ed4b91dc7323f85e9665f7df3734
+
+					
+					if(op!=null && op=="create"){
+						this.baseInfo = {title:"test1", code:"", tag:"test", cid:"http://www.baidu.com", desp:"this is desp", right:"this is right", duty:"this is duty", type:"ipfs"};
+						this.base_edit();
+					}else{
+						scid = (scid == null || scid == "") ? this.WEB3EXPRESSID : scid;
+						this.scid =  scid;
+						this.div_full=true;
+						if(scid == this.WEB3EXPRESSID){				
+							this.isOffical = true;
+							this.brandFold = true;
+						}
+
+					}
+					
+				}
+			})
+		</script>
+
+
+
+
+
+
+
+    </body>
+
+
+	
+
+
+</html>                                                                           
+
+
+
+

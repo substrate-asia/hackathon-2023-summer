@@ -1,0 +1,16 @@
+{
+  "name": "tokenomic-contract-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@phala/sdk": "^0.4.0",
+    "@polkadot/api": "^9.14.2",
+    "@polkadot/api-contract": "^9.14.2"
+  }
+}

@@ -4,20 +4,22 @@
 
 项目立项日期 (哪年哪月)：2023.5
 
+website: http://chatdatainsight.com/
+
 ## 项目整体简介
 ### Background
 
-Crypto market capitalization has grown from $17B USD at the start of 2017 to a staggering $2.9T USD in November 2021, indicating a significant surge in the volume of financial data within the ecosystem.
+In the rapidly evolving blockchain industry, data is being generated at an unprecedented rate. This data, which includes transaction volumes, token prices, and market trends, holds immense value for various stakeholders, including investors, analysts, and developers. However, the sheer volume and complexity of blockchain data have made it difficult for individuals to access and analyze this information effectively. Traditional data analysis tools are often not tailored to the specific needs of blockchain data and require extensive technical knowledge, which creates a barrier for many users.
 
-1. The rapid growth of blockchain data complicates analysis and understanding, especially for non-experts using existing platforms.
-
-2. Technical barriers hinder individual data analysis, data retrieval, classification, and on-chain/off-chain integration pose additional challenges.
-
-
-These issues impede the industry's progress, and we bear both the responsibility and the capacity to address them.
-
+ChatDataInsight aims to bridge this gap by introducing a pioneering web3 data analysis project. By leveraging the advanced capabilities of artificial intelligence and conversational chat models, especially GPT, ChatDataInsight is poised to revolutionize the way users access and analyze blockchain data.
 
 ### Project Description
+ChatDataInsight is designed to be a user-centric platform that democratizes data analysis in the blockchain industry. It allows users to submit queries in natural language through an interactive webpage. The platform's AI-powered engine then processes these queries, connects to multiple databases and service interfaces, and aggregates relevant data. The data is analyzed, and the insights are presented to the users in a variety of formats, including text, tables, and charts.
+
+The platform also features a freemium model, allowing users to access basic features for free. Additionally, it offers a subscription-based membership service with premium features such as faster response times and access to advanced models. Users can pay for membership services through conventional methods as well as blockchain methods.
+
+What sets ChatDataInsight apart is its continuous learning mechanism. The system learns from unanswered or poorly answered questions and improves the quality and accuracy of responses over time. Furthermore, it has the potential for cross-chain data analysis, enabling users to analyze data across multiple blockchain datasets such as Ethereum, BSC, Polkadot, Near, and Solana.
+
 ChatData Insight is a tool to analyze blockchain data through chat, like chatGPT for web3:
 1. Seamless user interaction through natural language processing.
 2. Highly intelligent data analysis based on generative artificial intelligence.
@@ -39,10 +41,103 @@ ChatData Insight is a tool to analyze blockchain data through chat, like chatGPT
 - 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
 
 **backend**
-  - [ ] Transaction Data Analysis(`analyze_community_activity, analyze_solved_needs, search_token_distribution, search_inovation, search_economy_model, search_roadmap_and_historical_events, search_onchain_info, stablecoin_agent,  dex_agent, project_agent, cex_agent,  onchain_info_agent, search_on_internet`)
-  - [ ] Polkadot Ecosystem News (`get_top_headlines`)
-  - [ ] Polkadot Token Price Chart (`dune_weekly_dex_exchange_volume_by_chain, dune_daily_dex_exchange_volume, stablecoin_supply_and_growth, get_binance_prams`)
+Function Points:
+1. Configuration Setup
+    - Import necessary libraries such as os, sys, logging, openai, and json.
+    - Set up configurations for OpenAI API key and model name.
+    - Initialize custom logger for logging information and errors.
 
+2. Data Acquisition Tools
+    - Integrate with third-party services like Quicknode, Airstack, and Google Search for data acquisition.
+    - Implement functions to interact with blockchain data through APIs.
+    
+3. Data Analysis Tools
+    a. On-Chain Data Analysis
+        - Provide tools for analyzing community activity, token distribution, economic models, and project innovations.
+    b. Internet Search
+        - Implement a tool to search the internet for information using the Google Search API.
+    c. News Analysis
+        - Implement a tool to analyze community activity by searching news websites.
+    
+4. AI-Driven Question Processing
+    a. Question Decomposition
+        - Implement a function to decompose complex questions into simpler sub-questions.
+    b. Sub-Question Analysis
+        - Utilize AI models to analyze and answer sub-questions using various tools.
+    c. Answer Integration
+        - Integrate answers to sub-questions into a coherent response to the original question.
+    
+5. Error Handling and Validation
+    a. Answer Validation
+        - Implement functions to check the validity of answers.
+    b. Question Validation
+        - Implement functions to check the validity of questions.
+    c. Exception Handling
+        - Handle errors and exceptions gracefully during data acquisition and analysis.
+    
+6. Utility Functions
+    - Implement utility functions such as removing historical images for data cleanup.
+
+7. Logging and Debugging
+    - Log information and errors for debugging and monitoring purposes.
+    - Implement exception handling and logging for errors during data acquisition and analysis.
+
+This structure represents the functions and sub-functions implemented in the insight.py file, which is likely part of a larger system for blockchain data insights.
+
+
+General Function Name: AI Chatbot Tools
+
+Function Points:
+1. Configuration Setup
+    - Import necessary libraries and modules.
+    - Set up configurations for OpenAI API key and model name.
+
+2. Chatbot Conversation
+    a. Initialize Conversation
+        - Define a class `Conversation` to initialize a conversation with a prompt and number of rounds.
+    b. Chat with GPT Model
+        - Implement a function `chat_with_gpt` to chat with the GPT model.
+    c. Conversation Messaging
+        - Implement a method `ask` within the `Conversation` class to append user messages and get responses from the GPT model.
+    d. Cleanup Old Messages
+        - Remove old messages from the conversation to maintain a fixed number of rounds.
+
+3. Stream Output
+    - Implement a function `stream_output` to stream output from the chat model with a given prompt.
+
+4. Data Summary
+    - Implement a function `data_summary` to analyze and summarize blockchain data and provide investment advice.
+
+
+General Function Name: Index Creation for Private Dataset
+
+Function Points:
+1. Index Creation
+    - Convert text materials into an index.
+    - Load documents from a directory and create an index from them.
+    - Persist the index to a specified directory.
+
+
+General Function Name: Query Private Dataset Index
+
+Function Points:
+1. Query Execution
+    - Rebuild the storage context from a specified directory.
+    - Load the index from storage.
+    - Execute a query on the index using the provided question.
+    - Return the query results.
+
+
+General Function Name: Error Question Database Management
+
+Function Points:
+1. Database Configuration
+    - Define a Pydantic model for data to be inserted into the database.
+    - Initialize a MongoDB collection and create an index on the `question` field.
+
+2. Error Data Insertion
+    - Implement a method to insert error data into the MongoDB collection.
+    - Handle successful insertion and insertion failures.
 **front end**
   - [ ] Ask and show answer
   - [ ] Support chart display

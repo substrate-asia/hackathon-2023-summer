@@ -1,0 +1,952 @@
+schema {
+  query: Query
+}
+
+"""The `BigInt` scalar type represents non-fractional signed whole numeric values."""
+scalar BigInt
+
+interface Collection {
+  address: String!
+  description: String
+  name: String
+  symbol: String
+  circulatingSupply: BigInt
+  totalSupply: BigInt
+  slug: String
+  externalUrl: String
+  twitterUsername: String
+  baseTokenUri: String
+  contract: NFTContract
+  ohlcvChart(filter: CollectionOhlcvChartInput): [CollectionOHLCVChart!]
+  holders(before: String, after: String, first: Int, last: Int): CollectionHoldersConnection!
+  wallets(before: String, after: String, first: Int, last: Int): CollectionWalletsConnection!
+  attributes(before: String, after: String, first: Int, last: Int): CollectionAttributesConnection
+  orderHistory(filter: CollectionOrderHistoryInput): [CollectionOrderHistory!]
+  openseaMetadata: OpenSeaMetadata
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): CollectionTokenEventsConnection!
+  """The collection image."""
+  image: [TokenUpload!]
+  """Collection banner image."""
+  bannerImage: [TokenUpload!]
+}
+
+"""A contract's attribute count"""
+type CollectionAttribute {
+  """The trait key."""
+  name: String!
+  """The value of the trait."""
+  value: String
+}
+
+type CollectionAttributesConnection {
+  pageInfo: PageInfo!
+  edges: [CollectionAttributesConnectionEdge!]!
+  totalCount: Int
+}
+
+type CollectionAttributesConnectionEdge {
+  node: CollectionAttribute!
+  cursor: String!
+}
+
+type CollectionHoldersConnection {
+  pageInfo: PageInfo!
+  edges: [CollectionHoldersConnectionEdge!]!
+  totalCount: Int
+}
+
+type CollectionHoldersConnectionEdge {
+  node: NFTWallet!
+  cursor: String!
+}
+
+"""Collection OHLCV chart stats"""
+type CollectionOHLCVChart {
+  average: Float
+  close: Float
+  count: Float!
+  high: Float
+  low: Float
+  open: Float
+  volume: Float
+  timestamp: DateTime!
+}
+
+input CollectionOhlcvChartInput {
+  confirmedAtGte: DateTime
+  confirmedAtLte: DateTime
+  interval: CollectionOHLCVChartInterval
+  limit: Float
+}
+
+"""Filter by input interval"""
+enum CollectionOHLCVChartInterval {
+  ONE_MINUTE
+  FIVE_MINUTES
+  FIFTEEN_MINUTES
+  THIRTY_MINUTES
+  ONE_HOUR
+  SIX_HOURS
+  TWELVE_HOURS
+  ONE_DAY
+  SEVEN_DAYS
+  THIRTY_DAYS
+}
+
+"""Collection order history summary"""
+type CollectionOrderHistory {
+  fromAddress: String!
+  toAddress: String!
+  priceInEth: Float!
+  timestamp: DateTime!
+  transactionHash: String!
+  tokenId: String
+}
+
+input CollectionOrderHistoryInput {
+  confirmedAtGte: DateTime
+  confirmedAtLte: DateTime
+  isLimited: Boolean
+}
+
+"""Sale of a collection token"""
+type CollectionSale {
+  estimatedConfirmedAt: DateTime
+  priceInEth: Float
+}
+
+"""Filter input for collections"""
+input CollectionsFilterInput {
+  address: StringInput
+  ercStandard: CollectionStandardInput
+}
+
+enum CollectionStandard {
+  ERC1155
+  ERC721
+}
+
+input CollectionStandardInput {
+  eq: CollectionStandard
+  in: [CollectionStandard!]
+  notIn: [CollectionStandard!]
+}
+
+"""Stats of a collection"""
+type CollectionStats {
+  average: Float
+  ceiling: Float
+  floor: Float
+  totalSales: Int
+  volume: Float
+}
+
+type CollectionTokenEventsConnection {
+  pageInfo: PageInfo!
+  edges: [CollectionTokenEventsConnectionEdge!]!
+  totalCount: Int
+}
+
+type CollectionTokenEventsConnectionEdge {
+  node: TokenEvent!
+  cursor: String!
+}
+
+type CollectionWalletsConnection {
+  pageInfo: PageInfo!
+  edges: [CollectionWalletsConnectionEdge!]!
+  totalCount: Int
+}
+
+type CollectionWalletsConnectionEdge {
+  node: Wallet!
+  cursor: String!
+}
+
+interface Contract {
+  abi: JSON
+  address: String!
+  name: String
+  symbol: String
+  supportedErcInterfaces: [String!]
+  """Contract with verified ABI"""
+  isVerified: Boolean
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): ContractTokenEventsConnection!
+}
+
+type ContractsConnection {
+  pageInfo: PageInfo!
+  edges: [ContractsEdge!]!
+  totalCount: Int
+}
+
+type ContractsEdge {
+  node: Contract!
+  cursor: String!
+}
+
+"""Filter input for contracts"""
+input ContractsFilterInput {
+  address: StringInput
+}
+
+type ContractTokenEventsConnection {
+  pageInfo: PageInfo!
+  edges: [ContractTokenEventsConnectionEdge!]!
+  totalCount: Int
+}
+
+type ContractTokenEventsConnectionEdge {
+  node: TokenEvent!
+  cursor: String!
+}
+
+"""A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."""
+scalar DateTime
+
+input DateTimeInput {
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+}
+
+type ERC1155Collection implements Collection {
+  address: String!
+  description: String
+  name: String
+  symbol: String
+  circulatingSupply: BigInt
+  totalSupply: BigInt
+  slug: String
+  externalUrl: String
+  twitterUsername: String
+  baseTokenUri: String
+  contract: NFTContract
+  ohlcvChart(filter: CollectionOhlcvChartInput): [CollectionOHLCVChart!]
+  holders(before: String, after: String, first: Int, last: Int): CollectionHoldersConnection!
+  wallets(before: String, after: String, first: Int, last: Int): CollectionWalletsConnection!
+  attributes(before: String, after: String, first: Int, last: Int): CollectionAttributesConnection
+  orderHistory(filter: CollectionOrderHistoryInput): [CollectionOrderHistory!]
+  openseaMetadata: OpenSeaMetadata
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): CollectionTokenEventsConnection!
+  """The collection image."""
+  image: [TokenUpload!]
+  """Collection banner image."""
+  bannerImage: [TokenUpload!]
+  nft(tokenId: String!): ERC1155NFT
+  nfts(filter: NFTsFilterInput, before: String, after: String, first: Int, last: Int): ERC1155CollectionTokensConnection!
+}
+
+type ERC1155CollectionTokensConnection {
+  pageInfo: PageInfo!
+  edges: [ERC1155CollectionTokensEdge!]!
+  totalCount: Int
+}
+
+type ERC1155CollectionTokensEdge {
+  node: ERC1155NFT!
+  cursor: String!
+}
+
+type ERC1155NFT implements NFT {
+  contractAddress: String!
+  name: String
+  tokenId: BigInt!
+  animationUrl: String
+  externalUrl: String
+  metadata: JSONObject
+  collectionSlug: String
+  description: String
+  contract: NFTContract
+  collection: ERC1155Collection
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): NFTTokenEventsConnection!
+  """The uploads of a token."""
+  uploads: [TokenUpload!]
+  holders(before: String, after: String, first: Int, last: Int): ERC1155NFTHoldersConnection! @deprecated(reason: "Use nft.wallets instead")
+  wallets(before: String, after: String, first: Int, last: Int): ERC1155NFTWalletsConnection!
+}
+
+type ERC1155NFTHoldersConnection {
+  pageInfo: PageInfo!
+  edges: [ERC1155NFTHoldersConnectionEdge!]!
+  totalCount: Int
+}
+
+type ERC1155NFTHoldersConnectionEdge {
+  node: NFTWallet!
+  cursor: String!
+}
+
+type ERC1155NFTWalletsConnection {
+  pageInfo: PageInfo!
+  edges: [ERC1155NFTWalletsConnectionEdge!]!
+  totalCount: Int
+}
+
+type ERC1155NFTWalletsConnectionEdge {
+  node: Wallet!
+  cursor: String!
+}
+
+type ERC721Collection implements Collection {
+  address: String!
+  description: String
+  name: String
+  symbol: String
+  circulatingSupply: BigInt
+  totalSupply: BigInt
+  slug: String
+  externalUrl: String
+  twitterUsername: String
+  baseTokenUri: String
+  contract: NFTContract
+  ohlcvChart(filter: CollectionOhlcvChartInput): [CollectionOHLCVChart!]
+  holders(before: String, after: String, first: Int, last: Int): CollectionHoldersConnection!
+  wallets(before: String, after: String, first: Int, last: Int): CollectionWalletsConnection!
+  attributes(before: String, after: String, first: Int, last: Int): CollectionAttributesConnection
+  orderHistory(filter: CollectionOrderHistoryInput): [CollectionOrderHistory!]
+  openseaMetadata: OpenSeaMetadata
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): CollectionTokenEventsConnection!
+  """The collection image."""
+  image: [TokenUpload!]
+  """Collection banner image."""
+  bannerImage: [TokenUpload!]
+  stats(filter: ERC721CollectionStatsInput): CollectionStats
+  nft(tokenId: String!): ERC721NFT
+  nfts(filter: NFTsFilterInput, before: String, after: String, first: Int, last: Int): ERC721CollectionTokensConnection!
+}
+
+input ERC721CollectionStatsInput {
+  timeRange: DateTimeInput
+}
+
+type ERC721CollectionTokensConnection {
+  pageInfo: PageInfo!
+  edges: [ERC721CollectionTokensEdge!]!
+  totalCount: Int
+}
+
+type ERC721CollectionTokensEdge {
+  node: ERC721NFT!
+  cursor: String!
+}
+
+type ERC721NFT implements NFT {
+  contractAddress: String!
+  name: String
+  tokenId: BigInt!
+  animationUrl: String
+  externalUrl: String
+  metadata: JSONObject
+  collectionSlug: String
+  description: String
+  contract: NFTContract
+  collection: ERC721Collection
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): NFTTokenEventsConnection!
+  """The uploads of a token."""
+  uploads: [TokenUpload!]
+  holder: NFTWallet @deprecated(reason: "Use nft.wallet instead")
+  wallet: Wallet
+  """The attributes of the token."""
+  attributes: [TokenAttribute!]
+}
+
+enum ERCStandard {
+  ERC20
+  ERC721
+  ERC1155
+}
+
+type EVMSchemaType {
+  trendingCollections(
+    filter: TrendingCollectionsFilterInput
+    orderBy: TrendingOrderBy
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): EVMSchemaTypeTrendingCollectionsConnection!
+  walletByENS(ensName: String!): Wallet
+  walletByAddress(address: String!): Wallet
+  contracts(filter: ContractsFilterInput, before: String, after: String, first: Int, last: Int): ContractsConnection!
+  contract(contractAddress: String!): Contract
+  collections(filter: CollectionsFilterInput, before: String, after: String, first: Int, last: Int): EVMSchemaTypeCollectionsConnection!
+  collection(contractAddress: String!): Collection
+  nft(
+    """The address of the contract that the nft is under"""
+    contractAddress: String!
+    """The id of the nft"""
+    tokenId: String!
+  ): NFT
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): EVMSchemaTypeTokenEventsConnection!
+}
+
+type EVMSchemaTypeCollectionsConnection {
+  pageInfo: PageInfo!
+  edges: [EVMSchemaTypeCollectionsConnectionEdge!]!
+  totalCount: Int
+}
+
+type EVMSchemaTypeCollectionsConnectionEdge {
+  node: Collection!
+  cursor: String!
+}
+
+type EVMSchemaTypeTokenEventsConnection {
+  pageInfo: PageInfo!
+  edges: [EVMSchemaTypeTokenEventsConnectionEdge!]!
+  totalCount: Int
+}
+
+type EVMSchemaTypeTokenEventsConnectionEdge {
+  node: TokenEvent!
+  cursor: String!
+}
+
+type EVMSchemaTypeTrendingCollectionsConnection {
+  pageInfo: PageInfo!
+  edges: [EVMSchemaTypeTrendingCollectionsConnectionEdge!]!
+  totalCount: Int
+}
+
+type EVMSchemaTypeTrendingCollectionsConnectionEdge {
+  node: TrendingCollection!
+  cursor: String!
+}
+
+input IntegerInput {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+}
+
+"""The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."""
+scalar JSON
+
+"""The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."""
+scalar JSONObject
+
+interface NFT {
+  contractAddress: String!
+  name: String
+  tokenId: BigInt!
+  animationUrl: String
+  externalUrl: String
+  metadata: JSONObject
+  collectionSlug: String
+  description: String
+  contract: NFTContract
+  collection: Collection
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): NFTTokenEventsConnection!
+  """The uploads of a token."""
+  uploads: [TokenUpload!]
+}
+
+type NFTContract implements Contract {
+  abi: JSON
+  address: String!
+  name: String
+  symbol: String
+  supportedErcInterfaces: [String!]
+  """Contract with verified ABI"""
+  isVerified: Boolean
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): ContractTokenEventsConnection!
+  collection: Collection
+}
+
+input NFTsFilterInput {
+  contractAddressIn: [String!]
+}
+
+type NFTTokenEventsConnection {
+  pageInfo: PageInfo!
+  edges: [NFTTokenEventsConnectionEdge!]!
+  totalCount: Int
+}
+
+type NFTTokenEventsConnectionEdge {
+  node: TokenEvent!
+  cursor: String!
+}
+
+type NFTWallet {
+  walletAddress: String
+  owner: Wallet
+}
+
+"""Metadata provided by opensea"""
+type OpenSeaMetadata {
+  """Slug provided by Opensea (it might be stale)."""
+  unsafeSlug: String
+  """Collection verified by Opensea."""
+  isVerified: Boolean
+  """Collection is hidden on Opensea."""
+  isHidden: Boolean
+}
+
+"""Sort ascending (A-Z) or descending (Z-A)"""
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  ethereum: EVMSchemaType!
+  ethereumSepolia: EVMSchemaType!
+  polygon: EVMSchemaType!
+}
+
+input StringInput {
+  eq: String
+  in: [String!]
+  notIn: [String!]
+}
+
+"""A token attribute"""
+type TokenAttribute {
+  """Attribute name"""
+  name: String!
+  """Attribute value"""
+  value: String!
+}
+
+type TokenBurnEvent implements TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+  fromAddress: String!
+  toAddress: String!
+  contractAddress: String!
+  contractERCStandard: ERCStandard
+  tokenId: BigInt
+  tokenQuantity: BigInt!
+}
+
+type TokenContract implements Contract {
+  abi: JSON
+  address: String!
+  name: String
+  symbol: String
+  supportedErcInterfaces: [String!]
+  """Contract with verified ABI"""
+  isVerified: Boolean
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): ContractTokenEventsConnection!
+  decimals: BigInt
+  details: TokenDetailsType
+}
+
+type TokenDetailsType {
+  address: String!
+  name: String
+  symbol: String
+  slug: String
+}
+
+interface TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+}
+
+"""Filter input for token events"""
+input TokenEventsFilterInput {
+  """Filter token events by their block number"""
+  blockNumber: IntegerInput
+  """Filter token events by their estimated confirmation date"""
+  timestamp: DateTimeInput
+  """Filter token events by the "from" wallet"""
+  fromAddress: StringInput
+  """Filter token events by the "to" wallet"""
+  toAddress: StringInput
+  """Filter token events by the "to" and "from" wallet"""
+  walletAddress: StringInput
+  """Filter token events by contract address"""
+  contractAddress: StringInput
+  """Filter token events by their type"""
+  type: TokenTransferType
+  """Filter token events by their type"""
+  typeIn: [TokenTransferType!]
+}
+
+type TokenMintEvent implements TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+  fromAddress: String!
+  toAddress: String!
+  contractAddress: String!
+  contractERCStandard: ERCStandard
+  tokenId: BigInt
+  tokenQuantity: BigInt!
+}
+
+type TokenSaleEvent implements TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+  fromAddress: String!
+  toAddress: String!
+  sentTokenContractAddress: String!
+  sentTokenContractERCStandard: ERCStandard
+  sentTokenId: BigInt
+  sentTokenQuantity: BigInt!
+  receivedTokenContractAddress: String
+  receivedTokenId: BigInt
+  receivedTokenQuantity: BigInt
+}
+
+type TokenSwapEvent implements TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+  fromAddress: String!
+  toAddress: String!
+  sentTokenContractAddress: String!
+  sentTokenContractERCStandard: ERCStandard
+  sentTokenId: BigInt
+  sentTokenQuantity: BigInt!
+  receivedTokenContractAddress: String
+  receivedTokenId: BigInt
+  receivedTokenQuantity: BigInt
+}
+
+type TokenTransferEvent implements TokenEvent {
+  blockNumber: Int!
+  transactionHash: String
+  transferIndex: Int!
+  timestamp: DateTime!
+  type: TokenTransferType!
+  transaction: Transaction
+  fromAddress: String!
+  toAddress: String!
+  contractAddress: String!
+  contractERCStandard: ERCStandard
+  tokenId: BigInt
+  tokenQuantity: BigInt!
+}
+
+enum TokenTransferType {
+  TRANSFER
+  MINT
+  SALE
+  SWAP
+  BURN
+}
+
+"""Token media uploads."""
+type TokenUpload {
+  """The upload mimeType."""
+  mimeType: String
+  """The upload height."""
+  height: Float
+  """The upload width."""
+  width: Float
+  """The upload url."""
+  url: String!
+}
+
+type Transaction {
+  blockNumber: Int!
+  blockTimestamp: DateTime!
+  contractAddress: String
+  fromAddress: String!
+  cumulativeGasUsed: BigInt!
+  effectiveGasPrice: BigInt
+  """The amount of gas supplied for this transaction to happen"""
+  gas: BigInt
+  """Cost in Gwei per unit of gas for this transaction"""
+  gasPrice: BigInt
+  """The amount of gas used by this transaction"""
+  gasUsed: BigInt!
+  hash: String!
+  """Max gas fee in Gwei"""
+  maxFeePerGas: BigInt
+  """Max gas priority fee in Gwei"""
+  maxPriorityFeePerGas: BigInt
+  toAddress: String
+  type: String
+  input: String
+  transactionIndex: Int!
+  value: BigInt
+}
+
+"""Filter input for transactions"""
+input TransactionsFilterInput {
+  blockNumber: IntegerInput
+  timestamp: DateTimeInput
+  fromAddress: String
+  toAddress: String
+}
+
+type TrendingCollection {
+  collection: Collection
+  last20Sales: [CollectionSale!]
+  stats: TrendingCollectionStats
+}
+
+"""Filter input for trending collections"""
+input TrendingCollectionsFilterInput {
+  """Custom time range in which to filter trending collections by. Available only to paid customers."""
+  timeRange: DateTimeInput
+  """A time period relative to the current time in which to filter trending collections by."""
+  timePeriod: TrendingPeriod
+}
+
+"""Stats of a trending collection"""
+type TrendingCollectionStats {
+  average: Float
+  ceiling: Float
+  floor: Float
+  totalSales: Float
+  volume: Float
+}
+
+enum TrendingOrderBy {
+  AVERAGE
+  SALES
+  VOLUME
+}
+
+enum TrendingPeriod {
+  ONE_MINUTE
+  FIVE_MINUTES
+  FIFTEEN_MINUTES
+  THIRTY_MINUTES
+  ONE_HOUR
+  TWELVE_HOURS
+  ONE_DAY
+  SEVEN_DAYS
+}
+
+type Wallet {
+  address: String!
+  ensName: String
+  heldCollection(collectionAddress: String!): WalletCollection @deprecated(reason: "Use wallet.collection instead.")
+  heldCollections(
+    orderBy: WalletCollectionOrderBy
+    filter: WalletCollectionsFilterInput
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletHeldCollectionsConnection! @deprecated(reason: "Use wallet.collections instead.")
+  walletCollection(collectionAddress: String!): WalletCollection
+  walletCollections(
+    orderBy: WalletCollectionOrderBy
+    filter: WalletCollectionsFilterInput
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletWalletCollectionsConnection!
+  tokenEvents(filter: TokenEventsFilterInput, before: String, after: String, first: Int, last: Int): WalletTokenEventsConnection!
+  transactions(filter: TransactionsFilterInput, before: String, after: String, first: Int, last: Int): WalletTransactionsConnection!
+  heldNft(contractAddress: String!, tokenId: String!): WalletNFT @deprecated(reason: "Use wallet.nft instead.")
+  heldNfts(
+    orderBy: WalletNFTsOrderBy
+    filter: WalletNFTsFilterInput
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletHeldNFTsConnection! @deprecated(reason: "Use wallet.nfts instead.")
+  walletNFT(contractAddress: String!, tokenId: String!): WalletNFT
+  walletNFTs(
+    orderBy: WalletNFTsOrderBy
+    filter: WalletNFTsFilterInput
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletNFTsConnection!
+  heldTokenBalances(
+    orderBy: WalletTokenBalanceOrder
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletHeldTokenBalancesConnection! @deprecated(reason: "Use wallet.tokenBalances instead.")
+  tokenBalances(
+    orderBy: WalletTokenBalanceOrder
+    """The direction you want to order results: ASC/DESC. Defaults to DESC."""
+    orderDirection: OrderDirection
+    before: String
+    after: String
+    first: Int
+    last: Int
+  ): WalletTokenBalancesConnection!
+}
+
+type WalletCollection {
+  collectionAddress: String
+  nftsCount: BigInt!
+  heldTokensCount: BigInt! @deprecated(reason: "Use nftsCount instead.")
+  collection: Collection
+}Walle
+
+enum WalletCollectionOrderBy {
+  DATE_ACQUIRED
+  NAME
+}
+
+"""Filter of collections in a wallet"""
+input WalletCollectionsFilterInput {
+  contractAddressIn: [String!]
+}
+
+type WalletHeldCollectionsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletHeldCollectionsConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletHeldCollectionsConnectionEdge {
+  node: WalletCollection!
+  cursor: String!
+}
+
+type WalletHeldNFTsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletHeldNFTsConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletHeldNFTsConnectionEdge {
+  node: WalletNFT!
+  cursor: String!
+}
+
+type WalletHeldTokenBalancesConnection {
+  pageInfo: PageInfo!
+  edges: [WalletHeldTokenBalancesConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletHeldTokenBalancesConnectionEdge {
+  node: WalletTokenBalance!
+  cursor: String!
+}
+
+type WalletNFT {
+  nftsCount: Int
+  heldNftCount: Int @deprecated(reason: "Use nftsCount instead.")
+  nft: NFT
+}
+
+type WalletNFTsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletNFTsConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletNFTsConnectionEdge {
+  node: WalletNFT!
+  cursor: String!
+}
+
+"""Filter of nfts in a wallet"""
+input WalletNFTsFilterInput {
+  contractAddressIn: [String!]
+}
+
+enum WalletNFTsOrderBy {
+  DATE_ACQUIRED
+  NAME
+}
+
+type WalletTokenBalance {
+  totalBalance: BigInt!
+  contractAddress: String!
+  contract: TokenContract
+}
+
+"""Sort wallet token balance"""
+enum WalletTokenBalanceOrder {
+  TOTAL_BALANCE
+  NAME
+  SYMBOL
+  CONTRACT_ADDRESS
+}
+
+type WalletTokenBalancesConnection {
+  pageInfo: PageInfo!
+  edges: [WalletTokenBalancesConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletTokenBalancesConnectionEdge {
+  node: WalletTokenBalance!
+  cursor: String!
+}
+
+type WalletTokenEventsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletTokenEventsConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletTokenEventsConnectionEdge {
+  node: TokenEvent!
+  cursor: String!
+}
+
+type WalletTransactionsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletTransactionsEdge!]!
+  totalCount: Int
+}
+
+type WalletTransactionsEdge {
+  node: Transaction!
+  cursor: String!
+}
+
+type WalletWalletCollectionsConnection {
+  pageInfo: PageInfo!
+  edges: [WalletWalletCollectionsConnectionEdge!]!
+  totalCount: Int
+}
+
+type WalletWalletCollectionsConnectionEdge {
+  node: WalletCollection!
+  cursor: String!
+}

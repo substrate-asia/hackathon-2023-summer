@@ -37,7 +37,7 @@ Amphi is an AI+Web3 language service marketplace
 
 **区块链端**
 - [ ] SBT ERC1155
-- [ ] Translator validates NFT
+- [ ] Single-role order receipt
 - [ ] Buyer canceled NFT
 
 **Web Interface**
@@ -55,13 +55,17 @@ Include the team members' names, introductions, roles in the team, GitHub accoun
 | Name/姓名 | Character/角色 | Contact/联系方式 |
 |-----|-----|-----|
 | Kim | Project Manager | wechat:kimdcai |
-| 行2单元格1 | 行2单元格2 | 行2单元格3 |
-| 行3单元格1 | 行3单元格2 | 行3单元格3 |
-| 行4单元格1 | 行4单元格2 | 行4单元格3 |
-| 行5单元格1 | 行5单元格2 | 行5单元格3 |
-| 行6单元格1 | 行6单元格2 | 行6单元格3 |
-| 行7单元格1 | 行7单元格2 | 行7单元格3 |
-| 行8单元格1 | 行8单元格2 | 行8单元格3 |
+| liush | smart contract engineer | / |
+| Echo | Frontend | / |
+| 李鑫 | Backend | / |
+| Cooper | smart contract engineer | / |
+| Cliff | Product Manager | / |
+| Terry | Product Manager | / |
+| Yuxi | UI designer | / |
+| Benio | SBT designer | / |
+| 大米 | Frontend | / |
+| 尹乐 | Test engineer | / |
+| 王航毅 | AI engineer | / |
 
 
 

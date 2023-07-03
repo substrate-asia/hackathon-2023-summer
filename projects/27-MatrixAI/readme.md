@@ -20,7 +20,7 @@
 
 # Introduction
 
-#### *Project name：MatrixAI*    &#8195;  *Approval date：2023-05* 
+#### *Project name：MatrixAI*    &#8195;  Tracks: Category I (Building Parachains + Independent chains) + CESS Bounty   &#8195;  *Approval date：2023-05* 
 &nbsp;
 
 

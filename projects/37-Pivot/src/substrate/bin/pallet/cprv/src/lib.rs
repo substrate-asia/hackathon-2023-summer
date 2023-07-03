@@ -3,7 +3,7 @@
 
 use scale_info::TypeInfo;
 use sp_io::storage;
-use sp_runtime::{traits::Hash, RuntimeDebug, PerU16};
+use sp_runtime::{traits::Hash, RuntimeDebug, Permill};
 use sp_std::{marker::PhantomData, prelude::*, result};
 
 use frame_support::{
@@ -14,11 +14,15 @@ use frame_support::{
     },
     ensure, impl_ensure_origin_with_arg_ignoring_arg,
     traits::{
+        Currency,
+        tokens::{AssetId,Balance},
         Backing, ChangeMembers, EnsureOrigin, EnsureOriginWithArg, Get, GetBacking,
         InitializeMembers, StorageVersion,
     },
     weights::Weight,
 };
+#[cfg(feature = "runtime-benchmarks")]
+mod benchmarking;
 
 #[cfg(any(feature = "try-runtime", test))]
 use sp_runtime::TryRuntimeError;
@@ -52,15 +56,25 @@ pub struct Verification<AccountId> {
 #[derive(Encode, Decode,MaxEncodedLen, Clone, PartialEq, RuntimeDebug, TypeInfo)]
 pub struct RewardRatio<AccountId> {
     account: AccountId,
-    ratio: PerU16,
+    ratio: Permill,
 }
+
+
 
 #[frame_support::pallet]
 pub mod pallet {
     use super::*;
-    use frame_support::pallet_prelude::*;
+    use frame_support::{
+        pallet_prelude::*,
+        traits::{
+            fungible::{Inspect as InspectFungible, Mutate as MutateFungible},
+            fungibles::{Create, Inspect, Mutate},
+        },
+    };
+
     use frame_system::pallet_prelude::*;
-    use sp_runtime::{PerU16, Saturating};
+    use sp_runtime::{Permill, Saturating};
+    use sp_runtime::traits::{CheckedMul, IntegerSquareRoot};
 
     #[pallet::pallet]
     #[pallet::without_storage_info]
@@ -73,8 +87,12 @@ pub mod pallet {
         type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
 
 
+        type Balance: Balance;
+
         /// The time-out for reward
+        #[pallet::constant]
         type RoundDuration: Get<Self::BlockNumber>;
+
 
         /// The max number of compression validator  // should there be a max of miners?
         #[pallet::constant]
@@ -82,6 +100,15 @@ pub mod pallet {
 
         #[pallet::constant]
         type MinVerifyProofValidatorNum: Get<u32>;
+
+        #[pallet::constant]
+        type RewardPerRound: Get<Self::Balance>;
+
+
+        type AssetId: AssetId + PartialOrd;
+
+        type Assets: Inspect<Self::AccountId, AssetId = Self::AssetId, Balance = Self::Balance>
+        + Mutate<Self::AccountId>;
 
         /// Type representing the weight of this pallet
         type WeightInfo: WeightInfo;
@@ -120,6 +147,10 @@ pub mod pallet {
     #[pallet::getter(fn current_round)]
     pub type CurrentRound<T: Config> = StorageValue<_, Round, ValueQuery>;
 
+    #[pallet::storage]
+    #[pallet::getter(fn reward_asset_id)]
+    pub type RewardAssetId<T: Config> = StorageValue<_, T::AssetId>;
+
 
     #[pallet::event]
     #[pallet::generate_deposit(pub(super) fn deposit_event)]
@@ -131,6 +162,8 @@ pub mod pallet {
         VerifySuccess(u32),
 
         VerifyFailed(u32),
+
+        Reward(T::AccountId, T::Balance),
     }
 
     #[pallet::error]
@@ -172,7 +205,7 @@ pub mod pallet {
                 //计算奖励的比率
                 let mut ratios = <RewardRatioPerRound<T>>::get(current_round);
                 for proof in proofs {
-                    let ratio = PerU16::from_rational(proof.compression_rate - best_compression_rate, rate_sum);
+                    let ratio = Permill::from_rational(proof.compression_rate - best_compression_rate, rate_sum);
                     let reward_ratio = RewardRatio {
                         account: proof.account_id,
                         ratio: ratio
@@ -303,6 +336,13 @@ pub mod pallet {
 
         #[pallet::call_index(3)]
         pub fn do_reward(origin: OriginFor<T>, round: Round) -> DispatchResult {
+            let reward = T::RewardPerRound::get();
+            let reward_ratios = <RewardRatioPerRound<T>>::get(round);
+            let asset_id = <RewardAssetId<T>>::get().unwrap();
+            for reward_ratio in reward_ratios {
+                let _ = T::Assets::mint_into(asset_id.clone(), &reward_ratio.account, reward_ratio.ratio * reward );
+                Self::deposit_event(Event::Reward(reward_ratio.account, reward_ratio.ratio * reward ));
+            }
             Ok(())
         }
     }

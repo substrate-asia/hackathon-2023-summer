@@ -52,9 +52,16 @@ Amphi is an AI+Web3 language service marketplace
 ## 队员信息
 Include the team members' names, introductions, roles in the team, GitHub accounts, and WeChat accounts (if available, for prompt communication).
 
-|Name/姓名|Character/角色|Contact/联系方式|
-
+| Name/姓名 | Character/角色 | Contact/联系方式 |
+|-----|-----|-----|
 | Kim | Project Manager | wechat:kimdcai |
+| 行2单元格1 | 行2单元格2 | 行2单元格3 |
+| 行3单元格1 | 行3单元格2 | 行3单元格3 |
+| 行4单元格1 | 行4单元格2 | 行4单元格3 |
+| 行5单元格1 | 行5单元格2 | 行5单元格3 |
+| 行6单元格1 | 行6单元格2 | 行6单元格3 |
+| 行7单元格1 | 行7单元格2 | 行7单元格3 |
+| 行8单元格1 | 行8单元格2 | 行8单元格3 |
 
 
 

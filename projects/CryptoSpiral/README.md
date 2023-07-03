@@ -91,7 +91,6 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 - `pallet\spiral-dao`
 
 
-  - [ ] advertise, Creating Adverise Page and definition of data structures. (`fn app_advertise_create()`)
   - [ ] promoter-dao, Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
   - [ ] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
   - [ ] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)
@@ -125,13 +124,15 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [ ] Participating in crowdfunding.
   - [ ] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
   - [ ] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
-  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.
+  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.(see in spiral-front/README.md)
 
 
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
-TBD
+- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
+- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
+- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
 
 ## 队员信息
 

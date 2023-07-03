@@ -20,7 +20,7 @@ MoonLayer is a layer 3 Rollup with EVM integration on Polkadot / a layer 2 rollu
 
 Moonbeam stands out as one of the most successful parachains on Polkadot, boasting high Total Value Locked (TVL) and a thriving ecosystem of dApps. With this robust foundation, MoonLayer not only scales along with Moombeam, but also, boost scalability of Moonbeam even further without comprising security.
 
-By constructing MoonLayer as a Layer 2 Sovereign Rollup on Moonbeam, transaction compression boosts Moonbeam's scalability significantly, allowing for increased transaction throughput and lower fees. Furthermore, Moonbeam's dApps can be deployed on MoonLayer MoonLayer's EVM, and assets can be bridged between Moonbeam and MoonLayer seamlessly, enhancing interoperability of both chains. In addition, Batches(Rollup blocks) are uploaded from MoonLayer to Moonbeam through Moonbeam transactions, linearly increasing the Moonbeam token($GLMR) price. 
+By constructing MoonLayer as a Layer 2 Sovereign Rollup on Moonbeam, transaction compression boosts Moonbeam's scalability significantly, allowing for increased transaction throughput and lower fees. Furthermore, Moonbeam's dApps can be seamlessly deployed on MoonLayer through MoonLayer's EVM, and Batches (Rollup blocks) are uploaded from MoonLayer to Moonbeam through Moonbeam transactions, linearly increasing the Moonbeam token($GLMR) price. 
 
 Consequently, building on Moonbeam ensures mutual benefits for both chains.
 
@@ -37,8 +37,6 @@ MoonLayer is a layer 3 Rollup with EVM integration on Polkadot / a layer 2 rollu
 As a Sovereign Rollup scaling solution, MoonLayer leverages scalability of Moonbeam with faster transaction performance and lower gas fees, while inheriting security of Moonbeam and Polkadot.
 
 MoonLayer’s integration with EVM allows existing decentralized applications (dApps) from Moonbeam and Ethereum to be effortlessly deployed on its platform.
-
-MoonLayer incorporates a bridge with Moonbeam, enabling the seamless transfer of assets between MoonLayer and Moonbeam with minimized gas fees.
 
 MoonLayer employs a decentralized sequencer system, fostering trustlessness and decentralization, whereas other rollups often rely on centralized sequencers, creating potential single points of failure.
 
@@ -63,7 +61,6 @@ There are primary technologies in MoonLayer:
 * The Rollup
 * The EVM
 * Sovereign model
-* The Bridge
 * Decentralized sequencers
 * Community-Driven Upgradability
 
@@ -119,13 +116,6 @@ The only reason that Optimistic and zk Rollups require fraud or zk proofs since 
 * Reduced risk: MoonLayer's simplicity minimizes risks. Meanwhile, Optimistic rollups are systemically complex through their fraud proof scheme, and ZK rollups have encapsulated complexity where cryptography can be easily broken if not done right/tested properly.
 
 
-## The bridge
-
-The Bridge is constructed as a dapp on a smart contract within MoonLayer. It plays a crucial role in transferring assets between Moonbeam and MoonLayer. In its current state of development, the Bridge efficiently facilitates the transfer of tokens between these two platforms
-
-As outlined in our Roadmap, there are plans to expand its capabilities to include the transfer of NFTs (Non-Fungible Tokens) between Moonbeam and MoonLayer in the future."
-
-
 ## Decentralized sequencer system
 
 MoonLayer's Sovereign model facilitates a decentralized sequencer system, where anyone can run a sequencing node to listen to transactions and bundle and upload rollup batches using our client on their computer.
@@ -149,8 +139,6 @@ MoonLayer upgrades like traditional Layer 1 networks through hard and soft forks
 
 ✅ Succesfully deploying and using existing EVM contracts on MoonLayer.
 
-✅ Implement a bridge for asset transfer between Moonbeam testnet and MoonLayer
-
 ✅ Integrate transaction compression for lightweight and cost-effective transactions.
 
 ✅ Develope the JSON-RPC server so that dapps can easily interact with the network, read state data, send transactions, etc.
@@ -164,11 +152,11 @@ MoonLayer upgrades like traditional Layer 1 networks through hard and soft forks
 
 With your recognition, we can accelerate MoonLayer development. In the next 3 month, we will do:
 
-* Implement and host RPC-endpoint allowing users to interact with MoonLayer without running nodes(clients)
-* Add in compatibility with Ethereum tools like Metamask, Hardhat, Brownie, etc
-* Develop UI and UX for the Bridge
-* Adding more compression techniques to enhance MoonLayer performance
+* Implement and host RPC-endpoint allowing users to interact with MoonLayer without running nodes (clients).
+* Add in compatibility with Ethereum tools like Metamask, Hardhat, Brownie, etc.
+* Adding more compression techniques to enhance MoonLayer performance.
 * Optimize the MoonLayer client for lower hardware requirements and better performance.
+* Implement a bridge for asset transfer between Moonbeam testnet and MoonLayer.
 * Build an MoonLayer light client to facilitate decentralized access across various devices.
 
 

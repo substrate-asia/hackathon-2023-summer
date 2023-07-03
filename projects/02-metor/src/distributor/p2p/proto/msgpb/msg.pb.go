@@ -23,9 +23,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Message struct {
-	// 数据
-	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
-	// 签名
+	Data                 []byte   `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	Signature            []byte   `protobuf:"bytes,2,opt,name=signature,proto3" json:"signature,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -79,26 +77,27 @@ func (m *Message) GetSignature() []byte {
 	return nil
 }
 
-type Peer struct {
-	Pubkey               string   `protobuf:"bytes,1,opt,name=pubkey,proto3" json:"pubkey,omitempty"`
-	Multiaddr            string   `protobuf:"bytes,2,opt,name=multiaddr,proto3" json:"multiaddr,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type SaveBlockReq struct {
+	Block                []byte              `protobuf:"bytes,1,opt,name=block,proto3" json:"block,omitempty"`
+	Cid                  []byte              `protobuf:"bytes,2,opt,name=cid,proto3" json:"cid,omitempty"`
+	Proof                *SaveBlockReq_Proof `protobuf:"bytes,3,opt,name=proof,proto3" json:"proof,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
-func (m *Peer) Reset()         { *m = Peer{} }
-func (m *Peer) String() string { return proto.CompactTextString(m) }
-func (*Peer) ProtoMessage()    {}
-func (*Peer) Descriptor() ([]byte, []int) {
+func (m *SaveBlockReq) Reset()         { *m = SaveBlockReq{} }
+func (m *SaveBlockReq) String() string { return proto.CompactTextString(m) }
+func (*SaveBlockReq) ProtoMessage()    {}
+func (*SaveBlockReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e3f2823067bb73dc, []int{1}
 }
-func (m *Peer) XXX_Unmarshal(b []byte) error {
+func (m *SaveBlockReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *Peer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *SaveBlockReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_Peer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_SaveBlockReq.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -108,54 +107,59 @@ func (m *Peer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *Peer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Peer.Merge(m, src)
+func (m *SaveBlockReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SaveBlockReq.Merge(m, src)
 }
-func (m *Peer) XXX_Size() int {
+func (m *SaveBlockReq) XXX_Size() int {
 	return m.Size()
 }
-func (m *Peer) XXX_DiscardUnknown() {
-	xxx_messageInfo_Peer.DiscardUnknown(m)
+func (m *SaveBlockReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_SaveBlockReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Peer proto.InternalMessageInfo
+var xxx_messageInfo_SaveBlockReq proto.InternalMessageInfo
 
-func (m *Peer) GetPubkey() string {
+func (m *SaveBlockReq) GetBlock() []byte {
 	if m != nil {
-		return m.Pubkey
+		return m.Block
 	}
-	return ""
+	return nil
 }
 
-func (m *Peer) GetMultiaddr() string {
+func (m *SaveBlockReq) GetCid() []byte {
 	if m != nil {
-		return m.Multiaddr
+		return m.Cid
 	}
-	return ""
+	return nil
 }
 
-type FindPeerReq struct {
-	// 目标节点
-	TargetPubkey string `protobuf:"bytes,2,opt,name=target_pubkey,json=targetPubkey,proto3" json:"target_pubkey,omitempty"`
-	// 路由节点
-	Route                []*Peer  `protobuf:"bytes,3,rep,name=route,proto3" json:"route,omitempty"`
+func (m *SaveBlockReq) GetProof() *SaveBlockReq_Proof {
+	if m != nil {
+		return m.Proof
+	}
+	return nil
+}
+
+type SaveBlockReq_Proof struct {
+	Siblings             [][]byte `protobuf:"bytes,3,rep,name=siblings,proto3" json:"siblings,omitempty"`
+	Path                 uint32   `protobuf:"varint,4,opt,name=path,proto3" json:"path,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FindPeerReq) Reset()         { *m = FindPeerReq{} }
-func (m *FindPeerReq) String() string { return proto.CompactTextString(m) }
-func (*FindPeerReq) ProtoMessage()    {}
-func (*FindPeerReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e3f2823067bb73dc, []int{2}
+func (m *SaveBlockReq_Proof) Reset()         { *m = SaveBlockReq_Proof{} }
+func (m *SaveBlockReq_Proof) String() string { return proto.CompactTextString(m) }
+func (*SaveBlockReq_Proof) ProtoMessage()    {}
+func (*SaveBlockReq_Proof) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e3f2823067bb73dc, []int{1, 0}
 }
-func (m *FindPeerReq) XXX_Unmarshal(b []byte) error {
+func (m *SaveBlockReq_Proof) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *FindPeerReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *SaveBlockReq_Proof) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_FindPeerReq.Marshal(b, m, deterministic)
+		return xxx_messageInfo_SaveBlockReq_Proof.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -165,87 +169,30 @@ func (m *FindPeerReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) 
 		return b[:n], nil
 	}
 }
-func (m *FindPeerReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FindPeerReq.Merge(m, src)
+func (m *SaveBlockReq_Proof) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SaveBlockReq_Proof.Merge(m, src)
 }
-func (m *FindPeerReq) XXX_Size() int {
+func (m *SaveBlockReq_Proof) XXX_Size() int {
 	return m.Size()
 }
-func (m *FindPeerReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_FindPeerReq.DiscardUnknown(m)
+func (m *SaveBlockReq_Proof) XXX_DiscardUnknown() {
+	xxx_messageInfo_SaveBlockReq_Proof.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_FindPeerReq proto.InternalMessageInfo
+var xxx_messageInfo_SaveBlockReq_Proof proto.InternalMessageInfo
 
-func (m *FindPeerReq) GetTargetPubkey() string {
+func (m *SaveBlockReq_Proof) GetSiblings() [][]byte {
 	if m != nil {
-		return m.TargetPubkey
-	}
-	return ""
-}
-
-func (m *FindPeerReq) GetRoute() []*Peer {
-	if m != nil {
-		return m.Route
+		return m.Siblings
 	}
 	return nil
 }
 
-type FindPeerResp struct {
-	// 目标节点
-	TargetPubkey string `protobuf:"bytes,2,opt,name=target_pubkey,json=targetPubkey,proto3" json:"target_pubkey,omitempty"`
-	// 路由节点
-	Route                []*Peer  `protobuf:"bytes,3,rep,name=route,proto3" json:"route,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *FindPeerResp) Reset()         { *m = FindPeerResp{} }
-func (m *FindPeerResp) String() string { return proto.CompactTextString(m) }
-func (*FindPeerResp) ProtoMessage()    {}
-func (*FindPeerResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e3f2823067bb73dc, []int{3}
-}
-func (m *FindPeerResp) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *FindPeerResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_FindPeerResp.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *FindPeerResp) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FindPeerResp.Merge(m, src)
-}
-func (m *FindPeerResp) XXX_Size() int {
-	return m.Size()
-}
-func (m *FindPeerResp) XXX_DiscardUnknown() {
-	xxx_messageInfo_FindPeerResp.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_FindPeerResp proto.InternalMessageInfo
-
-func (m *FindPeerResp) GetTargetPubkey() string {
+func (m *SaveBlockReq_Proof) GetPath() uint32 {
 	if m != nil {
-		return m.TargetPubkey
+		return m.Path
 	}
-	return ""
-}
-
-func (m *FindPeerResp) GetRoute() []*Peer {
-	if m != nil {
-		return m.Route
-	}
-	return nil
+	return 0
 }
 
 type FindValueReq struct {
@@ -259,7 +206,7 @@ func (m *FindValueReq) Reset()         { *m = FindValueReq{} }
 func (m *FindValueReq) String() string { return proto.CompactTextString(m) }
 func (*FindValueReq) ProtoMessage()    {}
 func (*FindValueReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e3f2823067bb73dc, []int{4}
+	return fileDescriptor_e3f2823067bb73dc, []int{2}
 }
 func (m *FindValueReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -306,7 +253,7 @@ func (m *FindValueResp) Reset()         { *m = FindValueResp{} }
 func (m *FindValueResp) String() string { return proto.CompactTextString(m) }
 func (*FindValueResp) ProtoMessage()    {}
 func (*FindValueResp) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e3f2823067bb73dc, []int{5}
+	return fileDescriptor_e3f2823067bb73dc, []int{3}
 }
 func (m *FindValueResp) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -353,7 +300,7 @@ func (m *GetBlockReq) Reset()         { *m = GetBlockReq{} }
 func (m *GetBlockReq) String() string { return proto.CompactTextString(m) }
 func (*GetBlockReq) ProtoMessage()    {}
 func (*GetBlockReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e3f2823067bb73dc, []int{6}
+	return fileDescriptor_e3f2823067bb73dc, []int{4}
 }
 func (m *GetBlockReq) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -391,9 +338,8 @@ func (m *GetBlockReq) GetHash() string {
 
 func init() {
 	proto.RegisterType((*Message)(nil), "Message")
-	proto.RegisterType((*Peer)(nil), "Peer")
-	proto.RegisterType((*FindPeerReq)(nil), "FindPeerReq")
-	proto.RegisterType((*FindPeerResp)(nil), "FindPeerResp")
+	proto.RegisterType((*SaveBlockReq)(nil), "SaveBlockReq")
+	proto.RegisterType((*SaveBlockReq_Proof)(nil), "SaveBlockReq.Proof")
 	proto.RegisterType((*FindValueReq)(nil), "FindValueReq")
 	proto.RegisterType((*FindValueResp)(nil), "FindValueResp")
 	proto.RegisterType((*GetBlockReq)(nil), "GetBlockReq")
@@ -402,25 +348,25 @@ func init() {
 func init() { proto.RegisterFile("p2p/proto/msg.proto", fileDescriptor_e3f2823067bb73dc) }
 
 var fileDescriptor_e3f2823067bb73dc = []byte{
-	// 274 bytes of a gzipped FileDescriptorProto
+	// 278 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2e, 0x30, 0x2a, 0xd0,
 	0x2f, 0x28, 0xca, 0x2f, 0xc9, 0xd7, 0xcf, 0x2d, 0x4e, 0xd7, 0x03, 0xb3, 0x94, 0xac, 0xb9, 0xd8,
 	0x7d, 0x53, 0x8b, 0x8b, 0x13, 0xd3, 0x53, 0x85, 0x84, 0xb8, 0x58, 0x52, 0x12, 0x4b, 0x12, 0x25,
 	0x18, 0x15, 0x18, 0x35, 0x78, 0x82, 0xc0, 0x6c, 0x21, 0x19, 0x2e, 0xce, 0xe2, 0xcc, 0xf4, 0xbc,
-	0xc4, 0x92, 0xd2, 0xa2, 0x54, 0x09, 0x26, 0xb0, 0x04, 0x42, 0x40, 0xc9, 0x86, 0x8b, 0x25, 0x20,
-	0x35, 0xb5, 0x48, 0x48, 0x8c, 0x8b, 0xad, 0xa0, 0x34, 0x29, 0x3b, 0xb5, 0x12, 0xac, 0x97, 0x33,
-	0x08, 0xca, 0x03, 0xe9, 0xce, 0x2d, 0xcd, 0x29, 0xc9, 0x4c, 0x4c, 0x49, 0x29, 0x02, 0xeb, 0xe6,
-	0x0c, 0x42, 0x08, 0x28, 0xf9, 0x73, 0x71, 0xbb, 0x65, 0xe6, 0xa5, 0x80, 0x4c, 0x08, 0x4a, 0x2d,
-	0x14, 0x52, 0xe6, 0xe2, 0x2d, 0x49, 0x2c, 0x4a, 0x4f, 0x2d, 0x89, 0x87, 0x9a, 0x05, 0xd1, 0xc0,
-	0x03, 0x11, 0x0c, 0x80, 0x98, 0x28, 0xcd, 0xc5, 0x5a, 0x94, 0x5f, 0x5a, 0x92, 0x2a, 0xc1, 0xac,
-	0xc0, 0xac, 0xc1, 0x6d, 0xc4, 0xaa, 0x07, 0xd6, 0x0d, 0x11, 0x53, 0x0a, 0xe0, 0xe2, 0x41, 0x18,
-	0x58, 0x5c, 0x40, 0x05, 0x13, 0x95, 0x20, 0x26, 0x86, 0x25, 0xe6, 0x94, 0xa6, 0x82, 0xdc, 0x28,
-	0xc4, 0xc5, 0x92, 0x91, 0x58, 0x9c, 0x01, 0xf5, 0x26, 0x98, 0xad, 0xa4, 0xcc, 0xc5, 0x8b, 0xa4,
-	0xa6, 0xb8, 0x00, 0x5b, 0x38, 0x2a, 0x29, 0x72, 0x71, 0xbb, 0xa7, 0x96, 0x38, 0xe5, 0xe4, 0x27,
-	0x67, 0xe3, 0x30, 0xc7, 0x49, 0xf9, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c,
-	0x92, 0x63, 0x9c, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x50, 0x4f, 0x1f, 0x25, 0xca, 0x0a, 0x92, 0x92,
-	0xd8, 0xc0, 0x1c, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x2d, 0x47, 0xda, 0x16, 0xcc, 0x01,
-	0x00, 0x00,
+	0xc4, 0x92, 0xd2, 0xa2, 0x54, 0x09, 0x26, 0xb0, 0x04, 0x42, 0x40, 0x69, 0x16, 0x23, 0x17, 0x4f,
+	0x70, 0x62, 0x59, 0xaa, 0x53, 0x4e, 0x7e, 0x72, 0x76, 0x50, 0x6a, 0xa1, 0x90, 0x08, 0x17, 0x6b,
+	0x12, 0x88, 0x0d, 0x35, 0x03, 0xc2, 0x11, 0x12, 0xe0, 0x62, 0x4e, 0xce, 0x4c, 0x81, 0x6a, 0x07,
+	0x31, 0x85, 0x34, 0xb9, 0x58, 0x0b, 0x8a, 0xf2, 0xf3, 0xd3, 0x24, 0x98, 0x15, 0x18, 0x35, 0xb8,
+	0x8d, 0x84, 0xf5, 0x90, 0x4d, 0xd1, 0x0b, 0x00, 0x49, 0x05, 0x41, 0x54, 0x48, 0x99, 0x73, 0xb1,
+	0x82, 0xf9, 0x42, 0x52, 0x5c, 0x1c, 0xc5, 0x99, 0x49, 0x39, 0x99, 0x79, 0xe9, 0xc5, 0x12, 0xcc,
+	0x0a, 0xcc, 0x1a, 0x3c, 0x41, 0x70, 0x3e, 0xc8, 0xe9, 0x05, 0x89, 0x25, 0x19, 0x12, 0x2c, 0x0a,
+	0x8c, 0x1a, 0xbc, 0x41, 0x60, 0xb6, 0x92, 0x12, 0x17, 0x8f, 0x5b, 0x66, 0x5e, 0x4a, 0x58, 0x62,
+	0x4e, 0x69, 0x2a, 0xc8, 0x6d, 0x42, 0x5c, 0x2c, 0x19, 0x89, 0xc5, 0x19, 0x60, 0xa7, 0x71, 0x06,
+	0x81, 0xd9, 0x4a, 0xca, 0x5c, 0xbc, 0x48, 0x6a, 0x8a, 0x0b, 0xb0, 0x85, 0x81, 0x92, 0x22, 0x17,
+	0xb7, 0x7b, 0x6a, 0x09, 0xdc, 0x8f, 0x58, 0xcc, 0x71, 0x52, 0x3e, 0xf1, 0x48, 0x8e, 0xf1, 0xc2,
+	0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x67, 0x3c, 0x96, 0x63, 0x88, 0x12, 0xd4, 0xd3, 0x47,
+	0x09, 0xee, 0x82, 0xa4, 0x24, 0x36, 0x30, 0xc7, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xf2, 0xf2,
+	0x5d, 0xe1, 0x88, 0x01, 0x00, 0x00,
 }
 
 func (m *Message) Marshal() (dAtA []byte, err error) {
@@ -464,7 +410,7 @@ func (m *Message) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *Peer) Marshal() (dAtA []byte, err error) {
+func (m *SaveBlockReq) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -474,12 +420,12 @@ func (m *Peer) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Peer) MarshalTo(dAtA []byte) (int, error) {
+func (m *SaveBlockReq) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *Peer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *SaveBlockReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -488,24 +434,36 @@ func (m *Peer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Multiaddr) > 0 {
-		i -= len(m.Multiaddr)
-		copy(dAtA[i:], m.Multiaddr)
-		i = encodeVarintMsg(dAtA, i, uint64(len(m.Multiaddr)))
+	if m.Proof != nil {
+		{
+			size, err := m.Proof.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMsg(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Cid) > 0 {
+		i -= len(m.Cid)
+		copy(dAtA[i:], m.Cid)
+		i = encodeVarintMsg(dAtA, i, uint64(len(m.Cid)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Pubkey) > 0 {
-		i -= len(m.Pubkey)
-		copy(dAtA[i:], m.Pubkey)
-		i = encodeVarintMsg(dAtA, i, uint64(len(m.Pubkey)))
+	if len(m.Block) > 0 {
+		i -= len(m.Block)
+		copy(dAtA[i:], m.Block)
+		i = encodeVarintMsg(dAtA, i, uint64(len(m.Block)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *FindPeerReq) Marshal() (dAtA []byte, err error) {
+func (m *SaveBlockReq_Proof) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -515,12 +473,12 @@ func (m *FindPeerReq) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *FindPeerReq) MarshalTo(dAtA []byte) (int, error) {
+func (m *SaveBlockReq_Proof) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *FindPeerReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *SaveBlockReq_Proof) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -529,74 +487,19 @@ func (m *FindPeerReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
-	if len(m.Route) > 0 {
-		for iNdEx := len(m.Route) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.Route[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintMsg(dAtA, i, uint64(size))
-			}
+	if m.Path != 0 {
+		i = encodeVarintMsg(dAtA, i, uint64(m.Path))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.Siblings) > 0 {
+		for iNdEx := len(m.Siblings) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Siblings[iNdEx])
+			copy(dAtA[i:], m.Siblings[iNdEx])
+			i = encodeVarintMsg(dAtA, i, uint64(len(m.Siblings[iNdEx])))
 			i--
 			dAtA[i] = 0x1a
 		}
-	}
-	if len(m.TargetPubkey) > 0 {
-		i -= len(m.TargetPubkey)
-		copy(dAtA[i:], m.TargetPubkey)
-		i = encodeVarintMsg(dAtA, i, uint64(len(m.TargetPubkey)))
-		i--
-		dAtA[i] = 0x12
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *FindPeerResp) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *FindPeerResp) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *FindPeerResp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
-	if len(m.Route) > 0 {
-		for iNdEx := len(m.Route) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.Route[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintMsg(dAtA, i, uint64(size))
-			}
-			i--
-			dAtA[i] = 0x1a
-		}
-	}
-	if len(m.TargetPubkey) > 0 {
-		i -= len(m.TargetPubkey)
-		copy(dAtA[i:], m.TargetPubkey)
-		i = encodeVarintMsg(dAtA, i, uint64(len(m.TargetPubkey)))
-		i--
-		dAtA[i] = 0x12
 	}
 	return len(dAtA) - i, nil
 }
@@ -734,18 +637,22 @@ func (m *Message) Size() (n int) {
 	return n
 }
 
-func (m *Peer) Size() (n int) {
+func (m *SaveBlockReq) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Pubkey)
+	l = len(m.Block)
 	if l > 0 {
 		n += 1 + l + sovMsg(uint64(l))
 	}
-	l = len(m.Multiaddr)
+	l = len(m.Cid)
 	if l > 0 {
+		n += 1 + l + sovMsg(uint64(l))
+	}
+	if m.Proof != nil {
+		l = m.Proof.Size()
 		n += 1 + l + sovMsg(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
@@ -754,43 +661,20 @@ func (m *Peer) Size() (n int) {
 	return n
 }
 
-func (m *FindPeerReq) Size() (n int) {
+func (m *SaveBlockReq_Proof) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.TargetPubkey)
-	if l > 0 {
-		n += 1 + l + sovMsg(uint64(l))
-	}
-	if len(m.Route) > 0 {
-		for _, e := range m.Route {
-			l = e.Size()
+	if len(m.Siblings) > 0 {
+		for _, b := range m.Siblings {
+			l = len(b)
 			n += 1 + l + sovMsg(uint64(l))
 		}
 	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
-	return n
-}
-
-func (m *FindPeerResp) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.TargetPubkey)
-	if l > 0 {
-		n += 1 + l + sovMsg(uint64(l))
-	}
-	if len(m.Route) > 0 {
-		for _, e := range m.Route {
-			l = e.Size()
-			n += 1 + l + sovMsg(uint64(l))
-		}
+	if m.Path != 0 {
+		n += 1 + sovMsg(uint64(m.Path))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -971,7 +855,7 @@ func (m *Message) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *Peer) Unmarshal(dAtA []byte) error {
+func (m *SaveBlockReq) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -994,17 +878,17 @@ func (m *Peer) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Peer: wiretype end group for non-group")
+			return fmt.Errorf("proto: SaveBlockReq: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Peer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: SaveBlockReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pubkey", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Block", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowMsg
@@ -1014,29 +898,31 @@ func (m *Peer) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthMsg
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthMsg
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Pubkey = string(dAtA[iNdEx:postIndex])
+			m.Block = append(m.Block[:0], dAtA[iNdEx:postIndex]...)
+			if m.Block == nil {
+				m.Block = []byte{}
+			}
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Multiaddr", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Cid", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowMsg
@@ -1046,110 +932,29 @@ func (m *Peer) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthMsg
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthMsg
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Multiaddr = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipMsg(dAtA[iNdEx:])
-			if err != nil {
-				return err
+			m.Cid = append(m.Cid[:0], dAtA[iNdEx:postIndex]...)
+			if m.Cid == nil {
+				m.Cid = []byte{}
 			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthMsg
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *FindPeerReq) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowMsg
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: FindPeerReq: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: FindPeerReq: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TargetPubkey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMsg
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthMsg
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthMsg
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.TargetPubkey = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Route", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Proof", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1176,8 +981,10 @@ func (m *FindPeerReq) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Route = append(m.Route, &Peer{})
-			if err := m.Route[len(m.Route)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if m.Proof == nil {
+				m.Proof = &SaveBlockReq_Proof{}
+			}
+			if err := m.Proof.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1203,7 +1010,7 @@ func (m *FindPeerReq) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *FindPeerResp) Unmarshal(dAtA []byte) error {
+func (m *SaveBlockReq_Proof) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1226,49 +1033,17 @@ func (m *FindPeerResp) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: FindPeerResp: wiretype end group for non-group")
+			return fmt.Errorf("proto: Proof: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: FindPeerResp: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: Proof: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TargetPubkey", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMsg
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthMsg
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthMsg
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.TargetPubkey = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Route", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Siblings", wireType)
 			}
-			var msglen int
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowMsg
@@ -1278,26 +1053,43 @@ func (m *FindPeerResp) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				msglen |= int(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if msglen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthMsg
 			}
-			postIndex := iNdEx + msglen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthMsg
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Route = append(m.Route, &Peer{})
-			if err := m.Route[len(m.Route)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
+			m.Siblings = append(m.Siblings, make([]byte, postIndex-iNdEx))
+			copy(m.Siblings[len(m.Siblings)-1], dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Path", wireType)
+			}
+			m.Path = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMsg
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Path |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMsg(dAtA[iNdEx:])

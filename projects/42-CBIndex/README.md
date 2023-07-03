@@ -69,14 +69,17 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 - Coyp-investing fund Creation
 - Coyp-investing fund Management
-- DEX Integration
 - Copy-investing fund Performance Analytics
 - Copy-investing fund investment
+- Copy-investing fund simulator
+- Active fund creation simulator
+- Active fund investment simulator
+- Index fund creation simulator
+- Index fund investment simulator
 
 **Blockchain**
 
 - `copy-investing-fund`
-
   - Vault initiation (`fn create_copy_investing_vault()`)
   - Vault copying (`fn copy_vault()`)
   - Investing (`fn investing()`)
@@ -98,14 +101,23 @@ The general framework or technical architecture of the CBIndex consists of sever
 - App (Next.js)
   - Copy-investing fund Performance Analytics
   - Coyp-investing fund Management
+  - Active fund creation simulator
+  - Active fund investment simulator
+  - Index fund creation simulator
+  - Index fund investment simulator
 
-## Completed Tasks During Hackathon (2023 年 7 月 4 日上午 11:59 初审前提交)
+## Completed Tasks During Hackathon
 
 
-- 2023 年 7 月 4 日上午 11:59 前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt 等大文件不要提交。可以在 readme 中存放它们的链接地址
-
+- Coyp-investing fund Creation
+- Coyp-investing fund Management
+- Copy-investing fund Performance Analytics
+- Copy-investing fund investment
+- Copy-investing fund simulator
+- Active fund creation simulator
+- Active fund investment simulator
+- Index fund creation simulator
+- Index fund investment simulator
 
 ## Documents
 ### CBIndex Deck:

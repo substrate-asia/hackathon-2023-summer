@@ -244,17 +244,16 @@ In other words, you can recreate a table's state by replaying all of the events 
 
 **blockcain**
 
-- `pallet-dynamic nft`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
+- `dynamic nft smartcontract`
+  - [ ] 动态NFT合约及部署
+  - [ ] 更新动态NFT元数据
+  
 
-**客户端**
+**web 端**
 
 - web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程
+  - [ ] 获取github用户共享数据
+  
 
 
 
@@ -283,4 +282,5 @@ Contract Example Online:
 
 
 Other Files:
-Project Pitch Deck: 
+Project Pitch Deck(ppt): 
+https://www.canva.com/design/DAFnmvFHlRg/_G_lNDGE48m69eQCYFzwJg/edit?utm_content=DAFnmvFHlRg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

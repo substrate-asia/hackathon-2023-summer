@@ -11,9 +11,13 @@ https://app.cbindex.finance/ is CBIndex App (mainly built on the centralized ser
 - Demo video: https://www.youtube.com/watch?v=m_v9qnvWXXg
 
 ## Components
-
-- VARA Blockchain
-- CBI Protocol
+- **Blockchain Infrastructure:** CBIndex leverages blockchain's decentralization, security, and transparency. It is initially built on the Ethereum network and is planned to be deployed on multiple blockchains. As for the hackathon, we are building on **VARA**.
+- **Smart Contracts (CBI Protocol):** At the core of the CBIndex platform, a suite of smart contracts collectively referred to as the CBI Protocol powers various on-chain functionalities. These include copy-investing, active and index fund management and investing, and more. The contracts are responsible for the secure and transparent execution of all on-chain operations.
+- **DEX Aggregators:** CBIndex integrates with decentralized exchange (DEX) aggregators like 1inch to fetch the best possible trading price from the market. DEX aggregators play a crucial role in facilitating optimal trading strategies.
+- **Centralized Infrastructure:** Some features of CBIndex, such as index construction and investment simulators, are built on centralized infrastructure. These features rely on centralized data and business logic, providing users additional tools and resources to aid their investment decision-making.
+- **User Interface:** The CBIndex platform also includes a user-friendly interface designed to make complex investment processes simple and intuitive. This component involves everything from user authentication, fund discovery, and investment tracking to the visual representation of complex data.
+- **Backend Services:** The backend services of CBIndex include listening to blockchain events, handling off-chain data, sending notifications to users, and more.
+- **Security Measures:** Given the sensitive nature of financial data and transactions, robust security measures are in place to ensure the safety of users' funds and information. These include rigorous contract auditing, implementation of secure design principles, and continuous monitoring.
 
 ## Build & Test
 

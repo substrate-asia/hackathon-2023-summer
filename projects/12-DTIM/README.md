@@ -20,7 +20,7 @@ DTIM是一款基于matrix通信协议的分布式即时通讯软件，它代表�
 
 <img width="500" src="https://wetee.app/icons/shot/im.png"/>
 
-DTIM基于substrate为组织提供了去中心化治理插件，组织可使用Gov插件的去中心化治理功能。用户可以通过投票、提案等方式参与决策过程，并推动项目发展。
+DTIM基于substrate为组织提供了去中心化治理插件，组织可使用Gov插件实现去中心化治理功能。用户可以通过投票、提案等方式参与决策过程，并推动项目发展。
 
 <img width="500" src="https://wetee.app/icons/shot/gov.png"/>
 

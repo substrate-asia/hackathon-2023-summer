@@ -10,26 +10,33 @@ class AssetsView extends GetView {
   const AssetsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '资产管理',
-          style: TextStyle(fontSize: 18.sp),
-        ),
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            size: 18.sp,
+    return GetBuilder(
+      init: TokenAssetsController(),
+      builder: (controller) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '资产管理',
+            style: TextStyle(fontSize: 18.sp),
           ),
+          centerTitle: false,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 18.sp,
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  controller.saveTokenConfig();
+                },
+                child: Text("保存"))
+          ],
         ),
-      ),
-      body: GetBuilder(
-        init: TokenAssetsController(),
-        builder: (controller) => Column(
+        body: Column(
           children: [
             // 搜索框
             Container(
@@ -123,14 +130,18 @@ class AssetsView extends GetView {
                   ),
                   minLeadingWidth: 5.w,
                   trailing: IconButton(
-                    icon: index < 5
+                    icon: controller.showTokenConfigList[index].enabled
                         ? Icon(Icons.remove_circle_outline_rounded,
                             color: Colors.red[500])
                         : Icon(
                             Icons.add_circle_outline,
                             color: Colors.green[500],
                           ),
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.setTokenEnabled(
+                          !controller.showTokenConfigList[index].enabled,
+                          index);
+                    },
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

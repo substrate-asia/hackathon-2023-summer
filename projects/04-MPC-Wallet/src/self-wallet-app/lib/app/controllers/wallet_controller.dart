@@ -7,8 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:get/get.dart';
-import 'package:hex/hex.dart';
-import 'package:http/http.dart';
 import 'package:isar/isar.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
 import 'package:sunrise/app/data/models/chat_collection.dart';
@@ -22,8 +20,6 @@ import 'package:sunrise/core/utils/encryption.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
-import 'package:web3dart/json_rpc.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../widgets/payment_widget.dart';
 
@@ -31,16 +27,18 @@ import '../widgets/payment_widget.dart';
 class WalletController extends GetxController {
   // 节点配置列表
   List<Mainnet> nodeConfigList = [];
-  // token列表
-  List<String> tokenList = [];
+
   // token配置列表
   List<Contract> tokenConfigList = [];
   // final RxString rxdata = RxString('0');
   // 账号列表
   final RxList<Balance> rxAccount = RxList<Balance>();
+  final RxBool refreshList = RxBool(false);
   // 联系人列表
   final RxList<ChatConversation> rxContacts = RxList<ChatConversation>();
   LocalAuthentication? auth;
+  // 核心账号
+  RootAccount? rootAccount;
 
   // 跟chat节点通讯的
   SendPort? sendPort;
@@ -49,14 +47,17 @@ class WalletController extends GetxController {
 
   // 定时器
   Timer? timer;
+  // 线程
+  FlutterIsolate? isolate;
 
   // final RxString rxdata = Get.find();
   @override
   void onInit() {
-    initAppConfig();
+    _initStart();
     super.onInit();
     initChatIsolate();
     Get.put(rxAccount);
+    Get.put(refreshList);
     Get.put(rxContacts);
   }
 
@@ -72,13 +73,24 @@ class WalletController extends GetxController {
     super.onClose();
   }
 
+  Future<void> _initStart() async {
+    await initAppConfig();
+    refreshAllBalance();
+  }
+
   // 初始化配置
-  void initAppConfig() async {
+  Future<void> initAppConfig() async {
     // 初始化钱包节点配置
     await _loadNodeNetwork();
     // 初始化token列表
     await _loadContract();
-    await refreshAllBalance();
+    // 读取root账号
+    var rootAccountMap = HiveService.getWalletData(LocalKeyList.rootAddress);
+    if (rootAccountMap == null) {
+      return;
+    }
+    rootAccount =
+        RootAccount.fromJson(Map<String, dynamic>.from(rootAccountMap));
 
     // 判断是否为release模式
     if (kReleaseMode) {
@@ -86,16 +98,150 @@ class WalletController extends GetxController {
     }
   }
 
-  // 加载evm的合约（erc20）
+  // 移除没用到的balance
+  Future<void> removeBalance() async {
+    if (rootAccount == null) {
+      return;
+    }
+
+    List<String> addressList = [
+      rootAccount!.address,
+      ...rootAccount!.proxyAddressList
+    ];
+
+    // // 初始化钱包节点配置
+    // await _loadNodeNetwork();
+    // // 初始化token列表
+    // await _loadContract();
+
+    print("addressList $addressList");
+    bool isProxy = true;
+    List<Contract> configTokens = [];
+
+    for (var token in tokenConfigList) {
+      if (token.proxy == isProxy) {
+        configTokens.add(token);
+      }
+    }
+
+    List<Balance> balances = [];
+
+    final futures0 = tokenConfigList.map((config) async {
+      // 根据chainId从nodeConfigList获取Mainnet
+      Mainnet? mainnet = nodeConfigList
+          .firstWhereOrNull((element) => element.chainId == config.chainId);
+
+      return Balance(
+          address: rootAccount!.address,
+          chainId: config.chainId,
+          isContract: true,
+          isProxy: false,
+          contractAddress: config.contractAddress,
+          contract: ContractEnum()
+            ..contractAddress = config.contractAddress
+            ..name = config.name
+            ..symbol = config.symbol
+            ..decimals = config.decimals
+            ..chainId = config.chainId
+            ..iconUrl = config.iconUrl,
+          balance: '0')
+        ..network.value = mainnet;
+    }).toList();
+
+    final futures1 = nodeConfigList.map((config) async {
+      print(config.toJson());
+      return Balance(
+          address: rootAccount!.address,
+          chainId: config.chainId,
+          isProxy: false,
+          isContract: false,
+          balance: '0')
+        ..network.value = config;
+    }).toList();
+
+    balances.addAll(await Future.wait(futures0));
+    balances.addAll(await Future.wait(futures1));
+    if (rootAccount!.proxyAddressList.isNotEmpty) {
+      String address = addressList[1];
+      final futures2 = configTokens.map((config) async {
+        // 根据chainId从nodeConfigList获取Mainnet
+        Mainnet? mainnet = nodeConfigList
+            .firstWhereOrNull((element) => element.chainId == config.chainId);
+
+        return Balance(
+            address: address,
+            chainId: config.chainId,
+            isContract: true,
+            isProxy: true,
+            contractAddress: config.contractAddress,
+            contract: ContractEnum()
+              ..contractAddress = config.contractAddress
+              ..name = config.name
+              ..symbol = config.symbol
+              ..decimals = config.decimals
+              ..chainId = config.chainId
+              ..iconUrl = config.iconUrl,
+            balance: '0')
+          ..network.value = mainnet;
+      }).toList();
+      balances.addAll(await Future.wait(futures2));
+    }
+
+    for (var element in balances) {
+      print(
+          "${element.address} 👉 balance ${element.balance} [${element.contractAddress} ${element.toSelected()}]");
+    }
+    print("balances ${balances.length}");
+
+    await IsarService.isar?.writeTxn(() async {
+      // 清空所有
+      await IsarService.isar?.balances.clear();
+      // 保存balances
+      await IsarService.isar?.balances.putAll(balances);
+      for (var item in balances) {
+        await item.network.save();
+      }
+    });
+  }
+
+  /// 加载evm的合约（erc20）
+  ///
+  /// 1. 从网络中加载
+  /// 2. 从数据库中获取 如果数据库为空就把网络配置插入到数据库
   Future<void> _loadContract() async {
-// 查询数据库中的合约配置
-    List<Contract>? contractList =
-        await IsarService.isar?.contracts.where().findAll();
-    print(contractList?.length);
-    contractList = null;
-    if (contractList != null && contractList.isNotEmpty) {
+    // 从网络中加载
+    Map<String, dynamic>? result = await readJsonFile(
+        "https://www.subdev.studio/config/wallet_tokens.json");
+
+    List<Contract> tokens = [];
+    if (result != null) {
+      for (var element in result["tokens"]) {
+        Contract newContract = Contract.fromJson(element);
+        Mainnet? net = nodeConfigList
+            .firstWhereOrNull((n) => newContract.chainId == n.chainId);
+        if (net == null) {
+          continue;
+        }
+        tokens.add(newContract);
+      }
+    }
+
+    bool reset = false;
+
+    // 查询数据库中的合约配置
+    List<Contract>? contractList = await IsarService.isar?.contracts
+        .filter()
+        .enabledEqualTo(true)
+        .findAll();
+
+    // if (contractList == null || contractList.length < tokens.length) {
+    //   reset = true;
+    // }
+
+    if (contractList != null && contractList.isNotEmpty && !reset) {
       tokenConfigList = contractList;
-    } else {
+      print("come in");
+    } else if (tokens.isEmpty) {
       // 如果没有合约配置，从json文件读取网络配置
       // 读取json文件 assets/json/TokenList.json
       var tokensJson =
@@ -104,49 +250,109 @@ class WalletController extends GetxController {
       var tokenFileList = jsonDecode(tokensJson);
 
       await IsarService.isar?.writeTxn(() async {
+        // 重置网络
+        await IsarService.isar?.contracts.clear();
         for (int i = 0; i < tokenFileList.length; i++) {
           Contract newContract = Contract.fromJson(tokenFileList[i]);
           await IsarService.isar?.contracts.put(newContract); // 将新数据写入到 Isar
-          tokenConfigList.add(newContract);
+          // tokenConfigList.add(newContract);
           print("token contract id ${newContract.id}");
         }
       });
+    } else {
+      print("reset tokens");
+      // token添加到数据库
+      await IsarService.isar?.writeTxn(() async {
+        // 重置网络
+        await IsarService.isar?.contracts.clear();
+        // 使用同步的方式遍历network
+        for (var element in tokens) {
+          await IsarService.isar?.contracts.put(element);
+        }
+
+        // tokenConfigList = await IsarService.isar?.contracts
+        //         .filter()
+        //         .enabledEqualTo(true)
+        //         .findAll() ??
+        //     [];
+      });
     }
+
+    tokenConfigList = await IsarService.isar?.contracts
+            .filter()
+            .enabledEqualTo(true)
+            .findAll() ??
+        [];
+    print("tokenConfigList ==== ${tokenConfigList}");
   }
 
   /// 初始化加载节点网络
   Future<void> _loadNodeNetwork() async {
+    // 从网络中加载
+    List<dynamic> result = await readJsonFile(
+            "https://www.subdev.studio/config/swap_network.json") ??
+        [];
+
+    print(result);
+    List<Mainnet> configList = [];
+    // 遍历result
+    for (int i = 0; i < result.length; i++) {
+      Mainnet newMainnet = Mainnet.fromJson(result[i]);
+      configList.add(newMainnet);
+    }
+
     // 查询数据库中的网络配置
     List<Mainnet>? mainnetList =
         await IsarService.isar?.mainnets.where().findAll();
-    if (mainnetList != null && mainnetList.isNotEmpty) {
+
+    print("数量相等 ${mainnetList?.length} ${result.length}");
+
+    bool reset = false;
+    if (mainnetList == null || mainnetList.length < result.length) {
+      print("数量不相等");
+      reset = true;
+    }
+    if (mainnetList != null && mainnetList.isNotEmpty && !reset) {
       nodeConfigList = mainnetList;
-    } else {
+    } else if (configList.isEmpty) {
       // 如果没有网络配置，从json文件读取网络配置
       // 读取json文件 assets/json/Network.json
       var networkJson = await rootBundle.loadString("assets/json/Network.json");
       var network = jsonDecode(networkJson);
+      print(network);
       await IsarService.isar?.writeTxn(() async {
+        // 重置网络
+        await IsarService.isar?.mainnets.clear();
         // 使用同步的方式遍历network
-        for (var key in network.keys) {
-          Mainnet newMainnet = Mainnet.fromJson(network[key]);
-          await IsarService.isar?.mainnets.put(newMainnet); // 将新数据写入到 Isar
+        for (var element in network) {
+          Mainnet newMainnet = Mainnet.fromJson(element);
+          await IsarService.isar?.mainnets.put(newMainnet);
           nodeConfigList.add(newMainnet);
-          print("network id ${newMainnet.id}");
         }
+      });
+      // await IsarService.isar?.writeTxn(() async {
+      //   // 使用同步的方式遍历network
+      //   for (var key in network) {
+      //     Mainnet newMainnet = Mainnet.fromJson(network[key]);
+      //     await IsarService.isar?.mainnets.put(newMainnet); // 将新数据写入到 Isar
+      //     nodeConfigList.add(newMainnet);
+      //   }
+      // });
+    } else {
+      await IsarService.isar?.writeTxn(() async {
+        // 重置网络
+        await IsarService.isar?.mainnets.clear();
+        // 使用同步的方式遍历network
+        for (var element in configList) {
+          await IsarService.isar?.mainnets.put(element);
+        }
+        nodeConfigList = configList;
       });
     }
 
     for (var element in nodeConfigList) {
       HiveService.saveNetworkRpc(element.chainId, element.rpc);
     }
-
-    // final tempNodeString = nodeConfigList.map((e) => e.toJson());
-
-    // 把nodeConfigList转成json字符串 并组成数组
-    // final tempNodeMapList = nodeConfigList.map((e) => e.toJson()).toList();
-    // HiveService.saveData(LocalKeyList.networkList, tempNodeMapList);
-    // print("tempNodeString ${tempNodeMapList.length}");
   }
 
   // 批量获取账号余额
@@ -170,16 +376,33 @@ class WalletController extends GetxController {
 
   // 批量获取账号token余额
   Future<List<Balance>> batchTokenBalances(String address, bool isProxy) async {
-    final futures = tokenConfigList.map((config) async {
+    List<Contract> configTokens = [];
+    if (isProxy) {
+      for (var token in tokenConfigList) {
+        if (token.proxy == isProxy) {
+          configTokens.add(token);
+        }
+      }
+    } else {
+      configTokens = tokenConfigList;
+    }
+
+    print(configTokens);
+
+    final futures = configTokens.map((config) async {
       print(config.contractAddress);
       BigInt? balance = await getTokenBalance(
           tokenAddress: config.contractAddress,
           walletAddress: address,
           rpcUrl: _getRpcByChainId(config.chainId));
 
+      print("👉= $address ${config.contractAddress} tempTokenBalance $balance");
+
       // 根据chainId从nodeConfigList获取Mainnet
-      Mainnet mainnet = nodeConfigList
-          .firstWhere((element) => element.chainId == config.chainId);
+      Mainnet? mainnet = nodeConfigList
+          .firstWhereOrNull((element) => element.chainId == config.chainId);
+
+      print("tempTokenBalance $balance");
 
       return Balance(
           address: address,
@@ -205,16 +428,24 @@ class WalletController extends GetxController {
   /// 初始化聊天线程
   Future<void> initChatIsolate({privateKey = ""}) async {
     try {
-      var stored = HiveService.getData(ChatService.clientKey);
+      print("💻 initChatIsolate");
+      if (isolate != null) {
+        isolate?.kill();
+      }
+      var stored = HiveService.getData("xmtp-client-key");
       debugPrint("stored: ${stored.toString()}");
       // 当有privateKey说明是新用户，需要重新生成clientKey
       if (stored != null || privateKey != "") {
         // FlutterIsolate.killAll();
         ReceivePort receivePort = ReceivePort();
-        // 创建一个新线程
-        await FlutterIsolate.spawn(
-            ChatService.init, [privateKey, receivePort.sendPort]);
-        _listenReceivePort(receivePort);
+        if (ChatService.init != null && receivePort != null) {
+          // 创建一个新线程
+          isolate = await FlutterIsolate.spawn(
+              ChatService.init, [privateKey, receivePort.sendPort]);
+          _listenReceivePort(receivePort);
+        } else {
+          print("参数错误");
+        }
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -249,16 +480,6 @@ class WalletController extends GetxController {
     return "";
   }
 
-  // 根据chainId返回ICON
-  String _getIconByChainId(int chainId) {
-    for (var config in nodeConfigList) {
-      if (config.chainId == chainId) {
-        return config.iconUrl;
-      }
-    }
-    return "";
-  }
-
   // 一个get bool变量根据参数element2和element返回true或false
   bool _getBool(element2, element) {
     return element2.chainId == element.chainId &&
@@ -266,20 +487,81 @@ class WalletController extends GetxController {
         element2.contractAddress == element.contractAddress;
   }
 
-  // 刷新单个账号余额
+  /// 刷新Balance的余额
+  ///
+  /// 返回更新后的Balance
+  Future<String> refreshBalance(Balance current) async {
+    String tempBalance = current.balance;
+    try {
+      if (current.isContract && current.contractAddress != null) {
+        BigInt? balance = await getTokenBalance(
+            tokenAddress: current.contractAddress!,
+            walletAddress: current.address,
+            rpcUrl: _getRpcByChainId(current.chainId));
+
+        print("👉debug $balance");
+        tempBalance = balance.toString();
+      } else {
+        BigInt? balance = await getEtherBalance(
+            current.address, _getRpcByChainId(current.chainId));
+
+        print("👉debug $balance");
+
+        tempBalance = balance.toString();
+      }
+
+      if (current.balance != tempBalance) {
+        // current.balance = tempBalance;
+        // await IsarService.isar?.balances.put(current);
+        // 更新数据库
+        // await current.network.save();
+        // print("余额更新完毕 ${current.id} ${current.balance}");
+      }
+
+      return tempBalance;
+    } catch (e) {
+      print(e);
+      return tempBalance;
+    }
+  }
+
+  /// 刷新单个账号的主币余额和token余额
   Future<List<Balance>> refreshSingleBalance(String address,
       {bool isProxy = false}) async {
     // 查询主币余额
     List<Balance> tempMainBalance = await batchBalances(address, isProxy);
     // 查询token余额
     List<Balance> tempTokenBalance = await batchTokenBalances(address, isProxy);
+
+    // 合并tempMainBalance和tempTokenBalance
     List<Balance> tempBalance = tempMainBalance + tempTokenBalance;
 
-    List<Balance> localBalanceList = await IsarService.isar?.balances
-            .filter()
-            .addressEqualTo(address)
-            .findAll() ??
-        [];
+    // 打印长度
+    print(
+        "👉 tempBalance.length: ${tempBalance.length} tempMainBalance: ${tempMainBalance.length} tempTokenBalance: ${tempTokenBalance.length}");
+
+    List<Balance> localBalanceList = [];
+
+    if (isProxy) {
+      localBalanceList = await IsarService.isar?.balances
+              .filter()
+              .addressEqualTo(address)
+              .isProxyEqualTo(isProxy)
+              .findAll() ??
+          [];
+    } else {
+      localBalanceList = await IsarService.isar?.balances
+              .filter()
+              .addressEqualTo(address)
+              .findAll() ??
+          [];
+    }
+
+    // 遍历tempTokenBalance
+    // for (var element in tempTokenBalance) {
+    //   print(
+    //       "👉= localBalanceList start: ${element.address} ${element.contractAddress} ${element.balance} ${element.chainId} contract-${element.isContract}");
+    // }
 
     // 获取localBalanceList和tempBalance的交集
     List<Balance> intersection = localBalanceList
@@ -290,7 +572,7 @@ class WalletController extends GetxController {
     // 获取localBalanceList和tempBalance的差集（localBalanceList有，tempBalance没有）
     List<Balance> difference = localBalanceList
         .where((element) =>
-            !tempBalance.any((element2) => _getBool(element2, element)))
+            !tempBalance.any((element2) => !_getBool(element2, element)))
         .toList();
 
     // 获取tempBalance和localBalanceList的差集（tempBalance有，localBalanceList没有）
@@ -306,24 +588,30 @@ class WalletController extends GetxController {
       for (Balance element in intersection) {
         // 如果余额不一样，更新余额
         try {
-          if (element.balance !=
-              tempBalance
-                  .firstWhere((element2) => element2.chainId == element.chainId)
-                  .balance) {
-            element.balance = tempBalance
-                .firstWhere((element2) => element2.chainId == element.chainId)
-                .balance;
+          // 当前余额
+          final currentBalance = tempBalance
+              .firstWhere((element2) =>
+                  element2.chainId == element.chainId &&
+                  element2.isContract == element.isContract &&
+                  element2.contractAddress == element.contractAddress)
+              .balance;
+          print(
+              "👉debug balance ${element.id} ${element.contractAddress} $currentBalance");
+          // 数据库余额跟当前余额比对 如果不等就更新余额
+          if (element.balance != currentBalance) {
+            print(
+                "👉debug balance change balance ${element.id} $currentBalance");
+            element.balance = currentBalance;
             // 更新余额
             await IsarService.isar?.balances.put(element);
             await element.network.save();
-            print("更新余额");
           }
         } catch (e) {
           print(e);
         }
       }
 
-      // 遍历localBalanceList多出来的差集部分，删除数据
+      // 遍历localBalanceList多出来的差集部分，删除多余的数据
       for (Balance element in difference) {
         await IsarService.isar?.balances.delete(element.id);
       }
@@ -344,52 +632,109 @@ class WalletController extends GetxController {
       }
     });
 
-    print("tempBalance $tempBalance");
-    print("localBalanceList $localBalanceList");
     return tempBalance;
   }
 
-  // 刷新所有账号余额
+  /// 刷新所有账号余额
+  ///
+  /// 1. 获取root账号
+  /// 2. 获取root账号的proxy账号
+  /// 3. 获取root账号和proxy账号的余额 先把数据库中已有的余额读取出来，然后获取新的余额，更新余额
   Future<void> refreshAllBalance() async {
     print("refresh all account balance");
-    List<Balance> balances = [];
-
-    // 读取root账号
-    var _rootAccount = HiveService.getWalletData(LocalKeyList.rootAddress);
-    if (_rootAccount == null) {
-      return;
+    List<Balance> tempList =
+        await IsarService.isar?.balances.where().findAll() ?? [];
+    if (tempList.isEmpty) {
+      await removeBalance();
+      tempList = await IsarService.isar?.balances.where().findAll() ?? [];
     }
 
-    RootAccount rootAccount =
-        RootAccount.fromJson(Map<String, dynamic>.from(_rootAccount));
-    List<String> addressList = [
-      rootAccount.address,
-      ...rootAccount.proxyAddressList
-    ];
+    // List<Balance> tempList =
+    //     await IsarService.isar?.balances.where().findAll() ?? [];
+    rxAccount.value = tempList;
+    refreshList.value = false;
 
-    print("addressList $addressList");
-    // 先从数据库读取余额
-    List<Balance> tempList = [];
-    for (var address in addressList) {
-      final temp = await IsarService.isar?.balances
-              .filter()
-              .addressEqualTo(address)
-              .findAll() ??
-          [];
-      tempList.addAll(temp);
-    }
+    await IsarService.isar?.writeTxn(() async {
+      for (var element in tempList) {
+        try {
+          final tempBalance = await refreshBalance(element.copyWith());
+          if (tempBalance != element.balance) {
+            print("余额 ${element.balance} $tempBalance");
+            element.balance = tempBalance;
+            // 更新余额
+            await IsarService.isar?.balances.put(element.copyWith());
+            await element.network.save();
+          }
+        } catch (e) {
+          debugPrint(e.toString());
+        }
+      }
+    });
+
+    // await IsarService.isar?.writeTxn(() async {
+    //   await IsarService.isar?.balances.putAll(tempList);
+    // });
+    // await IsarService.isar?.writeTxn(() async {
+    //   // 更新余额
+    //   for (var i = 0; i < tempList.length; i++) {
+    //     try {
+    //       final recipe = await IsarService.isar?.balances.get(tempList[i].id);
+    //       await IsarService.isar?.balances.put(recipe!);
+    //       // final tempBalance = await refreshBalance(tempList[i]);
+    //       // refreshList.value = true;
+    //       // try {
+    //       //   refreshList.value = true;
+    //       //   print("余额2 ${tempBalance} ${tempList[i].balance}");
+    //       // if (tempBalance != tempList[i].balance) {
+    //       print("余额 ${tempList[i].address} ${tempList[i].balance}");
+    //       //   tempList[i].balance = tempBalance;
+    //       //   // rxAccount.value = tempList;
+    //       // }
+
+    //       //   // rxAccount.value = tempList;
+    //       // } catch (e) {
+    //       //   continue;
+    //       // }
+    //     } catch (e) {
+    //       print(e);
+    //     }
+    //   }
+    //   // await IsarService.isar?.balances.clear();
+    //   // await IsarService.isar?.balances.putAll(tempList);
+    // });
+
     rxAccount.value = tempList;
 
-    for (var address in addressList) {
-      final temp = await refreshSingleBalance(address,
-          isProxy: address != rootAccount.address);
-      balances.addAll(temp);
-    }
+    refreshList.value = true;
 
-    // 更新账号余额
-    rxAccount.value = balances;
     print("refresh all account balance end");
     update();
+  }
+
+  void testList() async {
+    List<Balance> tempList =
+        await IsarService.isar?.balances.where().findAll() ?? [];
+    for (var element in tempList) {
+      try {
+        print("余额 ${element.networkName}");
+        // final tempBalance = await refreshBalance(element.copyWith());
+        // final tempBalance = '10';
+        // if (tempBalance != element.balance) {
+        //   print("余额 ${element.balance} $tempBalance");
+        //   element.balance = '10';
+
+        //   // 更新余额
+        //   // await IsarService.isar?.balances.delete(element.id);
+        //   await IsarService.isar?.balances.put(
+        //       Balance(address: element.address, chainId: element.chainId));
+        // await IsarService.isar?.balances.put(tempList[i]);
+        // await tempList[i].network.save();
+        // refreshList.value = true;
+        // }
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    }
   }
 
   // 设置一个定时器30秒刷新一次余额
@@ -399,7 +744,6 @@ class WalletController extends GetxController {
       timer?.cancel();
     }
     timer = Timer.periodic(const Duration(seconds: 30), (timer) async {
-      print("定时器刷新余额");
       await refreshAllBalance();
     });
   }
@@ -525,254 +869,56 @@ class WalletController extends GetxController {
     return true;
   }
 
+  // 恢复默认网络
+  Future<void> resetDefaultNetwork() async {
+    await IsarService.isar?.writeTxn(() async {
+      // 清理余额
+      await IsarService.isar?.balances.clear();
+      // 删除网络数据
+      await IsarService.isar?.mainnets.clear();
+      // 删除token数据
+      await IsarService.isar?.contracts.clear();
+    });
+    HiveService.saveData(LocalKeyList.networkList, null);
+    tokenConfigList = [];
+    nodeConfigList = [];
+    await _initStart();
+  }
+
   void testsomething() async {
     print("test something");
     try {
-      // final newMainnet = Mainnet(
-      //   chainName: "VDX",
-      //   rpc: "http://vdxchain-dev-rpc.xlipfs.com:8083",
-      //   chainId: 1281,
-      //   explorer: "http://vdxchain-dev-blockscout.xlipfs.com:8083/",
-      //   chainColor: "#000000",
-      //   iconUrl: "https://www.subdev.studio/icon/eth.svg",
-      //   shortName: "vdx",
-      //   nativeCurrencyName: "VDX",
-      //   nativeCurrencySymbol: "VDX",
-      //   nativeCurrencyDecimals: 18,
-      //   isTestnet: false,
-      // );
-
-      // await isarTest?.writeTxn(() async {
-      //   await isarTest?.mainnets.put(newMainnet); // 将新用户数据写入到 Isar
-      // });
-
-      // print(newMainnet.id);
-
-      // List<Mainnet>? existingUser =
-      //     await IsarService.isar?.mainnets.where().findAll(); // 通过 Id 读取用户数据
-
-      // print(existingUser?.length);
-
-      // _loadNodeNetwork();
-
-      // final baseUrl = dotenv.env['BASE_URL'];
-      // print(baseUrl);
-      // List<String>? result =
-      //     await Server.getUser("0xe0de685670e887744b6964dbf02981ef3afc4dca");
-      // print(result);
-
-      // List<Balance> localBalanceList =
-      //     await IsarService.isar?.balances.where().findAll() ?? [];
-      // print(localBalanceList);
-      // // 清空balances数据库
-      // await IsarService.isar?.writeTxn(() async {
-      //   for (Balance element in localBalanceList) {
-      //     await IsarService.isar?.balances.delete(element.id);
-      //   }
-      // });
-
+      EasyLoading.showInfo("敬请期待");
       // refreshAllBalance();
-      // await IsarService.isar?.writeTxn(() async {
-      //   final success =
-      //       await IsarService.isar?.mainnets.delete(4); // 通过 Id 删除指定用户
-      //   await IsarService.isar?.mainnets.delete(5);
-      //   print('We deleted $success');
-      // });
-      // setAuthenticate('123');
-      // showConfirmDialog();
-      // await IsarService.isar?.writeTxn(() async {
-      //   // await IsarService.isar?.contracts.clear();
-      //   // await IsarService.isar?.mainnets.clear();
-      //   List<Contract>? contractList =
-      //       await IsarService.isar?.contracts.where().findAll();
-      //   print(contractList?.length);
-      //   Map<String, dynamic>? result = await readJsonFile(
-      //       "https://www.subdev.studio/config/wallet_tokens.json");
-      //   print(result);
-      //   print(result?["tokens"]);
-
-      //   for (var element in result?["tokens"]) {
-      //     Contract newContract = Contract.fromJson(element);
-      //     print(newContract.contractAddress);
-      //     // 如果重复就删掉重复的
-      //     List<Contract>? existingContract = await IsarService.isar?.contracts
-      //         .filter()
-      //         .contractAddressEqualTo(newContract.contractAddress)
-      //         .findAll();
-      //     print(existingContract?.length);
-      //     if (existingContract != null) {
-      //       List<int> ids = existingContract.map((e) => e.id).toList();
-      //       await IsarService.isar?.contracts.deleteAll(ids);
-      //     }
-      //     await IsarService.isar?.contracts.put(newContract); // 将新数据写入到 Isar
-      //   }
-
-      //   List<dynamic> result1 = await readJsonFile(
-      //           "https://www.subdev.studio/config/swap_network.json") ??
-      //       [];
-
-      //   print(result1);
-      //   for (var element in result1) {
-      //     Mainnet newMainnet = Mainnet.fromJson(element);
-      //     print(newMainnet.chainId);
-      //     // 判断chainId是否在IsarService.isar?.mainnets中
-      //     Mainnet? existingMainnet = await IsarService.isar?.mainnets
-      //         .filter()
-      //         .chainIdEqualTo(newMainnet.chainId)
-      //         .findFirst();
-      //     print(existingMainnet?.toJson());
-      //     // if (existingMainnet == null) {
-      //     //   await IsarService.isar?.mainnets.put(newMainnet); // 将新数据写入到 Isar
-      //     // }
-      //   }
-      // });
-      // // return;
-
-      // final abi = [
-      //   {
-      //     "constant": false,
-      //     "inputs": [
-      //       {
-      //         "internalType": "uint256",
-      //         "name": "amount0Out",
-      //         "type": "uint256"
-      //       },
-      //       {
-      //         "internalType": "uint256",
-      //         "name": "amount1Out",
-      //         "type": "uint256"
-      //       },
-      //       {"internalType": "address", "name": "to", "type": "address"},
-      //       {"internalType": "bytes", "name": "data", "type": "bytes"}
-      //     ],
-      //     "name": "swap",
-      //     "outputs": [],
-      //     "payable": false,
-      //     "stateMutability": "nonpayable",
-      //     "type": "function"
-      //   },
-      //   {
-      //     "inputs": [],
-      //     "name": "getReserves",
-      //     "outputs": [
-      //       {"internalType": "uint112", "name": "_reserve0", "type": "uint112"},
-      //       {"internalType": "uint112", "name": "_reserve1", "type": "uint112"},
-      //       {
-      //         "internalType": "uint32",
-      //         "name": "_blockTimestampLast",
-      //         "type": "uint32"
-      //       }
-      //     ],
-      //     "stateMutability": "view",
-      //     "type": "function"
-      //   }
-      // ];
-      // const routerAbi = [
-      //   {
-      //     "inputs": [
-      //       {"internalType": "uint256", "name": "amountIn", "type": "uint256"},
-      //       {
-      //         "internalType": "uint256",
-      //         "name": "amountOutMin",
-      //         "type": "uint256"
-      //       },
-      //       {"internalType": "address[]", "name": "path", "type": "address[]"},
-      //       {"internalType": "address", "name": "to", "type": "address"},
-      //       {"internalType": "uint256", "name": "deadline", "type": "uint256"}
-      //     ],
-      //     "name": "swapExactTokensForTokens",
-      //     "outputs": [
-      //       {
-      //         "internalType": "uint256[]",
-      //         "name": "amounts",
-      //         "type": "uint256[]"
-      //       }
-      //     ],
-      //     "stateMutability": "nonpayable",
-      //     "type": "function"
-      //   }
-      // ];
-      // final httpClient = Client();
-      // final ethClient =
-      //     Web3Client('https://rpc.api.moonbase.moonbeam.network', httpClient);
-      // // print(object)
-      // final contractAddress =
-      //     EthereumAddress.fromHex('0x083b71bF4FAb1A361E6d439DfADF379129Ce152d');
-      // final routerContractAddress =
-      //     EthereumAddress.fromHex('0x8a1932D6E26433F3037bd6c3A40C816222a6Ccd4');
-      // final contract = DeployedContract(
-      //     ContractAbi.fromJson(jsonEncode(abi), 'UniswapV2Pair'),
-      //     contractAddress);
-      // final routerContract = DeployedContract(
-      //     ContractAbi.fromJson(jsonEncode(routerAbi), 'UniswapV2Router02'),
-      //     routerContractAddress);
-      // // return;
-      // final addressResult = await ethClient.call(
-      //     contract: contract,
-      //     function: contract.function('getReserves'),
-      //     params: []);
-
-      // final reserves = contract.function('getReserves').encodeCall([]);
-      // print(reserves);
-      // print(addressResult);
-      // final reserveIn = BigInt.parse(addressResult[0].toString());
-      // final reserveOut = BigInt.parse(addressResult[1].toString());
-
-      // const privateKety =
-      //     "0xc54b1b200172a573ef429671483fb71bea4e3e2e3b98c736e5acb47b4cddda47";
-
-      // // dubdev 0x8d81a3dcd17030cd5f23ac7370e4efb10d2b3ca4
-      // // tusdt 0xcc4c41415fc68b2fbf70102742a83cde435e0ca7
-      // final credentials = EthPrivateKey.fromHex(privateKety);
-
-      // print('Reserve in: $reserveIn');
-      // print('Reserve out: $reserveOut');
-
-      // final amountIn = BigInt.from(1) * BigInt.from(10).pow(18);
-      // final amountOutMin = BigInt.from(9.96974) * BigInt.from(10).pow(18);
-
-      // final fee = 0.003;
-
-      // final amountOut =
-      //     amountIn * reserveOut / (reserveIn + amountIn) * (1 - fee);
-      // print("Amount in: $amountIn"); // 1000000000000000000
+      // await removeBalance();
+      // 查询所有地址
+      // List<Balance> temp =
+      //     await IsarService.isar?.balances.where().findAll() ?? [];
       // print(
-      //     'Amount out: $amountOut ${BigInt.from(amountOut)}'); // 996963165859174144
-
+      //     "👉debug balances 👉 balances: ${temp.length} \n ==========================================");
+      // // 遍历打印
+      // for (var element in temp) {
+      //   print(
+      //       "ID:${element.id} ${element.address} ${element.chainId} ${element.isContract}  [${element.contractAddress}] 👉debug ${element.balance}");
+      // }
       // return;
-      // final path = [
-      //   EthereumAddress.fromHex(
-      //       '0x8d81a3dcd17030cd5f23ac7370e4efb10d2b3ca4'), // WETH
-      //   EthereumAddress.fromHex(
-      //       '0xcc4c41415fc68b2fbf70102742a83cde435e0ca7') // DAI
+
+      // List<Balance> balances = [];
+      // List<String> addressList = [
+      //   rootAccount!.address,
+      //   ...rootAccount!.proxyAddressList
       // ];
-      // final to =
-      //     EthereumAddress.fromHex('0xa1eD666D1125b8D606C44cf573B75127E257EB31');
-      // final deadline = DateTime.now().millisecondsSinceEpoch ~/ 1000 + 60 * 20;
-
-      // final function = routerContract.function('swapExactTokensForTokens');
-      // final tx = Transaction.callContract(
-      //   contract: routerContract,
-      //   function: function,
-      //   parameters: [amountIn, amountOutMin, path, to, BigInt.from(deadline)],
-      //   // maxGas: 1000000,
-      //   // gasPrice: EtherAmount.inWei(BigInt.one),
-      // );
-      // print("so tx is ${HEX.encode(tx.data!)}");
-      // final signedTx = await ethClient.signTransaction(credentials, tx, chainId: 1287);
-      // final txHash =
-      //     await ethClient.sendTransaction(credentials, tx, chainId: 1287);
-
-      // print('Transaction hash: $txHash');
-
-      // final httpClient = Client();
-      // Web3Client ethClient = Web3Client(
-      //     'https://rpc-mumbai.maticvigil.com/v1/b8ad974a05bb017a5da09dc548e6a75a837648db',
-      //     httpClient);
-      // ethClient.addedBlocks().listen((event) {
-      //   print("block added $event");
-      // });
-      EasyLoading.showSuccess("敬请期待");
+      // print(addressList);
+      // // 刷新余额
+      // for (var address in addressList) {
+      //   final temp = await refreshSingleBalance(address,
+      //       isProxy: address != rootAccount!.address);
+      //   balances.addAll(temp);
+      // }
+      // for (var element in balances) {
+      //   print(
+      //       "${element.address} 👉 balance ${element.balance} ${element.chainId} [${element.contractAddress}]");
+      // }
     } catch (e) {
       print(e);
     }

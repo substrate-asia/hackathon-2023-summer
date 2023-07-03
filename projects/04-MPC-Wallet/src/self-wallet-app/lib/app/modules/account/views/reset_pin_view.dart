@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -10,20 +7,26 @@ import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/core/utils/encryption.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
-/// 校验交易密码
+/// 修改密码
 ///
-/// 返回私钥
-class VerifyAccountView extends StatefulWidget {
-  VerifyAccountView({super.key});
+/// [private] 私钥
+class ResetPinView extends StatefulWidget {
+  String private;
+  String address;
+
+  ResetPinView({super.key, required this.private, required this.address});
 
   @override
-  _VerifyAccountViewState createState() => _VerifyAccountViewState();
+  _ResetPinViewState createState() => _ResetPinViewState();
 }
 
-class _VerifyAccountViewState extends State<VerifyAccountView> {
+class _ResetPinViewState extends State<ResetPinView> {
   // await HiveService.saveData("test", list);
   String _pin = '';
   String errorText = '';
+  String get private => widget.private;
+  // 第一次输入的密码
+  String firstPin = '';
 
   void _onNumberPressed(String number) {
     setState(() {
@@ -33,10 +36,22 @@ class _VerifyAccountViewState extends State<VerifyAccountView> {
       }
     });
 
-    if (_pin.length == 6) {
-      // Submit the verification code
-      print('Verification code submitted: $_pin');
-      _verifyPin();
+    if (_pin.length == 6 && firstPin == '') {
+      setState(() {
+        firstPin = _pin;
+        _pin = '';
+      });
+    }
+
+    // 第二次输入密码
+    if (_pin.length == 6 && firstPin != '') {
+      if (firstPin != '' && _pin != firstPin) {
+        setState(() {
+          errorText = '两次密码不相等, 请重试';
+        });
+      } else if (firstPin == _pin) {
+        _changePin();
+      }
     }
   }
 
@@ -49,116 +64,11 @@ class _VerifyAccountViewState extends State<VerifyAccountView> {
     });
   }
 
-  // 校验是否被锁定，如果十次返回false，如果十次且时间大于24小时返回true
-  bool _checkLockStatus() {
-    var _lockStatus = HiveService.getWalletData(LocalKeyList.passwordLock);
-    if (_lockStatus != null) {
-      var lockStatus = Map.from(_lockStatus);
-      var _lockCount = lockStatus["lockCount"];
-      var _lockTime = lockStatus["lockTime"];
-      if (_lockCount >= 5 &&
-          DateTime.now().millisecondsSinceEpoch - _lockTime < 60000) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      return true;
-    }
-  }
-
-  // 密码错误锁定次数增加
-  void addPasswordErrorLock() {
-    var _lockStatus = HiveService.getWalletData(LocalKeyList.passwordLock);
-    print(_lockStatus);
-    if (_lockStatus != null) {
-      var lockStatus = Map.from(_lockStatus);
-      var _lockCount = lockStatus["lockCount"];
-      var _lockTime = lockStatus["lockTime"];
-      if (_lockCount < 5) {
-        HiveService.saveWalletData(LocalKeyList.passwordLock, {
-          "lockCount": _lockCount + 1,
-          "lockTime": DateTime.now().millisecondsSinceEpoch
-        });
-      } else {
-        if (DateTime.now().millisecondsSinceEpoch - _lockTime > 60000) {
-          HiveService.saveWalletData(LocalKeyList.passwordLock, {
-            "lockCount": 1,
-            "lockTime": DateTime.now().millisecondsSinceEpoch
-          });
-        } else {
-          EasyLoading.showToast("密码错误次数过多，请稍后再试");
-        }
-      }
-    } else {
-      HiveService.saveWalletData(LocalKeyList.passwordLock,
-          {"lockCount": 1, "lockTime": DateTime.now().millisecondsSinceEpoch});
-    }
-  }
-
-  // 校验密码
-  void _verifyPin() async {
-    try {
-      if (_checkLockStatus() == false) {
-        setState(() {
-          errorText = '当前密码错误次数过多，请次日再试';
-          _pin = '';
-        });
-        return;
-      }
-      await EasyLoading.show(status: '校验中');
-      var accountMap = HiveService.getWalletData(LocalKeyList.rootAddress);
-      RootAccount account =
-          RootAccount.fromJson(Map<String, dynamic>.from(accountMap));
-
-      // 获取加密后的私钥
-      String? encryptedPrivateKey =
-          HiveService.getEncryptedPrivateKey(account.address);
-      print(encryptedPrivateKey);
-      if (encryptedPrivateKey != null) {
-        String privateKey = decryptAES(encryptedPrivateKey, _pin);
-
-        print("decryptedKey $privateKey");
-
-        // 重置错误次数
-        HiveService.saveWalletData(LocalKeyList.passwordLock, {
-          "lockCount": 0,
-          "lockTime": DateTime.now().millisecondsSinceEpoch
-        });
-
-        EasyLoading.dismiss();
-        Get.back(result: privateKey);
-      }
-    } catch (e) {
-      print("catch error $e");
-      EasyLoading.dismiss();
-      if (e.toString().contains("Invalid or corrupted pad block")) {
-        addPasswordErrorLock();
-        setState(() {
-          errorText = '密码错误';
-          _pin = '';
-        });
-        return;
-      } else {
-        final regex = RegExp(r'"([^"]+)"');
-        final match = regex.firstMatch(e.toString());
-        if (match != null) {
-          print('Match found: ${match.group(1)}');
-          setState(() {
-            errorText = match.group(1) ?? '';
-            // _pin = '';
-          });
-          EasyLoading.showError(match.group(1) ?? '');
-        } else {
-          setState(() {
-            errorText = '未知错误, 请稍后重试';
-            _pin = '';
-          });
-          print('No match found.');
-        }
-      }
-      EasyLoading.dismiss();
-    }
+  _changePin() async {
+    String encryptedKey = encryptAES(private, firstPin);
+    // 把加密私钥保存到本地
+    await HiveService.saveEncryptedPrivateKey(widget.address, encryptedKey);
+    Get.back(result: 'ok');
   }
 
   @override
@@ -196,7 +106,7 @@ class _VerifyAccountViewState extends State<VerifyAccountView> {
                       size: 28.w, color: Colors.grey[600])),
               Expanded(
                   child: Center(
-                child: Text("验证交易密码",
+                child: Text(firstPin == '' ? "输入新的交易密码" : "再次输入交易密码",
                     style: TextStyle(
                         fontSize: 18.sp, fontWeight: FontWeight.w700)),
               )),

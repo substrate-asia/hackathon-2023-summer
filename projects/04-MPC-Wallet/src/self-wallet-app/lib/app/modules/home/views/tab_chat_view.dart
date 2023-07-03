@@ -23,6 +23,11 @@ class TabChatView extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
+                    controller.reconnect();
+                  },
+                  icon: Icon(Icons.link_rounded)),
+              IconButton(
+                  onPressed: () {
                     controller.createNewConvo();
                   },
                   icon: const Icon(Icons.add_circle_outline_rounded))
@@ -80,6 +85,7 @@ class TabChatView extends StatelessWidget {
             ),
             onRefresh: () async {
               // 下拉刷新逻辑
+              await controller.loadContacts();
             },
             onLoad: () async {
               // 上拉加载逻辑

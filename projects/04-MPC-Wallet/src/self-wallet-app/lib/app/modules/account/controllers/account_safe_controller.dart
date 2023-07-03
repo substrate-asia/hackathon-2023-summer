@@ -5,13 +5,15 @@ import 'package:sunrise/app/controllers/wallet_controller.dart';
 import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/modules/account/views/active_proxy_account.dart';
-import 'package:sunrise/app/modules/account/views/verify_pin_view.dart';
+import 'package:sunrise/app/modules/account/views/reset_pin_view.dart';
+import 'package:sunrise/app/modules/home/controllers/home_controller.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
 import '../views/verify_account.dart';
 
 class AccountSafeController extends GetxController {
   WalletController walletController = Get.find();
+  HomeController homeController = Get.find();
   late RootAccount rootAccount;
 
   // 是否开启生物支付
@@ -107,6 +109,39 @@ class AccountSafeController extends GetxController {
     }
   }
 
+  // 修改交易密码
+  void changePin() async {
+    // 验证密码获得私钥
+    String? privateKey = await Get.bottomSheet(
+      VerifyAccountView(),
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: const Color(0xFF0a0a0a),
+      barrierColor: Colors.black.withOpacity(0.5),
+    );
+    print("hash $privateKey");
+    if (privateKey != null) {
+      String? result = await Get.bottomSheet(
+        ResetPinView(
+          private: privateKey,
+          address: rootAccount.address,
+        ),
+        isScrollControlled: true,
+        useRootNavigator: true,
+        backgroundColor: const Color(0xFF0a0a0a),
+        barrierColor: Colors.black.withOpacity(0.5),
+      );
+      if (result != null && result != "0x") {
+        EasyLoading.showToast("修改成功");
+      } else {
+        EasyLoading.showToast("取消修改");
+      }
+    } else {
+      EasyLoading.showToast("取消修改");
+      return;
+    }
+  }
+
   // 初始化账号列表
   void initAccountList() async {
     // 读取root账号
@@ -140,10 +175,16 @@ class AccountSafeController extends GetxController {
     );
     print("result $result");
     if (result != null && result != "0x") {
+      rootAccount.proxyAddressList = [result];
+      await HiveService.saveWalletData(
+          LocalKeyList.rootAddress, rootAccount.toJson());
       initAccountList();
+      homeController.getRootAccount();
+      await walletController.initAppConfig();
+      await walletController.removeBalance();
       EasyLoading.showToast("激活成功");
     } else {
-      EasyLoading.showToast("取消激活");
+      EasyLoading.showToast("激活不成功");
     }
   }
 }

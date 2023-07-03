@@ -45,15 +45,13 @@ class ChatService {
     final api = Api.create(
       host: "production.xmtp.network",
       isSecure: true,
-      debugLogRequests: true,
+      // debugLogRequests: true,
       // host: "dev.xmtp.network"
     );
     // 如果没有key
     if (stored != null) {
       // 从stored中获取key
       var keys = PrivateKeyBundle.fromBuffer(stored);
-      print(keys);
-      // var api = Api.create();
       client = await Client.createFromKeys(api, keys);
       address = chatAddress;
     } else {

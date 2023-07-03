@@ -20,11 +20,13 @@ Device Information Details
 ![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/c32ddc85-fbc3-483d-a501-776824749f8c)
 
 ### 5.Complete order information
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/83636356-ddb2-4bff-acc4-a0fafeb441c7)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/6a045df2-b2af-4e99-af28-c30b6f9035be)
+
 
 ### 6.Confirm the transaction to complete the purchase
 ![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/3eaa8909-e755-4950-9792-d784ef338cb7)
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/6fadbc52-cc15-4d9e-87b4-2af557eede57)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/8e20e48f-0d95-4def-b315-ea453a5c4c85)
+
 
 ### 7.Query order information
 ![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/ce4e28ef-b48d-4478-b034-3beef8b2f64f)

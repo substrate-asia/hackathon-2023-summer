@@ -3,11 +3,14 @@ import { NavLinks } from "../../constants";
 import { NavLink, useLocation } from "react-router-dom";
 import LaunchButton from "components/Button";
 import Wallet from "pages/airDropList/Wallet";
-const NavBar = () => {
+import { forwardRef } from "react";
+
+const NavBar = forwardRef<HTMLDivElement>((props, ref) => {
   const location = useLocation();
   return (
-    <nav
-      className={`w-full flex py-6 sm:px-20 px-6 justify-between items-center bg-blue-950 `}
+    <div
+      className={`w-full  flex py-6 sm:px-20 px-6 justify-between items-center bg-blue-950 z-50 bg-transparent`}
+      ref={ref}
     >
       <div className="flex items-center">
         <img src={Logo} alt="dandelion" className="w-[60px] h-[60px]" />
@@ -37,8 +40,8 @@ const NavBar = () => {
           <Wallet />
         )}
       </div>
-    </nav>
+    </div>
   );
-};
+});
 
 export default NavBar;

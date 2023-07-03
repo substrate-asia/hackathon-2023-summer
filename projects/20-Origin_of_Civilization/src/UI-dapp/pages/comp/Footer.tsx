@@ -43,7 +43,7 @@ const Footer = () => {
   
   
           <div>
-            <a href="https://link.civi,ink">
+            <a href="https://link.civi.ink">
             <FontAwesomeIcon icon={faBitcoin} className={styles.socialsicon} spin></FontAwesomeIcon>
             </a>
           </div>

@@ -65,7 +65,7 @@ Develop listing and search functionality for AI models.
 Enable users to view and purchase AI models.
 Implement a payment gateway for NFT transactions.
 
-### Sprint 2: Data Upload and Training (Deadline: July 4, 2023)
+### Sprint 2: Data Upload and Training 
 Objective: Allow users to upload fine-tune data and train models using selected base models.
 Tasks:
 Design and develop a data upload feature supporting CSV format.
@@ -108,7 +108,10 @@ Prepare for project submission and presentation.
 #Dev Information
 
 dapanji.eth - Harvard University 
+
 daniel - University of Pennsylvania 
+
 nicole - University of Washington St. Louis
+
 Tracy - Stanford University
 

@@ -79,18 +79,22 @@ function AirDropProgress({
   endblock: number;
 }) {
   const { data } = useBlockNumber();
+  const percentage = percent(startblock, endblock, data).toFixed(0);
   return (
-    <Progress
-      percent={percent(startblock, endblock, data)}
-      size={["80%", 18]}
-      trailColor="#fff"
-      className="text-center mt-5"
-    />
+    <div className="flex flex-col items-center mt-5">
+      <span className="text-[24px text-white]">空头进度：{percentage}%</span>
+      <Progress
+        percent={percent(startblock, endblock, data)}
+        trailColor="#fff"
+        className="text-center w-[120px]"
+        showInfo={false}
+      />
+    </div>
   );
 }
 
 function percent(start: number, end: number, current?: number): number {
-  if (!current) {
+  if (!current || current < start) {
     return 0;
   }
   return (current - start) / (end - start);

@@ -1,0 +1,9 @@
+.air-drop-detail {
+  .text-color {
+    color: #f7f7f8;
+  }
+}
+.button-diable-detail {
+  border: 1px solid #5f656f;
+  color: #5f656f;
+}

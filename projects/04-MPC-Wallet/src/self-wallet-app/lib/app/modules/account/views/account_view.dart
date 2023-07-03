@@ -10,8 +10,22 @@ class AccountView extends GetView<AccountController> {
   const AccountView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final double statusBarHeight = MediaQuery.of(context).padding.top;
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    // 探索文章列表
+    final List<Widget> exploreList = [
+      _articleCard(context,
+          title: "了解MPC钱包",
+          content: "MPC钱包是一个去中心化的数字资产钱包，支持多链资产管理。",
+          image: 'assets/images/banner_mpc.png',
+          url: "https://www.subdev.studio/explore/1"),
+      _articleCard(context,
+          title: "了解4337协议",
+          content: "「账户抽象」可以降低用户在区块链上操作交易的复杂性。",
+          image: 'assets/images/banner_4337.png',
+          url: "https://www.subdev.studio/explore/2"),
+    ];
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -109,66 +123,15 @@ class AccountView extends GetView<AccountController> {
 
             SizedBox(
               width: screenWidth,
-              height: 200.w,
+              height: 170.w,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   SizedBox(width: 30.w),
                   // 生成五个sizedbox
                   ...List.generate(
-                    3,
-                    (index) => GestureDetector(
-                        onTap: () {
-                          Get.toNamed('/website', arguments: {
-                            "title": "了解更多",
-                            "url": "https://www.subdev.studio/explore"
-                          });
-                        },
-                        child: Container(
-                          width: 200.w,
-                          margin: EdgeInsets.only(right: 10.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6.w),
-                            color: Theme.of(context)
-                                .colorScheme
-                                .surfaceVariant
-                                .withOpacity(0.2),
-                          ),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(6.w),
-                                child: Image.asset(
-                                  'assets/images/temp07.png',
-                                  width: double.infinity,
-                                  height: 100.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(height: 10.w),
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("MPC钱包",
-                                          style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w600)),
-                                      SizedBox(height: 5.w),
-                                      Text("MPC钱包是一个去中心化的数字资产钱包，支持多链资产管理。",
-                                          style: TextStyle(
-                                              fontSize: 10.sp,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurfaceVariant)),
-                                    ],
-                                  ))
-                            ],
-                          ),
-                        )),
+                    exploreList.length,
+                    (index) => exploreList[index],
                   ).toList(),
                   SizedBox(width: 30.w),
                 ],
@@ -180,5 +143,61 @@ class AccountView extends GetView<AccountController> {
         ),
       ),
     );
+  }
+
+  /// 文章卡片
+  ///
+  /// [title] 标题
+  /// [content] 内容
+  /// [image] 图片地址
+  Widget _articleCard(BuildContext context,
+      {required String title,
+      required String content,
+      required String image,
+      String url = "https://www.subdev.studio/explore"}) {
+    return GestureDetector(
+        onTap: () {
+          Get.toNamed('/website', arguments: {"title": title, "url": url});
+        },
+        child: Container(
+          width: 200.w,
+          margin: EdgeInsets.only(right: 10.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6.w),
+            color:
+                Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.2),
+          ),
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6.w),
+                child: Image.asset(
+                  image,
+                  width: double.infinity,
+                  height: 90.w,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(height: 10.w),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                      SizedBox(height: 5.w),
+                      Text(content,
+                          style: TextStyle(
+                              fontSize: 10.sp,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant)),
+                    ],
+                  ))
+            ],
+          ),
+        ));
   }
 }

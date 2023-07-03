@@ -1,0 +1,60 @@
+[data-theme-version="dark"] {
+    &[data-layout="vertical"]{
+		&[data-sidebar-position="fixed"]{
+			.header{
+				border-color:$d-border;
+			}
+		}
+	}
+    .header {
+		border-color:$d-border;
+    }
+
+    .header-left {
+        .dashboard_bar{
+			color:$white;
+		}
+		.search-area{
+			.form-control{
+				background:$d-bg;
+			}
+			.input-group-text{
+				border:0;
+				background:$d-bg;
+				a{
+					color:#4f7086;
+				}
+			}
+		}
+    }
+
+    .header-right {
+		
+		.notification_dropdown .nav-link{
+			background: $d-bg!important;
+			.badge{
+				border-color:$dark-card;
+			}
+			svg{
+				path{
+					fill:$white;
+				}
+			}
+		}
+        .dropdown {
+            .nav-link {
+				color: $white;
+                &:hover {
+                    color: $white;
+                }
+            }
+        }	
+    }
+	
+	.nav-header .hamburger .line{
+		background:$white!important;
+	}
+	.menu-toggle .nav-header .nav-control .hamburger .line {
+		background-color: $white !important;
+	}
+}

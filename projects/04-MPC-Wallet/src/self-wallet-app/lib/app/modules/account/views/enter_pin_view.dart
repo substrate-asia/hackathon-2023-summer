@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:hex/hex.dart';
 import 'package:isar/isar.dart';
 import 'package:sunrise/app/controllers/wallet_controller.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
@@ -17,10 +14,12 @@ import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/data/services/isar_service.dart';
 import 'package:sunrise/app/modules/account/controllers/account_controller.dart';
 import 'package:sunrise/core/utils/encryption.dart';
+import 'package:sunrise/core/utils/eth_wallet.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
 import 'active_proxy_account.dart';
 
+/// 设置密码
 class EnterPinView extends StatefulWidget {
   const EnterPinView({super.key});
 
@@ -34,6 +33,10 @@ class _EnterPinViewState extends State<EnterPinView> {
   // await HiveService.saveData("test", list);
   String _pin = '';
   String errorText = '';
+
+  // 钱包账号
+  EthWallet? get walletAccount => controller.walletAccount;
+  String? get walletAddress => controller.walletAddress;
 
   // 第一次输入的密码
   String firstPin = '';
@@ -67,7 +70,6 @@ class _EnterPinViewState extends State<EnterPinView> {
 
   // 删除
   void _onDeletePressed() async {
-    // _saveWalletAccount();
     setState(() {
       if (_pin.isNotEmpty) {
         _pin = _pin.substring(0, _pin.length - 1);
@@ -90,7 +92,7 @@ class _EnterPinViewState extends State<EnterPinView> {
     // 遍历上传
     for (var privateStr in list) {
       String? cid = await NftStorage.uploadString(privateStr);
-      print("privateString $cid");
+
       if (cid != null) {
         cidList.add(cid);
       }
@@ -98,9 +100,14 @@ class _EnterPinViewState extends State<EnterPinView> {
     return cidList;
   }
 
+  // 缓存cid列表
+  List<String> cacheList = [];
   // 下载cid
   Future<List<String>> downloadPrivateKeys(List<String> cidList) async {
     List<String> list = [];
+    if (cacheList.isNotEmpty) {
+      return cacheList;
+    }
     // 遍历下载
     for (var cid in cidList) {
       String? privateString = await NftStorage.getPrivateString(cid);
@@ -109,6 +116,7 @@ class _EnterPinViewState extends State<EnterPinView> {
         list.add(privateString);
       }
     }
+    cacheList = list;
     return list;
   }
 
@@ -116,6 +124,10 @@ class _EnterPinViewState extends State<EnterPinView> {
   Future<void> _checkProxyAccount(String address) async {
     List<String>? result = await Server.getUser(address);
     print(result);
+    await EasyLoading.show(
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+        status: "代理账号检查中");
     // 有代理账号
     if (result != null && result.isNotEmpty) {
       _finsihAccount(result);
@@ -148,8 +160,6 @@ class _EnterPinViewState extends State<EnterPinView> {
 
   /// 保存钱包账号
   void _saveWalletAccount() async {
-    print(controller.walletAccount?.address);
-    print(controller.emailController.text);
     try {
       EasyLoading.show(
           maskType: EasyLoadingMaskType.black,
@@ -157,15 +167,12 @@ class _EnterPinViewState extends State<EnterPinView> {
           status: "信息同步中");
       // 情况1：用户已经注册过且已经保存钱包到IPFS
       if (controller.userStatus == 2) {
-        print(controller.walletAddress);
-        print(controller.cidList);
         List<String> list = await downloadPrivateKeys(controller.cidList);
-        print(list);
 
-        String _encrypted = mpcJoin(list);
+        String encrypted = mpcJoin(list);
         // 解密
-        String decryptedKey = decryptAES(_encrypted, firstPin);
-        print("decryptedKey $decryptedKey ${controller.walletAddress}");
+        String decryptedKey = decryptAES(encrypted, firstPin);
+        debugPrint("decryptedKey $decryptedKey $walletAddress");
 
         await EasyLoading.show(
             maskType: EasyLoadingMaskType.black,
@@ -174,30 +181,33 @@ class _EnterPinViewState extends State<EnterPinView> {
 
         RootAccount rootAccount = RootAccount(
             email: controller.emailController.text,
-            address: controller.walletAddress ?? '');
+            address: walletAddress ?? '');
 
         await HiveService.saveWalletData(
             LocalKeyList.rootAddress, rootAccount.toJson());
         // 把加密私钥保存到本地
         await HiveService.saveEncryptedPrivateKey(
-            controller.walletAddress ?? '', _encrypted);
-        walletController.initChatIsolate(privateKey: decryptedKey);
+            walletAddress ?? '', encrypted);
+
+        // 初始化xmtp节点进程
+        // walletController.initChatIsolate(privateKey: decryptedKey);
+
         // 查询代理账号
-        await _checkProxyAccount(controller.walletAddress ?? '');
+        await _checkProxyAccount(walletAddress ?? '');
         return;
       }
 
       // 情况2：用户已经验证过但是没有保存过钱包
-      if (controller.walletAccount != null) {
+      if (walletAccount != null) {
         RootAccount rootAccount = RootAccount(
             email: controller.emailController.text,
-            address: controller.walletAccount?.address ?? '');
+            address: walletAccount?.address ?? '');
 
         await HiveService.saveWalletData(
             LocalKeyList.rootAddress, rootAccount.toJson());
 
         String encryptedKey =
-            encryptAES(controller.walletAccount?.privateKey ?? '', firstPin);
+            encryptAES(walletAccount?.privateKey ?? '', firstPin);
         print("encryptedKey $encryptedKey ${encryptedKey.length}");
 
         List<String> list = mpcSplit(encryptedKey);
@@ -210,25 +220,28 @@ class _EnterPinViewState extends State<EnterPinView> {
           return;
         }
 
+        // 地址绑定
         await Server.saveWallet(
             userId: controller.userId,
             email: controller.emailController.text,
             code: controller.codeController.text,
             cids: cidList,
-            address: controller.walletAccount!.address);
+            address: walletAccount!.address);
 
         await EasyLoading.show(
             maskType: EasyLoadingMaskType.black,
             dismissOnTap: false,
             status: "生成中");
+        // 保存加密私钥
         await HiveService.saveEncryptedPrivateKey(
-            controller.walletAccount!.address, encryptedKey);
-        walletController.initChatIsolate(
-            privateKey: controller.walletAccount?.privateKey ?? '');
-        await _checkProxyAccount(controller.walletAccount!.address);
+            walletAccount!.address, encryptedKey);
+        // walletController.initChatIsolate(
+        //     privateKey: walletAccount?.privateKey ?? '');
+
+        // 查询代理账号
+        await _checkProxyAccount(walletAccount!.address);
       }
     } catch (e) {
-      print(e);
       EasyLoading.showError(controller.userStatus == 2 ? '恢复失败' : '创建失败',
           dismissOnTap: false, duration: const Duration(seconds: 2));
       // 重置
@@ -239,9 +252,10 @@ class _EnterPinViewState extends State<EnterPinView> {
   void _finsihAccount(List<String> addressList) async {
     try {
       String entryPoint = dotenv.env["ENTRY_POINT_ADDRESS"] ?? "";
-      var _account = HiveService.getWalletData(LocalKeyList.rootAddress);
+      // 把代理账号保存到本地
+      var accountMap = HiveService.getWalletData(LocalKeyList.rootAddress);
       RootAccount account =
-          RootAccount.fromJson(Map<String, dynamic>.from(_account));
+          RootAccount.fromJson(Map<String, dynamic>.from(accountMap));
       account.proxyAddressList = addressList;
       await HiveService.saveWalletData(
           LocalKeyList.rootAddress, account.toJson());
@@ -251,12 +265,12 @@ class _EnterPinViewState extends State<EnterPinView> {
             .filter()
             .addressEqualTo(addressList[0])
             .findAll();
-        print("checkList $checkList ${controller.walletAccount}");
+
         // 如果没有就插入代理账号
         if (checkList == null || checkList.isEmpty) {
           ProxyAccount proxyAccount = ProxyAccount(
               address: addressList[0],
-              rootAddress: controller.walletAddress ?? '',
+              rootAddress: walletAddress ?? '',
               entryPointAddress: entryPoint);
 
           await IsarService.isar?.writeTxn(() async {
@@ -264,8 +278,14 @@ class _EnterPinViewState extends State<EnterPinView> {
           });
         }
       }
+      await EasyLoading.show(
+          maskType: EasyLoadingMaskType.black,
+          dismissOnTap: false,
+          status: "网络同步中");
       // 刷新余额
-      await walletController.refreshAllBalance();
+      await walletController.initAppConfig();
+      await walletController.removeBalance();
+      walletController.refreshAllBalance();
 
       EasyLoading.showSuccess(controller.userStatus == 2 ? '导入成功' : '创建成功',
           dismissOnTap: true, duration: const Duration(seconds: 2));
@@ -313,7 +333,7 @@ class _EnterPinViewState extends State<EnterPinView> {
                       ? AnimatedSwitcher(
                           duration: const Duration(milliseconds: 500),
                           child: Row(
-                            key: ValueKey('resetPinRow'),
+                            key: const ValueKey('resetPinRow'),
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("请再次输入PIN码",
@@ -324,7 +344,7 @@ class _EnterPinViewState extends State<EnterPinView> {
                                   onPressed: () {
                                     _resetFirstPin();
                                   },
-                                  icon: Icon(Icons.restore_outlined))
+                                  icon: const Icon(Icons.restore_outlined))
                             ],
                           ),
                         )

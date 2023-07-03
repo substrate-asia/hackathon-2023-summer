@@ -3,17 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:sunrise/app/controllers/wallet_controller.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
 import 'package:sunrise/app/data/services/eth_service.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
+import 'package:sunrise/app/data/services/isar_service.dart';
 import 'package:sunrise/app/modules/home/widgets/token_select.dart';
 import 'package:sunrise/app/widgets/image_widget.dart';
 import 'package:sunrise/app/widgets/payment_widget.dart';
 import 'package:sunrise/core/utils/common.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 import 'package:web3dart/web3dart.dart';
-
-import '../../account/views/verify_pin_view.dart';
 
 class TransferForm extends StatefulWidget {
   bool isFree = false;
@@ -29,6 +29,10 @@ class TransferFormState extends State<TransferForm>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
+  // 全局的controller
+  WalletController walletController = Get.find();
+
   // 表单的key
   final GlobalKey<FormState> transferKey = GlobalKey<FormState>();
 
@@ -47,7 +51,7 @@ class TransferFormState extends State<TransferForm>
 
     Balance? result = await Get.bottomSheet(
       TokenSelectWidget(
-        chainId: 1281,
+        chainId: widget.payment.chainId,
         status: widget.isFree ? 2 : 1,
       ),
       isScrollControlled: true,
@@ -86,9 +90,12 @@ class TransferFormState extends State<TransferForm>
     // 当前gasPrice
     EtherAmount currentPrice = await client.getGasPrice();
     print("当前gasPrice ${currentPrice.getInWei}");
-    setState(() {
-      gasPrice = currentPrice;
-    });
+    // 判断是否已经dispose
+    if (mounted) {
+      setState(() {
+        gasPrice = currentPrice;
+      });
+    }
   }
 
   bool isValidAddress(String address) {
@@ -128,6 +135,17 @@ class TransferFormState extends State<TransferForm>
         print("交易hash: $hash");
         toAddressController.text = '';
         amoutController.text = '';
+        if (widget.isFree == false) {
+          await IsarService.isar?.writeTxn(() async {
+            // 更新余额
+            final tempBalance =
+                await walletController.refreshBalance(widget.payment);
+            widget.payment.balance = tempBalance;
+            setState(() {
+              selectedAccount = widget.payment;
+            });
+          });
+        }
       }
     }
   }
@@ -138,6 +156,7 @@ class TransferFormState extends State<TransferForm>
     setState(() {
       selectedAccount = widget.payment;
     });
+    setGasPrice();
   }
 
   @override

@@ -1,0 +1,96 @@
+schema {
+  query: RootQueryType
+}
+
+type Address {
+  address: String
+}
+
+type Block {
+  base_fee_per_gas: String
+  difficulty: String
+  extra_data: String
+  gas_limit: String
+  gas_used: String
+  hash: String
+  logs_bloom: String
+  miner: String
+  mix_hash: String
+  nonce: String
+  number: String
+  parent_hash: String
+  receipts_root: String
+  sha3_uncles: String
+  size: String
+  state_root: String
+  timestamp: String
+  total_difficulty: String
+  transactions: [Transaction]
+  transactions_root: String
+  uncles: [String]
+  withdrawals: [Withdrawal]
+  withdrawals_root: String
+}
+
+type HomePage {
+  block_count: Int
+  transaction_count: Int
+}
+
+type RootQueryType {
+  address: Address
+  block: Block
+  blocks: [Block]
+  home_page: HomePage
+  search: Search
+  smart_contract: SmartContract
+  token_transfer: TokenTransfer
+  transaction: Transaction
+  transactions: [Transaction]
+}
+
+type Search {
+  redirect_url: String
+  type: String
+}
+
+type SmartContract {
+  address: String
+}
+
+type TokenTransfer {
+  from: String
+  to: String
+  value: Int
+}
+
+type Transaction {
+  access_list: [String]
+  block_hash: String
+  block_number: String
+  chain_id: String
+  from: String
+  gas: String
+  gas_price: String
+  hash: String
+  input: String
+  max_fee_per_gas: String
+  max_priority_fee_per_gas: String
+  nonce: String
+  r: String
+  s: String
+  to: String
+  transaction_index: String
+  type: String
+  v: String
+  value: String
+}
+
+type Withdrawal {
+  address: String
+  amount: String
+  block_hash: String
+  index: String
+  validator_index: String
+}
+

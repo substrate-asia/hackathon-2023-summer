@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
 import '../widgets/wallet_bottom_bar.dart';
-import 'tab_chat_view.dart';
 import 'tab_home_view.dart';
 import 'tab_profile_view.dart';
 import 'tab_swap_view.dart';
@@ -23,7 +22,7 @@ class HomeView extends GetView<HomeController> {
           children: [
             TabHomeView(),
             TabSwapView(),
-            TabProfileView(),
+            const TabProfileView(),
           ],
         ),
         bottomNavigationBar: WalletBottomNavigationBar(

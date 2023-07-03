@@ -1,0 +1,9 @@
+{
+    "Profile": {
+      "owner": "AccountOf",
+      "name": "Vec<u8>",
+      "interests": "Vec<u8>",
+      "balance": "Option<BalanceOf>",
+      "reputation": "u32"
+    }
+}

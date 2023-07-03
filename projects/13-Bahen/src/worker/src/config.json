@@ -1,0 +1,9 @@
+{
+    "provider": "https://rpc.api.moonbase.moonbeam.network",
+    "contract_address": "0xbcfBC6271E7FE1EbC65a042ED051570C6799EB39",
+    "account_address": "0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac",
+    "private_key": "5fb92d6e98884f76de468fa3f6278f8807c48bebc13595d45af5bdc4da702133",
+    "chainId": 1287, 
+    "gas": 6721970,
+    "gasPrice": 1
+}

@@ -151,7 +151,7 @@ class GuideView extends GetView<GuideController> {
 
                   Positioned(
                       bottom: MediaQuery.of(context).padding.bottom + 30,
-                      child: Container(
+                      child: SizedBox(
                         width: screenWidth,
                         child: Center(
                             child: SmoothPageIndicator(

@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PlayerContract is Ownable{
     struct PlayerData {
-
         string name;
         // Strength, Life, Strength, Intelligence, Attack, Defense, Level  
         // 体力,生命值,力量,智力,攻击,防御,等级
@@ -56,6 +55,10 @@ contract PlayerContract is Ownable{
 
     function setAllowedContract(address _allowedContract) public onlyOwner {
         allowedContract = _allowedContract;
+    }
+
+    function returnPlayerProperties(address _playerAddress) public view returns(PlayerData memory) {
+        return Player[_playerAddress];
     }
 
 }

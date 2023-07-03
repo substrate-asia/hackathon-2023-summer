@@ -16,7 +16,9 @@ The "Trusted" Commercial Digital Commune aims to create a distributed commercial
 
 The purpose of creating a "trustworthy" commercial digital commune is to solve the problem of high transaction trust costs under information asymmetry, allowing producers (service providers) to sell goods (services) locally at a low cost. Producers (service providers) in a distributed business environment do not necessarily rely on commercial advertising, brands, and third-party channels, Instead, it is possible to realize the value of goods (services) in a distributed business environment of decentralized business trust and decentralized business channels without investing sales funds in advance.
 
-The 'trusted' commercial digital community is closely integrated with physical commercial applications. Unlike Bitcoin and Ethereum, their TOKEN value comes from huge commercial profits and can be self virtuous cycle and realized within distributed commercial systems; In addition, as the most important component of the Value Internet, it undertakes the innovation of the next generation business model from 0 to 1.
+The 'trusted' commercial digital community is closely integrated with physical commercial applications. Unlike Bitcoin and Ethereum, their TOKEN value comes from huge commercial profits and can be self virtuous cycle and realized within distributed commercial systems; In addition, as the most important component of the Value Internet, "Trusted" commercial digital communities undertake the innovation of future business, as well as blockchain operation and profit models from 0 to 1.
+
+If a person's wisdom is reflected in their local knowledge, then the greatest wisdom of humanity is to find and discover an order that allows everyone's local knowledge to freely collaborate and expand. This is the ultimate goal pursued by "trustworthy" commercial digital communities.
 
 项目简介，英文提交。包括但不限于：
 ### What is vision and goal?
@@ -38,7 +40,7 @@ The demo version will be based on Stable diffusion.
 - 
 Distributed Business Collaboration System is a business platform that is different from existing business models and forms, consisting of the following two parts:
 
-Part1： "Trusted" Commercial Digital Commune, which is a vertical application public chain, mainly provides commodity (service) value evaluation and quality assurance services for electronic trading platforms that have implemented the "Trusted" Commercial Transaction Protocol (TCTP protocol).
+Part1： "Trusted" Commercial Digital Commune, which is a vertical application blockchain, mainly provides commodity (service) value evaluation and quality assurance services for electronic trading platforms that have implemented the "Trusted" Commercial Transaction Protocol (TCTP protocol).
 
 Part 2：An electronic trading platform that implements the Trusted Commercial Trading Protocol (TCTP). The first product name that has been developed and launched is the "Subtraction" app e-commerce. The electronic trading platform developed based on the Trusted Business Transaction Protocol (TCTP) is typically different from the current "matchmaking" platform. Its core concept is: to mainly transmit the value of goods, supplemented by commercial transactions "matchmaking", and to help manufacturers quickly and conveniently realize the value of goods (services) in a distributed business environment.
 
@@ -49,6 +51,7 @@ In addition, the Distributed Business Collaboration System also has typical dece
 - 项目Demo
 -
 Ctt DC web wallet: http://www.d2business.net/#/explorer
+Android Download：[](https://www.aigoshop.net/upload/jianfa_wallet.apk)
 
 - 技术架构
 - 
@@ -75,18 +78,25 @@ Development completed
 
 **Client**
 
-- E-commerce app (Adopting the WEBVIEW method, embedded in a lightweight chain wallet in E-commerce app)
-  - [ ] Chain account creation, import, export, and recovery
-  - [ ] The Interaction between Basic Data of Product Experience Computing Power and Chain 
-  - [ ] Experience computing power, model review complaints and referendums
-  - [ ] Experience product list acquisition and reward calculation
-
+- Embedded app lightweight wallet, development of application related functions
+  - [ ] KP Token redemption application, transaction with payment order 
+  - [ ] Application License Application Proposal
+  - [ ] Application Development and Financing Fund Issuance Proposal
+  - [ ] Remote node setup and management
+  - [ ] Weighted coefficient of experiential computing power
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
 - 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
 - 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
+- 项目文档资料
+- 1.项目导介：一种超越现有互联网经济规模的 - 去中心化商业模式[](docs/项目导介：一种超越现有互联网经济规模的 - 去中心化商业模式.pdf)
+- 2.现代商业信任管理体系的变迁，暨分布式商业协作系统商业信任逻辑、成本分析与算法实现[](docs/现代商业信任管理体系的变迁，暨分布式商业协作系统商业信任逻辑、成本分析与算法实现.pdf)
+- 3.分布式商业协作系统宣传彩页（Distributed Business Collaboration System Brochure）[](docs/分布式商业协作系统宣传彩页（Distributed Business Collaboration System Brochure）.pdf)
+- 4.可信商业数字公社社员告知书v1.0[](docs/可信商业数字公社社员告知书v1.0.pdf)
+- 5.Project Introduction - A Decentralized Business Model Beyond the Existing Internet Economy[](docs/Project Introduction - A Decentralized Business Model Beyond the Existing Internet Economy.pdf)
+- 6.The Change of Modern Business Trust Management System and the Implementation of Distributed Business Collaboration System Business Trust Logic, Cost Analysis, and Algorithms[](docs/The Change of Modern Business Trust Management System.pdf)
+- 7.Trusted Commercial Digital Commune Members Notification v1.0[](docs/Trusted Commercial Digital Commune Members Notification v1.0.pdf)
 
 ## 队员信息
 

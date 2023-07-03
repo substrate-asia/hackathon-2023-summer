@@ -1,0 +1,50 @@
+[data-sidebar-position="fixed"][data-layout="vertical"] {
+    .nav-header {
+        position: fixed;
+        // left: auto;
+        border-top-left-radius:0;
+        border-top-right-radius:0;
+    }
+
+    .deznav {
+        position: fixed;
+        // z-index: 0;
+        .deznav-scroll {
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+        }
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+    }
+
+    .menu-toggle {
+        .deznav {
+            position: fixed;
+        }
+    }
+}
+[data-layout="vertical"]{
+	.nav-header {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .deznav {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+    }
+}
+[data-sidebar-style="icon-hover"][data-layout="vertical"][data-container="wide-boxed"],
+[data-sidebar-style="icon-hover"][data-layout="vertical"][data-container="boxed"],
+[data-header-position="fixed"][data-sidebar-position="fixed"][data-sidebar-style="icon-hover"][data-layout="vertical"][data-container="wide-boxed"],
+[data-header-position="fixed"][data-sidebar-position="fixed"][data-sidebar-style="icon-hover"][data-layout="vertical"][data-container="boxed"],
+[data-sidebar-style="overlay"][data-layout="vertical"][data-container="wide-boxed"],
+[data-sidebar-style="overlay"][data-layout="vertical"][data-container="boxed"],
+[data-header-position="fixed"][data-sidebar-position="fixed"][data-sidebar-style="overlay"][data-layout="vertical"][data-container="wide-boxed"],
+[data-header-position="fixed"][data-sidebar-position="fixed"][data-sidebar-style="overlay"][data-layout="vertical"][data-container="boxed"] {
+    .deznav {
+        position: absolute;
+    }
+}
+
+

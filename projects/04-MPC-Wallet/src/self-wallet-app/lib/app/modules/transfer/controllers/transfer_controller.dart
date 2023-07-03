@@ -124,7 +124,7 @@ class TransferController extends GetxController
     showHelpContent(
         title: "转账说明",
         content:
-            "EOA转账：转账到其他钱包地址，需要支付GAS费用。\n免GAS转账：转账到其他钱包地址，无需支付GAS费用，需要收取xx数量的Token作为手续费。\n什么是GAS费： EVM网络上的每笔交易都需要支付一定的手续费，这个手续费就是GAS费用，GAS费用越高，交易确认速度越快。",
+            "Web3账号转账：转账到其他钱包地址，需要支付GAS费用。\t\n代理钱包转账：转账到其他钱包地址，无需支付GAS费用，需要收取xx数量的Token作为手续费。\n什么是GAS费： EVM网络上的每笔交易都需要支付一定的手续费，这个手续费就是GAS费用，GAS费用越高，交易确认速度越快。",
         confirmText: "我知道了");
   }
 }

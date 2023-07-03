@@ -1,0 +1,290 @@
+@import "../../abstracts/variable";
+
+/* input[type="checkbox"] {
+    &:after{
+        content: '';
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        margin-top: 0px;
+        margin-left: -1px;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background: #d4d7da;
+        line-height: 1.3;
+    }
+
+    &:checked:after{
+        width: 1rem;
+        height: 1rem;
+        display: block;
+        content: "\f00c";
+        font-family: 'FontAwesome';
+        color: $white;
+        font-weight: 100;
+        font-size: 12px;
+        text-align: center;
+        border-radius: 3px;
+        background: $primary;
+    }
+
+} */
+.form-check-label{
+    margin-left: 5px;
+    margin-top: 3px;
+}
+
+
+.form-check-inline {
+    .form-check-input {
+        margin-right: 0.625rem;
+    }
+}
+.form-check-input{
+	top:2px;
+	border-width:2px;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-color: #e7e7e7;
+}
+.rtl .form-check-label{
+	&:before,
+	&:after{
+		right: -1.5rem !important;
+		left: inherit;
+	}
+}
+.form-check {
+    line-height: normal;
+}
+
+
+// Toggle Switch
+.toggle-switch{
+	padding-left:50px;
+	line-height: 1.25;
+	display:inline-block;
+	color:$black;
+	font-weight: 600;
+	.form-check-input{
+		border: 0;
+		cursor:pointer;
+		background: #d8d8d8;
+		width: 37px;
+		border-radius: 20px !important;
+		height: 14px;
+		position:relative;
+		left: -5px;
+		@include transitionFast;
+		background-image:none;
+		&:focus{
+			background-image:none!important;
+		}
+		&:checked{
+			background:var(--rgba-primary-2);
+			background-image:none!important;
+			&:after{
+				left:20px;
+				background:var(--primary);
+			}
+		}
+		&:focus{
+			box-shadow:none;
+		}
+		&:after{
+			width: 20px;
+			background:#909090;
+			height: 20px;
+			content:"";
+			position:absolute;
+			border-radius: 24px;
+			top: -3px;
+			left: 0;
+			box-shadow:0 0 5px rgba(0,0,0,0.3);
+			@include transitionFast;
+		}
+	}
+	&.text-end{
+		padding-right:0px;
+		padding-left:0;
+		.form-check-input{
+			left: auto;
+			margin-left: 0;
+			float:right;
+			right: 0px;
+		}
+		.form-check-label{
+			margin-right: 15px;
+			margin-left:0;
+		}
+	}
+	.form-check-label{
+		cursor:pointer;
+	}
+}
+
+
+// CheckBox
+.form-check-input:focus ~ .form-check-label::before{
+	box-shadow:none !important;
+}
+.form-check-label::before{
+    background-color: transparent;
+    border-color: $light;
+	border-width: 2px;
+	border-radius: 2px !important;
+		
+	@at-root [data-theme-version="dark"] & {
+		background-color: transparent;
+		border-color: $d-border;
+	}
+}
+.check-xs{
+	.form-check-input{
+		width: 18px;
+		height: 18px;
+	}
+}
+.check-lg{
+	.form-check-input{
+		width: 24px;
+		height: 24px;
+	}
+}
+.check-xl{
+	.form-check-input{
+		width: 28px;
+		height: 28px;
+	}
+}
+.checkbox{
+	&-info{
+		.form-check-input{
+			&:focus{
+				border-color: $info;
+				outline: 0;
+				box-shadow: 0 0 0 0.25rem rgba($info , 0.25);
+			}
+			&:checked{
+				background-color: $info;
+				border-color: $info;
+				@at-root [data-theme-version="dark"] & {
+					background-color: $info-opacity;
+					border-color: transparent;
+				}
+			}
+		}
+	}
+	&-danger {
+		.form-check-input{
+			&:focus{
+				border-color: $danger;
+				outline: 0;
+				box-shadow: 0 0 0 0.25rem rgba($danger , 0.25);
+			}
+			&:checked{
+				background-color: $danger;
+				border-color: $danger;
+				@at-root [data-theme-version="dark"] & {
+					background-color: $danger-opacity;
+					border-color: transparent;
+				}
+			}
+		}
+	}
+	&-success{
+		.form-check-input{
+			&:focus{
+				border-color: $success;
+				outline: 0;
+				box-shadow: 0 0 0 0.25rem rgba($success , 0.25);
+			}
+			&:checked{
+				background-color: $success;
+				border-color: $success;
+				@at-root [data-theme-version="dark"] & {
+					background-color: $success-opacity;
+					border-color: transparent;
+				}
+			}
+		}
+	}
+	&-warning{
+		.form-check-input{
+			&:focus{
+				border-color: $warning;
+				outline: 0;
+				box-shadow: 0 0 0 0.25rem rgba($warning , 0.25);
+			}
+			&:checked{
+				background-color: $warning;
+				border-color: $warning;
+				@at-root [data-theme-version="dark"] & {
+					background-color: $warning-opacity;
+					border-color: transparent;
+				}
+			}
+		}
+	}
+	&-secondary{
+		.form-check-input{
+			&:focus{
+				border-color: $secondary;
+				outline: 0;
+				box-shadow: 0 0 0 0.25rem rgba($secondary , 0.25);
+			}
+			&:checked{
+				background-color: $secondary;
+				border-color: $secondary;
+				@at-root [data-theme-version="dark"] & {
+					background-color: $secondary-opacity;
+					border-color: transparent;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+//Check Switch
+.check-switch{
+	padding-left: 40px;
+	.form-check-label{
+		line-height: 30px;
+		font-weight: 500;
+		span{
+			line-height: 1;
+		}
+		&:after,&:before{
+			height:1.5rem;
+			width:1.5rem;
+			left: -2rem;
+			border-radius: 3rem!important;
+			border-color:var(--rgba-primary-3);
+		}
+	}
+	.form-check-input:checked ~ .form-check-label::after{
+		background-image:url('../images/svg/check.svg');
+	}
+	.form-check-input:checked ~ .form-check-label::before{
+		background:$white;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

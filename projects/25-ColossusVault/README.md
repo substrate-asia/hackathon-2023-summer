@@ -7,7 +7,7 @@ Name of our project：Pshare
 Project approval date: 7 June, 2023
 
 ## Logo
-<img src="https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png" alt="Image" style="width: 200px; height: auto;">
+<img src="https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png" alt="Image" style="width: 600px; height: auto;">
 
 ![image.png](https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/20230703003712.png)
 

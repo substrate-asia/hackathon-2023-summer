@@ -1,11 +1,11 @@
 export default {
     // Ethereum account info
-    ETH_ADDRESS: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    ETH_PRIVKEY: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
-    ETH_RPC_URL: "http://127.0.0.1:8545/",
-    CHAIN_ID: 31337,
+    ETH_ADDRESS: "0x0896482E15075700D4bE7075E72eE63Dea7D9041",
+    ETH_PRIVKEY: "0xc6c0c454257c778a35aa7f520fe3276846ec17915bd8e844721085e85b8058c9",
+    ETH_RPC_URL: "https://rpc.api.moonbase.moonbeam.network",
+    CHAIN_ID: 1287,
 
-    // Moon Layer account info
+    // MoonLayer account info
     PRIVKEY: "0x3f1c78a7c6c46e3d8a45b1bc29048719bff0903375cd066ccb7675ce4c77752e",
     
     // Sequencer config
@@ -17,7 +17,7 @@ export default {
     ROLLUP_ADDRESS: "0x029B93211e7793759534452BDB1A74b58De22C9c",
     
     // Sync config
-    START_SYNC: 1,
+    START_SYNC: 4662179,
 
     // RPC server config
     RPC_PORT: 3000,

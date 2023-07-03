@@ -93,28 +93,32 @@ if (!fs.existsSync(LOG_FILE)) {
 // Sync rollup blocks
 
 async function sync() {
-    const block = await provider.getBlockWithTransactions(counter);
-    
-    if (block === null) {
+    let block;
+
+    try {
+        block = await provider.getBlockWithTransactions(counter);
+    } catch (e) {
         console.log("LOG :: Synced to current height.");
         
-        setTimeout(sync, 12000);
+        setTimeout(sync, 6000);
 
         return;
     }
 
     for (const transaction of block.transactions) {
-        try {
-            let msg = transaction.data.slice(2);
-
-            const sequencerAddress = msg.slice(0, 40);
-            msg = msg.slice(40);
-            const batch = await decodeBatch("0x" + msg, addressDB);
-
-            await transitState(batch, vm, sequencerAddress, addressDB, indexDB);
-        } catch (e) {
-            // Debug
-            // console.log(e);
+        if (transaction.to === ROLLUP_ADDRESS) {
+            try {
+                let msg = transaction.data.slice(2);
+    
+                const sequencerAddress = msg.slice(0, 40);
+                msg = msg.slice(40);
+                const batch = await decodeBatch("0x" + msg, addressDB);
+    
+                await transitState(batch, vm, sequencerAddress, addressDB, indexDB);
+            } catch (e) {
+                // Debug
+                // console.log(e);
+            }
         }
     }
 
@@ -139,7 +143,6 @@ const transactionPool = [];
 
 rpc(RPC_PORT, { vm, transactionPool, config, addressDB, indexDB, trie });
 
-
 // Sequencer
 
 if (SEQUENCER_MODE) {
@@ -149,6 +152,8 @@ if (SEQUENCER_MODE) {
         // Build the batch upload transaction
 
         const txCount = await provider.getTransactionCount(ETH_ADDRESS); // Get nonce
+
+        const common = Common.custom({ chainId: CHAIN_ID });
         
         const tx = Transaction.fromTxData({
             to: ROLLUP_ADDRESS,
@@ -159,7 +164,7 @@ if (SEQUENCER_MODE) {
             data: SEQUENCER_ADDRESS + (await encodeBatch(transactionPool.slice(0, 100), indexDB)).slice(2),
 
             gasLimit: 1000000,
-        }).sign(Buffer.from(ETH_PRIVKEY.slice(2), "hex")); // Sign
+        }, { common }).sign(Buffer.from(ETH_PRIVKEY.slice(2), "hex")); // Sign
         
         // Send
         

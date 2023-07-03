@@ -22,6 +22,8 @@ export async function transitState(batch, vm, sequencerAddress, addressDB, index
             await vm.stateManager.revert();
             await vm.stateManager.flush();
 
+            console.log("Whoops, error");
+
             // Debug
             // console.log(2, e);
 

@@ -24,7 +24,7 @@ DTIM基于substrate为组织提供了去中心化治理插件，组织可使用G
 
 <img width="500" src="https://wetee.app/icons/shot/gov.png"/>
 
-同时也通过智能合约驱动的任务管理使得创建独特而可靠的任务。所有状态变更都由智能合约自动更新，并广播给所有相关方，从而提高透明度和准确性。用户还可以实时获取项目收益和股份信息，这确保了对贡献者权益的公正分配和透明度。
+同时也通过智能合约驱动的Kanban使得创建独特而可靠的任务。所有状态变更都由智能合约存证，并广播给所有相关方，从而提高透明度和准确性。用户还可以实时获取项目收益和股份信息，这确保了对贡献者权益的公正分配和透明度。
 
 <img width="500" src="https://wetee.app/icons/shot/kanban.png"/>
 
@@ -32,10 +32,10 @@ DTIM正在集成波卡生态DAPP，寻找DAPP在办公领域应用方案。
 
 <img width="500" src="https://wetee.app/icons/shot/app.png"/>
 
-### 技术架构
- - DTIM 通讯客户端: 我们使用[flutter](https://flutter.dev/)构建客户端，目标是构建全平台（window/macos/linux/android/ios/web）通用应用程序
- - [可独立部署的组织底座](https://github.com/DAOent/dao-entrance-node): 我们提供了部署文档，组织自主部署组织的底座，企业和组织可完全掌控自己的数据和主权，无任何收费，以及副作用
- - DTIM connect: 我们基于subsrate构建了去中心化治理和去中心化看板的DAPP，组织可在客户端集成到底座上，同时未来我们会通过平行链集成更多的 DAPP 到 DTIM 的应用列表
+### 技术简介
+ - DTIM 通讯客户端： 我们使用[flutter](https://flutter.dev/)构建客户端，目标是构建全平台（window/macos/linux/android/ios/web）通用应用程序
+ - [可独立部署的组织底座](https://github.com/DAOent/dao-entrance-node)：  我们提供了部署文档，组织自主部署组织的底座，企业和组织可完全掌控自己的数据和主权，无任何收费，以及副作用
+ - DTIM connect： 我们基于subsrate构建了去中心化治理和去中心化看板的DAPP，组织可可方便集成到客户端，同时未来我们会通过平行链集成更多的 DAPP 到 DTIM 的应用列表
  - flutter substrate桥接： 我们使用 [flutter_rust_bridge](https://cjycode.com/flutter_rust_bridge/quickstart.html) 将 substrate sdk集成到（window/macos/linux/android/ios）中，使用 dart:js 完成了web端和polkadot钱包的互交
 
 ### 项目文档

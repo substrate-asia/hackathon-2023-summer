@@ -1,1 +1,1 @@
-# Tokenomic Contract
+# Crypto Spiral Contract

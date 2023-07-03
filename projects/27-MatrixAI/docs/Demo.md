@@ -4,38 +4,34 @@
 ## 如何购买算力训练模型？
 
 ### 1.点击 Launch APP
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/782b1413-930b-438d-afb6-cb63111d23f1)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/465e4bb4-9341-4249-bdbf-4653419cd40b)
 
 ### 2.查看设备信息
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/b5346e92-bc76-40f5-b39f-0cb804d95831)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/00403eb0-0366-48eb-9e54-f59572d52916)
 
 设备信息详情
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/9b14eb1a-2092-4d05-9550-0b38b821ee3a)
-
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/6f9f1a9c-465a-47f7-84af-245ac2f968ef)
 
 ### 3.选择设备
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/6a786f00-3be6-47e0-9705-c35f1e815f39)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/25f9fd20-c719-4110-b98e-603c95256638)
 
 ### 4.链接钱包
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/bc3c5da7-5705-4a92-88bc-08140ecf10dd)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/c32ddc85-fbc3-483d-a501-776824749f8c)
 
 ### 5.完成订单信息
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/7ea4347c-498f-4275-a14b-53ccb30d8ec7)
-
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/83636356-ddb2-4bff-acc4-a0fafeb441c7)
 
 ### 6.确认交易完成购买
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/95d8201c-7282-455c-be8f-7f2cbbfdedf0)
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/77b0c72b-890e-4987-b4da-ec23295170f9)
-
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/3eaa8909-e755-4950-9792-d784ef338cb7)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/6fadbc52-cc15-4d9e-87b4-2af557eede57)
 
 ### 7.查询订单信息
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/1580cf18-73bc-492b-a736-1e2a2c843f77)
-
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/ce4e28ef-b48d-4478-b034-3beef8b2f64f)
 
 ## 如何获取MAI Token？
 
 ### 1.进入水龙头网页
 输入钱包地址并获取Token
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/bf894d16-da3d-4cb4-a5be-ed3f93d775d3)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/8d78acf5-3025-4cdc-be90-d4e17c7df045)
+![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/a4bacf22-99ee-47a6-a82c-a55482f45288)
 
-![image](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/c3a716c8-0d83-4c68-a156-b400b03d02e2)

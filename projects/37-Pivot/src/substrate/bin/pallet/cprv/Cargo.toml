@@ -1,5 +1,5 @@
 [package]
-name = "cprv"
+name = "pallet-cprv"
 version = "0.1.0"
 edition = "2021"
 

@@ -1531,6 +1531,27 @@ impl pallet_assets::Config<Instance2> for Runtime {
 	type BenchmarkHelper = ();
 }
 
+
+parameter_types! {
+	pub const RoundDuration: BlockNumber = 7 * DAYS;
+	pub const MaxValidatorNum: u32 = 256;
+	pub const MinVerifyProofValidatorNum: u32 = 1;
+	pub const RewardPerRound: Balance = 10000 * DOLLARS;
+}
+
+impl pallet_cprv::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Balance = u128;
+	type RoundDuration = RoundDuration;
+	type MaxValidatorNum = MaxValidatorNum;
+	type MinVerifyProofValidatorNum = MinVerifyProofValidatorNum;
+	type RewardPerRound = RewardPerRound;
+	type AssetId = <Self as pallet_assets::Config<Instance1>>::AssetId;
+	type Assets = Assets;
+	type WeightInfo = pallet_cprv::weights::SubstrateWeight<Runtime>;
+}
+
+
 parameter_types! {
 	pub const AssetConversionPalletId: PalletId = PalletId(*b"py/ascon");
 	pub AllowMultiAssetPools: bool = true;
@@ -1563,6 +1584,7 @@ impl pallet_asset_conversion::Config for Runtime {
 	#[cfg(feature = "runtime-benchmarks")]
 	type BenchmarkHelper = ();
 }
+
 
 parameter_types! {
 	pub const QueueCount: u32 = 300;
@@ -1935,6 +1957,7 @@ construct_runtime!(
 		MessageQueue: pallet_message_queue,
 		Pov: frame_benchmarking_pallet_pov,
 		Statement: pallet_statement,
+		Cprv: pallet_cprv,
 	}
 );
 

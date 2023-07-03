@@ -1,0 +1,1 @@
+pub(super) const FAUCET_VALUE: u128 = 10_000_000_000_000_000;

@@ -47,6 +47,7 @@ export async function handleAppAdvertiseEvent(event: SubstrateEvent): Promise<vo
 	//but it exist in the released binary
 }
 
+// Listen for the establishment event of the promotion organization and then save the data to Subquery.
 export async function handleUnionDaoAddedEvent(event: SubstrateEvent): Promise<void> {
     logger.info(`handle handleUnionDaoAddedEvent  at ${event} `);
     const {event: {data: [who, unionId, myAssetId, depositedAccountId]}} = event;

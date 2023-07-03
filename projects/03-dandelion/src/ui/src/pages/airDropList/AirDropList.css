@@ -1,0 +1,87 @@
+.air-drop-list-bg {
+  background: #080f2e;
+}
+.separator {
+  border-bottom: 1px solid;
+  border-image: linear-gradient(
+    90deg,
+    #e6007a -4%,
+    #e6007a -3.88%,
+    #703ac2 17.01%,
+    #0070eb 42.25%,
+    #0297fb 73.9%,
+    #0ae2ff 97.42%
+  );
+  border-image-slice: 1;
+}
+
+.card-bg {
+  background: linear-gradient(
+    93.75deg,
+    #e6007a -8.23%,
+    #703ac2 16.47%,
+    #0070eb 51.42%,
+    #0297fb 95.48%,
+    #0ae2ff 114.61%
+  );
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 16px;
+  align-items: center;
+}
+
+.card-title {
+  align-items: center;
+  background: #ffffff1a;
+  border-radius: 6px;
+  color: #f7f7f8;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+  height: 40px;
+  padding: 8px 16px;
+  justify-content: center;
+}
+
+.airdrop-title {
+  color: #f7f7f8;
+  align-items: center;
+  display: flex;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 27px;
+  margin-left: 6px;
+  line-height: 60px;
+}
+
+.scrolling-text {
+  white-space: nowrap; /* 保证文本只在一行显示 */
+  overflow: hidden; /* 隐藏超出容器宽度的部分 */
+  width: 100%; /* 设置容器宽度 */
+  padding: 10px; /* 添加内边距，仅为示例 */
+  position: relative; /* 设置相对定位 */
+}
+
+.scrolling-text-inner {
+  position: absolute; /* 设置绝对定位 */
+  top: 0;
+  left: 0;
+  width: 100%; /* 宽度等于容器宽度 */
+}
+.scrolling-text:hover .scrolling-text-inner {
+  animation: scroll-animation 5s infinite linear; /* 鼠标悬停时应用动画 */
+}
+@keyframes scroll-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* 根据文本长度调整滚动距离 */
+  }
+}

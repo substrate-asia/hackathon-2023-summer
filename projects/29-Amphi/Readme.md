@@ -11,8 +11,12 @@ Project Initiation Date (Year-Month):2022.7
 ## Project Overview
 ## 项目整体简介
 Amphi is an AI+Web3 language service marketplace
-- Project Background/Rationale/Problem to be Solved (If there are additional attachments, please place them in the "docs" directory. Submit in English). 项目背景/原由/要解决的问题 (如有其他附件，可放到 docs 目录内。英文提交)。
-- Project Introduction 项目介绍
+- Project Background/Rationale/Problem to be Solved (If there are additional attachments, please place them in the "docs" directory. Submit in English).
+
+项目背景/原由/要解决的问题 (如有其他附件，可放到 docs 目录内。英文提交)。
+- Project Introduction
+
+  项目介绍
 - Project Demo 项目Demo
 - Technical Architecture
 - 技术架构

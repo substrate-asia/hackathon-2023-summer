@@ -11,6 +11,7 @@ import { NoArgs } from "../../libs/wagmi/abi/WagmiAbiType";
 import { parseEther } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
 import { useWagmiRead } from "../../libs/wagmi/hook/UseContractRead";
+import InputModal from "components/InputModal";
 
 export default function AirDropDetail() {
   let { id } = useParams();
@@ -29,6 +30,7 @@ export default function AirDropDetail() {
           {"< 返回空投列表页"}
         </span>
       </div>
+      <InputModal onConfirm={() => {}} />
       <div className="flex flex-row h-screen py-10 px-10">
         <div className="w-[400px] flex flex-col items-center ">
           <img

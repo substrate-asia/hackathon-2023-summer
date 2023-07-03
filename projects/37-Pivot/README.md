@@ -73,6 +73,6 @@ AGI应该代表谁的立场
 编译:
 ```cargo build --release```
 启动:
-```./target/release/pivot --dev```
+```./target/release/substrate --dev```
 单元测试:
 ```cargo test```

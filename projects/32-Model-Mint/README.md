@@ -49,9 +49,7 @@ This project is licensed under the MIT License. Feel free to use and modify this
 
 ## We hope you enjoy using ModelMint and creating amazing AI models!
 
-#Project Dev Plan
-Project Initiation Phase:
-
+# Project Dev Plan
 Project Name: ModelMint
 Project Approval Date: June 10, 2023
 

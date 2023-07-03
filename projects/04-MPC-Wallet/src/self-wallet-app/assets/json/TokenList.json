@@ -1,19 +1,39 @@
 [
-    {
-        "name": "DERC20",
-        "chainId": 80001,
-        "address": "0xfe4f5145f6e09952a5ba9e956ed0c25e3fa4c7f1",
-        "symbol": "DERC20",
-        "decimals": 18,
-        "logoURI": "https://www.subdev.studio/icon/usdt.png"
-    },
-    {
-        "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-        "chainId": 1281,
-        "name": "SubVdc",
-        "symbol": "SVDC",
-        "decimals": 18,
-        "logoURI": "https://www.subdev.studio/icon/usdt.png",
-        "proxy": true
-    }
+  {
+    "name": "DERC20",
+    "chainId": 80001,
+    "address": "0xfe4f5145f6e09952a5ba9e956ed0c25e3fa4c7f1",
+    "symbol": "DERC20",
+    "decimals": 18,
+    "logoURI": "https://www.subdev.studio/icon/usdt.png",
+    "enabled": true
+  },
+  {
+    "address": "0xD909178CC99d318e4D46e7E66a972955859670E1",
+    "chainId": 1287,
+    "name": "WDEV",
+    "symbol": "WDEV",
+    "decimals": 18,
+    "logoURI": "https://www.subdev.studio/icon/White_Icon.svg",
+    "enabled": true
+  },
+  {
+    "address": "0x8d81a3dcd17030cd5f23ac7370e4efb10d2b3ca4",
+    "chainId": 1287,
+    "name": "SubDev",
+    "symbol": "SDEV",
+    "decimals": 18,
+    "logoURI": "https://www.subdev.studio/icon/weth.png",
+    "proxy": true,
+    "enabled": true
+  },
+  {
+    "address": "0xcc4c41415fc68b2fbf70102742a83cde435e0ca7",
+    "chainId": 1287,
+    "name": "TUSDT",
+    "symbol": "TUSDT",
+    "decimals": 18,
+    "logoURI": "https://www.subdev.studio/icon/usdt.png",
+    "enabled": true
+  }
 ]

@@ -57,17 +57,17 @@ class _ActiveProxyAccountState extends State<ActiveProxyAccount> {
                       showHelpContent(
                           title: "什么是代理账号",
                           content:
-                              "代理账号是一种特殊的账号，它可以帮助您在转账时节省GAS费用，但是代理账号不会拥有您的资产，也不会拥有您的私钥，您的私钥仍然由您自己保管。",
+                              "代理账号是基于4337协议的合约账号，它可以帮助您在转账时节省GAS费用，但是代理账号不会拥有您的资产，也不会拥有您的私钥，您的私钥仍然由您自己保管。",
                           confirmText: "我知道了");
                     },
-                    icon: Icon(Icons.help_outline_rounded)),
+                    icon: const Icon(Icons.help_outline_rounded)),
 
                 // TextButton(onPressed: () {}, child: Text("什么是代理账号？")),
                 TextButton(
                     onPressed: () {
                       Get.back();
                     },
-                    child: Text("暂不激活"))
+                    child: const Text("暂不激活"))
               ],
             ),
           ),

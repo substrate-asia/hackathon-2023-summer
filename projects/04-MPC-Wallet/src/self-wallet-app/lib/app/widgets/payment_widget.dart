@@ -121,15 +121,12 @@ class _PaymentWidgetState extends State<PaymentWidget> {
   void _handleTx() async {
     try {
       Balance account = owner!;
-      EasyLoading.show(
-        maskType: EasyLoadingMaskType.black,
-      );
+      EasyLoading.show(maskType: EasyLoadingMaskType.black, status: "GAS加载中");
 
       // 根据rpc创建web3client
       client = await EthService.createWeb3Client(
           HiveService.getNetworkRpc(account.chainId) ?? '');
-      // 交易数据编码
-      String? transactionData;
+
       // 由调用传入data
       if (widget.data != null) {
         transactionBytes = widget.data;
@@ -154,7 +151,9 @@ class _PaymentWidgetState extends State<PaymentWidget> {
       }
 
       String toAddress =
-          (transactionData == null ? widget.to : account.contractAddress) ?? '';
+          (transactionBytes == null ? widget.to : account.contractAddress) ??
+              '';
+
       if (widget.data != null && widget.toAddress != null) {
         toAddress = widget.toAddress!;
       }
@@ -174,12 +173,14 @@ class _PaymentWidgetState extends State<PaymentWidget> {
             await client?.getGasPrice() ?? EtherAmount.zero();
         // gasLimit 转成 Gwei
         setState(() {
-          gasLimit = gas;
-          gasUsed = (gas * gasPrice.getInWei) ~/ BigInt.from(1000000000);
+          gasLimit = gas * BigInt.from(10);
+          gasUsed = (gas * BigInt.from(10) * gasPrice.getInWei) ~/
+              BigInt.from(1000000000);
         });
 
         EasyLoading.dismiss();
       }
+      EasyLoading.dismiss();
     } catch (e) {
       _handleError(e.toString());
     }
@@ -195,7 +196,10 @@ class _PaymentWidgetState extends State<PaymentWidget> {
       toAddress = widget.toAddress!;
     }
     try {
-      EasyLoading.show(status: '交易中');
+      EasyLoading.show(
+          maskType: EasyLoadingMaskType.black,
+          dismissOnTap: false,
+          status: '交易中');
       String? hash = await EthService.signTransaction(privateKey,
           toAddress: toAddress,
           amount: account.isContract
@@ -222,6 +226,10 @@ class _PaymentWidgetState extends State<PaymentWidget> {
   void sendPrxoyTx(EthPrivateKey credentials) async {
     Balance account = owner!;
     try {
+      EasyLoading.show(
+          maskType: EasyLoadingMaskType.black,
+          dismissOnTap: false,
+          status: '交易中');
       // 代理合约实例
       DeployedContract proxyAccountContract =
           await EthService.initProxyAccountContract(account.address);
@@ -279,8 +287,9 @@ class _PaymentWidgetState extends State<PaymentWidget> {
       print("userOp ${userOp.toWeb3Json()}");
       String? result = await Server.fundsTransfer(userOp);
 
-      if (result != null && result != "") {
-        EasyLoading.dismiss();
+      if (result != null && result == "") {
+        EasyLoading.showSuccess("交易发送成功");
+        Get.back(result: HEX.encode(executeData));
       } else {
         // 交易失败 抛出错误让catch捕获
         throw Exception("交易失败");

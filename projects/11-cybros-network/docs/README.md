@@ -12,7 +12,8 @@ Cybros Network 是一个基于区块链的任务调度器 (Job Scheduler) 网络
 ## 名词解释
 
 - Job：具体要执行的任务，包含进度（状态）、输入、结果
-  - Job 的处理运行在链下
+  - 可以理解成合约，是最基本的执行单元，内部封装一个完整的业务逻辑
+  - 计算过程运行在链下，根据程序的设计可以访问到任何资源
 - Implementation (简写 Impl): Job 的处理程序
 - Implementation Build (简写 impl build): Job 的处理程序的 release
   - 开发者需要在链上声明那些 impl build 可以注册上链
@@ -85,10 +86,12 @@ Cybros Network 是一个基于区块链的任务调度器 (Job Scheduler) 网络
 - 任务的状态和业务的状态分离
   - 任务的状态包括等待、正在处理、已处理和终止
   - 业务的状态包括成功、失败、错误、异常（指预期外的情况）
+- 作为工作量证明的基本单位
+  - 智能合约可以访问执行时间、结果、执行的 Worker等信息用于计算费用
 - 任务可包含两份证明
   - 如果是 TEE 环境，可以提交区块链可验证的证明来证明运行环境是 TEE 以及执行的代码和输入的完整性
   - 可以通过业务层面的设计或者 ZK，来证明结果的真实性
-- 任务的输入输出数据都存在链上
+- 任务的输入输出数据都暂存在链上
   - 有最大容量限制（目前是 2KB）
   - 任务的创建者和 Worker 要为存储支付押金
   - 任务完成或者超时后可以通过删除任务来释放押金
@@ -132,7 +135,6 @@ Cybros Network 是一个基于区块链的任务调度器 (Job Scheduler) 网络
 ### 必须依赖
 
 - 编译区块链需要 Rust 1.70.0
-  - 最近的 Substrate 改动导致在 macOS 下编译需要额外的准备工作，参考 <https://github.com/paritytech/substrate/pull/14452#issuecomment-1607981622>
 - 运行 `protocol_impl` 需要 Deno 1.34.3 https://github.com/denoland/deno/releases/tag/v1.34.3
 
 ### 准备工作

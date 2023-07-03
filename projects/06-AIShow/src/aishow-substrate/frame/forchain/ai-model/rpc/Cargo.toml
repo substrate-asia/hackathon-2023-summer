@@ -1,0 +1,65 @@
+#[package]
+#name = "ai-model-rpc"
+#version = "3.0.0"
+#edition = "2023"
+#authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+#repository = 'https://github.com/substrate-developer-hub/recipes'
+#description = "A pallet that demonstrates simple RPC for summing numbers"
+#license = "GPL-3.0-or-later"
+#
+#
+#[dependencies.codec]
+#default-features = false
+#features = ['derive']
+#package = 'parity-scale-codec'
+#version = '2.0.0'
+#
+#[dependencies]
+#futures = { version = "0.3.4", features = ["compat"] }
+#jsonrpc-core = "15.1.0"
+#jsonrpc-core-client = "15.1.0"
+#jsonrpc-derive = "15.1.0"
+#
+#[dependencies.serde]
+#optional = true
+#version = "1.0.101"
+#
+#[dependencies.sp-api]
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[dependencies.sp-blockchain]
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[dependencies.sc-rpc]
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[dependencies.sp-runtime]
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[dependencies.storage-order-runtime-api]
+#default-features = false
+#path = '../runtime-api'
+#version = '3.0.0'
+#
+#[dependencies.sp-rpc]
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[features]
+#default = ["std"]
+#std = [
+#    "serde",
+#    "codec/std",
+#    "sp-api/std",
+#    "sp-runtime/std",
+#    "storage-order-runtime-api/std",
+#]

@@ -1,0 +1,53 @@
+//protoc --gofast_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/proto/match.proto
+//protoc --go_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/proto/match.proto
+syntax = "proto3";
+
+option go_package = "./rpc/proto/matchpb";
+package matchpb;
+
+service Match {
+  rpc FindMiner (Message) returns (FindMinerResp) {}
+  rpc UpdMeta (Message) returns (UpdMetaResp) {}
+  rpc FindMultiAddr (Message) returns (FindMultiAddrResp) {}
+}
+
+message Message {
+  bytes data = 1;
+  bytes signature = 2;
+}
+
+message FindMinerReq {
+  uint32 count = 1;
+  int64 block_size = 2;
+}
+
+message FindMinerResp {
+  message item {
+    string address = 1;
+    string multi_addr = 2;
+  }
+  repeated item miners = 1;
+}
+
+message UpdMetaReq {
+  repeated string miners = 1;
+  repeated string hashes = 2;
+  string ext = 3;
+  int64 file_size = 4;
+  int64 block_size = 5;
+  uint32 data_shards = 6;
+  uint32 parity_shards = 7;
+  string cid = 8;
+}
+
+message UpdMetaResp {
+  string hash = 1;
+}
+
+message FindMultiAddrReq {
+  repeated string address = 1;
+}
+
+message FindMultiAddrResp {
+  map<string,string> data = 1;
+}

@@ -1,0 +1,137 @@
+[data-theme-version="dark"] {
+    &[data-sidebar-style="mini"] {
+		.deznav .metismenu li > ul{
+			background-color: $dark-card;
+		}
+	}
+	
+	.fixed-content-box{
+		background-color: $dark-card;
+		.head-name{
+			background:$dark-card;
+			color: $white;
+			border-color:$d-border; 
+		}
+		& + .header + .deznav{
+			background-color: $d-bg;
+		}
+	}
+	 &[data-layout="vertical"]{
+		&[data-sidebar-position="fixed"]{
+			.deznav{
+				border-color:$d-border;
+			}
+		}
+		&[data-sidebar-style="compact"] {
+			.deznav{
+				.metismenu{
+					&>li{ 
+						&.mm-active,
+						&:hover {
+							&>a {
+								background:transparent;
+								i{
+									color:var(--primary);
+									background:var(--rgba-primary-1);
+								}
+							}
+						}
+						a{
+							&>i{
+								color:rgba($white,0.3);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+    .deznav {
+		.header-profile > a.nav-link{
+			border-color:$d-border;
+			.header-info span{
+				color:$white;
+			}
+		}
+        .metismenu {
+    
+    
+            &>li {
+		
+                &>a {
+                    color: darken($color: $white, $amount: 30%);
+                }
+    
+                &:hover, 
+                &:focus, 
+                &.mm-active {
+    
+                    &>a {
+                        color: $white;
+						background:var(--rgba-primary-1);
+                        &::after {
+                            border-top: 5px solid #b3b3b3;
+							border-left: 5px solid #b3b3b3;
+							border-bottom: 5px solid transparent;
+							border-right: 5px solid transparent;
+                        }
+						i{
+							color:$white;
+						}
+                    }
+                }
+    
+                &.mm-active {
+					
+                    ul {
+						
+                        ul {
+                            background:$dark-card;
+                        }
+                    }
+                }
+            }
+    
+            //one step dropdown
+            ul  {
+                
+				&:after{
+					background-color:$d-border;
+				}
+				
+                a {
+    
+                    &:hover,
+                    &:focus, 
+                    &.mm-active {
+                        color: $white!important;
+						&:before{
+							border-color:#fff;
+						}
+                    } 
+					&:before{
+						border-color:#949497;
+						//background-color: $white;
+					}
+					
+                }
+            }
+            
+            a {
+                color: darken($color: $white, $amount: 30%)!important;
+            }
+    
+            .has-arrow {
+                &:after {
+                    border-top: 5px solid #b3b3b3;
+					border-left: 5px solid #b3b3b3;
+					border-bottom: 5px solid transparent;
+					border-right: 5px solid transparent;
+                }
+            }
+        }
+    }
+    
+    
+
+}

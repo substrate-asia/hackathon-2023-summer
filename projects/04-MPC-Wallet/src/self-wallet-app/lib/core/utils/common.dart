@@ -47,7 +47,7 @@ String avatarName(String address) {
 
 // 传入wei返回eth, 保留两位小数
 String weiToEth(String? wei) {
-  if (wei == null) {
+  if (wei == null || BigInt.tryParse(wei) == null) {
     return '0.00';
   }
   return formatNum(BigInt.parse(wei) / BigInt.from(10).pow(18));

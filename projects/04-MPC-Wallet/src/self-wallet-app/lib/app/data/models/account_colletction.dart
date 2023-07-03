@@ -14,15 +14,14 @@ class Balance {
   ContractEnum? contract; // 合约信息
   IsarLink<Mainnet> network = IsarLink<Mainnet>();
 
-  Balance({
-    required this.address,
-    required this.chainId,
-    this.contractAddress,
-    this.contract,
-    this.balance = "0",
-    this.isContract = false,
-    this.isProxy = false,
-  });
+  Balance(
+      {required this.address,
+      required this.chainId,
+      this.contractAddress,
+      this.contract,
+      this.balance = "0",
+      this.isContract = false,
+      this.isProxy = false});
 
   // 返回Mainnet信息
   String get networkName => network.value?.chainName ?? 'ETH';
@@ -46,6 +45,19 @@ class Balance {
       "isContract": isContract,
       "contractAddress": contractAddress ?? "",
     };
+  }
+
+  // 复制当前
+  Balance copyWith() {
+    return Balance(
+      address: address,
+      chainId: chainId,
+      contractAddress: contractAddress,
+      contract: contract,
+      balance: balance,
+      isContract: isContract,
+      isProxy: isProxy,
+    )..id = id;
   }
 }
 
@@ -159,7 +171,7 @@ class Contract {
       decimals: json['decimals'],
       chainId: json['chainId'],
       iconUrl: json['logoURI'],
-      enabled: json['enabled'] ?? true,
+      enabled: json['enabled'] ?? false,
       proxy: json['proxy'] ?? false,
     );
   }

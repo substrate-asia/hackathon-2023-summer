@@ -1,0 +1,220 @@
+////////////////
+// Compact Nav
+////////////////
+
+@media (min-width:767px) {
+    [data-sidebar-style="compact"] {
+		.nav-header {
+			width: 11.25rem;
+		}
+        .deznav {
+            .header-profile{
+				margin-bottom: 5px;
+				&>a.nav-link{
+					display:block;
+					text-align:center;
+					border:0;
+					img{
+						margin-bottom:5px;
+					}
+					.header-info{
+						margin-left:0!important;
+						text-align:center;
+						small{
+							text-align:center!important;
+						}
+						display:none;
+					}
+				}
+				.dropdown-menu{
+					min-width:11rem;
+				}
+				a svg{
+					display:unset!important;
+				}
+			}
+            .nav-user{
+                display: none;
+            }
+        
+            .metismenu {
+			
+                li {
+                    text-align: center;
+                    a {
+                        padding: 0.7rem 0.5rem;
+						svg{
+						
+							max-width: 21px;
+							max-height: 21px;
+							display: block;
+							margin-left: auto;
+							margin-right: auto;	
+						}
+						i{
+							@include transitionMedium;
+						}
+                    }
+					ul:after{
+						content:none;
+					}
+					
+					& > a{
+						background: transparent!important;
+						box-shadow: none;
+						font-size: 15px;
+					}
+                }
+            }
+			
+			.plus-box,.copyright{
+				display: none;
+			}
+			.copyright{
+			    padding: 0 20px;
+				margin-top: 20px;
+			}
+        }
+
+        .nav-text {
+            display: inline-block;
+            margin-top: 0.3125rem;
+        }
+
+        .nav-label {
+            &.first{
+                display: none;
+            }
+        }
+
+        .nav-badge {
+            display: none;
+        }
+
+        .footer {
+            padding-left: 12.5rem;
+        }
+
+        .content-body {
+            margin-left: 11.4rem;
+        }
+		
+		&[data-theme-version="dark"]{
+			&[data-layout="horizontal"]{
+				.deznav {
+					.metismenu {
+						 li {
+							&>a i{
+								color:$white;
+							}
+						 }
+					}	
+				}
+			}
+            &[data-layout="vertical"]{
+                .deznav {
+                    .metismenu {
+                         li {
+                             &>a i{
+                                //background:$d-bg;
+                               // color:#b3b3b3;
+                             }
+                             &.mm-active{
+                                 &>a i{
+                                    background:var(--primary);
+                                    color:$white;
+                                }
+                             }
+                         }
+                    }
+                }
+            }
+		}
+		&[data-layout="vertical"]{
+			.deznav {
+				.metismenu {
+					 li {
+						&:hover{
+							&>a i{
+								background:var(--rgba-primary-1);
+								color:var(--primary);
+							}
+						}	
+					 }
+				}	
+			}
+		}
+    }
+}
+[data-layout="horizontal"][data-sidebar-style="compact"] {
+	.footer {
+		padding-left: 0;
+	}
+	.content-body {
+		margin-left:0;
+	}
+	.deznav{
+		margin-bottom:0;
+	}
+	.nav-header {
+		width: 21.75rem;
+		.brand-logo {
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+	}
+}
+[data-layout="vertical"][data-sidebar-style="compact"] {
+    .deznav {
+        width: 11.25rem;
+        
+        .metismenu {
+		
+            ul{
+				margin-left:0;
+				border:0;
+				background: rgba(0,0,0,0.02);
+				padding: 10px 0;
+				
+				@at-root [data-theme-version="dark"]#{&} {
+					background:(255, 255, 255, 0.05);
+				}
+					
+				a{
+					&:before{
+						content:none;
+					}
+				}
+				
+				ul a {
+					padding: 0.625rem 0.9375rem;
+					
+				}
+            }
+
+            &>li {
+				&>a{
+					padding:1.2rem 0.5rem;
+				}
+                &>a.has-arrow::after {
+                    top: 1px;
+					display: inline-block;
+					right: auto;
+					margin-left: 5px;
+					position: relative;
+					width: 7px;
+					height: 7px;
+					border-width: 2px 0px 0px 2px;
+					
+					
+					@at-root [direction="rtl"]#{&} {
+						left: auto;
+						margin-left: 0;
+						margin-right: 5px;
+					}
+                }
+            }
+        }
+
+    }
+}

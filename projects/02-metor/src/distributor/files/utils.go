@@ -8,8 +8,8 @@ import (
 )
 
 // 默克树在datastore中的key名称
-func metaKey(root string) string {
-	return "meta/" + root
+func nameCid(root string) string {
+	return "cid/" + root
 }
 
 func fileinfo(fPath string) (fileData []byte, fi os.FileInfo, err error) {
@@ -29,4 +29,18 @@ func fileinfo(fPath string) (fileData []byte, fi os.FileInfo, err error) {
 		return
 	}
 	return
+}
+
+func removeRepeat(src []string) []string {
+	tmp := make(map[string]int)
+	for i := range src {
+		if _, ok := tmp[src[i]]; !ok {
+			tmp[src[i]] = 0
+		}
+	}
+	res := make([]string, 0, len(tmp))
+	for k := range tmp {
+		res = append(res, k)
+	}
+	return res
 }

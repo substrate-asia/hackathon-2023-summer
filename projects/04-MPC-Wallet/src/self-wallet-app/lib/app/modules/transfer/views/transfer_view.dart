@@ -32,8 +32,8 @@ class TransferView extends GetView<TransferController> {
                 actions: [
                   IconButton(
                       onPressed: () {
-                        controller.test();
-                        // controller.showInfo();
+                        // controller.test();
+                        controller.showInfo();
                       },
                       icon: const Icon(Icons.info_outline))
                 ],

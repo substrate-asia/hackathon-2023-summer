@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
+import 'package:sunrise/app/controllers/wallet_controller.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/data/services/isar_service.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
 class TokenAssetsController extends GetxController {
+  WalletController walletController = Get.find<WalletController>();
   // 搜索token
   TextEditingController tokenController = TextEditingController();
 
@@ -52,18 +55,18 @@ class TokenAssetsController extends GetxController {
 
         // 打印contractList
         for (var element in contractList) {
-          print("🥷 element: ${element.toJson()}");
+          print("🥷 element: ${element.toJson()} ${element.id}");
         }
 
         // 如果tokenListData和tokenConfigList长度不一致，说明有新的token，需要保存
-        if (tokenListData == null ||
-            tokenListData?.length != contractList.length) {
-          print("come in");
-          final tempTokenMapList =
-              tokenConfigList.map((e) => e.toJson()).toList();
-          HiveService.saveData(LocalKeyList.tokenList, tempTokenMapList);
-          tokenConfigList = contractList;
-        }
+        // if (tokenListData == null ||
+        //     tokenListData?.length != contractList.length) {
+        print("come in");
+        final tempTokenMapList =
+            tokenConfigList.map((e) => e.toJson()).toList();
+        HiveService.saveData(LocalKeyList.tokenList, tempTokenMapList);
+        tokenConfigList = contractList;
+        // }
         showTokenConfigList = tokenConfigList;
         update();
       });
@@ -71,6 +74,7 @@ class TokenAssetsController extends GetxController {
       print(e);
     }
     showTokenConfigList = tokenConfigList;
+
     update();
   }
 
@@ -100,6 +104,56 @@ class TokenAssetsController extends GetxController {
         showTokenConfigList.add(element);
       }
     }
+    // showTokenConfigList 排序 enabled在前面
+    showTokenConfigList.sort((a, b) {
+      if (a.enabled == b.enabled) {
+        return 0;
+      } else if (a.enabled) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
     update();
+  }
+
+  // 设置token enabled状态
+  void setTokenEnabled(bool enabled, int index) async {
+    Contract tokenConfig = showTokenConfigList[index];
+
+    tokenConfig.enabled = enabled;
+
+    await IsarService.isar?.writeTxn(() async {
+      await IsarService.isar?.contracts.put(tokenConfig);
+    });
+
+    showTokenConfigList[index].enabled = enabled;
+    // 修改tokenConfigList的enabled
+    for (var element in tokenConfigList) {
+      if (element.contractAddress == tokenConfig.contractAddress) {
+        element.enabled = enabled;
+      }
+    }
+
+    final tempTokenMapList = tokenConfigList.map((e) => e.toJson()).toList();
+    HiveService.saveData(LocalKeyList.tokenList, tempTokenMapList);
+
+    update();
+  }
+
+  void saveTokenConfig() async {
+    print("🥷 saveTokenConfig");
+    EasyLoading.show(
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+        status: "保存中");
+    // await IsarService.isar?.writeTxn(() async {
+    //   await IsarService.isar?.balances.clear();
+    // });
+    await walletController.initAppConfig();
+    await walletController.removeBalance();
+    await walletController.refreshAllBalance();
+    EasyLoading.dismiss();
+    Get.back();
   }
 }

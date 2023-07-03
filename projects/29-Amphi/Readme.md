@@ -17,12 +17,16 @@ Amphi is an AI+Web3 language service marketplace
 - Project Introduction
 
   项目介绍
-- Project Demo 项目Demo
+- Project Demo
+
+  项目Demo
 - Technical Architecture
-- 技术架构
+
+  技术架构
 
 - Project logo (if available). This logo will be printed on promotional materials, event posters, or banners.
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
+
+  项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
 ![白底+文字](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/2109010b-4eb5-41bc-a177-2502edec5ada)
 
 
@@ -30,12 +34,14 @@ Amphi is an AI+Web3 language service marketplace
 ## 黑客松期间计划完成的事项
 
 **Blockchain Side**
+
 **区块链端**
 - [ ] SBT ERC1155
 - [ ] Translator validates NFT
 - [ ] Buyer canceled NFT
 
 **Web Interface**
+
 **web 端**
 - [ ] Home page
 - [ ] Preference page 

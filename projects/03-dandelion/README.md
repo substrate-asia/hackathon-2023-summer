@@ -9,9 +9,11 @@
 At present, the best launch method of blockchain projects is airdrop, because of its ultra-low participation threshold, ultra-high launch efficiency, but at present, there are various problems in the process of implementing airdrops, such as witch attacks, etc., Dandelion project will be based on Polkadot to create a professional reusable airdrop community and launch pad, through the community combined with the blockchain economic model model, to create a set of community economic model driven reusable airdrop launch platform, Deeply bond the project party and users, deeply tap the potential of the airdrop model, maximize the benefits of all parties and minimize the cost.
 
 - 项目背景/原由/要解决的问题 (如有其他附件，可放到 `文档` 目录内。英文提交)。
-    空投是最优秀的项目发射模式，没有之一。得益于超低参与门槛的空投发射模式，可以使优秀的项目在短时间内积聚大量人气，这是一个优秀且经过市场验证的模式，但目前项目方在空投实施的过程中也存在很多的问题和痛点，其中危害最大的就是“女巫攻击” ，每一个空投的项目方都通过设置各种链上及社交平台交互等验证策略来减少“女巫攻击”的影响，但其效果并不理想。dandelion项目探索构想空投2.0的形态，通过将链上经济模型打造一个高粘性空投社区的方案解决这一问题，并可作为社区与项目方深度融合沟通的桥梁，彻底解决空投模式的痛点，并为波卡生态项目带来丰富多样的发射体验，降低波卡生态的参与门槛。
+    项目背景/原由：空投是最优秀的项目发射模式，没有之一。得益于超低参与门槛的空投发射模式，可以使优秀的项目在短时间内积聚大量人气，这是一个优秀且经过市场验证的模式，但目前项目方在空投实施的过程中也存在很多的问题和痛点，其中危害最大的就是“女巫攻击” ，每一个空投的项目方都通过设置各种链上及社交平台交互等验证策略来减少“女巫攻击”的影响，但其效果并不理想。dandelion项目探索构想空投2.0的形态，通过将链上经济模型打造一个高粘性空投社区的方案解决这一问题，并可作为社区与项目方深度融合沟通的桥梁，彻底解决空投模式的痛点，并为波卡生态项目带来丰富多样的发射体验，降低波卡生态的参与门槛。
+    要解决的问题：Dandelion（蒲公英）项目正在构建一条空投社区平行链（探索空投的2.0形态），打造Polkadot上的去中心化（DAO）原生社区中心，推动不同平行链用户的交流和转化，提升跨链基础设施（XCM）的应用频率，并通过空投活动吸引增量用户进入Polkadot生态，正如Polkadot连接了不同共识的平行链，成为公链的交通枢纽，Dandelion（蒲公英）则以常态化空投（活动性可定制空投）为桥梁，连接不同平行链的社区，成为不同社区的交通枢纽，促进不同平行链社区用户的快速流动和转化，降低各平行链及生态项目的推广成本，增加Polkadot生态用户的黏性，并通过开创性的社区活跃度系统为各项目方筛选优质真实用户，减少女巫攻击造成的损失。
 - 项目介绍
     dandelion项目，项目整体思路是深挖空投模式的潜力，探索空投2.0的形态，做一个黏合社区与各个项目方的专业化空投平台，建立一个随时准备就绪的黏性社区，节省项目方空投前的宣传以及时间成本，并通过社区经济模型杜绝女巫攻击及集中抛售对项目方的损失，使项目方获得真实有效的用户，也使真实的用户获益。大大节约项目推广的中间成本，使真正的好项目更易脱颖而出。也通过集中化的管理降低用户领取空投时遭受的欺诈风险。在项目就绪之后，计划转交社区治理，并完成去中心化的过程。
+- 关于预防女巫攻击的技术手段及黑客松期间要实现的功能介绍
     在避免女巫攻击之前，首先我们要分析女巫攻击的本质是什么，受到女巫攻击的前提条件是由于新建女巫账号的成本要低于每个账号的空投收益，即“单个女巫账号的空投收益>新建女巫小号的成本”，符合这一条件的空投项目将不可避免的受到女巫攻击，特别是热度较高、市场较为看好的项目受女巫攻击的影响更为严重，基于这一原理，Dandelion项目设计了一套“可定制空投规则智能合约”，该合约可以对参与空投的用户条件进行限制以达到抑制女巫攻击的目的。
 
 例如，某个定制空投规则的合约的空投发放规则如下：
@@ -33,7 +35,7 @@ At present, the best launch method of blockchain projects is airdrop, because of
 - 技术架构
     Substrate平行链 add Evm
 - 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
-    ![蒲公英](https://bafybeibtlnl6g3e7botlukk7vj3m2bp4ulezxqvmmycyjuuykbrtvcxr3a.ipfs.w3s.link/%E8%92%B2%E5%85%AC%E8%8B%B1.jpg "蒲公英logo")
+    ![蒲公英](https://bafybeiep3ezg7u7igdfxhcle7tlllamt6jxouwhnounmessqwbyohibrke.ipfs.w3s.link/%E8%92%B2%E5%85%AC%E8%8B%B1.png "蒲公英logo")
     
 
 - 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react

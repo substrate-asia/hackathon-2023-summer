@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f5024cde.css",
+    "main.js": "/static/js/main.1a88138c.js",
+    "static/js/787.349b0e60.chunk.js": "/static/js/787.349b0e60.chunk.js",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/logo.png": "/static/media/logo.aa577ef6d3d2e2e5a4a5.png",
+    "static/media/polkadot-logo.svg": "/static/media/polkadot-logo.9c7fb93c1d0abd386e546abe94dccc98.svg",
+    "static/media/miner.svg": "/static/media/miner.4770ac4c7f6df60dd427e79239f408f3.svg",
+    "index.html": "/index.html",
+    "main.f5024cde.css.map": "/static/css/main.f5024cde.css.map",
+    "main.1a88138c.js.map": "/static/js/main.1a88138c.js.map",
+    "787.349b0e60.chunk.js.map": "/static/js/787.349b0e60.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5024cde.css",
+    "static/js/main.1a88138c.js"
+  ]
+}

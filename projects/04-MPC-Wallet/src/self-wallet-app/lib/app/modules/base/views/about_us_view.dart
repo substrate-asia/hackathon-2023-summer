@@ -26,22 +26,22 @@ class AboutUsView extends GetView {
           SizedBox(
             height: 20.h,
           ),
-          Center(
-            child: Image.asset(
-              'assets/images/logo-mpc-light.png',
-              width: 60.w,
-              height: 60.w,
-            ),
-          ),
+          // Center(
+          //   child: Image.asset(
+          //     'assets/images/logo-mpc-light.png',
+          //     width: 60.w,
+          //     height: 60.w,
+          //   ),
+          // ),
           SizedBox(
             height: 5.w,
           ),
           Text(
-            "MPC WALLET",
+            "SELF WALLET",
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
           ),
           SizedBox(
-            height: 5.w,
+            height: 10.w,
           ),
           Text(
             "1.0.0",
@@ -98,7 +98,7 @@ class AboutUsView extends GetView {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "新版本",
+                    "v1.0.0",
                     style: TextStyle(fontSize: 14.sp),
                   ),
                   Icon(
@@ -115,33 +115,33 @@ class AboutUsView extends GetView {
             ),
             onTap: () {},
           ),
-          ListTile(
-            trailing: SizedBox(
-              width: 100.w,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "12.34 MB",
-                    style: TextStyle(fontSize: 14.sp),
-                  ),
-                  SizedBox(width: 10.w),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 16.sp,
-                  )
-                ],
-              ),
-            ),
-            minLeadingWidth: 5.w,
-            title: Text(
-              "清理缓存",
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            onTap: () {
-              Get.to(() => AboutUsView(), transition: Transition.cupertino);
-            },
-          ),
+          // ListTile(
+          //   trailing: SizedBox(
+          //     width: 100.w,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.end,
+          //       children: [
+          //         Text(
+          //           "12.34 MB",
+          //           style: TextStyle(fontSize: 14.sp),
+          //         ),
+          //         SizedBox(width: 10.w),
+          //         Icon(
+          //           Icons.arrow_forward_ios_rounded,
+          //           size: 16.sp,
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          //   minLeadingWidth: 5.w,
+          //   title: Text(
+          //     "清理缓存",
+          //     style: TextStyle(fontSize: 16.sp),
+          //   ),
+          //   onTap: () {
+          //     Get.to(() => AboutUsView(), transition: Transition.cupertino);
+          //   },
+          // ),
         ],
       ),
     );

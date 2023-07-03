@@ -1,0 +1,35 @@
+#[package]
+#name = "ai-model-runtime-api"
+#version = "3.0.0"
+#authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+#edition = "2023"
+#license = "GPL-3.0-or-later"
+#
+#[dependencies.sp-api]
+#default-features = false
+#git = 'https://gitee.com/mohaijiang/substrate.git'
+#tag = 'monthly-2021-07'
+#version = '3.0.0'
+#
+#[dependencies.codec]
+#default-features = false
+#features = ['derive']
+#package = 'parity-scale-codec'
+#version = '2.0.0'
+#
+#[dev-dependencies]
+#serde_json = "1.0.59"
+#
+#[dependencies.primitives]
+#default-features = false
+#package="ttc-primitives"
+#path = '../../../primitives'
+#version = '3.0.0'
+#
+#[features]
+#default = ["std"]
+#std = [
+#    "sp-api/std",
+#    "primitives/std",
+#    "codec/std",
+#]

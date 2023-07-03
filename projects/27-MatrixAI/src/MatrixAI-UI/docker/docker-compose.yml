@@ -1,0 +1,19 @@
+version: "3"
+
+networks:
+  ai_network:
+    driver:
+      bridge
+
+services:
+ 
+  substats:
+    image: contractlab/matrixai-ui:latest
+    container_name: matrixai-ui
+    networks:
+      - ai_network
+    restart: on-failure
+    ports:
+      - 8090:8090
+    expose:
+      - 8090

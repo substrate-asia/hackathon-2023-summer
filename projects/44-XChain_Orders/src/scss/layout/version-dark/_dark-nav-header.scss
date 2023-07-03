@@ -1,0 +1,27 @@
+[data-theme-version="dark"] {
+	.nav-header{
+		border-color:$d-border;
+	}
+	&[data-sidebar-position="fixed"][data-layout="vertical"]{
+		.nav-header{
+			box-shadow: 7px -7px 25px rgba($d-bg,0.5);
+		}
+	}	
+  
+
+    .nav-control {
+        color: $white;
+    }
+
+    .brand-logo {
+        color: $white;
+
+        &:hover {
+            color: $white;
+        }
+    }
+	
+	.svg-title-path{
+		fill:var(--primary);
+	}
+}

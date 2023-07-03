@@ -1,0 +1,121 @@
+.swiper-box{
+	position: relative;
+	height: 920px;
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+	}
+	.card{
+		height:auto;
+	}
+	.swiper-slide {
+	  font-size: 18px;
+	  height: auto;
+	  -webkit-box-sizing: border-box;
+	  box-sizing: border-box;
+	  padding-left: 23px;
+	}
+	.swiper-container-vertical>.swiper-scrollbar{
+		right:auto;
+		left:4px;
+		width:2px;
+	}
+	.swiper-scrollbar-drag{
+		width:8px;
+		left:-3px;
+		background:$success;
+	}
+	&:after{
+		content:"";
+		height:200px;
+		width:100%;
+		z-index:1;
+		position:absolute;
+		left:0;
+		bottom:0;	
+		background: -moz-linear-gradient(top,  rgba(30,87,153,0) 0%, rgba(166,188,213,0) 33%, rgba(249,249,249,0.43) 53%, rgba(249,249,249,1) 79%); 
+		background: -webkit-linear-gradient(top,  rgba(30,87,153,0) 0%,rgba(166,188,213,0) 33%,rgba(249,249,249,0.43) 53%,rgba(249,249,249,1) 79%);
+		background: linear-gradient(to bottom,  rgba(30,87,153,0) 0%,rgba(166,188,213,0) 33%,rgba(249,249,249,0.43) 53%,rgba(249,249,249,1) 79%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#f9f9f9',GradientType=0 );
+	}
+	@include custommq ($max:1600px){
+		height:1100px;
+	}
+	@include respond ("tab-land"){
+		height:auto;
+		margin-bottom:25px;
+		&:after{
+			content:none;
+		}
+		.swiper-slide {
+			width:auto!important;
+			padding-left:0;
+			padding: 0 10px;
+		}
+		.card-bx{
+			width: 350px;
+		}
+	}
+	@include respond ('phone'){
+		.card{
+			margin-bottom:25px;
+		}
+		.card-bx{
+			width: 305px;
+		}
+	}
+}
+.underline{
+	text-decoration: underline;
+	font-weight:600;
+}
+.donut-chart-sale small {
+    font-size: 20px;
+    position: absolute;
+	width: calc(100% - 20px);
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    top: 0;
+    justify-content: center;
+    font-weight: 600;
+	z-index: 1;
+    color: black!important;
+	&:after{
+		content: "";
+		position: absolute;
+		height: 76%;
+		width: 76%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		left: 50%;
+		background: white;
+		border-radius: 100%;
+		z-index: -1;
+		}
+}
+.theme-colors{
+	.btn{
+		height:35px;
+		width:35px;
+		cursor:pointer;
+		border-radius:35px!important;
+		padding:0;
+		text-align:center;
+		margin-right: 12px;
+		padding: 3px;
+		i{
+			font-size:28px;
+			color:$white;
+			display:none;
+		}
+	}
+	.btn-check:checked + .btn,
+	.btn-check:active + .btn{
+		i{
+			display:block!important;
+		}
+	}
+}

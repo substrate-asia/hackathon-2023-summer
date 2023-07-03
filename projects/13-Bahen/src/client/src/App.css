@@ -1,0 +1,25 @@
+button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.navigation {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "future-tool",
+  "version": "0.0.1",
+  "description": "Future Tool - zkFuture - Battleship",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "icerdesign (liangshuang@sutu.tech)",
+  "license": "MIT",
+  "scripts": {
+    "build:board": "bash ./scripts/compile.sh src/circuits/BoardEligibility && cp src/circuits/BoardEligibility_obj/verifier.sol src/contracts/BoardEligibilityVerifier.sol",
+    "build:attack": "bash ./scripts/compile.sh src/circuits/RevealAttack && cp src/circuits/RevealAttack_obj/verifier.sol src/contracts/RevealAttackVerifier.sol",
+    "build:circuits": "npm run build:board && npm run build:attack",
+    "setup:ptau": "wget -O pot_final.ptau https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_15.ptau",
+    "build": "npm run build:circuits"
+  },
+  "devDependencies": {
+    "circomlib": "^2.0.3"
+  }
+}

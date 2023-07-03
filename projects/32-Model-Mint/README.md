@@ -105,7 +105,7 @@ Address any remaining issues or bug fixes.
 Prepare for project submission and presentation.
 
 
-#Dev Information
+# Dev Information
 
 dapanji.eth - Harvard University 
 

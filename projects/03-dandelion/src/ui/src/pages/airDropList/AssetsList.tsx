@@ -24,6 +24,11 @@ import { NoArgs } from "../../libs/wagmi/abi/WagmiAbiType";
 import "./AssetsList.css";
 import { FetchBalanceResult } from "@wagmi/core";
 import { Button, message } from "antd";
+import { AirDrop } from "../../constants";
+import { useAccount } from "wagmi";
+import { useWagmiRead } from "../../libs/wagmi/hook/UseContractRead";
+import { WagmiContract } from "../../libs/wagmi/contract/WagmiContract";
+import { StakeTokenAbi } from "../../web3/contracts/abi/StakeTokenAbi";
 
 export default function AssetsList() {
   const nativeBalance = useMyNativeBalance(true);
@@ -41,11 +46,10 @@ export default function AssetsList() {
         <div className="separator w-full mt-10 h-[2px]"></div>
 
         <div className="container  mt-10">
-          <div className="container-title">用户资产</div>
-          <MyAirDropToken airDropId={1} />
-          <MyAirDropToken airDropId={4} />
-          <MyAirDropToken airDropId={11} />
-          <MyAirDropToken airDropId={15} />
+          <div className="container-title">参与的空投项目</div>
+          {
+            AIR_DROP_LIST.map((airDrop) => <MyAirDropTokenOrNull key={airDrop.id} airDrop={airDrop} /> )
+          }
         </div>
       </div>
       <MyTree />
@@ -53,10 +57,23 @@ export default function AssetsList() {
   );
 }
 
-function MyAirDropToken({ airDropId }: { airDropId: number }) {
-  const airDrop = AIR_DROP_LIST.find((item) => item.id === airDropId)!;
-  const balance = useMyBalance(airDrop.AIToken, true);
+function MyAirDropTokenOrNull({ airDrop }: { airDrop: AirDrop }) {
+  const contract = new WagmiContract(airDrop.StakeToken, StakeTokenAbi);
+  const { address } = useAccount()
+  const { data } = useWagmiRead(contract, "depositTimestamps", [address!], {
+    enabled: address !== undefined,
+    watch: true,
+  });
 
+  if (data && data.lt(BigNumber.from(0))) {
+    return <MyAirDropToken airDrop={airDrop}/>
+  } else {
+    return null
+  }
+}
+
+function MyAirDropToken({ airDrop }: { airDrop: AirDrop }) {
+  const balance = useMyBalance(airDrop.AIToken, true);
   return <MyToken name={airDrop.name} balance={balance} />;
 }
 

@@ -101,7 +101,9 @@ function StakeOrApproveButton({ stakeToken }: { stakeToken: Address }) {
   const amount = parseEther(input);
 
   const { address } = useAccount();
-  const { data } = useWagmiRead(VEToken, "allowance", [address!, stakeToken]);
+  const { data } = useWagmiRead(VEToken, "allowance", [address!, stakeToken], {
+    watch: true,
+  });
 
   if (data === undefined) {
     return (

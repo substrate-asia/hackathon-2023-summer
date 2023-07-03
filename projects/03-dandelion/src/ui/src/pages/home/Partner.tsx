@@ -1,15 +1,16 @@
-import { Astar } from "assets";
+import { dorahacks, oneblock, substrate } from "assets";
+
 const Partners = [
   {
-    img: Astar,
+    img: dorahacks,
     className: "justify-self-start",
   },
   {
-    img: Astar,
+    img: oneblock,
     className: "justify-self-center",
   },
   {
-    img: Astar,
+    img: substrate,
     className: "justify-self-end",
   },
 ];

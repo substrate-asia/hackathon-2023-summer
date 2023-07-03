@@ -17,7 +17,7 @@ function formatString(input) {
   const back = input.slice(-5)
   return `${front}...${back}`
 }
-const Nav = ({ ConnectKitButton }) => {
+const Nav = ({}) => {
   const router = useRouter()
   const { isDarkMode } = useTheme()
   const [data, setData] = useState([])
@@ -68,7 +68,7 @@ const Nav = ({ ConnectKitButton }) => {
   return (
     <nav
       // style={{ position: 'relative' }}
-      className="w-full p-4 border-b border-gray-800 bg-zinc-950"
+      className="w-full border-b border-gray-800 bg-zinc-950 p-4"
     >
       {/* <Link href="/">
         <div className={classes.logoCenter}>
@@ -82,8 +82,8 @@ const Nav = ({ ConnectKitButton }) => {
 
       <div className="flex justify-between">
         <Link href="/discover/CopyInvesting">
-          <div className="flex items-center cursor-pointer">
-            <div className="flex mr-2">
+          <div className="flex cursor-pointer items-center">
+            <div className="mr-2 flex">
               <Image src={logo} width={36} height={36} />
             </div>
             <div className="flex align-top">
@@ -105,7 +105,7 @@ const Nav = ({ ConnectKitButton }) => {
               style={{ color: '#999', cursor: 'pointer', padding: '0 10px' }}
             />
           </Popover>
-          <ConnectKitButton />
+          {/* <ConnectKitButton /> */}
         </div>
 
         {/* <Connect /> */}

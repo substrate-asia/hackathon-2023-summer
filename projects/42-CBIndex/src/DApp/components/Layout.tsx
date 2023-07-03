@@ -8,7 +8,7 @@ type LayoutProps = {
   ConnectKitButton?: any
 }
 
-const Layout = ({ children, ConnectKitButton }: PropsWithChildren<LayoutProps>) => {
+const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
   useEffect(() => {
     const key = localStorage.getItem('cbindexDarkMode')
     if (!key) {
@@ -20,7 +20,7 @@ const Layout = ({ children, ConnectKitButton }: PropsWithChildren<LayoutProps>) 
 
   return (
     <>
-      <Nav ConnectKitButton={ConnectKitButton} />
+      <Nav />
       <div className="h-full bg-zinc-900">
         <main>{children}</main>
       </div>

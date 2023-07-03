@@ -1,0 +1,90 @@
+[package]
+name = "tokenomic_contract"
+version = "0.1.0"
+edition = "2021"
+authors = ["kingsley"]
+
+[dependencies]
+pink-json = { version = "0.4.0", default-features = false }
+ink = { version = "4.0.1", default-features = false }
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = [
+    "derive",
+] }
+scale-info = { version = "2", default-features = false, features = [
+    "derive",
+], optional = true }
+serde = { version = "1.0", default-features = false, features = [
+    "derive",
+    "alloc",
+] }
+
+
+##primitive-types = { version = "0.11.1",  features = [ "codec",  "scale-info"], default-features = false }
+
+#serde_json = { version = '1.0.85', default-features = false, features = ['alloc'] }
+
+
+pink-extension = { version = "0.4.1", default-features = false, features = [
+    "ink-as-dependency",
+] }
+#pink-subrpc = { version = "0.4.2", default-features = false }
+pink-subrpc = { path = "/opt/phala/index-contract/pink-subrpc", default-features = false }
+chrono = { version = "0.4.24", default-features = false, features = [
+    "alloc",
+    "serde",
+] }
+fixed = { version = "1.23.1", default-features = false, features = ["serde"] }
+fixed-macro = { version = "1.2.0", default-features = false }
+pink-web3 = { version = "0.20.1", default-features = false, features = [
+    "pink",
+    "signing",
+] }
+
+hex-literal = "0.3"
+
+hex = { version = "0.4.3", default-features = false, features = [
+    "alloc",
+    "serde",
+] }
+
+index = { git = "https://github.com/Phala-Network/index-contract", default-features = false }
+#index = { path = "../../index", default-features = false }
+
+
+sha2 = { version = "0.10.2", default-features = false }
+hmac = { version = "0.12.1", default-features = false }
+base16 = { version = "0.2.1", default-features = false, features = ["alloc"] }
+aes-gcm-siv = { version = "0.11.1", default-features = false, features = ["aes", "alloc"] }
+cipher = { version = "0.4.3", default-features = false }
+
+
+[dev-dependencies]
+pink-extension-runtime = "0.4.0"
+
+[lib]
+name = "tokenomic_contract"
+path = "lib.rs"
+crate-type = [
+    # Used for normal contract Wasm blobs.
+    "cdylib",
+    "rlib",
+]
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+    "pink-extension/std",
+    "pink-subrpc/std",
+    "pink-web3/std",
+    "pink-json/std",
+ ##   "primitive-types/std",
+    "index/std",
+]
+ink-as-dependency = []
+
+[profile.release]
+overflow-checks = false # Disable integer overflow checks.
+lto = false             # Enable full link-time optimization.

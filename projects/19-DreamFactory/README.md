@@ -280,10 +280,63 @@ Show how demo works:
 
 
 
-#### Contract Example Online:
+#### Dynamic SmartContract Explanation:
 
+![image.png](https://upload-images.jianshu.io/upload_images/528413-95b4f1259ef6d965.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 DreamFactoryNFT's contract example implements an NFT contract based on ERC721 and integrates with Tableland to provide metadata.
 
+Core logic:
+
+Dynamic NFT metadata link implementation (logic for dynamically updating NFT):
+
+```source-shell
+/**
+     *  @dev Must override the default implementation, which simply appends a `tokenId` to _baseURI.
+     *  tokenId - The id of the NFT token that is being requested
+     */
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        require(
+            _exists(tokenId),
+            "ERC721Metadata: URI query for nonexistent token"
+        );
+        string memory baseURI = _baseURI();
+
+        if (bytes(baseURI).length == 0) {
+            return "";
+        }
+
+        string memory query = string(
+            abi.encodePacked(
+                "SELECT%20json_object%28%27id%27%2Cid%2C%27name%27%2Cname%2C%27image%27%2Cimage%2C%27description%27%2Cdescription%2C%27attributes%27%2Cjson_group_array%28json_object%28%27trait_type%27%2Ctrait_type%2C%27value%27%2Cvalue%29%29%29%20FROM%20",
+                mainTable,
+                "%20JOIN%20",
+                attributesTable,
+                "%20ON%20",
+                mainTable,
+                "%2Eid%20%3D%20",
+                attributesTable,
+                "%2Emain_id%20WHERE%20id%3D"
+            )
+        );
+        // Return the baseURI with a query string, which looks up the token id in a row.
+        // `&mode=list` formats into the proper JSON object expected by metadata standards.
+        return
+            string(
+                abi.encodePacked(
+                    baseURI,
+                    query,
+                    Strings.toString(tokenId),
+                    "%20group%20by%20id"
+                )
+            );
+    }
+```
 Here are the main structure and functions of the contract:
 
 Inherits from ERC721 Contract: The DreamFactoryNFT contract inherits OpenZeppelin's ERC721 contract to implement the functionality of the ERC721 standard.
@@ -300,7 +353,7 @@ tokenURI function: Overrides default implementation, returns metadata URI for a 
 
 mint function: Used for minting new NFTs. It checks if maximum number of NFTs has already been minted and securely mints a new NFT to caller's address.
 
-![image.png](https://upload-images.jianshu.io/upload_images/528413-95b4f1259ef6d965.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 
 Other Files:

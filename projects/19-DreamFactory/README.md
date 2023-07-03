@@ -245,14 +245,11 @@ In other words, you can recreate a table's state by replaying all of the events 
 **blockcain**
 
 - `dynamic nft smartcontract`
-  - [ ] 动态NFT合约及部署
-  - [ ] 更新动态NFT元数据
+[ ] Deployment of dynamic NFT contract
+[ ] Update dynamic NFT metadata
   
 
-**web 端**
 
-- web 端
-  - [ ] 获取github用户共享数据
   
 
 
@@ -262,10 +259,13 @@ In other words, you can recreate a table's state by replaying all of the events 
 
 ### Team information/
 
-- jack：软件工程师，具有 Rust 和区块链开发经验。
-- soywang：区块链开发人员，具有 Substrate 和 Solidity, Solana 开发经验。
-- ciconianigra：区块链开发人员
-- yiko：区块链开发人员
+- Jack: Software engineer with experience in Rust and blockchain development.
+
+- Soywang: Blockchain developer with experience in Substrate, Solidity, and Solana.
+
+- Ciconianigra: Blockchain developer.
+
+- Yiko: Blockchain developer.
 
 ### Track affiliation
 
@@ -274,9 +274,21 @@ Smart Contracts (and related)
 Blockchain Products and Tools
 
 ### Project demonstration
-Videos: 
+#### Videos: 
 
-Show how demo works:
+#### Show how demo works:
+
+1. First, obtain user contribution data through the GitHub API.
+
+https://github.com/OpenSource-DreamFactory/rectianjh
+
+2. Then render and generate an SVG image based on the user's open-source shared data.
+https://github.com/OpenSource-DreamFactory/rectianjh/blob/master/github-metrics.svg
+
+3. Use a dynamic NFT contract on the Astar blockchain to create a dynamic NFT of the changing SVG image. The user's shared open-source data will be constantly updated, and the dynamic NFT image can be updated in real-time through a URL link.
+
+[https://raw.githubusercontent.com/rectinajh/rectianjh/3d78820ec33c461f04976c33565678e366c82345/github-metrics.svg?token=AA2NLHYINBMLJG2OVUFGUATEUM4T6](https://metrics.lecoq.io/rectinajh?template=classic&base.repositories=0&base.metadata=0&achievements=1&activity=1&languages=1&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&languages=false&languages.limit=8&languages.threshold=0%25&languages.other=false&languages.colors=github&languages.sections=most-used&languages.indepth=false&languages.analysis.timeout=15&languages.analysis.timeout.repositories=7.5&languages.categories=markup%2C%20programming&languages.recent.categories=markup%2C%20programming&languages.recent.load=300&languages.recent.days=14&achievements=false&achievements.threshold=C&achievements.secrets=true&achievements.display=detailed&achievements.limit=0&activity=false&activity.limit=5&activity.load=300&activity.days=14&activity.visibility=all&activity.timestamps=false&activity.filter=all&config.timezone=Asia%2FShanghai)
+
 
 
 

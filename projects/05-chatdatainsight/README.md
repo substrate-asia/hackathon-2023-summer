@@ -36,112 +36,50 @@ ChatData Insight is a tool to analyze blockchain data through chat, like chatGPT
 ### Logo
 ![](./docs/logo.png)
 
-## 黑客松期间计划完成的事项
+## Functions and Features Implemented in Code Files
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
+**AI Chatbot Tools**
 
-**backend**
-Function Points:
-1. Configuration Setup
-    - Import necessary libraries such as os, sys, logging, openai, and json.
-    - Set up configurations for OpenAI API key and model name.
-    - Initialize custom logger for logging information and errors.
+- Configuration Setup
+  - [x] Import necessary libraries and modules.
+  - [x] Set up configurations for OpenAI API key and model name.
 
-2. Data Acquisition Tools
-    - Integrate with third-party services like Quicknode, Airstack, and Google Search for data acquisition.
-    - Implement functions to interact with blockchain data through APIs.
-    
-3. Data Analysis Tools
-    a. On-Chain Data Analysis
-        - Provide tools for analyzing community activity, token distribution, economic models, and project innovations.
-    b. Internet Search
-        - Implement a tool to search the internet for information using the Google Search API.
-    c. News Analysis
-        - Implement a tool to analyze community activity by searching news websites.
-    
-4. AI-Driven Question Processing
-    a. Question Decomposition
-        - Implement a function to decompose complex questions into simpler sub-questions.
-    b. Sub-Question Analysis
-        - Utilize AI models to analyze and answer sub-questions using various tools.
-    c. Answer Integration
-        - Integrate answers to sub-questions into a coherent response to the original question.
-    
-5. Error Handling and Validation
-    a. Answer Validation
-        - Implement functions to check the validity of answers.
-    b. Question Validation
-        - Implement functions to check the validity of questions.
-    c. Exception Handling
-        - Handle errors and exceptions gracefully during data acquisition and analysis.
-    
-6. Utility Functions
-    - Implement utility functions such as removing historical images for data cleanup.
+- Chatbot Conversation
+  - [x] Initialize Conversation (`class Conversation`)
+  - [x] Chat with GPT Model (`def chat_with_gpt(input)`)
+  - [x] Conversation Messaging (`def ask(self, question)`)
+  - [x] Cleanup Old Messages (within `def ask(self, question)`)
 
-7. Logging and Debugging
-    - Log information and errors for debugging and monitoring purposes.
-    - Implement exception handling and logging for errors during data acquisition and analysis.
+- Stream Output
+  - [x] Stream output from the chat model with a given prompt (`def stream_output(prompt)`)
 
-This structure represents the functions and sub-functions implemented in the insight.py file, which is likely part of a larger system for blockchain data insights.
+- Data Summary
+  - [x] Analyze and summarize blockchain data and provide investment advice (`def data_summary(x)`)
 
+**Index Creation for Private Dataset**
 
-General Function Name: AI Chatbot Tools
+- Index Creation
+  - [x] Convert text materials into an index (`GPTVectorStoreIndex.from_documents(documents)`)
+  - [x] Load documents from a directory (`SimpleDirectoryReader(text_folder_path).load_data()`)
+  - [x] Persist the index to a specified directory (`index.storage_context.persist(persist_dir=index_folder_path)`)
 
-Function Points:
-1. Configuration Setup
-    - Import necessary libraries and modules.
-    - Set up configurations for OpenAI API key and model name.
+**Query Private Dataset Index**
 
-2. Chatbot Conversation
-    a. Initialize Conversation
-        - Define a class `Conversation` to initialize a conversation with a prompt and number of rounds.
-    b. Chat with GPT Model
-        - Implement a function `chat_with_gpt` to chat with the GPT model.
-    c. Conversation Messaging
-        - Implement a method `ask` within the `Conversation` class to append user messages and get responses from the GPT model.
-    d. Cleanup Old Messages
-        - Remove old messages from the conversation to maintain a fixed number of rounds.
+- Query Execution
+  - [x] Rebuild the storage context from a specified directory (`StorageContext.from_defaults(persist_dir=path)`)
+  - [x] Load the index from storage (`load_index_from_storage(path)`)
+  - [x] Execute a query on the index using the provided question (`query_engine.query(question)`)
+  - [x] Return the query results (within `def private_dataset_query(question, path)`)
 
-3. Stream Output
-    - Implement a function `stream_output` to stream output from the chat model with a given prompt.
+**Error Question Database Management**
 
-4. Data Summary
-    - Implement a function `data_summary` to analyze and summarize blockchain data and provide investment advice.
+- Database Configuration
+  - [x] Define a Pydantic model for data to be inserted into the database (`class Data(BaseModel)`)
+  - [x] Initialize a MongoDB collection and create an index on the `question` field (`collection.createIndex( {'question':1} )`)
 
-
-General Function Name: Index Creation for Private Dataset
-
-Function Points:
-1. Index Creation
-    - Convert text materials into an index.
-    - Load documents from a directory and create an index from them.
-    - Persist the index to a specified directory.
-
-
-General Function Name: Query Private Dataset Index
-
-Function Points:
-1. Query Execution
-    - Rebuild the storage context from a specified directory.
-    - Load the index from storage.
-    - Execute a query on the index using the provided question.
-    - Return the query results.
-
-
-General Function Name: Error Question Database Management
-
-Function Points:
-1. Database Configuration
-    - Define a Pydantic model for data to be inserted into the database.
-    - Initialize a MongoDB collection and create an index on the `question` field.
-
-2. Error Data Insertion
-    - Implement a method to insert error data into the MongoDB collection.
-    - Handle successful insertion and insertion failures.
-**front end**
-  - [ ] Ask and show answer
-  - [ ] Support chart display
-
+- Error Data Insertion
+  - [x] Insert error data into the MongoDB collection (`await collection.insert_one(data_dict)`)
+  - [x] Handle successful insertion and insertion failures (within `async def insert_error_data(cls, question: str, answer: str, error: str)`)
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

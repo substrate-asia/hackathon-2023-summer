@@ -72,6 +72,8 @@
 - [ ]  Website to manage AI bots and customized knowledge datastore.
 - [ ]  Slack bot, which can be integrated into the Slack channel.
 - [ ]  Bubble widget,  embedding into ordinary websites with just one simple script.
+- [ ]  Substrate Pallet for AI Channel and XCM registration
+- [ ]  Off-chain worker receiving AI message (unfinished)
 
 ### **`Team Information`**
 

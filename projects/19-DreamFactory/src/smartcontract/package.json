@@ -1,0 +1,23 @@
+{
+	"name": "mutable-nft-project",
+	"devDependencies": {
+		"@nomiclabs/hardhat-ethers": "^2.2.3",
+		"@nomiclabs/hardhat-etherscan": "^3.1.7",
+		"@nomiclabs/hardhat-waffle": "^2.0.6",
+		"chai": "^4.3.7",
+		"ethereum-waffle": "^3.4.4",
+		"ethers": "^5.7.2",
+		"hardhat": "^2.16.1",
+		"prettier": "^2.8.8",
+		"prettier-plugin-solidity": "^1.1.3"
+	},
+	"dependencies": {
+		"@openzeppelin/contracts": "^4.9.2",
+		"@tableland/sdk": "^3.1.7",
+		"dotenv": "^16.3.1",
+		"files-from-path": "^0.2.6",
+		"mime": "^3.0.0",
+		"nft.storage": "^7.1.0",
+		"node-fetch": "^3.3.1"
+	}
+}

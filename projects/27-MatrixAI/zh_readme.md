@@ -38,7 +38,8 @@ MatrixAI致力于打破当前中心化垄断的局面，为各行各业的AI应�
 
 ## MatrixAI解决方案
 - How it works
-![jpg_02](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/04baf02c-4c3c-4ef8-8b46-68663aafdac2)
+![jpg_02](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/02e973d6-3085-4079-be26-22560064953d)
+
 
 
 
@@ -140,8 +141,7 @@ MatrixAI致力于打破当前中心化垄断的局面，为各行各业的AI应�
 
 
 ## 队员信息
-![lALPJv8gY9QAjfPNAfjNBa4_1454_504](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/53dafeb0-c6a0-4256-a467-0c0a68e441e2)
-
+![lALPJv8gY9QAjfPNAfjNBa4_1454_504](https://github.com/contract-lab-collections/hackathon-2023-summer/assets/112739018/db50fdec-a507-4f37-8c9e-b7c43c358103)
 
 
 

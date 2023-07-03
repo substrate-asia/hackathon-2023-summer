@@ -40,34 +40,42 @@ In summary, Pshare is a solution crafted with the vision to empower individuals 
 
 ## Technology Architecture
 
-explain the technology architecture of your project, such as how the front end, back end, and blockchain are connected, and the role and function of each part.
-
 ![DappArchitecture.jpeg | 800](https://raw.githubusercontent.com/lenny-mo/PictureUploadFolder/main/DappArchitecture.jpeg)
 
+Explanation of the technology architecture of our project
+
+### Application Layer
+1. Post management: This function is used to manage content published by creators, such as articles, photos, and videos. With post management, creators can create, edit, and delete their own posts, while subscribers can view and comment on these posts, etc.
+2. Subscription Management: This feature is used to manage the relationship between creators and subscribers. Subscription management allows creators to view their subscriber list and manage subscriber access to their data. Subscribers can subscribe to the creator's content through this function, and obtain corresponding permissions and services within the validity period of the subscription.
+3. Share: This feature allows users to share the creator's content with others. Through the sharing function, users can send interested posts, subscription links or Dapp links to others, thereby expanding the scope of content dissemination.
+
+
+### Computation Layer
+1. subsocial api and smart contract: It is used to store and process data of decentralized private domain social products. It provides basic functions such as account management, post management, and subscription management; and we also plan to deploy subscription contracts on this blockchain.
+2. Proxy Re--encryption: Used to implement subscriber access restrictions on creator data. With proxy re-encryption, creators can share encrypted data with subscribers, with access automatically revoked after the subscription expires.
+
+
+### Storage Layer 
+1. Store encrypted files in decentralized storage devices through subsocial's IPFSapi.
 
 ## Things to be done during the hackathon
 **Blockchain**
 
-- [ ] Implement on-chain storage and retrieval of user data.
-- [ ] Design and implement smart contracts for user data encryption.
-- [ ] Design and implement smart contracts for user data decryption.
-- [ ] Design and implement smart contracts for user data permissions management.
-- [ ] Design and implement smart contracts for user data transactions.
+- [x] Implement a smart contract used for implimentation of subscription.
+- [ ] Deploy the smart comtract on subsocial.
 
 **Frontend**
 
-- [ ] Design and implement user registration and login interfaces.
-- [ ] Design and implement interfaces for user data upload and download.
-- [ ] Design and implement interfaces for user data encryption and decryption.
-- [ ] Design and implement interfaces for user data permissions management.
-- [ ] Design and implement interfaces for user data transactions.
+- [x] Design and implement user registration and login page. 
+- [x] Design and implement user profile page. 
+- [x] Design and implement post creation page.
+- [x] Design and implement subscription page used to show posts created by creators he or she subscribe. 
 
 **Backend**
 
 - [ ] Design and implement services for user data storage and retrieval.
-- [ ] Design and implement services for user data encryption and decryption.
+- [x] Design and implement services for user data encryption and decryption.
 - [ ] Design and implement services for user data permissions management.
-- [ ] Design and implement services for user data transactions.
 - [ ] Design and implement services for user data auditing and monitoring.
 
 

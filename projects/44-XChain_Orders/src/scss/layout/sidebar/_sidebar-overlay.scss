@@ -1,0 +1,134 @@
+[data-sidebar-style="overlay"] {
+	&[data-layout="vertical"]{
+		.deznav {
+			border-radius:0 0 0 0!important;
+			@include respond ('phone-land'){
+				border-radius:0 0 0 0!important;
+			}
+		}
+		.nav-header {
+			border-radius:0;
+		}
+		.menu-toggle{
+			.nav-header {
+				border-radius: 0 0 0 0;
+			}
+		}
+	}
+    .deznav {
+        left: -100%;
+        @include transitionMedium;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		.metismenu{
+			& > li {
+				padding: 0 30px;
+				& > a {
+					font-size: 16px;
+					padding: 20px 20px;
+					color: #7f7184;
+					border-radius: 1rem;
+					-webkit-transition: all 0.5s;
+					-ms-transition: all 0.5s;
+					transition: all 0.5s;
+					i{
+						height:auto;
+						width:auto;
+						line-height:1;
+					}
+				}
+				&:hover > a{
+					color:var(--primary);
+					i{
+						color:var(--primary);
+					}
+				}
+				&.mm-active > a {
+					background: var(--rgba-primary-1);
+					color:var(--primary);
+					i{
+						color:var(--primary);
+					}
+				}
+				@include respond ('phone'){
+					padding:0px 15px;
+				}
+				
+			}
+			ul a{
+			    padding-top: .5rem;
+				padding-bottom: .5rem;
+				position: relative;
+				font-size: 15px;
+				padding-left: 4rem;
+				&:before{
+					left:25px;
+				}
+			}
+			
+			
+		}
+		
+		
+		@at-root [direction="rtl"]#{&} {
+            left: auto;
+            right: -100%;
+        }
+		
+		@include respond ('phone-land'){
+			.metismenu{
+				&>li{
+					&>a{
+						font-size: 14px;
+						padding: 12px 14px;
+						i{
+							font-size:18px;
+						}
+					}
+				}
+				ul li a{
+					padding-left:3.4rem;
+				}
+			}
+		}
+    }
+    .content-body {
+        margin-left: 0;
+    }
+    .nav-header {
+        position: absolute;
+        .hamburger.is-active {
+            left: 0;
+            .line {
+                background-color: var(--primary);
+            }
+        }
+    }
+    .menu-toggle {
+        .nav-header {
+            position: absolute;
+            left: auto;
+        }
+        .deznav {
+            left: 0;
+            @at-root [direction="rtl"]#{&} {
+                left: auto;
+                right: 0;
+            }
+        }
+    }
+    .footer {
+        padding-left: 0;
+    }
+}
+
+[data-sidebar-style="overlay"][data-header-position="fixed"] {
+    .nav-header {
+        position: fixed;
+    }
+}
+
+[data-sidebar-position="fixed"][data-header-position="fixed"] {
+    .nav-header {
+        position: fixed;
+    }
+}

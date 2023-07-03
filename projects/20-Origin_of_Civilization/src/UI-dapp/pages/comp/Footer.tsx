@@ -28,7 +28,7 @@ const Footer = () => {
   
           <div>
             <a href="https://github.com">
-            <FontAwesomeIcon icon={faTwitter} className={styles.socialsicon}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faTwitter} className={styles.socialsicon} spin></FontAwesomeIcon>
             </a>
           </div>
           <span className={styles.span}></span>
@@ -36,7 +36,7 @@ const Footer = () => {
   
           <div>
             <a href="https://github.com">
-            <FontAwesomeIcon icon={faInstagram} className={styles.socialsicon}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faInstagram} className={styles.socialsicon} spin></FontAwesomeIcon>
             </a>
           </div>
           <span className={styles.span}></span>
@@ -44,7 +44,7 @@ const Footer = () => {
   
           <div>
             <a href="https://github.com">
-            <FontAwesomeIcon icon={faBitcoin} className={styles.socialsicon}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faBitcoin} className={styles.socialsicon} spin></FontAwesomeIcon>
             </a>
           </div>
   

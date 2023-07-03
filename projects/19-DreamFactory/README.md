@@ -245,14 +245,11 @@ In other words, you can recreate a table's state by replaying all of the events 
 **blockcain**
 
 - `dynamic nft smartcontract`
-  - [ ] 动态NFT合约及部署
-  - [ ] 更新动态NFT元数据
+[ ] Deployment of dynamic NFT contract
+[ ] Update dynamic NFT metadata
   
 
-**web 端**
 
-- web 端
-  - [ ] 获取github用户共享数据
   
 
 
@@ -262,10 +259,13 @@ In other words, you can recreate a table's state by replaying all of the events 
 
 ### Team information/
 
-- jack：软件工程师，具有 Rust 和区块链开发经验。
-- soywang：区块链开发人员，具有 Substrate 和 Solidity, Solana 开发经验。
-- ciconianigra：区块链开发人员
-- yiko：区块链开发人员
+- Jack: Software engineer with experience in Rust and blockchain development.
+
+- Soywang: Blockchain developer with experience in Substrate, Solidity, and Solana.
+
+- Ciconianigra: Blockchain developer.
+
+- Yiko: Blockchain developer.
 
 ### Track affiliation
 

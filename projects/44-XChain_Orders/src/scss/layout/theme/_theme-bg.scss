@@ -1,0 +1,300 @@
+:root{
+	--nav-headbg: #fff;
+	--sidebar-bg: #fff;
+	--headerbg: #fff;
+}
+
+//background for nav header
+@each $name, $color in $theme_backgrounds {
+	[data-nav-headerbg="#{$name}"][data-theme-version="dark"],
+    [data-nav-headerbg="#{$name}"] {
+        @if $name != "color_1"  {
+			--nav-headbg: #{$color};
+			.nav-header{
+				.brand-logo{
+					.brand-title{
+						path{
+							fill:$white;
+						}
+					}
+				}
+				.hamburger .line{
+					background:$white;
+				}
+			}
+			//special work for color
+			&[data-nav-headerbg="color_8"]{
+				.nav-header{
+					.brand-logo{
+						.brand-title{
+							path{
+								fill:$black;
+							}
+						}
+					}
+					.hamburger .line{
+						background:$black;
+					}
+				}
+			}
+		}
+	}
+}
+//background for nav header
+@each $name, $color in $theme_backgrounds {
+	[data-sibebarbg="#{$name}"][data-theme-version="dark"],
+    [data-sibebarbg="#{$name}"] {
+        @if $name != "color_1"  {
+			--sidebar-bg: #{$color};
+			
+			/* .hamburger .line{
+				background:$white;
+			} */
+			.menu-toggle .deznav .metismenu li > ul{
+				background:$color!important;
+			}
+			
+			&[data-sidebar-style="full"][data-layout="vertical"]{
+				.deznav {
+					.metismenu{
+						&>li{
+							&.mm-active{
+								&>a{
+									i{
+										color:$white;
+									}
+								}
+							}
+						}				
+					} 
+				}
+			}
+			&[data-sidebar-style="mini"],
+			&[data-sidebar-style="modern"],
+			&[data-sidebar-style="compact"],
+			&[data-sidebar-style="icon-hover"][data-layout="horizontal"],
+			&[data-sidebar-style="full"][data-layout="horizontal"]
+			{
+				.deznav{
+					.metismenu li ul{
+						background-color: lighten($color: $color, $amount: 20%);
+					}
+				} 
+				.deznav .metismenu > li.mm-active > a,
+				.deznav .metismenu > li:hover > a{
+					background-color: lighten($color: $color, $amount: 10%);
+				}
+			}
+			&[data-sidebar-style="compact"][data-layout="vertical"]{
+				.deznav {
+					.metismenu {
+						&>li {
+							a{
+								&:hover{
+									color:$white;
+								}
+							}
+							&>a{
+								&>i{
+									background: lighten($color: $color, $amount: 3%)!important;
+									color:rgba($white,0.7);
+								}
+							}
+							&.mm-active,&:hover{
+								&>a {
+									box-shadow:none;
+									background:transparent!important;
+									color:$white!important;
+									i{
+										background: lighten($color: $color, $amount: 10%)!important;
+										color:$white!important;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.deznav {
+				.metismenu{
+					ul{
+						a{
+							&:hover,
+							&:focus, 
+							&.mm-active {
+								&:before{
+									border-color:#fff;
+								}
+							}
+						}
+					}
+					a{
+						color:rgba($white,0.8);
+					}
+					li{
+						ul{
+							a{
+								&:hover,
+								&:focus,
+								&.mm-active {
+									color:$white;
+								}
+							}
+						}
+					}
+					&>li{
+						&>a{
+							color:rgba($white,0.85)!important;
+							i{
+								color:rgba($white,0.85)!important;
+							}
+						}
+						&.mm-active{
+							&>a{
+								background:rgba($black,0.15);
+								color:$white!important;
+								i{
+									color:$white!important;
+								}
+							}
+						}
+					}
+					.has-arrow:after{
+						border-color: rgba($white,0.85) transparent transparent rgba($white,0.85);
+					}					
+				} 
+				.header-profile > a.nav-link{
+					border-color:rgba($white,0.3);
+					.header-info{
+						span{
+							color:$white;
+						}
+						small{
+							color:rgba($white,0.8);
+						}
+					} 
+				}
+			}
+			.copyright{
+				color:$white;
+			}
+			//special work for color
+			&[data-sibebarbg="color_8"]{
+				.deznav .metismenu ul a:before {
+					background:rgba($black,0.5);
+				}
+				.deznav {
+					.metismenu{
+						a{
+							color:rgba($black,0.6)!important;	
+							&:hover,
+							&:focus,
+							&.mm-active {
+								color:$black;
+								background:rgba($white,0.15)!important;
+							}
+						}
+						
+						.has-arrow:after{
+							    border-color: rgba(0,0,0,0.85) transparent transparent rgba(0,0,0,0.85);
+						}
+						&>li{
+							&>a{
+								color:rgba($black,0.6)!important;
+								i{
+									color:rgba($black,0.6)!important;
+								}
+							}
+						}
+					}
+					.copyright p{
+						color:rgba($black,0.6);							
+					}
+					.book-box{
+						background: rgba($black,0.4);
+					}
+					.header-info{
+						span{
+							color:rgba($black,0.6)!important;
+						}
+						small{
+							color:rgba($black,0.6)!important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+//background for nav header
+@each $name, $color in $theme_backgrounds {
+	[data-headerbg="#{$name}"][data-theme-version="dark"],
+    [data-headerbg="#{$name}"] {
+        @if $name != "color_1"  {
+			--headerbg: #{$color};
+				.search-area .input-group-text,
+				.search-area .form-control,.search-area .form-control::placeholder{
+					color:$white;
+				}
+				.search-area .input-group-append .input-group-text i{
+					color:$white;
+				}
+			.header-left{
+				.search-area .form-control,
+				.search-area .input-group-text{
+					background-color: lighten($color: $color, $amount: 10%);
+					i{
+						color:$white;
+					}
+				}
+					
+			}
+			.header-right{
+				.ai-icon{
+					background-color: lighten($color: $color, $amount: 10%);
+					svg{
+						path{
+							fill:$white;
+						}
+					}
+				}
+				.notification_dropdown{
+					.nav-link{
+						.badge{
+							border-color:lighten($color: $color, $amount: 10%);
+						}
+					}
+				}
+			}
+			//special work for color
+			&[data-headerbg="color_8"]{
+					
+				.search-area .input-group-text,
+				.search-area .form-control,.search-area .form-control::placeholder{
+					color:$black;
+					background:#F1F1F1;
+				}
+				.header-left{
+					.search-area .form-control,
+					.search-area .input-group-text{
+						i{
+							color:$black;
+						}
+					}
+					
+				}
+				.header-right{
+					.ai-icon{
+						background-color:#F1F1F1;
+						svg{
+							path{
+								fill:$black;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

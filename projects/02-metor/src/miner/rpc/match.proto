@@ -1,0 +1,42 @@
+//protoc --gofast_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/match.proto
+//protoc --go_out=. --go-grpc_out=. --grpc-gateway_out=. ./rpc/match.proto
+syntax = "proto3";
+
+option go_package = "./rpc/matchpb";
+package matchpb;
+
+service Match {
+  rpc FindRole (Message) returns (FindRoleResp) {}
+  rpc StoreProofTask (Message) returns (StoreProofTaskResp) {}
+  rpc StoreProof (Message) returns (StoreProofResp) {}
+}
+
+message Message {
+  bytes data = 1;
+  bytes signature = 2;
+}
+
+message FindRoleReq {
+  string address = 1;
+}
+
+message FindRoleResp {
+  uint32 role = 1;
+}
+
+message StoreProofTaskReq {
+  int64 timestamp = 1;
+}
+
+message StoreProofTaskResp {
+  repeated string hashes = 1;
+}
+
+message StoreProofReq {
+  bytes data = 1;
+  bytes signature = 2;
+}
+
+message StoreProofResp {
+  string tx_hash = 1;
+}

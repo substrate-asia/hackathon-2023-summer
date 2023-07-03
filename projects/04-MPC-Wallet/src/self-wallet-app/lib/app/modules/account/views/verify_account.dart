@@ -10,6 +10,9 @@ import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/core/utils/encryption.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
+/// 校验交易密码
+///
+/// 返回私钥
 class VerifyAccountView extends StatefulWidget {
   VerifyAccountView({super.key});
 

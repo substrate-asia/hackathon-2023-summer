@@ -17,13 +17,15 @@ class SplashView extends GetView<SplashController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: 100.w),
+          SizedBox(height: 50.w),
           Center(
-            child: Image.asset(
-              'assets/images/logo-mpc-light.png',
-              width: 60.w,
-              height: 60.w,
-            ),
+            child: Opacity(
+                opacity: 0.5, // 设置不透明度为50%
+                child: Image.asset(
+                  'assets/images/selfwallet_logo.png',
+                  width: 300.w,
+                  height: 300.w,
+                )),
           ),
           SizedBox(
               height: 100.w,
@@ -35,11 +37,11 @@ class SplashView extends GetView<SplashController> {
                         fontSize: 14.sp,
                       )),
                   SizedBox(height: 15.sp),
-                  Text("v1.0.1",
+                  Obx(() => Text("${controller.appVerson}",
                       style: TextStyle(
                         color: Colors.white38,
                         fontSize: 12.sp,
-                      ))
+                      )))
                 ],
               )),
         ],

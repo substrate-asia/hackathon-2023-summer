@@ -1,9 +1,12 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 
 class SplashController extends GetxController {
+  final appVerson = "1.0.0".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -13,6 +16,7 @@ class SplashController extends GetxController {
   void onReady() {
     super.onReady();
     initSplash();
+    getVersion();
   }
 
   @override
@@ -28,6 +32,7 @@ class SplashController extends GetxController {
     // 配置loading样式
     EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.ring;
     EasyLoading.instance.loadingStyle = EasyLoadingStyle.light;
+    EasyLoading.instance.dismissOnTap = true;
 
     // 是否进入过引导页
     var _isGuide = HiveService.getData(LocalKeyList.guideStatus);
@@ -35,10 +40,6 @@ class SplashController extends GetxController {
     var _account = HiveService.getWalletData(LocalKeyList.rootAddress);
     // 等待3秒
     await Future.delayed(const Duration(seconds: 3));
-    print("_isGuide $_isGuide _account $_account");
-    // Get.offAllNamed('/guide');
-    // return;
-
     if (_isGuide == null) {
       Get.offAllNamed('/guide');
     } else if (_account == null) {
@@ -46,5 +47,11 @@ class SplashController extends GetxController {
     } else {
       Get.offAllNamed('/home');
     }
+  }
+
+  // 获取当前版本号
+  void getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    appVerson.value = packageInfo.version;
   }
 }

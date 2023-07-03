@@ -73,7 +73,7 @@ fn it_should_transfer_ownership() {
 			domain_alias.clone()
 		));
 
-		assert_ok!(DepDNS::transfer_ownershit(
+		assert_ok!(DepDNS::transfer_ownership(
 			RuntimeOrigin::signed(old_owner),
 			domain.clone(),
 			new_owner

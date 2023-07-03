@@ -10,8 +10,14 @@ import (
 	"strings"
 )
 
+var (
+	Process  = ""
+	Version  = ""
+	GoosArch = ""
+)
+
 const (
-	home = "metor/distributor/"
+	home = "metor/1/"
 )
 
 var Api *Tpl
@@ -20,12 +26,12 @@ var Api *Tpl
 type Tpl struct {
 	//数据目录
 	Home string
-	//rpc监听
-	RpcHost string `mapstructure:"rpc_host" def:"127.0.0.1:8901"`
 	//gateway
-	GatewayHost string `mapstructure:"gateway_host" def:"0.0.0.0:8902"`
+	SdkHost string `mapstructure:"sdk_host" def:"127.0.0.1:8902"`
+	//chain rpc
+	ChainRpc string `mapstructure:"chain_rpc" def:"127.0.0.1:8921"`
 	//libp2p监听
-	P2PHost []string `mapstructure:"p2p_host" def:"/ip4/0.0.0.0/tcp/8911"`
+	P2PHost []string `mapstructure:"p2p_host" def:"/ip4/0.0.0.0/tcp/0"`
 	//leveldb目录
 	DataStore string `mapstructure:"data_store" def:"datastore"`
 	//文件缓存目录
@@ -33,7 +39,7 @@ type Tpl struct {
 	//Cpu核心数
 	CpuNum int `mapstructure:"cpu_num" def:"4"`
 	//p2p.bootstrap
-	Bootstrap []string `mapstructure:"bootstrap" def:"/ip4/127.0.0.1/tcp/8911/p2p/12D3KooWHG1w8S555DnCBbbgnMkoNqmdVPz9QxLuHb6DWLEGe8pg"`
+	Bootstrap []string `mapstructure:"bootstrap" def:"/ip4/127.0.0.1/tcp/8911/p2p/12D3KooWNh9ArR9MmVaizrjRPi2VBo3SRrKkEbYt1JUFGvUc1cqr"`
 }
 
 // 初始化
@@ -42,16 +48,18 @@ func NewConfig() {
 	if err != nil {
 		ilog.Logger.Fatalln(err)
 	}
-	dir := u.HomeDir + "/" + home
-	//todo 测试用的dataDir
-	dir = "./metor/1/"
+	dir := u.HomeDir + "/"
+	//todo test>>>>>>>>>
+	dir = "./"
+	//todo <<<<<<<<<<<<<
 
-	if !ifile.IsExist(dir) {
-		_ = ifile.MakeDir(dir)
+	homeDir := dir + home
+	if !ifile.IsExist(homeDir) {
+		_ = ifile.MakeDir(homeDir)
 	}
 
 	//配置文件路径
-	conf := dir + "config.yaml"
+	conf := homeDir + "config.yaml"
 
 	vip := viper.New()
 
@@ -90,7 +98,7 @@ func NewConfig() {
 	}
 
 	//设置数据目录
-	Api.Home = dir
+	Api.Home = homeDir
 
 	//配置缓存目录
 	cacheDir := Api.Home + Api.CacheStore

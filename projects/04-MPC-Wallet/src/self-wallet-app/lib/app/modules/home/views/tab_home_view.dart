@@ -1,11 +1,11 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sunrise/app/controllers/wallet_controller.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
-import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/modules/base/views/assets_view.dart';
 import 'package:sunrise/app/modules/transfer/views/colletcion_account.dart';
 import 'package:sunrise/app/modules/transfer/views/token_detail_view.dart';
@@ -52,7 +52,7 @@ class TabHomeView extends StatelessWidget {
                         SliverToBoxAdapter(
                           child: Container(
                             height: statusBarHeight,
-                            color: Color(0xFF262626),
+                            color: const Color(0xFF262626),
                           ),
                         ),
                         const HeaderLocator.sliver(clearExtent: false),
@@ -61,7 +61,7 @@ class TabHomeView extends StatelessWidget {
                             floating: false,
                             snap: false,
                             pinned: false,
-                            expandedHeight: 220.w,
+                            expandedHeight: 190.w,
                             collapsedHeight: 150.w, // statusBarHeight + 10,
                             flexibleSpace: FlexibleSpaceBar(
                               background: Container(
@@ -167,10 +167,9 @@ class TabHomeView extends StatelessWidget {
                                                               EdgeInsets.zero),
                                                   onPressed: () =>
                                                       {Get.toNamed('/notice')},
-                                                  child: Icon(
-                                                    Icons.message_rounded,
-                                                    color: Colors.white,
-                                                    size: 18.sp,
+                                                  child: Image.asset(
+                                                    'assets/icons/chat.png',
+                                                    width: 20.w,
                                                   )),
                                             ),
                                             SizedBox(width: 10.w),
@@ -185,7 +184,11 @@ class TabHomeView extends StatelessWidget {
                                                               Colors.white12,
                                                           padding:
                                                               EdgeInsets.zero),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    // controller.getRootAccount();
+                                                    EasyLoading.showInfo(
+                                                        "敬请期待");
+                                                  },
                                                   child: Image.asset(
                                                     'assets/icons/scan.png',
                                                     width: 20.w,
@@ -194,12 +197,11 @@ class TabHomeView extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 10.w),
-                                      Text("\$0.00",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 36.sp)),
+                                      // Text("\$0.00",
+                                      //     style: TextStyle(
+                                      //         color: Colors.white,
+                                      //         fontWeight: FontWeight.w600,
+                                      //         fontSize: 36.sp)),
                                       SizedBox(height: 20.w),
                                       Row(
                                         children: [
@@ -210,7 +212,7 @@ class TabHomeView extends StatelessWidget {
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 16.sp),
                                           ),
-                                          SizedBox(width: 5.w),
+                                          // SizedBox(width: 5.w),
                                           IconButton(
                                               padding: EdgeInsets.zero,
                                               onPressed: () {
@@ -258,7 +260,9 @@ class TabHomeView extends StatelessWidget {
                                                 () => const CollectionAccount(),
                                                 arguments: {
                                                   "address":
-                                                      controller.accountAddress
+                                                      controller.accountAddress,
+                                                  "proxy":
+                                                      controller.isProxyAccount
                                                 },
                                                 transition:
                                                     Transition.cupertinoDialog);
@@ -267,12 +271,8 @@ class TabHomeView extends StatelessWidget {
                                               name: "记录",
                                               icon: const Icon(Icons.history),
                                               onPressed: () {
-                                            //
-                                            // Get.toNamed('/website', arguments: {
-                                            //   "title": "交易记录",
-                                            //   "url":
-                                            //       "http://vdxchain-dev-blockscout.xlipfs.com:8083/address/${controller.rootAccount?.address}"
-                                            // });
+                                            controller.toTransactionRecord(
+                                                controller.accountAddress);
                                           }),
                                         ],
                                       ),
@@ -281,7 +281,7 @@ class TabHomeView extends StatelessWidget {
                                   )),
                             )),
                         controller.isProxyAccount
-                            ? SliverPadding(padding: EdgeInsets.zero)
+                            ? const SliverPadding(padding: EdgeInsets.zero)
                             : SliverOverlapAbsorber(
                                 handle: NestedScrollView
                                     .sliverOverlapAbsorberHandleFor(context),
@@ -372,7 +372,16 @@ class TabHomeView extends StatelessWidget {
                                                   ).toList(),
                                                   SizedBox(width: 15.w),
                                                 ],
-                                              ),
+                                              )
+                                                  .animate()
+                                                  .fade(
+                                                    duration: 200.ms,
+                                                  ) // uses `Animate.defaultDuration`
+                                                  .move(
+                                                      duration: 300.ms,
+                                                      begin:
+                                                          const Offset(50, 0),
+                                                      end: const Offset(0, 0)),
                                             ),
                                           ],
                                         ),
@@ -482,11 +491,6 @@ class TabHomeView extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.w),
           color: const Color(0xFF212020),
-          // image: const DecorationImage(
-          //     image: AssetImage('assets/images/assets-bg.png'),
-          //     alignment: Alignment.center,
-          //     opacity: 0.7,
-          //     fit: BoxFit.contain)
         ),
         child: Stack(children: [
           Column(
@@ -497,15 +501,14 @@ class TabHomeView extends StatelessWidget {
                       fontSize: 20.sp,
                       color: Colors.green[500],
                       fontWeight: FontWeight.w600)),
-              SizedBox(height: 5.w),
+              const Expanded(child: SizedBox()),
               Text("${weiToEth(asset.balance)} ${asset.nativeSymbol}",
                   style: TextStyle(fontSize: 16.sp, color: Colors.white)),
-              const Expanded(child: SizedBox()),
-              Text("\$${weiToEth(asset.balance)}",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600)),
+              // Text("\$${weiToEth(asset.balance)}",
+              //     style: TextStyle(
+              //         fontSize: 24.sp,
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.w600)),
               SizedBox(
                 height: 10.w,
               ),
@@ -598,7 +601,15 @@ class TabHomeView extends StatelessWidget {
                   fontSize: 12.sp, color: Colors.white.withOpacity(0.6)))
         ],
       ),
-    );
+    )
+        .animate()
+        .fade(
+          duration: 300.ms,
+        ) // uses `Animate.defaultDuration`
+        .move(
+            duration: 300.ms,
+            begin: const Offset(0, 50),
+            end: const Offset(0, 0));
   }
 
   Widget _homeButton(BuildContext context,

@@ -97,9 +97,9 @@ class EthService {
     Web3Client client =
         await createWeb3Client(HiveService.getNetworkRpc(chainId) ?? '');
     EthPrivateKey credentials = EthPrivateKey.fromHex(privateKey);
-    var nonce = await client.getTransactionCount(credentials.address);
     // var gasLimit = 10000000;
     EtherAmount gasPrice = await client.getGasPrice();
+    var nonce = await client.getTransactionCount(credentials.address);
 
     var transaction = Transaction(
       to: EthereumAddress.fromHex(toAddress),
@@ -113,7 +113,7 @@ class EthService {
     String hash = await client.sendTransaction(credentials, transaction,
         chainId: chainId);
 
-    print("transaction $hash");
+    print("transaction === : $hash");
     // await streamTxHash(txHash: hash, client: client);
     // 等待交易完成
     // 每3s去查询

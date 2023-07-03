@@ -17,6 +17,9 @@ Future<BigInt?> getEtherBalance(String address, String rpcUrl) async {
     "params": [address, "latest"],
     "id": 1
   });
+  // if (rpcUrl.contains('xlipfs')) {
+  //   return BigInt.from(0);
+  // }
   try {
     var response =
         await http.post(Uri.parse(rpcUrl), headers: headers, body: body);
@@ -64,6 +67,9 @@ Future<BigInt?> getTokenBalance(
   });
   // print("===================");
   // print(body);
+  // if (rpcUrl.contains('xlipfs')) {
+  //   return BigInt.from(0);
+  // }
   try {
     var response =
         await http.post(Uri.parse(rpcUrl), headers: headers, body: body);

@@ -1,0 +1,28 @@
+[package]
+name = "pallet-offchain_computing_workers-primitives"
+version = "0.0.1-dev"
+description = "A crate that hosts a common definitions that are relevant for the pallet-offchain_computing_workers."
+authors.workspace = true
+repository.workspace = true
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+edition = "2021"
+publish = false
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+scale-codec = { package = "parity-scale-codec", version = "3.6.1", default-features = false, features = ["derive"] }
+scale-info = { version = "2.8.0", default-features = false, features = ["derive"] }
+
+sp-std = { git = "https://github.com/paritytech/substrate", branch = "master", default-features = false }
+frame-support = { git = "https://github.com/paritytech/substrate", branch = "master", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+	"scale-codec/std",
+	"scale-info/std",
+	"sp-std/std",
+	"frame-support/std",
+]

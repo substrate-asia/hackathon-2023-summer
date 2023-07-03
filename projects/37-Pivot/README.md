@@ -1,3 +1,5 @@
+For all reference, please check the notion document: https://metalanguage.notion.site/P-I-V-O-T-e71791d32fdb4f6eb2655a89d633863b?pvs=4
+
 # 基本资料
  项目名称：PIVOT
  
@@ -66,4 +68,11 @@ AGI应该代表谁的立场
     
 - DAO会空投很多SBT治理代币给德高望重的AGI学者。
  
- 
+# Install
+
+编译:
+```cargo build --release```
+启动:
+```./target/release/pivot --dev```
+单元测试:
+```cargo test```

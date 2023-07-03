@@ -245,8 +245,9 @@ In other words, you can recreate a table's state by replaying all of the events 
 **blockcain**
 
 - `dynamic nft smartcontract`
-[ ] Deployment of dynamic NFT contract
-[ ] Update dynamic NFT metadata
+- 
+`Deployment of dynamic NFT contract`
+`Update dynamic NFT metadata`
   
 
 

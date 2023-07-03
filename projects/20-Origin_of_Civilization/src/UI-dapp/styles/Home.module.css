@@ -4,7 +4,7 @@
   justify-content: center;
   display: flex;
   width: 100%;
-  background-color: #b8b8b8;
+  background-color: #e6aede91;
 }
 
 .main {
@@ -118,7 +118,7 @@
 .title {
   /* margin: 3rem 0; */
   line-height: 1;
-  /* font-size: .5rem; */
+  font-size: .5rem;
   text-align: center;
 }
 
@@ -128,11 +128,11 @@
   text-align: center;
 }
 
-.description {
+/* .description {
   margin: 0 0 2rem;
   line-height: 1.5;
   font-size: 1rem;
-}
+} */
 
 .grid {
   display: flex;
@@ -144,22 +144,66 @@
 
 .card {
   display: flex;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1.2rem;
+  /* margin-top: 1.5rem; */
+  margin-top: 10px;
+  /* padding-top: 1rem; */
+  padding-bottom: 2.5rem;
+
   align-items: center;
   text-align: center;
+  /* background-image: -moz-element(); */
   /* grid-template-rows: repeat(1, auto); */
   color: inherit;
   flex-direction: column;
   text-decoration: none;
-  border: 3px solid #c28d8d;
-  border-radius: 10px;
+  /* border: 3px solid #c28d8d; */
+  /* border-radius: 10px; */
   transition: color 0.15s ease, border-color 0.15s ease;
-  width: 70%;
-  min-height: 60px;
-  /* background-color: #6d385a; */
+  width: 85%;
+  /* height: 700px; */
+  min-height: 700px;
+  background-color: #e02f9f;
   
+}
+
+.inCardContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 10%;
+  /* margin-bottom: 1rem; */
+  flex-direction: column;
+  /* background-color: #e7d3d3;   */
+  width: 100%;
+  height: 100%;
+}
+
+.inCardTitle {
+  color: #17001b;
+  text-overflow: clip;
+}
+
+.inCarddescription {
+  margin-top: 2rem;
+}
+
+.herodescription p {
+  font-size: 1.5rem;
+}
+
+.makeCenter {
+  display: flex;
+  flex-direction: column; 
+  justify-items: center;
+  justify-content: center; 
+  align-items: center;
+}
+
+.addressoverflow {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: center;
 }
 
 .inputAndButton {
@@ -168,15 +212,9 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 100%;
-
-  /* display: grid; */
-  /* align-items: center; */
   flex-direction: column;
-  /* justify-content: center; */
   margin-top: 1.5rem;
   padding-bottom: 1rem;
-  /* width: 100%; */
-  /* background-color: #0d76fc; */
 }
 
 .button {
@@ -190,14 +228,15 @@
 
 .inputbox {
   margin-top: 1rem;
-  /* width: 50%; */
   width: auto;
   color: inherit;
   border-radius: 8px;
   border: 1px solid #bdb7b7;
   text-emphasis-color: #100d0d;
+}
 
-
+.inputboxaddress {
+  width:fit-content;
 }
 
 .card:hover,
@@ -218,14 +257,31 @@
   line-height: 1.5;
 }
 
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
   }
 
+  .card {
+    width: 100%;
+  }
+
   .table {
     width: 100%;
     flex-direction: row;
+  }
+
+  .overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

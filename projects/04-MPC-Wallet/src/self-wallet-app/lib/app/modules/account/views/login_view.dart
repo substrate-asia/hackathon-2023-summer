@@ -1,12 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/account_controller.dart';
-import 'pin_code_view.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class LoginView extends GetView {
@@ -26,14 +24,6 @@ class LoginView extends GetView {
             size: 24.sp,
           ),
         ),
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {},
-        //       icon: const Icon(
-        //         Icons.help_rounded,
-        //         color: Colors.white,
-        //       ))
-        // ],
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -48,7 +38,7 @@ class LoginView extends GetView {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("欢迎来到MPC钱包 👋",
+                          Text("欢迎来到Self Wallet",
                                   style: TextStyle(
                                       fontSize: 24.sp,
                                       fontWeight: FontWeight.w700))
@@ -57,7 +47,7 @@ class LoginView extends GetView {
                                 duration: 300.ms,
                               ),
                           SizedBox(height: 10.w),
-                          Text("很高兴见到您，让我们开始吧！",
+                          Text("很高兴见到您，让我们开始Web3之旅吧！",
                               style: TextStyle(
                                   fontSize: 14.sp, color: Colors.grey[500])),
                           SizedBox(height: 50.w).animate().fade(

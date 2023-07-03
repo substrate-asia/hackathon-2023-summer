@@ -1,87 +1,121 @@
-## 基本资料
+## basic information
 
-项目名称：Origin of Civilization
+Project name: Origin of Civilization
 
-项目立项日期 (哪年哪月)：2023-06-06
+Project approval date: 2023-06-06
+<!-- Project Background/Origin/Problems to be Solved/Project Introduction/Project Demonstration/Technical Architecture/Project Logo/Project Initial Review Version/Team Information/Track Track -->
+## LOGO
+![Logo](LOGO2.png)
+****
 
-## 项目整体简介
+## What problem is solved
+**Traditional Games**
+- Items cannot be freely traded
+- Rely on centralized services
+- Data opaque and unverifiable
 
-项目简介，英文提交。包括但不限于：
-
-<!-- - 项目背景/原由/要解决的问题 (如有其他附件，可放到 `docs` 目录内。英文提交)。 -->
-- 项目背景: 查看docs内文档
-- 项目介绍
-文明的起源是一款史诗级游戏，它将模拟经营、即时策略和动作冒险完美结合。在游戏中，您将扮演一个文明的缔造者，从最基本的部落开始，逐渐建设起一个强大的文明帝国。您需要管理资源，发展科技，建造城市，并与其他文明玩家进行战争或合作。游戏中的冒险元素也非常精彩，您可以探索神秘的地图，发现宝藏，挑战各种难度的任务。文明的起源将带您进入一个充满挑战和乐趣的世界，快来加入我们，开启你的文明之旅吧！
-
-## 游戏路线规划：
-
- 1. 资源采集和基础建设：在游戏开始时，玩家需要采集资源，建立基础设施，确保人民的基本需求得到满足，比如食物、住房和安全。这些资源可以通过采集、农业和矿业等手段获取。
-
- 2. 科技研究：玩家需要投入资源进行科技研究，提升城市的技术水平，从而获得更多的资源和更高的效率。这些科技可以涵盖农业、采矿、建筑、防御等方面。
-
- 3. 社会发展：在城市不断发展的过程中，玩家需要管理城市内的居民，确保他们的需求得到满足，同时也需要考虑城市的文化和教育发展。在这个阶段，玩家需要处理政治和经济问题，如收税、建议和管理城市内的资源。
-
- 4. 外交关系：玩家可以通过与其他城市建立外交关系，获得更多的资源和技术。玩家需要考虑如何管理与其他城市的关系，建立贸易和同盟，同时也需要保持城市的防御和安全。
-
- 5. 世界探索：玩家可以探索世界，发现新的资源和领土。在探索的过程中，玩家需要注意遇到的危险和挑战，如野生动物、自然灾害和其他文明的威胁。
-
- 6. 文明崛起：在游戏的最后阶段，玩家需要管理整个文明的发展，确保城市和国家的持续发展。玩家需要考虑如何维持文明的和平和繁荣，同时也需要应对各种挑战和威胁。
-
-- 项目Demo
-- 技术架构:
-- 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。![LOGO](LOGO2.png)
-- 项目的启始的commit，对于全新的项目可以是一个开源框架的clone，比如区块链clone自substrate-node-template, react
-框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
-
-## 项目开发计划
-
-- 第一阶段:
-- 第二阶段:
-- 第三阶段:
-## 黑客松期间计划完成的事项
-
-<!-- - 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)： -->
-
-**区块链端**
-
-- `用户注册-智能合约`
-
-- `新手礼包-智能合约`
-
-- `NFT-智能合约`
-  - [ ] NFT 创建及数据结构定义 (`fn create_nft()`)
-  - [ ] NFT 转帐函数 (`fn transfer()`)
-  - [ ] NFT 销毁函数 (`fn burn_token()`)
-
-- `游戏玩法-部分智能合约`
+**Current blockchain game**
+- Poor game quality and low playability
+- high barriers to entry
+- not good enough
 
 
-**客户端**
+****
+## Project Description
 
-- web 端
-  - [ ] 用户注册页面
-  - [ ] NFT 新手礼包领取
-  - [ ] NFT 产品购买流程
-
-<!-- - hybrid (react-native)
-  - [ ] 用户注册页面
-  - [ ] NFT 产品创建流程
-  - [ ] NFT 产品购买流程 -->
+Origins of Civilization is an epic game that combines management simulation, real-time strategy, and action-adventure. In the game, you will play the role of a civilization founder, starting from the most basic tribe, and gradually building a powerful civilization empire. You need to manage resources, develop technology, build cities, and fight or cooperate with other civilization players. The adventure elements in the game are also very exciting, you can explore mysterious maps, discover treasures, and challenge tasks of various difficulties. The Origin of Civilization will take you into a world full of challenges and fun, come join us and start your civilization journey!
 
 
-## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
+****
+## Game route planning:
 
-<!-- - 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址 -->
-- 完成用户注册的智能合约: 包含合格用户规则,限制全新的地址注册,防止大量用户套取新手礼包
-- 完成用户注册的WEB页面
-- 完成新手礼包的智能合约: 包含精心设计的NFT(给出使用文档,NFT权益说明)
-- 完成新手礼包WEB页面
-- 其他待补充...
+1. Resource gathering and infrastructure building: At the beginning of the game, players need to gather resources, build infrastructure, and ensure that the basic needs of the people are met, such as food, shelter, and safety. These resources can be obtained through means such as gathering, farming and mining.
 
-## 队员信息
+2. Technology research: Players need to invest resources in technology research to improve the technology level of the city, so as to obtain more resources and higher efficiency. These technologies can cover agriculture, mining, construction, defense, and more.
 
-- 在团队中担任的角色: dev
-- GitHub:  differs
-- 微信账号: chatid8146701ae86
+3. Social Development: As the city continues to grow, players need to manage the city's residents to ensure their needs are met, while also taking into account the city's cultural and educational development. During this phase, the player needs to deal with political and economic issues such as collecting taxes, advising and managing resources within the city.
+
+4. Diplomatic Relations: Players can obtain more resources and technologies by establishing diplomatic relations with other cities. Players need to consider how to manage relations with other cities, establish trade and alliances, and also need to keep the city's defense and safety.
+
+5. World Exploration: Players can explore the world and discover new resources and territories. During the exploration, players need to pay attention to the dangers and challenges encountered, such as wild animals, natural disasters and other threats to civilization.
+
+6. Rise of civilization: In the final stage of the game, players need to manage the development of the entire civilization and ensure the continued development of cities and countries. Players need to consider how to maintain the peace and prosperity of civilization, but also need to deal with various challenges and threats.
+
+****
+
+
+## Project Development Plan
+
+- The first stage:
+ Introduce the most basic gameplay, deploy to MoonBeam, Ethereum and other chains, players can interact with smart contracts through Dapp
+
+- second stage:
+ Deployed to the Polkadot ecological chain. Including solidity development version and Ink development version, covering users of multiple chains
+
+- The third phase:
+ Launch PC and Android, IOS applications, lower the threshold for players to participate in the game, and guide more non-Web3 new users to enter the game
+- Fourth stage:
+ At this stage, the various gameplays of the game have basically been developed. Players on each chain can play against each other, and will expand their influence by holding events.
+
+****
+## Things planned to be done during the hackathon
+
+**Blockchain side**
+- **Smart Contract**
+
+ - [x] User Registration-Smart Contract
+ - [x] Players create forces and store data on the chain
+ - [x] Beginner Gift Pack - Smart Contract
+ - [x] Gameplay - part of the smart contract
+
+
+**client**
+- **web terminal**
+ - [x] Project home page development: [Home](https://civi.ink/)
+ - [x] User registration page, create forces: [Dapp](https://app.civi.ink)
+ - [x] NFT novice gift pack collection: [Dapp](https://app.civi.ink)
+ - [x] NFT product purchase process: [Dapp](https://app.civi.ink)
+
+****
+## Items completed during the hackathon (submitted before the first review at 11:59 am on July 4, 2023)
+ - [x] Project home page development: [Home](https://civi.ink/)
+ - [x] Dapp Development: [Dapp](https://app.civi.ink/)
+ - [x] User Registration-Smart Contract/UI
+ - [x] Player created character function - smart contract/UI
+ - [x] Players create forces, players join other forces - smart contract/UI
+ - [x] The function of players playing against each other - smart contract/UI
+ - [x] Consume NFT, enhance the function of character attributes-smart contract/UI
+ - [x] Player Combat Power Calculation-Smart Contract/UI
+
+
+****
+## Project Demo
+
+[demo video](https://www.youtube.com/@OriginofCivilization/featured)
+****
+
+## Technology Architecture
+**data storage**
+- Some data, such as (user registration, role creation) and other information are stored in separate contracts, so that these data can be used without loss when other contracts are upgraded later
+- Each function uses a separate contract, and the contracts call each other to facilitate later upgrades and only modify part of the contract
+****
+
+
+**Competitive gameplay**
+- Develop trusted services to allow user data to be mapped to games
+- Deploy a game network all over the world, so that players can play games online with low latency, making the game experience better
+
+****
+
+## Player Information
+
+| Name | Role | GitHub Account | WeChat Account |
+| -------------| ------------| ----------- | ----------- |
+| Wang Zhou | Founder & dev | differs | chatid8146701ae86 |
+
+****
+## Belonging track
+|Open Proposition|Smart Contract|
+|-------|-------|
+
+

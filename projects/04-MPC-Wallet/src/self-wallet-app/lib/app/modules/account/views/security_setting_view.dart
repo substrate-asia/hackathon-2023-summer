@@ -12,7 +12,7 @@ class SecuritySettingView extends GetView {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '账号安全',
+          '钱包安全',
           style: TextStyle(fontSize: 18.sp),
         ),
         centerTitle: false,
@@ -145,7 +145,9 @@ class SecuritySettingView extends GetView {
                   "修改交易密码",
                   style: TextStyle(fontSize: 16.sp),
                 ),
-                onTap: () {},
+                onTap: () {
+                  controller.changePin();
+                },
               ),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),

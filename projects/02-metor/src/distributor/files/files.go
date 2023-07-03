@@ -2,14 +2,12 @@ package files
 
 import (
 	"context"
-	"fmt"
-	"github.com/samirshao/itools/icrypto"
+	"encoding/hex"
 	"github.com/samirshao/itools/ifile"
 	"github.com/samirshao/itools/ihelp"
 	"github.com/samirshao/itools/ilog"
 	"metor-distributor/common"
 	"metor-distributor/config"
-	"metor-distributor/p2p"
 	"os"
 	"path/filepath"
 	"sync"
@@ -20,20 +18,20 @@ const (
 	chunkDir = "./chunks"
 )
 
-var Api *Files
+// var Api *Files
+//var (
+//	FilePathChan chan string
+//)
 
 type Files struct {
+	P2Per      P2Per
+	ChainRpc   ChainRpc
 	Storage    common.Storage
 	Serializer common.Serializer
-	Account    common.Account
 }
 
-func (_this *Files) Start() {
-	Api = _this
-}
-
-// Distribute Erasure code encodes files and generates metadata
-func (_this *Files) Distribute(fpath string) (metaHash string, err error) {
+// Add Erasure code encodes files and generates metadata
+func (_this *Files) Add(fpath string) (cid string, err error) {
 	//get fileinfo
 	var filedata []byte
 	var fi os.FileInfo
@@ -42,122 +40,71 @@ func (_this *Files) Distribute(fpath string) (metaHash string, err error) {
 		return
 	}
 
-	// spilt file
-	//var fileChunk [][]byte
+	//纠删码分片
 	var fileEnc *SplitInfo
 	fileEnc, err = new(EsCode).Split(filedata)
 	if err != nil {
 		return
 	}
-	//fcCount := len(fileEnc.Shards)
 
-	// read miners from chain
-	// filter miners, only keep those that exist in the routing table
-	// assign miners to shards
-	var miners []string
-	if miners, err = _this.Account.GetMiners(len(fileEnc.Shards), fi.Size()); err != nil {
-		ilog.Logger.Error(err)
+	// 生成默克树
+	tree, err := NewMerkle(fileEnc.Shards)
+	if err != nil {
 		return
 	}
-	miners = p2p.FilterMiners(miners)
-	if len(miners) == 0 {
-		err = fmt.Errorf("can not find miner")
-		ilog.Logger.Error(err)
+	cid = hex.EncodeToString(tree.Root)
+
+	// 从区块链节点读取矿工钱包地址和p2p地址
+	var srcMiners []string
+	var srcAddrs []string
+	srcMiners, srcAddrs, err = _this.ChainRpc.GetMiners(len(fileEnc.Shards), int64(len(fileEnc.Shards[0])))
+	if err != nil {
 		return
 	}
-	minerTotal := len(miners)
+	srcTotal := len(srcMiners)
 
-	// make block data
-	blocks := make([]Block, len(fileEnc.Shards))
-	for i := range fileEnc.Shards {
-		blocks[i] = Block{
-			Hash:  icrypto.Sha256(fileEnc.Shards[i]).ToHex(),
-			Miner: miners[i%minerTotal],
+	// 由于矿工数量可能会小于分片数量，所以需要二次分配
+	miners := make([]string, tree.NumLeaves)
+	hashes := make([]string, tree.NumLeaves)
+	for i := 0; i < tree.NumLeaves; i++ {
+		hashes[i] = hex.EncodeToString(tree.Leaves[i])
+		miners[i] = srcMiners[i%srcTotal]
+
+		//发送数据到矿工节点
+		if err = _this.P2Per.SaveBlockReq(srcAddrs[i%srcTotal], fileEnc.Shards[i], tree.Root, tree.Proofs[i].Siblings, tree.Proofs[i].Path); err != nil {
+			ilog.Logger.Error(err)
+			return "", err
 		}
 	}
 
-	// make metadata
-	// serialize by json
-	// split metadata
-	meta := Metadata{
-		Blocks:       blocks,
+	// 元数据上链
+	hash, err := _this.ChainRpc.UpdMeta(miners, hashes, filepath.Ext(fi.Name()), fi.Size(), int64(len(fileEnc.Shards[0])), fileEnc.DataShards, fileEnc.ParityShards, cid)
+	if err != nil {
+		ilog.Logger.Error(err)
+		return
+	}
+
+	ilog.Logger.Infof("元数据上链：%s", hash)
+
+	// save metadata in leveldb
+	enc, err := _this.Serializer.Pack(&Metadata{
+		Miners:       miners,
+		Hashes:       hashes,
 		Ext:          filepath.Ext(fi.Name()),
 		Size:         fi.Size(),
 		DataShards:   fileEnc.DataShards,
 		ParityShards: fileEnc.ParityShards,
-	}
-	var metadata []byte
-	metadata, err = _this.Serializer.Pack(meta)
+	})
 	if err != nil {
-		return
-	}
-	metaHash = icrypto.Sha256(metadata).ToHex()
-	//var metaChunk [][]byte
-	var metaEnc *SplitInfo
-	metaEnc, err = new(EsCode).Split(metadata)
-	if err != nil {
-		return
-	}
-
-	//链上矿工元数据 minerwallet : [h1,h2,h3]
-	minerData := make(map[string][]string)
-	//链上分发节点元数据 metahash : [{"chunk":h1,"miner":m1},{"chunk":h2,"miner":m2}]
-	distrData := make(map[string][]map[string]string)
-	distrData[metaHash] = make([]map[string]string, 0, metaEnc.DataShards+metaEnc.ParityShards)
-
-	for i := range fileEnc.Shards {
-		miner := blocks[i].Miner
-		if _, ok := minerData[miner]; !ok {
-			minerData[miner] = make([]string, 0)
-		}
-		minerData[miner] = append(minerData[miner], blocks[i].Hash)
-		if err = p2p.SendSaveBlockReq(miner, fileEnc.Shards[i]); err != nil {
-			ilog.Logger.Error(err)
-			continue
-		}
-		//write file or not
-		//if err = os.WriteFile(chunkDir+"/"+blocks[i].Hash, fileChunk[i], 0666); err != nil {
-		//	ilog.Logger.Error(err)
-		//	return
-		//}
-	}
-	for i := range metaEnc.Shards {
-		hash := icrypto.Sha256(metaEnc.Shards[i]).ToHex()
-		miner := miners[i%len(miners)]
-		if _, ok := minerData[miner]; !ok {
-			minerData[miner] = make([]string, 0)
-		}
-		minerData[miner] = append(minerData[miner], hash)
-		distrData[metaHash] = append(distrData[metaHash], map[string]string{
-			"chunk": hash,
-			"miner": miner,
-		})
-		if err = p2p.SendSaveBlockReq(miner, metaEnc.Shards[i]); err != nil {
-			ilog.Logger.Error(err)
-			continue
-		}
-		// write file or not
-		//if err = os.WriteFile(chunkDir+"/"+hash, metaChunk[i], 0666); err != nil {
-		//	ilog.Logger.Error(err)
-		//	return
-		//}
-	}
-
-	// todo p2p
-
-	// 元数据上链
-	if _, err = _this.Account.StoreMeta(minerData, distrData); err != nil {
 		ilog.Logger.Error(err)
 		return
 	}
 
-	// save metadata in leveldb
-	if err = _this.Storage.Put(metaKey(metaHash), metadata); err != nil {
+	if err = _this.Storage.Put(nameCid(cid), enc); err != nil {
 		ilog.Logger.Error(err)
 		return
 	}
-
-	return metaHash, nil
+	return cid, nil
 }
 
 // FindFile get file by cid
@@ -170,7 +117,7 @@ func (_this *Files) FindFile(cid string) (filepath string, err error) {
 
 	// find storage
 	var db []byte
-	db, err = _this.Storage.Get(metaKey(cid))
+	db, err = _this.Storage.Get(nameCid(cid))
 	if err != nil {
 		ilog.Logger.Error(err)
 		return
@@ -181,33 +128,44 @@ func (_this *Files) FindFile(cid string) (filepath string, err error) {
 		return
 	}
 
-	// todo find chain
+	task := len(meta.Hashes)
+	//find address:multiAddr
+	var miners map[string]string
+	miners, err = _this.ChainRpc.FindMultiAddr(removeRepeat(meta.Miners))
+	if err != nil {
+		ilog.Logger.Error(err)
+		return
+	}
 
+	// todo find chain
 	blocks := make([][]byte, meta.DataShards+meta.ParityShards)
 	locker := sync.Mutex{}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	wg := sync.WaitGroup{}
-	wg.Add(len(meta.Blocks))
-	for i := range meta.Blocks {
-		go func(i int, item Block) {
+	wg.Add(task)
+	for i := 0; i < task; i++ {
+		go func(i int, miner, hash string) {
 			defer ihelp.ErrCatch()
 			defer wg.Done()
 
+			if _, ok := miners[meta.Miners[i]]; !ok {
+				ilog.Logger.Errorf("can not find miner %s", miners[meta.Miners[i]])
+				return
+			}
+
 			var block []byte
-			block, err = p2p.SendGetBlockReq(ctx, item.Miner, item.Hash)
+			block, err = _this.P2Per.FindBlockReq(ctx, miners[meta.Miners[i]], meta.Hashes[i])
 			if err != nil {
 				return
 			}
 			locker.Lock()
 			blocks[i] = block
 			locker.Unlock()
-		}(i, meta.Blocks[i])
+		}(i, meta.Miners[i], meta.Hashes[i])
 	}
 	wg.Wait()
-
-	//filename := config.Api.Home + config.Api.CacheStore + "/" + cid + meta.Ext
 
 	if err = new(EsCode).Merge(MergeInfo{
 		Shards:       blocks,

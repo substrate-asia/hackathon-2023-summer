@@ -12,7 +12,6 @@ import 'package:sunrise/app/data/providers/rpc_providers.dart';
 import 'package:sunrise/app/data/services/hive_service.dart';
 import 'package:sunrise/app/data/services/isar_service.dart';
 import 'package:sunrise/app/data/services/swap_service.dart';
-import 'package:sunrise/app/modules/account/views/verify_account.dart';
 import 'package:sunrise/app/widgets/payment_widget.dart';
 import 'package:sunrise/core/values/hive_boxs.dart';
 import 'package:web3dart/json_rpc.dart';
@@ -38,6 +37,10 @@ class SwapController extends GetxController {
 
   int swapChainId = 1287;
   double swapFee = 0.003;
+  // 滑点
+  double slippage = 0.01;
+
+  bool get isSwapPage => homeController.currentIndex == 1;
 
   String? rootAddress;
 
@@ -117,28 +120,10 @@ class SwapController extends GetxController {
             contract: token.contractAddress, chainId: swapChainId);
       }
     }
-    // } else {
-    //   // 遍历tokenContractList 找到 chainId为swapChainId的两个合约token
-    //   for (var token in tokenContractList) {
-    //     print(token.chainId);
-    //     if (token.chainId == swapChainId &&
-    //         (enterAccount == null || outputAccount == null)) {
-    //       var balance = await getSingleBalance(
-    //           contract: token.contractAddress, chainId: swapChainId);
-    //       if (balance != null) {
-    //         if (enterAccount == null) {
-    //           enterAccount = balance;
-    //         } else {
-    //           outputAccount ??= balance;
-    //         }
-    //       }
-    //     }
-    //   }
 
-    // 把enterAccount和outputAccount 的合约地址保存到本地存储
-    //   _saveSelectedToken();
-    // }
-    await _getReserves();
+    await _getReserves(
+        from: enterAccount!.contractAddress!,
+        to: outputAccount!.contractAddress!);
     await estimateSwapGas();
     // EasyLoading.dismiss();
     timedRefresh();
@@ -189,7 +174,9 @@ class SwapController extends GetxController {
         if (progress >= 1) {
           if (enterAccount != null && outputAccount != null) {
             progress = 0;
-            await _getReserves();
+            await _getReserves(
+                from: enterAccount!.contractAddress!,
+                to: outputAccount!.contractAddress!);
             await estimateSwapGas();
             _refreshBalance();
           }
@@ -209,8 +196,17 @@ class SwapController extends GetxController {
   }
 
   // 选中token
-  void selectToken(Balance accountBalance, bool isEnter) {
+  void selectToken(Balance accountBalance, bool isEnter) async {
     print("hhhhhh====== $isEnter ${accountBalance.toSelected()}");
+    String? result = await _getReserves(
+        from: isEnter ? accountBalance.address : enterAccount!.contractAddress!,
+        to: !isEnter
+            ? accountBalance.address
+            : outputAccount!.contractAddress!);
+    if (result == null) {
+      isSupportSwap = true;
+      return;
+    }
     if (isEnter) {
       enterAccount = accountBalance;
     } else {
@@ -220,7 +216,7 @@ class SwapController extends GetxController {
     }
 
     _saveSelectedToken();
-    _getReserves();
+
     update();
   }
 
@@ -229,18 +225,21 @@ class SwapController extends GetxController {
   /// 1. 先获取pair合约地址
   /// 2. 获取pair合约
   /// 3. 获取储备量
-  Future<void> _getReserves() async {
+  Future<String?> _getReserves({
+    required String from,
+    required String to,
+  }) async {
     if (enterAccount != null && outputAccount != null) {
       List<EthereumAddress> tokens = [
-        EthereumAddress.fromHex(enterAccount!.contractAddress!),
-        EthereumAddress.fromHex(outputAccount!.contractAddress!)
+        EthereumAddress.fromHex(from), // enterAccount!.contractAddress!
+        EthereumAddress.fromHex(to) // outputAccount!.contractAddress!
       ];
       String pairAddress =
           await SwapService.getPairAddress(tokens[0], tokens[1]);
       if (pairAddress == "0x0000000000000000000000000000000000000000") {
         EasyLoading.showError("尚未支持兑换");
         isSupportSwap = false;
-        return;
+        return null;
       }
 
       isSupportSwap = true;
@@ -248,6 +247,7 @@ class SwapController extends GetxController {
 
       _calcRatio();
       update();
+      return 'ok';
     }
   }
 
@@ -291,7 +291,7 @@ class SwapController extends GetxController {
           address: address,
           chainId: chainId,
           isContract: true,
-          isProxy: config.proxy,
+          isProxy: false,
           contractAddress: contract,
           contract: ContractEnum()
             ..contractAddress = config.contractAddress
@@ -315,7 +315,6 @@ class SwapController extends GetxController {
     _saveSelectedToken();
     calculate();
     estimateSwapGas();
-    // _getReserves();
     update();
   }
 
@@ -335,8 +334,12 @@ class SwapController extends GetxController {
     final amountOut =
         amountIn * reserveOut / (reserveIn + amountIn) * (1 - swapFee);
     print("Amount out:  ${BigInt.from(amountOut)}");
-    _swapOut = BigInt.from(amountOut);
+    // _swapOut = BigInt.from(amountOut);
     _swapIn = amountIn;
+
+    // _swapOut 等于amountOut乘以1-slippage
+    _swapOut = BigInt.from(amountOut * (1 - slippage));
+
     var output = double.parse(BigInt.from(amountOut).toString()) /
         BigInt.from(10).pow(18).toDouble();
     outputController.text = output.toStringAsFixed(6);
@@ -387,16 +390,57 @@ class SwapController extends GetxController {
   /// 1. 监测是否有足够的token
   Future<void> swapToken() async {
     // _swapIn 和 enterAccount对比 判断余额
-    print("$_swapIn > ${BigInt.parse(enterAccount!.balance)}");
+    print("$_swapIn > ${BigInt.parse(enterAccount!.balance)} $_swapOut");
     if (_swapIn > BigInt.parse(enterAccount!.balance)) {
       EasyLoading.showError("余额不足", dismissOnTap: true);
       return;
     }
 
-    await EasyLoading.show();
+    await EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+      dismissOnTap: false,
+    );
     try {
       final deadline = DateTime.now().millisecondsSinceEpoch ~/ 1000 + 60 * 20;
-      List<Uint8List>? result = await SwapService.swapExactTokensForTokensData(
+
+      if (isApprove == false) {
+        Uint8List? approveData = await SwapService.swapExactTokenApprove(
+            amountIn: _swapIn,
+            amountOutMin: _swapOut,
+            path: [
+              EthereumAddress.fromHex(enterAccount!.contractAddress!),
+              EthereumAddress.fromHex(outputAccount!.contractAddress!)
+            ],
+            to: EthereumAddress.fromHex(rootAddress!),
+            deadline: BigInt.from(deadline));
+        print(approveData);
+        // 授权
+        String? approveHash = await Get.bottomSheet(
+          PaymentWidget(
+              networkId: swapChainId,
+              type: 0,
+              owner: enterAccount,
+              to: outputAccount!.contractAddress,
+              amount: 0,
+              title: "Approve",
+              data: approveData),
+          backgroundColor: const Color(0xFF0a0a0a),
+          barrierColor: Colors.black.withOpacity(0.5),
+        );
+        print("approveHash $approveHash");
+        if (approveHash == null) {
+          EasyLoading.showError("授权失败");
+          return;
+        }
+      }
+      EasyLoading.show(
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false,
+      );
+
+      isApprove = true;
+      // 兑换的编码
+      Uint8List? swapData = await SwapService.swapExactTokensForTokensData(
           amountIn: _swapIn,
           amountOutMin: _swapOut,
           path: [
@@ -405,56 +449,32 @@ class SwapController extends GetxController {
           ],
           to: EthereumAddress.fromHex(rootAddress!),
           deadline: BigInt.from(deadline));
-      if (result != null) {
-        print(result);
-        // 授权
-        if (isApprove == false) {
-          String? approveHash = await Get.bottomSheet(
-            PaymentWidget(
-                networkId: swapChainId,
-                type: 0,
-                owner: enterAccount,
-                to: outputAccount!.contractAddress,
-                amount: 0,
-                title: "Approve",
-                data: result[0]),
-            backgroundColor: const Color(0xFF0a0a0a),
-            barrierColor: Colors.black.withOpacity(0.5),
-          );
-          print("approveHash $approveHash");
-          if (approveHash == null) {
-            EasyLoading.showError("授权失败");
-            return;
-          }
-        }
-
-        isApprove = true;
-
-        String? swapHash = await Get.bottomSheet(
-          PaymentWidget(
-              networkId: swapChainId,
-              type: 0,
-              owner: enterAccount,
-              to: rootAddress,
-              toAddress: SwapService.routerAddress,
-              amount: _swapIn.toDouble() / BigInt.from(10).pow(18).toDouble(),
-              title: "兑换",
-              data: result[1]),
-          backgroundColor: const Color(0xFF0a0a0a),
-          barrierColor: Colors.black.withOpacity(0.5),
-        );
-        if (swapHash == null) {
-          EasyLoading.showError("兑换失败");
-          return;
-        }
-        isApprove = false;
-        await _refreshBalance();
-        enterController.text = '';
-        outputController.text = '';
-        EasyLoading.showSuccess("兑换成功");
-      } else {
+      if (swapData == null) {
         EasyLoading.showError("兑换失败");
+        return;
       }
+      String? swapHash = await Get.bottomSheet(
+        PaymentWidget(
+            networkId: swapChainId,
+            type: 0,
+            owner: enterAccount,
+            to: rootAddress,
+            toAddress: SwapService.routerAddress,
+            amount: _swapIn.toDouble() / BigInt.from(10).pow(18).toDouble(),
+            title: "兑换",
+            data: swapData),
+        backgroundColor: const Color(0xFF0a0a0a),
+        barrierColor: Colors.black.withOpacity(0.5),
+      );
+      if (swapHash == null) {
+        EasyLoading.showError("兑换失败");
+        return;
+      }
+      isApprove = false;
+      await _refreshBalance();
+      enterController.text = '';
+      outputController.text = '';
+      EasyLoading.showSuccess("兑换成功");
     } on RPCError catch (e) {
       print(e.toString());
       EasyLoading.showError(e.message);

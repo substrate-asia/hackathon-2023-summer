@@ -1,0 +1,18 @@
+# DO NOT include azure-functions-worker in this file
+# The Python Worker is managed by Azure Functions platform
+# Manually managing azure-functions-worker may cause unexpected issues
+
+-f https://download.pytorch.org/whl/torch_stable.html
+azure-functions
+azure-storage-blob==12.1.0
+azure-functions
+azure-storage-blob
+torch==1.13.0+cpu
+torchvision
+transformers
+numpy
+azure-cosmos
+pandas
+web3
+eth_account
+matplotlib

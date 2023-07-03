@@ -1,0 +1,1 @@
+docker build -f gutp_app-a.Dockerfile -t gutp-app-a . 

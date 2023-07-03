@@ -6,7 +6,7 @@ import 'package:sunrise/app/data/models/server_models.dart';
 import 'package:sunrise/app/data/models/user_operation.dart';
 
 String baseUrl = 'https://api.nft.storage';
-String secretKey = dotenv.env['API_SECRET'] ?? '';
+String secretKey = dotenv.env['NFT_STORAGE_API_SECRET'] ?? '';
 
 bool isHex(String value) {
   final pattern = RegExp(r'^[0-9a-fA-F]+$');

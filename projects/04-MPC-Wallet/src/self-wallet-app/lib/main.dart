@@ -14,8 +14,6 @@ import 'app/data/services/swap_service.dart';
 import 'app/routes/app_pages.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'core/theme/custom_animation.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 加载环境变量
@@ -39,7 +37,7 @@ void main() async {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
-            title: "Application",
+            title: "Self Wallet",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
             builder: EasyLoading.init(),
@@ -59,22 +57,4 @@ void main() async {
           );
         }),
   );
-  configLoading();
-}
-
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 35.0
-    ..radius = 16.0
-    ..progressColor = Colors.yellow
-    ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
-    ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = false
-    ..dismissOnTap = false
-    ..customAnimation = CustomAnimation();
 }

@@ -178,7 +178,7 @@ pub mod pallet {
 
 		#[pallet::call_index(1)]
 		#[pallet::weight(T::WeightInfo::renew_registration())]
-		pub fn transfer_ownershit(
+		pub fn transfer_ownership(
 			origin: OriginFor<T>,
 			name: String,
 			recipient: T::AccountId,

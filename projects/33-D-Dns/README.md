@@ -34,7 +34,7 @@ Technically, D-DNS combines blockchain technology with a distributed network of 
 ![D-DNS](./resource/ddns_process.jpg)
 ### Details
 - [Pitch Deck](https://gamma.app/docs/ynpgezzrhvxhavp?token=&following_id=63f5rxvtqbap3c2&follow_on_start=true)
-- [Demo Video](https://drive.google.com/file/d/1JDzpXk62PA8G3tzeKbwdsu6t6bhy_q7N/view)
+- [Demo Video](https://drive.google.com/file/d/1JDzpXk62PA8G3tzeKbwdsu6t6bhy_q7N/view?usp=sharing)
 
 My apologies for the misunderstanding. Let's revise and continue the plan:
 
@@ -56,9 +56,9 @@ My apologies for the misunderstanding. Let's revise and continue the plan:
 **On-chain and Off-chain Interaction**
 
 - DNS Proxy
-   - [ ] [Query DNS Records Version](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L72C24-L72C34) (`fn GetVersion()`)
-   - [ ] [Caches Frequently Accessed DNS Records](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L90C24-L90C35) (`fn GetSnapshot()`)
-   - [ ] [Query DNS Record From Dns Proxy](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L48C24-L48C33) (`fn GetRecord()`)
+   - [ ] [Query DNS Records Version](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L78) (`fn GetVersion()`)
+   - [ ] [Caches Frequently Accessed DNS Records](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L100) (`fn GetSnapshot()`)
+   - [ ] [Query DNS Record From Dns Proxy](https://github.com/parity-asia/hackathon-2023-summer/blob/main/projects/33-D-Dns/src/dns-proxy/server.go#L48) (`fn GetRecord()`)
 
 **Off-chain Development**
 

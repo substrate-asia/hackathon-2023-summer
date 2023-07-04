@@ -1,7 +1,8 @@
 ## Basic Information
 
 Project Name: CBIndex
-Initation Date: 17 May 2023
+
+Initiation Date: 17 May 2023
 
 ## Project Overview
 
@@ -37,24 +38,24 @@ Using the CBIndex simulator, one can try out, learn and practice crypto investme
 
 ### Project Demo
 
-https://dapp.cbindex.finance/ is the demo of CBIndex DApp (fully built on blockchain), which has the copy-investing feature now. The mutual fund (active fund and index fund) investment feature will be added in the future.
+https://dapp.cbindex.finance/ is the demo of CBIndex DApp (fully built on the blockchain), which has the copy-investing feature now. The mutual fund (active fund and index fund) investment feature will be added.
 
-https://app.cbindex.finance/ is the demo of CBIndex App (mainly built on centralized server), which has crypto index fund building and management feature, mutual fund (active fund and index fund) creation and investment simulator, copy-investing simulator, and various analysis tools for crypto investment.
+https://app.cbindex.finance/ is CBIndex App (mainly built on the centralized server), which has a crypto index fund building and management feature, mutual fund (active fund and index fund) creation and investment simulator, copy-investing simulator, and various analysis tools for crypto investment.
 
-The project CBIndex is composed of both parts to best serve the users. Ideally, users can use the App to build and manage their crypto index funds, analyze the market with index indicators and tools, learn and practice fund manangement or fund investment with the fund simulator, practice copy-investing with the copy-investing simulator, and then use the DApp to copy-investing or invest in crypto funds in the real market.
+The project CBIndex is composed of both parts to best serve the users. Ideally, users can use the App to build and manage their crypto index funds, analyze the market with index indicators and tools, learn and practice fund management or fund investment with the fund simulator, practice copy-investing with the copy-investing simulator, and then use the DApp to copy-investing or invest in crypto funds in the real market.
 
 ### Project Architecture
 
 
 The general framework or technical architecture of the CBIndex consists of several interconnected components designed to function seamlessly in the context of the blockchain and DeFi ecosystem. Here is a broad overview:
 
-- **Frontend:** The frontend serves as the user interface. It is a web application that allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
-- **Backend:** The backend is responsible for executing complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
+- **Frontend:** The frontend serves as the user interface. The web application allows users to interact with the tools easily. The frontend is built using the popular JavaScript framework Next.js.
+- **Backend:** The backend executes complex operations that the frontend requests. It includes managing centralized functionalities of the simulator, such as user accounts and handling fund or index creation.
 - **Blockchain Layer:** This layer interacts directly with the underlying blockchain. It is responsible for handling transactions, managing smart contracts, and ensuring the immutability and security of operations.
 - **Smart Contracts:** Smart contracts handle functions like copy-investing, fund management, index creation, token swapping, and more.
-- **Integration Layer:** The integration layer allows CBIndex to interact with other platforms and services in the DeFi ecosystem. It includes API gateways and other interfaces that enable CBIndex to connect with external applications, services, or exchanges.
+- **Integration Layer:** The integration layer allows CBIndex to interact with other platforms and services in the DeFi ecosystem. It includes API gateways and interfaces enabling CBIndex to connect with external applications, services, or exchanges.
 - **Data Layer:** This layer manages all the data related to the platform. This includes data from centralized data aggregators and decentralized infrastructures.
-- **Analytics Engine:** The analytics engine is responsible for generating insights from the data. It tracks and analyzes market trends, index performance, fund performance, etc., and presents this data to users in a digestible format.
+- **Analytics Engine:** The analytics engine generates insights from the data. It tracks and analyzes market trends, index performance, fund performance, etc., and presents this data to users in a digestible format.
 - **Security Infrastructure:** This is the set of technologies and protocols that ensure the platform's overall security. It includes encryption protocols, user authentication mechanisms, smart contract audits, and more to ensure the safety of user data and funds.
 - **Multi-chain Compatibility:** CBIndex platform will aim to become multi-chain compatible, meaning it will not just run on one blockchain. This will increase the availability of funds and assets for investors and fund managers.
 
@@ -68,14 +69,17 @@ The general framework or technical architecture of the CBIndex consists of sever
 
 - Coyp-investing fund Creation
 - Coyp-investing fund Management
-- DEX Integration
 - Copy-investing fund Performance Analytics
 - Copy-investing fund investment
+- Copy-investing fund simulator
+- Active fund creation simulator
+- Active fund investment simulator
+- Index fund creation simulator
+- Index fund investment simulator
 
 **Blockchain**
 
 - `copy-investing-fund`
-
   - Vault initiation (`fn create_copy_investing_vault()`)
   - Vault copying (`fn copy_vault()`)
   - Investing (`fn investing()`)
@@ -97,13 +101,39 @@ The general framework or technical architecture of the CBIndex consists of sever
 - App (Next.js)
   - Copy-investing fund Performance Analytics
   - Coyp-investing fund Management
+  - Active fund creation simulator
+  - Active fund investment simulator
+  - Index fund creation simulator
+  - Index fund investment simulator
 
-## Completed Tasks During Hackathon (2023 年 7 月 4 日上午 11:59 初审前提交)
+## Completed Tasks During Hackathon
 
 
-- 2023 年 7 月 4 日上午 11:59 前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt 等大文件不要提交。可以在 readme 中存放它们的链接地址
+- Coyp-investing fund Creation
+- Coyp-investing fund Management
+- Copy-investing fund Performance Analytics
+- Copy-investing fund investment
+- Copy-investing fund simulator
+- Active fund creation simulator
+- Active fund investment simulator
+- Index fund creation simulator
+- Index fund investment simulator
+
+## Documents
+### CBIndex Deck:
+https://docsend.com/view/6fs4krz2tjkpfyn5
+
+### CBIndex Documentation:
+https://log.cbindex.finance/
+
+### CBIndex Whitepaper:
+https://whitepaper.cbindex.finance/
+
+### CBIndex Methodology:
+https://method.cbindex.finance/introduction/readme
+
+### CBIndex CICS Methodology:
+https://cics.cbindex.finance/
 
 ## Team Members
 

@@ -1,0 +1,1692 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "makerToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "takerToken",
+              "type": "address"
+            },
+            {
+              "internalType": "uint128",
+              "name": "makerAmount",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint128",
+              "name": "takerAmount",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint128",
+              "name": "takerTokenFeeAmount",
+              "type": "uint128"
+            },
+            {
+              "internalType": "address",
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "feeRecipient",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "pool",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint64",
+              "name": "expiry",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "salt",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IZeroExV4.LimitOrder",
+          "name": "_order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum IZeroExV4.SignatureType",
+              "name": "signatureType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "v",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "r",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "s",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct IZeroExV4.Signature",
+          "name": "_signature",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint128",
+          "name": "_takerTokenFillAmount",
+          "type": "uint128"
+        }
+      ],
+      "name": "fillOrKillLimitOrder",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "makerTokenFilledAmount_",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "makerToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "takerToken",
+              "type": "address"
+            },
+            {
+              "internalType": "uint128",
+              "name": "makerAmount",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint128",
+              "name": "takerAmount",
+              "type": "uint128"
+            },
+            {
+              "internalType": "address",
+              "name": "maker",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "taker",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "txOrigin",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "pool",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint64",
+              "name": "expiry",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "salt",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IZeroExV4.RfqOrder",
+          "name": "_order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum IZeroExV4.SignatureType",
+              "name": "signatureType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "v",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "r",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "s",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct IZeroExV4.Signature",
+          "name": "_signature",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint128",
+          "name": "_takerTokenFillAmount",
+          "type": "uint128"
+        }
+      ],
+      "name": "fillOrKillRfqOrder",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "makerTokenFilledAmount_",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "fillOrKillLimitOrder((address,address,uint128,uint128,uint128,address,address,address,address,bytes32,uint64,uint256),(uint8,uint8,bytes32,bytes32),uint128)": "9240529c",
+    "fillOrKillRfqOrder((address,address,uint128,uint128,address,address,address,bytes32,uint64,uint256),(uint8,uint8,bytes32,bytes32),uint128)": "438cdfc5"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"makerToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"takerToken\",\"type\":\"address\"},{\"internalType\":\"uint128\",\"name\":\"makerAmount\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"takerAmount\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"takerTokenFeeAmount\",\"type\":\"uint128\"},{\"internalType\":\"address\",\"name\":\"maker\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"taker\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feeRecipient\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"pool\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"salt\",\"type\":\"uint256\"}],\"internalType\":\"struct IZeroExV4.LimitOrder\",\"name\":\"_order\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"enum IZeroExV4.SignatureType\",\"name\":\"signatureType\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"internalType\":\"struct IZeroExV4.Signature\",\"name\":\"_signature\",\"type\":\"tuple\"},{\"internalType\":\"uint128\",\"name\":\"_takerTokenFillAmount\",\"type\":\"uint128\"}],\"name\":\"fillOrKillLimitOrder\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"makerTokenFilledAmount_\",\"type\":\"uint128\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"makerToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"takerToken\",\"type\":\"address\"},{\"internalType\":\"uint128\",\"name\":\"makerAmount\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"takerAmount\",\"type\":\"uint128\"},{\"internalType\":\"address\",\"name\":\"maker\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"taker\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"txOrigin\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"pool\",\"type\":\"bytes32\"},{\"internalType\":\"uint64\",\"name\":\"expiry\",\"type\":\"uint64\"},{\"internalType\":\"uint256\",\"name\":\"salt\",\"type\":\"uint256\"}],\"internalType\":\"struct IZeroExV4.RfqOrder\",\"name\":\"_order\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"enum IZeroExV4.SignatureType\",\"name\":\"signatureType\",\"type\":\"uint8\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"internalType\":\"struct IZeroExV4.Signature\",\"name\":\"_signature\",\"type\":\"tuple\"},{\"internalType\":\"uint128\",\"name\":\"_takerTokenFillAmount\",\"type\":\"uint128\"}],\"name\":\"fillOrKillRfqOrder\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"makerTokenFilledAmount_\",\"type\":\"uint128\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"title\":\"IZeroExV4 Interface\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/external-interfaces/IZeroExV4.sol\":\"IZeroExV4\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":openzeppelin/=lib/openzeppelin-contracts/contracts/\"]},\"sources\":{\"src/external-interfaces/IZeroExV4.sol\":{\"keccak256\":\"0x017b155b2134a11650fc3eb8df9b501ba66e893a38f854a4a0b0fb02878ba4b0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6e7662d922e643dfe2cd9c2fd1feeb31b8d31aeccb351caf23efee6efce6a3a2\",\"dweb:/ipfs/QmU3fVewQKebhspN3M9DppEtcWsdoRYcHK97fFechy6Mz9\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.19+commit.7dd6d404"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "struct IZeroExV4.LimitOrder",
+              "name": "_order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "makerToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "takerToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "makerAmount",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "takerAmount",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "takerTokenFeeAmount",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "address",
+                  "name": "maker",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "taker",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "sender",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeRecipient",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "pool",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "expiry",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "salt",
+                  "type": "uint256"
+                }
+              ]
+            },
+            {
+              "internalType": "struct IZeroExV4.Signature",
+              "name": "_signature",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "enum IZeroExV4.SignatureType",
+                  "name": "signatureType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ]
+            },
+            {
+              "internalType": "uint128",
+              "name": "_takerTokenFillAmount",
+              "type": "uint128"
+            }
+          ],
+          "stateMutability": "payable",
+          "type": "function",
+          "name": "fillOrKillLimitOrder",
+          "outputs": [
+            {
+              "internalType": "uint128",
+              "name": "makerTokenFilledAmount_",
+              "type": "uint128"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "struct IZeroExV4.RfqOrder",
+              "name": "_order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "makerToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "takerToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "makerAmount",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "takerAmount",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "address",
+                  "name": "maker",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "taker",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "txOrigin",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "pool",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "expiry",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "salt",
+                  "type": "uint256"
+                }
+              ]
+            },
+            {
+              "internalType": "struct IZeroExV4.Signature",
+              "name": "_signature",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "enum IZeroExV4.SignatureType",
+                  "name": "signatureType",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ]
+            },
+            {
+              "internalType": "uint128",
+              "name": "_takerTokenFillAmount",
+              "type": "uint128"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "fillOrKillRfqOrder",
+          "outputs": [
+            {
+              "internalType": "uint128",
+              "name": "makerTokenFilledAmount_",
+              "type": "uint128"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/",
+        ":openzeppelin/=lib/openzeppelin-contracts/contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/external-interfaces/IZeroExV4.sol": "IZeroExV4"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/external-interfaces/IZeroExV4.sol": {
+        "keccak256": "0x017b155b2134a11650fc3eb8df9b501ba66e893a38f854a4a0b0fb02878ba4b0",
+        "urls": [
+          "bzz-raw://6e7662d922e643dfe2cd9c2fd1feeb31b8d31aeccb351caf23efee6efce6a3a2",
+          "dweb:/ipfs/QmU3fVewQKebhspN3M9DppEtcWsdoRYcHK97fFechy6Mz9"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/external-interfaces/IZeroExV4.sol",
+    "id": 30337,
+    "exportedSymbols": {
+      "IZeroExV4": [
+        30336
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "33:1382:49",
+    "nodes": [
+      {
+        "id": 30245,
+        "nodeType": "PragmaDirective",
+        "src": "33:32:49",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ]
+      },
+      {
+        "id": 30246,
+        "nodeType": "PragmaDirective",
+        "src": "66:33:49",
+        "nodes": [],
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ]
+      },
+      {
+        "id": 30336,
+        "nodeType": "ContractDefinition",
+        "src": "132:1282:49",
+        "nodes": [
+          {
+            "id": 30253,
+            "nodeType": "EnumDefinition",
+            "src": "158:111:49",
+            "nodes": [],
+            "canonicalName": "IZeroExV4.SignatureType",
+            "members": [
+              {
+                "id": 30248,
+                "name": "ILLEGAL",
+                "nameLocation": "187:7:49",
+                "nodeType": "EnumValue",
+                "src": "187:7:49"
+              },
+              {
+                "id": 30249,
+                "name": "INVALID",
+                "nameLocation": "204:7:49",
+                "nodeType": "EnumValue",
+                "src": "204:7:49"
+              },
+              {
+                "id": 30250,
+                "name": "EIP712",
+                "nameLocation": "221:6:49",
+                "nodeType": "EnumValue",
+                "src": "221:6:49"
+              },
+              {
+                "id": 30251,
+                "name": "ETHSIGN",
+                "nameLocation": "237:7:49",
+                "nodeType": "EnumValue",
+                "src": "237:7:49"
+              },
+              {
+                "id": 30252,
+                "name": "PRESIGNED",
+                "nameLocation": "254:9:49",
+                "nodeType": "EnumValue",
+                "src": "254:9:49"
+              }
+            ],
+            "name": "SignatureType",
+            "nameLocation": "163:13:49"
+          },
+          {
+            "id": 30278,
+            "nodeType": "StructDefinition",
+            "src": "275:343:49",
+            "nodes": [],
+            "canonicalName": "IZeroExV4.LimitOrder",
+            "members": [
+              {
+                "constant": false,
+                "id": 30255,
+                "mutability": "mutable",
+                "name": "makerToken",
+                "nameLocation": "311:10:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "303:18:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30254,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "303:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30257,
+                "mutability": "mutable",
+                "name": "takerToken",
+                "nameLocation": "339:10:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "331:18:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30256,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "331:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30259,
+                "mutability": "mutable",
+                "name": "makerAmount",
+                "nameLocation": "367:11:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "359:19:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 30258,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "359:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30261,
+                "mutability": "mutable",
+                "name": "takerAmount",
+                "nameLocation": "396:11:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "388:19:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 30260,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "388:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30263,
+                "mutability": "mutable",
+                "name": "takerTokenFeeAmount",
+                "nameLocation": "425:19:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "417:27:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 30262,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "417:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30265,
+                "mutability": "mutable",
+                "name": "maker",
+                "nameLocation": "462:5:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "454:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30264,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "454:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30267,
+                "mutability": "mutable",
+                "name": "taker",
+                "nameLocation": "485:5:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "477:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30266,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "477:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30269,
+                "mutability": "mutable",
+                "name": "sender",
+                "nameLocation": "508:6:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "500:14:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30268,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "500:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30271,
+                "mutability": "mutable",
+                "name": "feeRecipient",
+                "nameLocation": "532:12:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "524:20:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30270,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "524:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30273,
+                "mutability": "mutable",
+                "name": "pool",
+                "nameLocation": "562:4:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "554:12:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 30272,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "554:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30275,
+                "mutability": "mutable",
+                "name": "expiry",
+                "nameLocation": "583:6:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "576:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 30274,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "576:6:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30277,
+                "mutability": "mutable",
+                "name": "salt",
+                "nameLocation": "607:4:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30278,
+                "src": "599:12:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 30276,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "599:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "LimitOrder",
+            "nameLocation": "282:10:49",
+            "scope": 30336,
+            "visibility": "public"
+          },
+          {
+            "id": 30299,
+            "nodeType": "StructDefinition",
+            "src": "624:276:49",
+            "nodes": [],
+            "canonicalName": "IZeroExV4.RfqOrder",
+            "members": [
+              {
+                "constant": false,
+                "id": 30280,
+                "mutability": "mutable",
+                "name": "makerToken",
+                "nameLocation": "658:10:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "650:18:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30279,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "650:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30282,
+                "mutability": "mutable",
+                "name": "takerToken",
+                "nameLocation": "686:10:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "678:18:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30281,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "678:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30284,
+                "mutability": "mutable",
+                "name": "makerAmount",
+                "nameLocation": "714:11:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "706:19:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 30283,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "706:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30286,
+                "mutability": "mutable",
+                "name": "takerAmount",
+                "nameLocation": "743:11:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "735:19:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint128",
+                  "typeString": "uint128"
+                },
+                "typeName": {
+                  "id": 30285,
+                  "name": "uint128",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "735:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30288,
+                "mutability": "mutable",
+                "name": "maker",
+                "nameLocation": "772:5:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "764:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30287,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "764:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30290,
+                "mutability": "mutable",
+                "name": "taker",
+                "nameLocation": "795:5:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "787:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30289,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "787:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30292,
+                "mutability": "mutable",
+                "name": "txOrigin",
+                "nameLocation": "818:8:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "810:16:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 30291,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "810:7:49",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30294,
+                "mutability": "mutable",
+                "name": "pool",
+                "nameLocation": "844:4:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "836:12:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 30293,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "836:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30296,
+                "mutability": "mutable",
+                "name": "expiry",
+                "nameLocation": "865:6:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "858:13:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 30295,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "858:6:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30298,
+                "mutability": "mutable",
+                "name": "salt",
+                "nameLocation": "889:4:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30299,
+                "src": "881:12:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 30297,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "881:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "RfqOrder",
+            "nameLocation": "631:8:49",
+            "scope": 30336,
+            "visibility": "public"
+          },
+          {
+            "id": 30309,
+            "nodeType": "StructDefinition",
+            "src": "906:116:49",
+            "nodes": [],
+            "canonicalName": "IZeroExV4.Signature",
+            "members": [
+              {
+                "constant": false,
+                "id": 30302,
+                "mutability": "mutable",
+                "name": "signatureType",
+                "nameLocation": "947:13:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30309,
+                "src": "933:27:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_SignatureType_$30253",
+                  "typeString": "enum IZeroExV4.SignatureType"
+                },
+                "typeName": {
+                  "id": 30301,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 30300,
+                    "name": "SignatureType",
+                    "nameLocations": [
+                      "933:13:49"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 30253,
+                    "src": "933:13:49"
+                  },
+                  "referencedDeclaration": 30253,
+                  "src": "933:13:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_SignatureType_$30253",
+                    "typeString": "enum IZeroExV4.SignatureType"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30304,
+                "mutability": "mutable",
+                "name": "v",
+                "nameLocation": "976:1:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30309,
+                "src": "970:7:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint8",
+                  "typeString": "uint8"
+                },
+                "typeName": {
+                  "id": 30303,
+                  "name": "uint8",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "970:5:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint8",
+                    "typeString": "uint8"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30306,
+                "mutability": "mutable",
+                "name": "r",
+                "nameLocation": "995:1:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30309,
+                "src": "987:9:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 30305,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "987:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30308,
+                "mutability": "mutable",
+                "name": "s",
+                "nameLocation": "1014:1:49",
+                "nodeType": "VariableDeclaration",
+                "scope": 30309,
+                "src": "1006:9:49",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 30307,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1006:7:49",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Signature",
+            "nameLocation": "913:9:49",
+            "scope": 30336,
+            "visibility": "public"
+          },
+          {
+            "id": 30322,
+            "nodeType": "FunctionDefinition",
+            "src": "1028:199:49",
+            "nodes": [],
+            "functionSelector": "9240529c",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "fillOrKillLimitOrder",
+            "nameLocation": "1037:20:49",
+            "parameters": {
+              "id": 30318,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 30312,
+                  "mutability": "mutable",
+                  "name": "_order",
+                  "nameLocation": "1076:6:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30322,
+                  "src": "1058:24:49",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_LimitOrder_$30278_memory_ptr",
+                    "typeString": "struct IZeroExV4.LimitOrder"
+                  },
+                  "typeName": {
+                    "id": 30311,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 30310,
+                      "name": "LimitOrder",
+                      "nameLocations": [
+                        "1058:10:49"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 30278,
+                      "src": "1058:10:49"
+                    },
+                    "referencedDeclaration": 30278,
+                    "src": "1058:10:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_LimitOrder_$30278_storage_ptr",
+                      "typeString": "struct IZeroExV4.LimitOrder"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30315,
+                  "mutability": "mutable",
+                  "name": "_signature",
+                  "nameLocation": "1101:10:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30322,
+                  "src": "1084:27:49",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Signature_$30309_memory_ptr",
+                    "typeString": "struct IZeroExV4.Signature"
+                  },
+                  "typeName": {
+                    "id": 30314,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 30313,
+                      "name": "Signature",
+                      "nameLocations": [
+                        "1084:9:49"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 30309,
+                      "src": "1084:9:49"
+                    },
+                    "referencedDeclaration": 30309,
+                    "src": "1084:9:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Signature_$30309_storage_ptr",
+                      "typeString": "struct IZeroExV4.Signature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30317,
+                  "mutability": "mutable",
+                  "name": "_takerTokenFillAmount",
+                  "nameLocation": "1121:21:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30322,
+                  "src": "1113:29:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  },
+                  "typeName": {
+                    "id": 30316,
+                    "name": "uint128",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1113:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint128",
+                      "typeString": "uint128"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1057:86:49"
+            },
+            "returnParameters": {
+              "id": 30321,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 30320,
+                  "mutability": "mutable",
+                  "name": "makerTokenFilledAmount_",
+                  "nameLocation": "1202:23:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30322,
+                  "src": "1194:31:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  },
+                  "typeName": {
+                    "id": 30319,
+                    "name": "uint128",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1194:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint128",
+                      "typeString": "uint128"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1193:33:49"
+            },
+            "scope": 30336,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 30335,
+            "nodeType": "FunctionDefinition",
+            "src": "1233:179:49",
+            "nodes": [],
+            "functionSelector": "438cdfc5",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "fillOrKillRfqOrder",
+            "nameLocation": "1242:18:49",
+            "parameters": {
+              "id": 30331,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 30325,
+                  "mutability": "mutable",
+                  "name": "_order",
+                  "nameLocation": "1277:6:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30335,
+                  "src": "1261:22:49",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_RfqOrder_$30299_memory_ptr",
+                    "typeString": "struct IZeroExV4.RfqOrder"
+                  },
+                  "typeName": {
+                    "id": 30324,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 30323,
+                      "name": "RfqOrder",
+                      "nameLocations": [
+                        "1261:8:49"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 30299,
+                      "src": "1261:8:49"
+                    },
+                    "referencedDeclaration": 30299,
+                    "src": "1261:8:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_RfqOrder_$30299_storage_ptr",
+                      "typeString": "struct IZeroExV4.RfqOrder"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30328,
+                  "mutability": "mutable",
+                  "name": "_signature",
+                  "nameLocation": "1302:10:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30335,
+                  "src": "1285:27:49",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Signature_$30309_memory_ptr",
+                    "typeString": "struct IZeroExV4.Signature"
+                  },
+                  "typeName": {
+                    "id": 30327,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 30326,
+                      "name": "Signature",
+                      "nameLocations": [
+                        "1285:9:49"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 30309,
+                      "src": "1285:9:49"
+                    },
+                    "referencedDeclaration": 30309,
+                    "src": "1285:9:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Signature_$30309_storage_ptr",
+                      "typeString": "struct IZeroExV4.Signature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 30330,
+                  "mutability": "mutable",
+                  "name": "_takerTokenFillAmount",
+                  "nameLocation": "1322:21:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30335,
+                  "src": "1314:29:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  },
+                  "typeName": {
+                    "id": 30329,
+                    "name": "uint128",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1314:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint128",
+                      "typeString": "uint128"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1260:84:49"
+            },
+            "returnParameters": {
+              "id": 30334,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 30333,
+                  "mutability": "mutable",
+                  "name": "makerTokenFilledAmount_",
+                  "nameLocation": "1387:23:49",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 30335,
+                  "src": "1379:31:49",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint128",
+                    "typeString": "uint128"
+                  },
+                  "typeName": {
+                    "id": 30332,
+                    "name": "uint128",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1379:7:49",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint128",
+                      "typeString": "uint128"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1378:33:49"
+            },
+            "scope": 30336,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IZeroExV4",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 30247,
+          "nodeType": "StructuredDocumentation",
+          "src": "101:31:49",
+          "text": "@title IZeroExV4 Interface"
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          30336
+        ],
+        "name": "IZeroExV4",
+        "nameLocation": "142:9:49",
+        "scope": 30337,
+        "usedErrors": []
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 49
+}

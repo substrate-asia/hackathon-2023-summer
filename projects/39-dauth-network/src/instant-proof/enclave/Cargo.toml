@@ -1,0 +1,57 @@
+[package]
+name = "enclave"
+version = "1.0.0"
+authors = ["The Teaclave Authors"]
+
+[lib]
+name = "enclave"
+crate-type = ["staticlib"]
+
+[features]
+default = []
+
+[target.'cfg(not(target_env = "sgx"))'.dependencies]
+sgx_types = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tstd = { git = "https://github.com/apache/teaclave-sgx-sdk.git", features = ["backtrace"] }
+sgx_trts = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tcrypto = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_tseal = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+sgx_rand = { git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+
+[dependencies]
+serde = { git = "https://github.com/mesalock-linux/serde-sgx.git", features = ["derive"] }
+serde_cbor = { git = "https://github.com/mesalock-linux/cbor-sgx" }
+proc-macro2 = { version = "=1.0.32" }
+quote = { version = "=1.0.10" }
+serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx" }
+http_req = { git = "https://github.com/mesalock-linux/http_req-sgx" }
+tiny-keccak = { version = "2.0.2", features = ["keccak"] }
+libsecp256k1 = { git = "https://github.com/ksrust/libsecp256k1.git", default-features = false,features = ["hmac", "static-context"]}
+jsonwebtoken = { git = "https://github.com/mesalock-linux/jsonwebtoken-sgx" }
+base64 = { git = "https://github.com/mesalock-linux/rust-base64-sgx" }
+
+[patch.'https://github.com/apache/teaclave-sgx-sdk.git']
+sgx_alloc = { path = "../../../sgx_alloc" }
+sgx_build_helper = { path = "../../../sgx_build_helper" }
+sgx_cov = { path = "../../../sgx_cov" }
+sgx_crypto_helper = { path = "../../../sgx_crypto_helper" }
+sgx_libc = { path = "../../../sgx_libc" }
+sgx_rand = { path = "../../../sgx_rand" }
+sgx_rand_derive = { path = "../../../sgx_rand_derive" }
+sgx_serialize = { path = "../../../sgx_serialize" }
+sgx_serialize_derive = { path = "../../../sgx_serialize_derive" }
+sgx_serialize_derive_internals = { path = "../../../sgx_serialize_derive_internals" }
+sgx_tcrypto = { path = "../../../sgx_tcrypto" }
+sgx_tcrypto_helper = { path = "../../../sgx_tcrypto_helper" }
+sgx_tdh = { path = "../../../sgx_tdh" }
+sgx_tkey_exchange = { path = "../../../sgx_tkey_exchange" }
+sgx_tprotected_fs = { path = "../../../sgx_tprotected_fs" }
+sgx_trts = { path = "../../../sgx_trts" }
+sgx_tse = { path = "../../../sgx_tse" }
+sgx_tseal = { path = "../../../sgx_tseal" }
+sgx_tstd = { path = "../../../sgx_tstd" }
+sgx_tunittest = { path = "../../../sgx_tunittest" }
+sgx_types = { path = "../../../sgx_types" }
+sgx_ucrypto = { path = "../../../sgx_ucrypto" }
+sgx_unwind = { path = "../../../sgx_unwind" }
+sgx_urts = { path = "../../../sgx_urts" }

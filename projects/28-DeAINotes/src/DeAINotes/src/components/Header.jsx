@@ -130,7 +130,7 @@ function Header({ className }) {
     if (accounts && accounts.length > 0) {
       // saveAccount(accounts[0]);
       setModalOpen(false);
-      message.success("Login success!");
+      // message.success("Login success!");
       try {
         let api = await getAPI();
         for (let a of accounts) {

@@ -12,7 +12,7 @@ These resources are posted as links
 - [x] [Demo Video](https://www.youtube.com/@OriginofCivilization/featured)
 
 ## PPT
-- [x] [PPT-Origin-of-Civilization](https://docs.google.com/document/d/176AHYa5tgr4Xj3l-uJP8lhfsfKNEC-tpyjK0zGTm0y8/edit?usp=sharing)
+- [x] [PPT-Origin-of-Civilization](https://docs.google.com/presentation/d/11D6USSH5paKggtuiIDVeaeqiYxI5C8yV/edit?usp=sharing&ouid=114997050562255425399&rtpof=true&sd=true)
 
 ## Dapp
 - [x] [Dapp on MoonBeam](https://app.civi.ink)

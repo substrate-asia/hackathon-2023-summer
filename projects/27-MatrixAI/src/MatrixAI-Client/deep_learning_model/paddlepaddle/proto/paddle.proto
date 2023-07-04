@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package paddle;
+
+option go_package = "./proto;paddle";
+
+message Empty {
+}
+
+message TrainResult {
+  string message = 1;
+  int32 true_label = 2;
+  int32 predicted_label = 3;
+  bytes image_data = 4;
+}
+
+service TrainService {
+  rpc TrainAndPredict(Empty) returns (TrainResult);
+}
+
+//service PaddleService {
+//  rpc TrainAndEvaluate (TrainAndEvaluateRequest) returns (TrainAndEvaluateReply);
+//}
+//
+//message TrainAndEvaluateRequest {
+//  string mnemonics = 1;
+//  string rpc_node = 2;
+//}
+//
+//message TrainAndEvaluateReply {
+//  bool success = 1;
+//}

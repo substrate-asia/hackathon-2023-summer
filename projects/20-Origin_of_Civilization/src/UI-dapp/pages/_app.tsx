@@ -45,10 +45,12 @@ const MoonBeamChain = {
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.ankr.com/moonbeam'],
+      // http: ['https://moonbeam.api.onfinality.io/public'],
+      http:['https://moonbeam.api.onfinality.io/rpc?apikey=cb099080-c825-4347-b383-db620d5dc480']
     },
     public: {
-      http: ['https://moonbeam.public.blastapi.io'],
+      // http: ['https://moonbeam.api.onfinality.io/public'],
+      http:['https://moonbeam.api.onfinality.io/rpc?apikey=cb099080-c825-4347-b383-db620d5dc480']
     },
   },
   blockExplorers: {
@@ -95,12 +97,12 @@ const AstarChain = {
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
-    mainnet,
+    // mainnet,
     // arbitrum,
     MoonBeamChain,
     // AstarChain,
-    GnosisChain,  
-    bsc,
+    // GnosisChain,  
+    // bsc,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
   [publicProvider()]

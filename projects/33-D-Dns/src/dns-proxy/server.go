@@ -47,6 +47,7 @@ type DomainServer struct {
 
 func (s *DomainServer) GetRecord(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var rr *RecordRequest
 	err := json.NewDecoder(req.Body).Decode(&rr)
 	if err != nil {
@@ -71,6 +72,7 @@ func (s *DomainServer) GetRecord(w http.ResponseWriter, req *http.Request) {
 
 func (s *DomainServer) GetVersion(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	s.mutex.RLock()
 	version := s.version
@@ -89,6 +91,7 @@ func (s *DomainServer) GetVersion(w http.ResponseWriter, req *http.Request) {
 
 func (s *DomainServer) GetSnapshot(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	var arr []Record
 

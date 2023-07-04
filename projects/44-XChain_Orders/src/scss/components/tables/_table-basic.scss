@@ -1,0 +1,357 @@
+//style for all basic tables
+.table {
+	color:
+	strong{
+		color:$dark;
+	}
+    th, td {
+        border-color: $border;
+		padding: 15px 10px;
+		
+        @at-root [data-theme-version="dark"] & {
+            border-color: $d-border;
+			color:$white;
+        }
+    }
+	&.table-striped tbody tr:nth-of-type(odd),
+	&.table-hover tr:hover{
+	    background-color:$l-bg;
+		
+		@at-root [data-theme-version="dark"] & {
+            background-color: $d-bg;
+			
+        }
+	}
+
+	&.shadow-hover tbody tr:hover{
+	    background-color:$white;
+		box-shadow: 0 0px 30px var(--rgba-primary-2);
+		@at-root [data-theme-version="dark"] & {
+            background-color: $d-bg;
+        }
+	}
+	&.tr-rounded{
+		tr{
+			td,th{
+				&:first-child{
+					border-radius:45px 0 0 45px;
+				}
+				&:last-child{
+					border-radius:0 45px 45px 0;
+				}
+			}
+		}
+	}
+	&.border-hover{
+		tr{
+			td{
+				border-width:1px 0 1px 0;
+				border-bottom:1px solid transparent;
+				border-color:transparent;
+				&:first-child{
+					border-width:1px 0 1px 1px;
+				}
+				&:last-child{
+					border-width:1px 1px 1px 0;
+				}
+			}
+			&:hover{
+				td{
+					border-color:$border-color;
+				}
+			}
+		} 
+	}
+	&.bg-primary-hover{
+		th,td{
+			border:none;
+			font-weight:500;
+		}
+		td{
+			color:$black;
+		}
+		th{
+			color:#6C6C6C;
+		}
+		tr:hover{
+			td,th{
+				background:var(--primary);
+				color:$white;
+			}
+		}	
+	}	
+	&.bg-secondary-hover{
+		th,td{
+			border:none;
+			font-weight:500;
+		}
+		td{
+			color:$black;
+		}
+		th{
+			color:#6C6C6C;
+		}
+		tr:hover{
+			td,th{
+				background:$secondary;
+				color:$white!important;
+			}
+		}	
+	}	
+	&.bg-info-hover{
+		th,td{
+			border:none;
+			font-weight:500;
+		}
+		td{
+			color:$black;
+		}
+		th{
+			color:#6C6C6C;
+		}
+		tr:hover{
+			td,th{
+				background:$info;
+				color:$white!important;
+			}
+		}	
+	}	
+	&.bg-warning-hover{
+		th,td{
+			border:none;
+			font-weight:500;
+		}
+		td{
+			color:$black;
+		}
+		th{
+			color:#6C6C6C;
+		}
+		tr:hover{
+			td,th{
+				background:$warning;
+				color:$white!important;
+			}
+		}	
+	}	
+	&.border-no{
+		td{
+			border:0;
+		}
+	}
+	&.short-one{
+		tr{
+			td,th{
+				&:first-child{
+					width:60px!important;
+				}
+			}
+		}
+	}
+    thead th {
+        border-bottom: 1px solid $border-color;
+        text-transform: capitalize;
+        // color: $dark ;
+        font-size: 18px;
+		white-space:nowrap;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        border-color: $border!important;
+        @at-root [data-theme-version="dark"] & {
+            border-color: $d-border;
+        }
+    }
+    tbody  tr td {
+        // color: $l-ctd;
+        // line-height: 2.5rem;
+        vertical-align: middle;
+        border-color: $border;
+        @at-root [data-theme-version="dark"] & {
+          /*   border-color: $d-border; */
+        }
+    }
+	
+	//delete header borders without '.borders tables'
+    &:not(.table-bordered) {
+        thead th {
+            border-top: none;
+        }
+    }
+
+    //heading background
+    .thead-primary th {
+        background-color: var(--primary);
+        color: $white;
+    }
+	.thead-info th {
+        background-color: $info;
+        color: $white;
+    }
+	.thead-warning th {
+        background-color: $warning;
+        color: $white;
+    }
+	.thead-danger th {
+        background-color: $danger;
+        color: $white;
+    }
+	.thead-success th {
+        background-color: $success;
+        color: $white;
+    }
+
+    //table border
+    &.primary-table-bordered {
+        border: 1px solid $border;
+		@at-root [data-theme-version="dark"] & {
+            border-color: $d-border;
+        }
+    }
+
+    //table hover
+    &.primary-table-bg-hover {
+        thead th {
+            background-color: var(--primary-dark);
+            color: $white;
+            border-bottom: none;
+        }
+
+        tbody tr {
+            background-color: var(--primary);
+            color: $white;
+            transition: all .1s ease;
+
+            &:hover {
+                background-color: var(--rgba-primary-8);
+            }
+
+            &:not(:last-child) {
+                td, th {
+                    border-bottom: 1px solid var(--primary-dark);
+                }
+            }
+        }
+    }
+
+    //responsive table width
+    &-responsive {
+        &-tiny {
+            // @include media-breakpoint-down(xs) {
+                min-width: 18.75rem;
+            // }
+        }
+
+        &-sm {
+            // @include media-breakpoint-down(sm) {
+                min-width: 30rem !important;
+            // }
+        }
+
+        &-md {
+            // @include media-breakpoint-down(sm) {
+                min-width: 36rem !important;
+            // }
+        }
+
+        &-lg {
+            min-width: 60.9375rem !important;
+        }
+
+        &-xl {
+            min-width: 70.9375rem !important;
+        }
+    }
+}
+.table-primary, 
+.table-primary > th, 
+.table-primary > td {
+	background-color: var(--rgba-primary-1);
+	color: var(--primary);
+	@at-root [data-theme-version="dark"] & {
+        background-color: var(--rgba-primary-1);
+    }
+}
+.table-success, 
+.table-success > th, 
+.table-success > td {
+	background-color: $success-light;
+	color: $success;
+	@at-root [data-theme-version="dark"] & {
+        background-color: $success-opacity;
+    }
+}
+.table-info, 
+.table-info > th, 
+.table-info > td {
+	background-color: $info-light;
+	color: $info;
+	@at-root [data-theme-version="dark"] & {
+        background-color: $info-opacity;
+    }
+}
+.table-warning, 
+.table-warning > th, 
+.table-warning > td {
+	background-color: $warning-light;
+	color: $warning;
+	@at-root [data-theme-version="dark"] & {
+        background-color: $warning-opacity;
+    }
+}
+.table-danger, 
+.table-danger > th, 
+.table-danger > td {
+	background-color: $danger-light;
+	color: $danger;
+	@at-root [data-theme-version="dark"] & {
+        background-color: $danger-opacity;
+    }
+}
+.table-active, 
+.table-active > th, 
+.table-active > td {
+    background-color: $l-bg;
+	@at-root [data-theme-version="dark"] & {
+        background-color: $d-bg;
+    }
+}
+
+
+
+.card-table{
+	th, td{
+        &:first-child{
+			padding-left: 30px;
+			@include respond('phone') {
+				padding-left: 15px;
+			}
+		}
+		&:last-child{
+			padding-right:30px;
+			@include respond('phone') {
+				padding-right: 15px;
+			}
+		}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

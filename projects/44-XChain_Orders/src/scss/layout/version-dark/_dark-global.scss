@@ -1,0 +1,609 @@
+[data-theme-version="dark"]{
+	.card {
+        background-color: $dark-card;
+		box-shadow:none;
+    }
+	.dropdown-menu {
+        background-color: $dark-card;
+		box-shadow: 0px 0px 0px 1px rgba(255, 255, 255,0.1);
+		.dropdown-item {
+			color:#777777;
+			&.selected,
+			&.selected.active,
+			&.active,
+			&:hover, 
+			&:focus {
+				background-color: $dark-card;
+				color: $white;
+			}
+		}
+    }
+	a{
+		color:$white;
+	}
+	.text-primary{
+		color:$white!important;
+	}
+	.btn-link g [fill]{
+		fill: #fff;
+	}
+	.btn-light:active, 
+	.btn-light:focus, 
+	.btn-light:hover{
+		color:#000;
+	}
+	.form-control {
+        background-color:$dark-card;
+        border-color: $d-border;
+        color: $white;
+    }
+	.modal-content{
+		background:$dark-card;
+	}
+	.modal-footer,
+	.modal-header{
+		border-color: $d-border;
+	}
+	.close{
+	    font-weight: 400;
+		color: $white;
+		text-shadow: none;
+		
+		&:hover{
+			color: $white;
+		}
+	}
+	.star-rating .product-review,
+	.new-arrival-content .item{
+		color: $white;
+	}
+	.custom-dropdown .dropdown-menu{
+		border-color: $d-border;
+	}
+	.widget-stat .media > span{
+	    background: $d-border;
+	    border-color: $d-border;
+		color:$white;
+	}
+	.plus-minus-input .custom-btn{
+		background: $d-bg;
+	    border-color: $d-border;
+	}
+	.dropdown-divider,
+	.size-filter ul li{
+		border-color: $d-border;
+	}
+	.custom-select{
+	    border-color: $d-border;
+		color: $d-ctl;
+		background:$d-bg;
+	}
+	.nav-tabs{
+		border-color: $d-border!important;
+	}
+	.mail-list .list-group-item.active i {
+		color: $white;
+	}
+	hr{
+		border-color: $d-border;
+	}
+	.grid-col{
+		background:$d-bg;
+	}
+	
+	.noUi-target{
+		border-color:$d-border;
+		border-radius: 8px;
+		box-shadow: none;
+		
+		.noUi-connects{
+			background:$d-border;
+		}
+	}
+	.noUi-marker-large,
+	.noUi-marker{
+		background:$d-border;
+	}
+	.input-group-text{
+		background:$dark-card;
+		color:$body-color;
+		border-color:$d-border;
+	}
+	.note-editor.note-frame{
+		border-color:$d-border;
+		.btn{
+			color:$white;
+		}
+		.note-editing-area .note-editable{
+			color:$white;
+		}
+	}
+	.widget-media .timeline .timeline-panel{
+		border-color:$d-border; 
+	}
+	.notification_dropdown .dropdown-menu-right .all-notification{
+		border-color:$d-border; 
+	}
+	#user-activity .nav-tabs .nav-link{
+		border-color:$d-border; 
+        &.active{
+            background:$d-bg;
+            color:$white;
+        }
+	}
+	.list-group-item-action{
+		color:$body-color;
+	}
+	.list-group-item-action:focus, 
+	.list-group-item-action:hover, 
+	.list-group-item-action:focus{
+		background-color:$d-bg; 
+		border-color:$d-bg; 
+	}
+	.list-group-item.active{
+		color:$white;
+		border-color:var(--primary);
+		&:focus, 
+		&:hover, 
+		&:focus{
+			background-color:var(--primary); 
+			border-color:var(--primary); 
+			color:$white;
+		}
+	}
+	.swal2-popup{
+		background:$dark-card;
+	}	
+	.form-head .btn-outline-primary{
+		border-color:$d-border;
+	}
+	.form-head .btn-outline-primary:hover{
+		border-color:var(--primary);
+	}
+	.review-tab.nav-pills li a.nav-link.active{
+		background:transparent;
+	}
+	.new-arrival-content {
+		 h4 {
+			a{
+				color:$white;
+			}
+		 }
+	}
+	.text-black{
+		color:$white!important;
+	}
+	.abilities-chart .ct-chart .ct-label{
+		fill:$white;
+	}
+	.morris_chart_height text tspan{
+		fill:$white;
+	}
+	.btn-link{
+		color:$white;
+	}
+	.order-bg{
+		background:$d-bg;
+	}
+	.detault-daterange{
+			background:$d-bg;
+			color:$white;
+		.input-group-text{
+			background:$dark-card;
+			border:0;
+
+		}	
+	}
+	.dataTablesCard{
+		background-color:$dark-card;
+	}
+	.compose-content .dropzone{
+		background:$d-bg;
+		.dz-message .dz-button{
+			color:$white;
+		}
+	}
+	.daterangepicker{
+		background:$d-bg;
+		border-color:var(--primary);
+		.calendar-table{
+			border-color:var(--primary);
+			background:$d-bg;
+			.table-condensed{
+				td{
+					&:hover{
+						background-color:var(--primary);
+						color:$white;
+					}
+				}
+			}
+		}
+        &:after{
+            border-bottom: 6px solid $d-bg;
+        }
+	}
+    
+    .daterangepicker select.hourselect
+    , .daterangepicker select.minuteselect
+    , .daterangepicker select.secondselect
+    , .daterangepicker select.ampmselect{
+            background: $d-bg;
+            border: 1px solid $d-border;
+            color:$white;
+    }
+    
+	.daterangepicker td.off, 
+	.daterangepicker td.off.in-range,
+	.daterangepicker td.off.start-date, 
+	.daterangepicker td.off.end-date{
+		background-color:$dark-card;
+		&:hover{
+			background-color:var(--primary);
+			color:$white;			
+		}
+	}
+	.app-fullcalendar{
+		.fc-button{
+			background-color:$d-bg;
+			border-color:var(--primary);
+			color:$white;
+			text-shadow:none;
+			&:hover,&.fc-stat-hover{
+				background-color:var(--primary);
+			}
+		}
+	}
+	.swal2-popup .swal2-styled:focus {
+		outline: 0;
+		box-shadow: 0 0 0 2px $d-border, 0 0 0 4px var(--rgba-primary-1);
+	}
+	.dd-handle{
+		border-color:$d-border;
+	}
+	&[data-layout="vertical"]{
+		.menu-toggle .deznav .metismenu li > ul{
+			background:$dark-card;
+			box-shadow:0 0 10px rgba(0,0,0,0.5);
+		}
+	}
+	.header-right .notification_dropdown .nav-link{
+		border-color:$d-border;
+	}
+	.nav-tabs .nav-link{
+		&:hover,&.active{
+			border-color:var(--primary);
+			background: $d-bg;
+			color: white!important;
+		}
+	}
+	.clockpicker-popover .popover-content{
+		background-color:$dark-card;
+	}
+	.clockpicker-plate{
+		background-color:$d-bg;
+	}
+	.clockpicker-popover .popover-title{
+		background-color:$d-bg;
+		color:$white;
+	}
+	.form-wizard .nav-wizard li .nav-link span{
+		background-color:$d-bg;
+	}
+	.form-wizard .nav-wizard li .nav-link:after{
+		background:$d-bg;
+	}
+	.form-wizard .nav-wizard li .nav-link.active:after,.form-wizard .nav-wizard li .nav-link.done:after{
+		background:var(--primary);
+	}
+	.form-wizard .nav-wizard li .nav-link.active span
+	,.form-wizard .nav-wizard li .nav-link.done span{
+		background:var(--primary);
+	}
+	.check-switch .custom-control-label:after
+    , .check-switch .custom-control-label:before{
+        border-color:var(--primary);
+    }
+    .fc-unthemed .fc-today{
+        background:$d-bg;
+    }
+    .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header{
+        background: $d-border;
+    }
+    .picker__box{
+        background:$d-bg;
+        .picker__button--clear
+        , .picker__button--close
+        , .picker__button--today{
+            background:$dark-card;
+            color:$white;
+            &:hover{
+                &:before{
+                    color:$white;
+                }
+            }
+        }
+    }
+    .picker{
+        color:#999;
+    }
+    .dtp > .dtp-content{
+        background:$d-bg;
+    }
+    .dtp table.dtp-picker-days tr > td > a{
+       color: #68686a; 
+       &.selected{
+           color:$white;
+       }
+    }
+	.order-request tbody tr{
+		border-color:$d-border;
+	}
+	.card-list li{
+		color:$white;
+	}
+	.card-bx .change-btn:hover{
+		color:var(--primary);
+	}
+	.invoice-card{
+		&.bg-warning{
+			background-color:#5b3c1f!important;
+		}
+		&.bg-success{
+			background-color:#2a6729!important;
+		}
+		&.bg-info{
+			background-color:#4c276a!important;
+		}
+		&.bg-secondary{
+			background-color:#1c3e52!important;
+		}
+	}
+	.user-list li{
+		border-color:$dark-card;
+	}
+	.toggle-switch{
+		color:$white;
+	}
+	.bar-chart{
+		.apexcharts-text tspan{
+			fill:#969ba0;
+		}
+		line{
+			stroke:$d-border;
+		}
+	}
+	.coin-card{
+		background: #0f6a62; 
+		background: -moz-linear-gradient(left,  #0f6a62 0%, #084355 100%); 
+		background: -webkit-linear-gradient(left,  #0f6a62 0%,#084355 100%); 
+		background: linear-gradient(to right,  #0f6a62 0%,#084355 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f6a62', endColorstr='#084355',GradientType=1 ); 
+		.coin-icon{
+			background:rgba($black,0.2);
+		}
+	}
+	.accordion.style-1 .accordion-item,.invoice-list{
+		border-color:$d-border;
+	}
+	.accordion.style-1 .accordion-header.collapsed {
+		.user-info a,.user-info,&>span{
+			color:$white;
+		}
+	}
+	.ic-card {
+		&>a{
+			background:#25479f;
+			&:first-child{
+				border-color:#25479f;
+			}
+		}
+		span{
+			color:$white;
+		}
+	}
+	table.dataTable thead th, table.dataTable thead td{
+		border-color:$d-border!important;
+	}
+	.form-check .form-check-input{
+		background:transparent;
+		&:checked{
+			background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+		}
+	}
+	.paging_simple_numbers.dataTables_paginate{
+		background:$d-bg;
+	}
+	.dataTables_wrapper .dataTables_paginate span .paginate_button.current,
+	.dataTables_wrapper .dataTables_paginate span .paginate_button:hover{
+		background:var(--primary);
+		color:$white!important;
+	}
+	.dashboard-select{
+		background:$dark-card;
+	}
+	.dashboard-select .list{
+		background:$dark-card;
+	}
+	.dashboard-select .option:hover, .dashboard-select .option.focus, .dashboard-select .option.selected.focus{
+		background:$d-bg;
+	}
+	.card-tabs.style-1 .nav-tabs{
+		background:$dark-card;
+	}
+	.transaction-details{
+		border-color:$d-border;
+	}
+	.description{
+		color:$white;
+	}
+	.transaction-details .amount-bx{
+		background:#3f250d;
+		i{
+			background:#8d3b0c;			
+		}
+	}
+	.weather-btn{
+		border-color:$d-border;
+		background:$dark-card;
+		span{
+			color:$white;
+			background:$dark-card;
+		}
+	}
+	.nice-select .option{
+		background:$dark-card;
+	}
+	.nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus{
+		background:$dark-card;
+	}
+	.card-tabs.style-1{
+		border-color:$d-border;
+	}
+	.quick-select{
+		border-color:$d-border;
+	}
+	.table.border-hover tr:hover td{
+		border-color:$d-border;
+	}
+	.order-tbl{
+		tr{
+			th,td{
+				color:$white;
+			}
+		}
+	}
+	.dark-btn{
+		svg{
+			path{
+				stroke:$white;
+			}
+		}
+	}
+	.detault-daterange{
+		border-color:$d-border;
+		span{
+			background:$dark-card;
+		}
+	}
+	.donut-chart-sale small{
+		color:$white!important;
+		&:after{
+			background:$dark-card;
+		}
+	}
+	.my-profile{
+		a{
+			color:var(--primary)!important;
+		}
+	}
+	table.dataTable.market-tbl{
+		tr{
+			td{
+				border-color:$dark-card!important
+			}
+		}
+		.market-trbg{
+			td{
+				background:$d-bg!important;
+			}
+		}
+	}
+	.tbl-orders{
+		i{
+			color:$white;
+		}
+	}
+	.form-wrapper{
+		.input-group{
+			.input-group-prepend{
+				.input-group-text{
+					background:$d-bg;
+					color:$white;
+				}
+			}
+			.form-control{
+				&:focus{
+				border-color:$d-border;
+				}
+			}
+		}
+	}
+	
+	.nice-select .list{
+		background:$d-bg;
+		&:hover{
+			background:$dark-card;
+		}
+	}
+	.swiper-box{
+		&:after{
+			/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#171622+1,171622+100&0+38,0.91+85 */
+			background: -moz-linear-gradient(top,  rgba(23,22,34,0) 1%, rgba(23,22,34,0) 38%, rgba(23,22,34,0.91) 85%, rgba(23,22,34,0.91) 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(top,  rgba(23,22,34,0) 1%,rgba(23,22,34,0) 38%,rgba(23,22,34,0.91) 85%,rgba(23,22,34,0.91) 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom,  rgba(23,22,34,0) 1%,rgba(23,22,34,0) 38%,rgba(23,22,34,0.91) 85%,rgba(23,22,34,0.91) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00171622', endColorstr='#e8171622',GradientType=0 ); /* IE6-9 */
+
+
+
+
+
+		}
+	}
+	.fc-theme-standard td, .fc-theme-standard th,
+	.fc-scrollgrid, .fc-theme-standard .fc-scrollgrid.fc-scrollgrid-liquid, table{
+		border-color: rgba(255,255,255,0.2);
+	}
+	.fc-daygrid-day-number, 
+	.fc-col-header-cell-cushion {
+		color: #b3b3b3;
+	}
+	.fc .fc-button-group > .fc-button{
+		border: 1px solid $d-border;
+	}
+	.dd .nestable-item-name{
+		border: 1px solid $primary;
+	}
+	.input-field-redux{
+		label{
+			color: #f3f3f3b3 !important;
+		}
+		svg{
+			fill: #f3f3f3b3 !important;
+		}
+	} 
+	
+	/* Summarnote Dark*/
+	.tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary{
+		background-color: #2f363e;
+	}
+	.tox .tox-edit-area__iframe{
+		background-color: #212130;
+		color: $white;
+	}
+	.tox .tox-tbtn{
+		color: $white;
+		svg{
+			fill: $white;
+		}
+	}
+	.tox .tox-statusbar{
+		background-color: #212130;
+	}
+	.tox .tox-statusbar__wordcount,
+	.tox .tox-statusbar__path-item,
+	.tox .tox-statusbar a{
+		color: $white;
+	}
+	/* Summarnote Dark end*/
+	.legent-text{
+		.apexcharts-legend-series{
+			.apexcharts-legend-text{
+				color: #969ba0 !important;
+			}
+		}	
+	}	
+	.table thead th{
+		border-bottom: 1px solid #423e3e !important;
+	}
+		
+}

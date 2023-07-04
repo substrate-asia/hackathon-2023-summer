@@ -1,0 +1,263 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    border: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section {
+    display: block;
+    color: #323335;
+}
+
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+    display: none;
+}
+
+body {
+    line-height: 1;
+}
+
+menu,
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+    content: none;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 主题色配置 */
+:root {
+    color: #333;
+    font-size: 14px;
+    font-family: 'Public Sans', 'Helvetica', system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    background-color: #fff;
+    border-radius: 5px;
+
+    --main-color: #0049ff;
+    --warning-color: #eca20f;
+    --success-color: #00943e;
+    --error-color: #e34949;
+    --bg-color: #f2f2fb;
+    --text-main-color: #323335; /* 主标题/正文 */
+    --text-sub-color: #64666b; /* 次级标题 */
+    --text-desc-color: #969aa0; /* 描述 */
+    --text-disable-color: #bfc1c5; /* 禁用 */
+    --text-strong-color: #1a1a1b; /* 强调/特殊标题 */
+}
+
+html[data-theme='dark'] {
+    color: #fff;
+    background-color: #000;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+}
+
+h4 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+}
+
+h5 {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+}
+
+h6 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+.primary {
+    color: var(--main-color);
+}
+
+.primary-bg {
+    background-color: var(--main-color);
+}
+
+.warning {
+    color: var(--warning-color);
+}
+
+.warning-bg {
+    background-color: var(--warning-color);
+}
+
+.success {
+    color: var(--success-color);
+}
+
+.success-bg {
+    background-color: var(--success-color);
+}
+
+.error {
+    color: var(--error-color);
+}
+
+.error-bg {
+    background-color: var(--error-color);
+}
+
+.color-text-main {
+    color: var(--text-main-color); /* 主标题/正文 */
+}
+
+.color-text-sub {
+    color: var(--text-sub-color); /* 次级标题 */
+}
+
+.color-text-desc {
+    color: var(--text-desc-color); /* 描述 */
+}
+
+.color-text-disable {
+    color: var(--text-disable-color); /* 禁用 */
+}
+
+.color-text-strong {
+    color: var(--text-strong-color); /* 强调/特殊标题 */
+}

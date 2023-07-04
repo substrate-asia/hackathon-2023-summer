@@ -1,4 +1,4 @@
-![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-0.jpg?v=1)
+![logo](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-icon2-1.jpg?v=1)
 
 ## 基本资料
 
@@ -52,7 +52,7 @@ TBD
 </p>
 
 <p align="center">
-<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-tech-1.png"><br/>
+<img  src="https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/crypto-spiral-tech-1.jpg"><br/>
 </p>
 
 

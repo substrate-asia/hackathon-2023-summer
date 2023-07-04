@@ -126,10 +126,12 @@ Cybros Network 是一个基于区块链的任务调度器 (Job Scheduler) 网络
   - `examples/simple_echo` 最基本的任务处理逻辑的例子，Worker 会直接返回输入
   - `examples/echo` 一个复杂的支持端到端加密（e2e）通信的任务处理逻辑的例子
   - `examples/imaginator` 一个支持端到端加密（e2e）通信的 AIGC 例子
+- `/Hackathon-Web` AIGC + NFT 演示 Demo 的网站源码
+- `/cybros-imaginator-evm-bridge-prototype` AIGC + NFT 演示 Demo 的 Polygon 合约和桥的代码
 
 ## 如何运行
 
-> 在 Demo 我们会演示 `imaginator` （AIGC demo）作为例子，但是由于需要部署 Stable Diffusion 以及准备 Arweave 钱包，
+> 在 Demo 我们会演示 `imaginator` （AIGC + NFT demo）作为例子，但是由于需要部署 Stable Diffusion 以及准备 Arweave 钱包，
 对运行环境要求很高，所以这里我们使用 `simple_echo` 来演示完整流程，使用 polkadot.js app 即可
 
 ### 必须依赖

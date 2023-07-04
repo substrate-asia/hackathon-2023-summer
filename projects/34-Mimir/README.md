@@ -65,16 +65,16 @@ https://www.figma.com/file/ubMOzTb1LTEdXjw3UhyCCV/Mimir?type=design&node-id=0%3A
 **Features**
 
 - web 端
-    - [ ]  Plugin wallet login for Mimir
-    - [ ]  Create or import a multisig wallet and configure the network for the multisig wallet
-    - [ ]  Profile, including asset display and multisig wallet owners display
-    - [ ]  Transaction History, including transaction queue and transaction history records
-    - [ ]  Address Book, for storing frequently used contacts and multisig members
-    - [ ]  Basic transfer function
+    - [x]  Plugin wallet login for Mimir
+    - [x]  Create or import a multisig wallet and configure the network for the multisig wallet
+    - [x]  Profile, including asset display and multisig wallet owners display
+    - [x]  Transaction History, including transaction queue and transaction history records
+    - [x]  Address Book, for storing frequently used contacts and multisig members
+    - [x]  Basic transfer function
     - [ ]  Notification feature after initiating a multisig transaction
 - 服务端
-    - [ ]  Recover Multisigs
-    - [ ]  Transaction History Record
+    - [x]  Recover Multisigs
+    - [x]  Transaction History Record
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 

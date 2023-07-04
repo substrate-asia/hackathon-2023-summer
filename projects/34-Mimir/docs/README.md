@@ -46,7 +46,7 @@
 
 8. 其他账户批准交易
 
-![approve multisig交易](./pics/approve multisig交易.png)
+![approve multisig交易](./pics/approve-multisig交易.png)
 
 
 

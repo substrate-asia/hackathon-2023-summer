@@ -28,12 +28,11 @@ Consequently, building on Moonbeam ensures mutual benefits for both chains.
 
 ![](https://media.discordapp.net/attachments/911232853348597771/1125359172226121748/Comparison.PNG?width=1232&height=461)
 
-More details about Problems with zk Rollup and Optimistic Rollup: 
-
 
 # Project Introduction
 
 MoonLayer is a layer 3 Rollup with EVM integration on Polkadot / a layer 2 rollup with EVM integration built on top of Moonbeam.
+
 As a Sovereign Rollup scaling solution, MoonLayer leverages scalability of Moonbeam with faster transaction performance and lower gas fees, while inheriting security of Moonbeam and Polkadot.
 
 MoonLayer’s integration with EVM allows existing decentralized applications (dApps) from Moonbeam and Ethereum to be effortlessly deployed on its platform.
@@ -156,7 +155,7 @@ With your recognition, we can accelerate MoonLayer development. In the next 3 mo
 * Add in compatibility with Ethereum tools like Metamask, Hardhat, Brownie, etc.
 * Adding more compression techniques to enhance MoonLayer performance.
 * Optimize the MoonLayer client for lower hardware requirements and better performance.
-* Implement a bridge for asset transfer between Moonbeam testnet and MoonLayer.
+* Implement a bridge for asset transfer between Moonbeam and MoonLayer.
 * Build an MoonLayer light client to facilitate decentralized access across various devices.
 
 

@@ -5,7 +5,7 @@ import {SignTokenAbi} from "./abi/SignTokenAbi";
 import {StakeTokenAbi} from "./abi/StakeTokenAbi";
 import {AITokenAbi} from "./abi/AITokenAbi";
 
-export const VETokenAddress: Address = '0xD5724171C2b7f0AA717a324626050BD05767e2C6'
+export const VETokenAddress: Address = '0x70a9C519784c5daE3C53Ae9FB003F13A31B99DE7'
 export const VEToken = new WagmiContract(VETokenAddress, VETokenAbi)
 
 export const SignTokenAddress: Address = '0x2d04968bD5ad9284E3C777f738194578233EAE12'

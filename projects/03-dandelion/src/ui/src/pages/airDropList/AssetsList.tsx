@@ -1,12 +1,34 @@
-import {AIR_DROP_LIST, Tree1, Tree2, Tree3, Tree4, Tree5, Tree6} from "assets";
+import {
+  AIR_DROP_LIST,
+  Tree1,
+  Tree2,
+  Tree3,
+  Tree4,
+  Tree5,
+  Tree6,
+} from "assets";
 import { balanceStr } from "../../web3/wagmi/Balance";
-import {useMyNativeBalance, useMyVEBalance, useMySignBalance, useMyBalance} from "../../web3/hook/UseBalance";
-import {isWagmiError, useWagmiTransaction} from "../../libs/wagmi/hook/UseContractWrite";
+import {
+  useMyNativeBalance,
+  useMyVEBalance,
+  useMySignBalance,
+  useMyBalance,
+} from "../../web3/hook/UseBalance";
+import {
+  isWagmiError,
+  useWagmiTransaction,
+} from "../../libs/wagmi/hook/UseContractWrite";
 import { SignToken } from "../../web3/contracts/Contracts";
 import { BigNumber } from "ethers";
 import { NoArgs } from "../../libs/wagmi/abi/WagmiAbiType";
 import "./AssetsList.css";
-import {FetchBalanceResult} from "@wagmi/core";
+import { FetchBalanceResult } from "@wagmi/core";
+import { Button, message } from "antd";
+import { AirDrop } from "../../constants";
+import { useAccount } from "wagmi";
+import { useWagmiRead } from "../../libs/wagmi/hook/UseContractRead";
+import { WagmiContract } from "../../libs/wagmi/contract/WagmiContract";
+import { StakeTokenAbi } from "../../web3/contracts/abi/StakeTokenAbi";
 
 export default function AssetsList() {
   const nativeBalance = useMyNativeBalance(true);
@@ -14,57 +36,52 @@ export default function AssetsList() {
 
   return (
     <div className="flex flex-row justify-between w-full">
-      <div>
+      <div className="w-[40%] max-w-[700px]:">
         <div className="container h-72">
           <div className="container-title">用户持有代币列表</div>
-          <MyToken
-            name='Dandelion'
-            balance={nativeBalance}
-          />
-          <MyToken
-            name='VEToken'
-            balance={veBalance}
-          />
+          <MyToken name="Dandelion" balance={nativeBalance} />
+          <MyToken name="VEToken" balance={veBalance} />
         </div>
+        <div className="separator w-full mt-10 h-[2px] max-w-[700px]"></div>
 
-        <div className="separator w-[700px] mt-10 h-1"></div>
-
-        <div className="container h-72 mt-10">
-          <div className="container-title">用户资产</div>
-          <MyAirDropToken
-            airDropId={1}
-          />
-          <MyAirDropToken
-            airDropId={4}
-          />
-          <MyAirDropToken
-            airDropId={11}
-          />
-          <MyAirDropToken
-            airDropId={15}
-          />
+        <div className="container  mt-10">
+          <div className="container-title">参与的空投项目</div>
+          {AIR_DROP_LIST.map((airDrop) => (
+            <MyAirDropTokenOrNull key={airDrop.id} airDrop={airDrop} />
+          ))}
         </div>
       </div>
-      <MyTree/>
+      <MyTree />
     </div>
   );
 }
 
-function MyAirDropToken({airDropId}: {
-  airDropId: number
-}) {
-  const airDrop = AIR_DROP_LIST.find(item => item.id === airDropId)!
-  const balance = useMyBalance(airDrop.AIToken, true)
+function MyAirDropTokenOrNull({ airDrop }: { airDrop: AirDrop }) {
+  const contract = new WagmiContract(airDrop.StakeToken, StakeTokenAbi);
+  const { address } = useAccount();
+  const { data } = useWagmiRead(contract, "depositTimestamps", [address!], {
+    enabled: address !== undefined,
+    watch: true,
+  });
 
-  return <MyToken
-    name={airDrop.name}
-    balance={balance}
-  />;
+  if (data && data.lt(BigNumber.from(0))) {
+    return <MyAirDropToken airDrop={airDrop} />;
+  } else {
+    return null;
+  }
 }
 
-function MyToken({name, balance}: {
-  name: string
-  balance: FetchBalanceResult | undefined,
+function MyAirDropToken({ airDrop }: { airDrop: AirDrop }) {
+  const balance = useMyBalance(airDrop.AIToken, true);
+  return <MyToken name={airDrop.name} balance={balance} />;
+}
+
+function MyToken({
+  name,
+  balance,
+}: {
+  name: string;
+  balance: FetchBalanceResult | undefined;
 }) {
   return (
     <div className="border-line asset-item flex flex-row justify-between">
@@ -85,46 +102,75 @@ function MyTree() {
   // 签到token的余额
   const balance = useMySignBalance(true);
   // 树的状态
-  const treeImage = treeImageOf(balance?.value)
+  const treeImage = treeImageOf(balance?.value);
 
+  //
+  const [messageApi, contextHolder] = message.useMessage();
   // 签到操作
-  const [signIn3day, write] = useWagmiTransaction(SignToken, 'signIn3day', NoArgs, {
-    waitForTransaction: {
-      onSuccess: () => {
-        // 成功
+  const [signIn3day, write] = useWagmiTransaction(
+    SignToken,
+    "signIn3day",
+    NoArgs,
+    {
+      waitForTransaction: {
+        onSuccess: () => {
+          // 成功
+          console.log("succeess");
+        },
+        onError: () => {
+          // 失败
+          console.log("failed");
+        },
       },
-      onError: () => {
-        // 失败
-      },
-    },
-  });
-
+    }
+  );
+  // TODO: 逻辑待确定
+  const clickCheckIn = () => {
+    const enableCheckIn = !isWagmiError(signIn3day.prepareStatus);
+    if (enableCheckIn && write) {
+      write();
+    } else {
+      messageApi.info({
+        content: "现在不能浇水，晚点再来吧",
+        className: "custom-tip",
+      });
+    }
+  };
   // signIn3day.busy 正在进行合约写操作
-  console.log('[signIn3day]', signIn3day)
+  console.log("[signIn3day]", signIn3day);
 
   return (
-    <div className="flex flex-col flex-1 items-center">
-      <div className="flex flex-col items-center w-full h-[60%] justify-center tooltip relative">
-        {`活跃度：${balanceStr(balance, 0)}`}
-        <img
-          src={treeImage}
-          alt=""
-          className="w-[300px] self-end cursor-pointer"
-          onClick={write}
-        />
-        <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 top-full">
-          {isWagmiError(signIn3day.prepareStatus) ? '现在不能浇水，晚点再来吧' : '点一点，给植物浇个水签到吧'}
-        </span>
+    <>
+      {contextHolder}
+      <div className="flex flex-col flex-1 items-center ">
+        <div className="flex flex-col bg-cardbg tree-card-bg rounded-md  items-center justify-center tooltip relative">
+          <img src={treeImage} alt="" className="w-[300px] self-center" />
+          {/* onClick={write} */}
+          <span className="tooltip-text absolute hidden bg-gray-800 text-white px-2 py-1 rounded-md text-sm -translate-x-1/2 left-1/2 ">
+            {/* TODO: 逻辑待确定 */}
+            {isWagmiError(signIn3day.prepareStatus) || !write
+              ? "现在不能浇水，晚点再来吧"
+              : "给植物浇个水签到吧"}
+          </span>
+        </div>
+        <div className="mt-7">
+          <span>{`活跃度：${balanceStr(balance, 0) || "0"}`}</span>
+          <Button
+            className="w-[80px]  bg-blue border-none ml-4"
+            onClick={clickCheckIn}
+          >
+            浇水
+          </Button>
+        </div>
       </div>
-      {/* <Button className="w-[80px] mt-5">浇水</Button> */}
-    </div>
-  )
+    </>
+  );
 }
 
 // 0=图1 ，1到10=图2，11到30=图3，31到60等于图4，61到100=图5，100到150=图6
 function treeImageOf(balance?: BigNumber): string {
   if (!balance) {
-    return ''; // 还未获取树的状态
+    return Tree1; // 还未获取树的状态
   }
   if (balance.lte(BigNumber.from(0).pow(18))) {
     return Tree1;

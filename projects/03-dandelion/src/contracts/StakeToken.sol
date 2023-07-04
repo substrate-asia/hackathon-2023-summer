@@ -23,9 +23,9 @@ contract StakeToken is Ownable {
     mapping(address => uint256) public depositTimestamps;
 
     //质押总数量
-    uint256 stakeTotalReward = 1000;
+    uint256 stakeTotalReward = 0;
     // 用户最多质押数量
-    uint256 stake_max_amount = 1000;
+    uint256 stake_max_amount = 1000 * 10 ** 18;
     // 是否领取了空投
     mapping(address => bool) private isParadrop;
     // 签到时间
@@ -35,12 +35,15 @@ contract StakeToken is Ownable {
     uint256 blockRewardPerMin;
     // 产中奖励的区块高度
     uint blockNumberTop;
+    // 用户是否领过当前区块奖励
+    mapping(address => uint) private addressBlockNumber;
+
 
     //质押,【外部调用/所有人/不需要支付/读写状态】
     function stake(uint256 _amount) external {
         // 用户持有量
         uint256 veBalanceOf = vetoken.balanceOf(msg.sender);
-        require(_amount >= stake_max_amount, "you stake > max amount!");
+        require( stake_max_amount >= _amount , "you stake > max amount!");
         require(veBalanceOf >= _amount, "you have not enough  balance!");
         // 添加用户质押记录
         shares[msg.sender] = shares[msg.sender].add(_amount);
@@ -83,6 +86,13 @@ contract StakeToken is Ownable {
         blockNumberTop = _blockNumberTop;
     }
 
+    //  设置用户最多质押数量
+    function setStakeMaxAmount(
+        uint _stake_max_amount
+    ) external onlyOwner {
+        stake_max_amount = _stake_max_amount;
+    }
+
     //获取某地址区块高度奖励,【外部调用/所有人/不需要支付/只读】
     function getBlockReward(address _addr) external view returns (uint256) {
         require(
@@ -103,6 +113,11 @@ contract StakeToken is Ownable {
             block.number >= blockNumberTop,
             "project token block reward have not enough!"
         );
+       require(
+            blockNumberTop != addressBlockNumber[msg.sender],
+            "user address has gain rewarded!"
+        );
+        
         // // 计算额按用户质押的社区代币比例进行分配
         uint256 reward = shares[msg.sender].div(stakeTotalReward).mul(
             blockRewardPerMin
@@ -113,6 +128,8 @@ contract StakeToken is Ownable {
         );
         // 发放项目方奖励
         token.transfer(msg.sender, reward);
+        // 设置用过领过当前区块
+        addressBlockNumber[msg.sender] = blockNumberTop;
     }
 
     // 获取区块和时间

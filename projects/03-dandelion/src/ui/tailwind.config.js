@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
+// const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{html,tsx}"],
   mode: "jit",
@@ -31,6 +31,7 @@ module.exports = {
         primary: "#080f2e",
         secondary: "#fff",
         blue: "#0085ff",
+        cardbg: "#060b23",
         grey: "#5f656f",
         "space-gray": {
           light: "#405FBA",

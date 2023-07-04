@@ -2,14 +2,11 @@ package chain
 
 import (
 	"context"
-	"crypto/ecdsa"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/samirshao/itools/ilog"
-	"log"
 	"math/big"
 )
 
@@ -111,28 +108,49 @@ func (_this *Evm) UploadMetaData(miners, fileHash []string, ext, cid, user strin
 		ilog.Logger.Error(err)
 	}
 
-	privateKey, err := crypto.HexToECDSA("bdf878ea925c424103c8f33ab72b27718eb9c04cbcd9a25c5d49847e60f12022")
-	if err != nil {
-		ilog.Logger.Error(err)
-	}
-	publicKey := privateKey.Public()
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-	if !ok {
-		log.Fatal("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
-	}
-	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
-	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, chainId)
+	//privateKey, err := crypto.HexToECDSA("bdf878ea925c424103c8f33ab72b27718eb9c04cbcd9a25c5d49847e60f12022")
+	//if err != nil {
+	//	ilog.Logger.Error(err)
+	//}
+	//publicKey := privateKey.Public()
+	//publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	//if !ok {
+	//	log.Fatal("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
+	//}
+	//fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
+	auth, err := bind.NewKeyedTransactorWithChainID(_this.PriKey, chainId)
 	if err != nil {
 		ilog.Logger.Error(err)
 	}
 
 	txHash, err := con.cTransactor(&bind.TransactOpts{
 		Context: context.Background(),
-		From:    fromAddress,
+		From:    common.HexToAddress(_this.Address),
 		Signer:  auth.Signer,
 	}, "uploadMetaDataBytes", pack)
 	if err != nil {
 		ilog.Logger.Error(err)
 	}
 	return txHash, nil
+}
+
+func (_this *Evm) GetMinerFileHash(miner string) ([]string, error) {
+	client, err := ethclient.Dial(HttpRpc)
+	defer client.Close()
+	if err != nil {
+		ilog.Logger.Error(err)
+		return nil, err
+	}
+	defer client.Close()
+	con, err := newContract(StoreContractAbi, common.HexToAddress(StoreContractAddress), client)
+	if err != nil {
+		ilog.Logger.Error(err)
+		return nil, err
+	}
+	caller, err := con.cCaller(&bind.CallOpts{}, "getMinerAllHash", common.HexToAddress(miner))
+	if err != nil {
+		ilog.Logger.Error(err)
+		return nil, err
+	}
+	return (*caller)[0].([]string), nil
 }

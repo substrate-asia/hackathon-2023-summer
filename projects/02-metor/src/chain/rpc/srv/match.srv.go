@@ -175,12 +175,16 @@ func (_this *MatchSrv) StoreProofTask(ctx context.Context, req *matchpb.Message)
 	}
 
 	//todo find miner's cid from contract
+	hashes, err := _this.Account.GetMinerFileHash(address)
+	if err != nil {
+		ilog.Logger.Error(err)
+		return nil, status.Errorf(errs.GetMinerFileHash, err.Error())
+	}
+	if len(hashes) == 0 {
+		return nil, status.Errorf(errs.MinerHashZero, "miner's hash is zero")
+	}
 
-	return &matchpb.StoreProofTaskResp{Hashes: []string{
-		"0fdf7c9217fa433f8ad091dff5c900bbf8120287f0517d51d2a2ff4df1b821d5",
-		"4951cb250b45db2fb80a3f3746a35edd8f26c425cae6540231379f39dd9563d5",
-		"d723048f25e38697e91cf4389b9ec0028fc1ac08c2aa01bddc6f669913a40be3",
-	}}, nil
+	return &matchpb.StoreProofTaskResp{Hashes: hashes}, nil
 }
 
 func (_this *MatchSrv) StoreProof(ctx context.Context, req *matchpb.Message) (*matchpb.StoreProofResp, error) {
@@ -205,15 +209,20 @@ func (_this *MatchSrv) StoreProof(ctx context.Context, req *matchpb.Message) (*m
 
 	//验签
 	teeAddress, err := _this.Account.VerifySign(src.Data, src.Signature)
-	if err != nil {
+	if err != nil || teeAddress != config.TeePublicKey {
 		ilog.Logger.Error(err)
+		if _, err = _this.Account.PunishUser(address, 1); err != nil {
+			ilog.Logger.Error(err)
+		}
 		return nil, status.Errorf(errs.VerifySign, err.Error())
 	}
-	if teeAddress != config.TeePublicKey {
-		return nil, status.Errorf(errs.TeePublicKey, "tee public key error")
-	}
+
 	//todo 激励上链
-	return &matchpb.StoreProofResp{TxHash: "proof of store done!!"}, nil
+	txHash, err := _this.Account.RewardUser(address, 1)
+	if err != nil {
+		return nil, status.Errorf(errs.RewardUser, "")
+	}
+	return &matchpb.StoreProofResp{TxHash: txHash}, nil
 }
 
 func (_this *MatchSrv) parseMsg(req *matchpb.Message, src proto.Message) (address string, err error) {

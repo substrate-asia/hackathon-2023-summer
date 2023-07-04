@@ -17,7 +17,7 @@ var (
 )
 
 const (
-	home = "metor/1/"
+	home = "metor/3/"
 )
 
 const (

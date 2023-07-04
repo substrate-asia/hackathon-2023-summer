@@ -11,4 +11,7 @@ type Account interface {
 	NodeKind(address string) (int, error)
 	Stake() (bool, error)
 	ApproveToken(amount int64) (bool, error)
+	PunishUser(miner string, amount int64) (string, error)
+	RewardUser(miner string, amount int64) (string, error)
+	GetMinerFileHash(miner string) ([]string, error)
 }

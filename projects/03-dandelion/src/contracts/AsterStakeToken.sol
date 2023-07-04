@@ -25,7 +25,7 @@ contract AsterStakeToken is Ownable {
     //质押总数量
     uint256 stakeTotalReward = 0;
     // 用户最多质押数量
-    uint256 stake_max_amount = 1000;
+    uint256 stake_max_amount = 1000 * 10 ** 18;
     // 是否领取了空投
     mapping(address => bool) private isParadrop;
     // 签到时间
@@ -43,7 +43,7 @@ contract AsterStakeToken is Ownable {
     function stake(uint256 _amount) external {
         // 用户持有量
         uint256 veBalanceOf = vetoken.balanceOf(msg.sender);
-        require(_amount >= stake_max_amount, "you stake > max amount!");
+        require( stake_max_amount >= _amount , "you stake > max amount!");
         require(veBalanceOf >= _amount, "you have not enough  balance!");
         // 添加用户质押记录
         shares[msg.sender] = shares[msg.sender].add(_amount);

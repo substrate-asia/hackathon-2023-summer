@@ -81,6 +81,9 @@ func (_this *RpcObj) StoreProofTask() (hashes []string, err error) {
 		ilog.Logger.Error(err)
 		return
 	}
+
+	ilog.Logger.Debugf("证明任务：%v", res.Hashes)
+
 	return res.Hashes, nil
 }
 

@@ -6,13 +6,16 @@ Project Initiation Date (Year-Month):2022.7
 
 ## Project Overview
 
-Amphi is a Web3+AI language service marketplace
 - Project Background/Rationale/Problem to be Solved (If there are additional attachments, please place them in the "docs" directory. Submit in English).
 Price is an important concern for customers who buy language services. especially the high cost of translating into less commonly spoken languages
 Information asymmetry and low efficiency. 
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/913a20f3-bb56-4d29-999d-44d36cabb310)
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/a1aa4264-d3be-4a7c-9cec-f249b1342b1b)
 
 - Project Introduction
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/65b5e86a-a272-438f-9256-437abe5b8b69)
 
+<img width="1037" alt="image" src="https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/2970a0c3-a437-4875-bc85-c0bcbc5ef82f">
 
 - Project Demo
 

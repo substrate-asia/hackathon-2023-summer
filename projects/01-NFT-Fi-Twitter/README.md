@@ -23,6 +23,10 @@ NFT-Fi Twitter: A NFT powered WebExtension ([Chrome](https://developer.chrome.co
 
 ### 项目Demo
 
+<p align="center">
+<img  src="./docs/3.png"><br/>
+</p>
+
 项目为浏览器插件，但是插件还未发布到 chrome 的扩展市场。
 
 moonbean 链的交互 tx: <https://moonbase.moonscan.io/address/0xC6E58fb4aFFB6aB8A392b7CC23CD3feF74517F6C>
@@ -89,3 +93,16 @@ Wx: Web3Hacker
 ### Lisa
 Role: Marketing & Operation
 Wx: mujinhk1820
+
+
+## screenshot
+
+
+<p align="center">
+<img" src="./docs/1.png"><br/>
+  <img  src="./docs/2.png"><br/>
+  <img  src="./docs/4.png"><br/>
+  <img  src="./docs/5.png"><br/>
+   <img  src="./docs/6.png"><br/>
+  
+</p>

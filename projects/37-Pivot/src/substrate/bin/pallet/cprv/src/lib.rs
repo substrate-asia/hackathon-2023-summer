@@ -78,7 +78,7 @@ pub mod pallet {
 
     #[pallet::pallet]
     #[pallet::without_storage_info]
-    pub struct Pallet<T>(_);  //why carry around a T everywhere?
+    pub struct Pallet<T>(_);
 
     #[pallet::config]
     pub trait Config: frame_system::Config {
@@ -94,7 +94,7 @@ pub mod pallet {
         type RoundDuration: Get<Self::BlockNumber>;
 
 
-        /// The max number of compression validator  // should there be a max of miners?
+        /// The max number of compression validator
         #[pallet::constant]
         type MaxValidatorNum: Get<u32>;
 
@@ -252,7 +252,7 @@ pub mod pallet {
             let sender = ensure_signed(origin)?;
 
             let validators = <Validators<T>>::get();
-            ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered); //must submitters be validators????
+            ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered);
             let round = <CurrentRound<T>>::get();
             let best_compression_rate = <BestCompressionRate<T>>::get(round);
             ensure!(best_compression_rate < compression_rate, Error::<T>::LessThanBestCompressionRate);
@@ -283,11 +283,13 @@ pub mod pallet {
             ensure!(validators.contains(&sender), Error::<T>::ValidatorNotRegistered);
             let mut proofs = <UnVerifyProofs<T>>::get();
 
+            let min_validator_count = T::MinVerifyProofValidatorNum::get();
+
             //验证成功或失败的节点达到指定数量后，将Proof从待验证的列表中移除，若验证成功的节点数达标，将Proof存入验证成功的列表
             if let Some(mut verification) = <Verifications<T>>::get(&proof_index) {
                 if result {
                     verification.verify_success_account.push(sender);
-                    if verification.verify_success_account.len() == T::MinVerifyProofValidatorNum::get() as usize {
+                    if verification.verify_success_account.len() >= min_validator_count as usize {
 
                         if let Some(index) = proofs.iter().position(|proof| proof.proof_index == proof_index) {
                             let removed_proof = proofs.remove(index);
@@ -303,7 +305,7 @@ pub mod pallet {
                     }
                 } else {
                     verification.verify_failed_account.push(sender);
-                    if verification.verify_failed_account.len() == T::MinVerifyProofValidatorNum::get() as usize {
+                    if verification.verify_failed_account.len() >= min_validator_count as usize {
                         proofs.retain(|proof| proof.proof_index != proof_index);
                     }
 
@@ -318,14 +320,31 @@ pub mod pallet {
                 proof_index: proof_index,
                 verify_success_account: Vec::new(),
                 verify_failed_account: Vec::new(),
-                //然后不goto 254吗????
             };
-            
+
 
             if result {
-                verification.verify_success_account.push(sender)
+                verification.verify_success_account.push(sender);
+                if min_validator_count == 1 {
+                    if let Some(index) = proofs.iter().position(|proof| proof.proof_index == proof_index) {
+                        let removed_proof = proofs.remove(index);
+
+                        //存储proof到当前轮次的已验证集合
+                        let round = <CurrentRound<T>>::get();
+                        let mut verified_proofs = <VerifiedProofs<T>>::get(round);
+                        verified_proofs.push(removed_proof);
+                        <VerifiedProofs<T>>::insert(round, verified_proofs);
+                    }
+
+                    Self::deposit_event(Event::VerifySuccess(proof_index));
+                }
             } else {
-                verification.verify_failed_account.push(sender)
+                verification.verify_failed_account.push(sender);
+
+                if min_validator_count == 1 {
+                    proofs.retain(|proof| proof.proof_index != proof_index);
+                    Self::deposit_event(Event::VerifyFailed(proof_index));
+                }
             }
             
 

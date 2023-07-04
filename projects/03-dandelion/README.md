@@ -2,7 +2,7 @@
 
 项目名称：Dandelion(蒲公英)
 
-项目立项日期 ：2023-05-20
+项目立项日期 ：2023-05-20 
 
 ## 项目整体简介
 当前，区块链项目最好的发射方式当属空投，因其超低的参与门槛，超高的发射效率，但目前各个项目方在实施空投的过程中存在各种各样的问题，比如女巫攻击等等，dandelion（蒲公英）项目将基于Polkadot打造一个专业可复用的空投社区及发射台，通过社区结合区块链经济模型的模式，打造一套以社区经济模型驱动的可复用型空投发射平台，深度黏合项目方与用户，深度挖掘空投模式的潜力，使得各方利益最大化、成本最小化。 
@@ -84,7 +84,11 @@ Dandelion 合约 && Substrate add Evm
 
 - 1.完成了平行链poa共识开发
 - 2.完成evm模块及相关智能合约开发（包括社区vetoken代币swap模块、自定义规则空投模块、用户活跃度模块等）
-- 2.完成前端基础ui界面的设计（包括空投项目进度展示模块，用户空投领取进度模块，社区代币质押模块）
+- 3.完成前端基础ui界面的设计（包括空投项目进度展示模块，用户空投领取进度模块，社区代币质押模块）
+- 4.代码结构： ![后端](https://bafybeihdkzcccsmdvxitaxonp4ksqr7sbi2vpoozhoxtyu44q5hiquiznq.ipfs.w3s.link/%E5%90%8E%E7%AB%AF.png "后端合约模块")
+- 5.[https://dandelion-1lf.pages.dev/] 项目Demo
+- 6.[https://drive.google.com/file/d/1U-Zd05p05DcCgv4MlujFw-aUXQzB-uHZ/view?usp=sharing] 项目介绍文档
+
 
 ## 队员信息
 

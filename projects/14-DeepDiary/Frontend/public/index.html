@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title>Deep Diary</title>
+    <meta
+      name="keywords"
+      content="deep-diary,DeepDiary, deep-diary官网,gallery,人脸识别,目标识别,insightface,lightgallery, justifygallery,深记,深度日记,web3,个人网盘"
+    />
+    <meta
+      name="description"
+      content="<%= VUE_APP_TITLE %>深记是基于深度学习很web3技术,实现了个人网盘, 特点就是去中心化,同时,增加了一些额外的人脸识别,目标识别等功能, 后续将会成为您的记忆管家,作者：<%= VUE_APP_AUTHOR %>"
+    />
+    <meta name="author" content="<%= VUE_APP_AUTHOR %>" />
+    <link rel="stylesheet" href="<%= BASE_URL %>static/css/loading.css" />
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="<%= BASE_URL %>static/interactive-graph-0.1.0/interactive-graph.min.css"
+    />
+    <script src="<%= BASE_URL %>static/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="<%= BASE_URL %>static/jquery-3.2.1/jquery-ui.css"
+    />
+    <script src="<%= BASE_URL %>static/jquery-3.2.1/jquery-ui.js"></script>
+    <link
+      href="<%= BASE_URL %>static/font-awesome-4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <noscript>感谢您的关注,深记将继续为您提供更优质的服务！</noscript>
+    <div id="vue-admin-beautiful">
+      <div class="first-loading-wrp">
+        <div class="loading-wrp">
+          <span class="dot dot-spin">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+        </div>
+        <h1><%= VUE_APP_TITLE %></h1>
+      </div>
+    </div>
+    <script>
+      ;/^http(s*):\/\//.test(location.href) ||
+        alert('More Service of Deep Diary will coming soon...')
+    </script>
+    <script>
+      if (window.location.hostname !== 'localhost') {
+        var _hmt = _hmt || []
+        ;(function () {
+          var hm = document.createElement('script')
+          hm.src = 'https://hm.baidu.com/hm.js?7174bade1219f9cc272e7978f9523fc8'
+          var s = document.getElementsByTagName('script')[0]
+          s.parentNode.insertBefore(hm, s)
+        })()
+      }
+    </script>
+  </body>
+</html>

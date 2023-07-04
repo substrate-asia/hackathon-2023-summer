@@ -8,6 +8,8 @@ Project Initiation Date (Year-Month):2022.7
 
 Amphi is a Web3+AI language service marketplace
 - Project Background/Rationale/Problem to be Solved (If there are additional attachments, please place them in the "docs" directory. Submit in English).
+Price is an important concern for customers who buy language services. especially the high cost of translating into less commonly spoken languages
+Information asymmetry and low efficiency. 
 
 - Project Introduction
 
@@ -16,6 +18,7 @@ Amphi is a Web3+AI language service marketplace
 
   
 - Technical Architecture
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/cae6c21b-76b4-41a9-8d62-92dc0b4b54c3)
 
 
 
@@ -29,16 +32,16 @@ Amphi is a Web3+AI language service marketplace
 
 **Blockchain Side**
 
-- [ ] SBT ERC1155
-- [ ] Single-role order receipt
-- [ ] Buyer canceled NFT
+- [ ] SBT ERC1155 design and implement
+- [ ] Single-role order receipt design and implement
+- [ ] Optimize the limitations of the buyer using amphi NFT design and implement
 
 **Web Interface**
 
-- [ ] Home page
-- [ ] Preference page 
-- [ ] Portfolio page
-- [ ] My orders page
+- [ ] Home page design and implement
+- [ ] Preference page design and implement
+- [ ] Portfolio page design and implement
+- [ ] My orders page design and implement
 
 ## Team Information
 

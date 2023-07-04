@@ -1,6 +1,6 @@
 ## Basic Information
 
-**Project Name:** ForChain<br>
+**Project Name:** AIShow<br>
 
 **Project Initiation Date:** May 2023
 

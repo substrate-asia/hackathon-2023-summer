@@ -1,0 +1,44 @@
+[api]
+port = 30000
+protocol = "http"
+prefix = "/dauth/sdk"
+env = "dev"
+host = "127.0.0.1"
+workers = 16
+
+
+[otpchannel.email]
+account = "verify@keysafe.network"
+password = ""
+server = ""
+sender = ""
+
+[otpchannel.sms]
+account = "verify@keysafe.network"
+password = ""
+server = ""
+sender = ""
+
+[db.auth]
+host = "127.0.0.1"
+user = "ksadmin"
+password = "ks123"
+port = 12345
+name = "keysafe"
+
+[db.client]
+host = "127.0.0.1"
+user = "ksadmin"
+password = "ks123"
+port = 12345
+name = "keysafe"
+
+[oauth.google]
+client_id = ""
+client_secret = ""
+redirect_url = ""
+
+[oauth.github]
+client_id = ""
+client_secret = ""
+redirect_url = ""

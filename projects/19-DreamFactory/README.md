@@ -292,11 +292,14 @@ https://github.com/OpenSource-DreamFactory/rectianjh/blob/master/github-metrics.
 
 ![image.png](https://upload-images.jianshu.io/upload_images/528413-a36c4c86b2de0adf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-[https://raw.githubusercontent.com/rectinajh/rectianjh/3d78820ec33c461f04976c33565678e366c82345/github-metrics.svg?token=AA2NLHYINBMLJG2OVUFGUATEUM4T6](https://metrics.lecoq.io/rectinajh?template=classic&base.repositories=0&base.metadata=0&achievements=1&activity=1&languages=1&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&languages=false&languages.limit=8&languages.threshold=0%25&languages.other=false&languages.colors=github&languages.sections=most-used&languages.indepth=false&languages.analysis.timeout=15&languages.analysis.timeout.repositories=7.5&languages.categories=markup%2C%20programming&languages.recent.categories=markup%2C%20programming&languages.recent.load=300&languages.recent.days=14&achievements=false&achievements.threshold=C&achievements.secrets=true&achievements.display=detailed&achievements.limit=0&activity=false&activity.limit=5&activity.load=300&activity.days=14&activity.visibility=all&activity.timestamps=false&activity.filter=all&config.timezone=Asia%2FShanghai)
 
-![image.png](https://upload-images.jianshu.io/upload_images/528413-a79879cf1b0f1953.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+[SVG image automatic update link:](https://metrics.lecoq.io/rectinajh?template=classic&base.repositories=0&base.metadata=0&achievements=1&activity=1&languages=1&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&languages=false&languages.limit=8&languages.threshold=0%25&languages.other=false&languages.colors=github&languages.sections=most-used&languages.indepth=false&languages.analysis.timeout=15&languages.analysis.timeout.repositories=7.5&languages.categories=markup%2C%20programming&languages.recent.categories=markup%2C%20programming&languages.recent.load=300&languages.recent.days=14&achievements=false&achievements.threshold=C&achievements.secrets=true&achievements.display=detailed&achievements.limit=0&activity=false&activity.limit=5&activity.load=300&activity.days=14&activity.visibility=all&activity.timestamps=false&activity.filter=all&config.timezone=Asia%2FShanghai)
 
 
+
+![image.png](https://upload-images.jianshu.io/upload_images/528413-01e051be8718a468.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+ps：Because the metadata is stored in the MySQL database of the validation node, once data is updated, such as when a user contributes open-source code, the SVG will be automatically updated. If users are unable to view the updated image, they can refresh the metadata to update the image. Since I couldn't find an NFT trading market for Astar testnet, I have showcased a similar effect on OpenSea's test version.
 
 
 4，update nft 

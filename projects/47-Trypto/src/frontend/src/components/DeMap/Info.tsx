@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import type { UploadProps } from "antd";
 import { Table, Modal, Button, Spin } from "antd";
+import { randomString } from "../../utils";
 const props: UploadProps = {};
 
 const Info: React.FC = () => {
@@ -71,7 +72,8 @@ const Info: React.FC = () => {
   }
   const dataSource = uploadedList;
   dataSource.map((e) => {
-    console.log(e);
+    e.key = randomString(5);
+    return e;
   });
 
   return (

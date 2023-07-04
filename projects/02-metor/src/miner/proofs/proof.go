@@ -50,9 +50,7 @@ func init() {
 func (_this *Proof) Start() {
 	defer ihelp.ErrCatch()
 
-	ilog.Logger.Infof("proof of Time and Space challenge mission begins")
-
-	ticker := time.NewTicker(time.Second * 120)
+	ticker := time.NewTicker(time.Second * 60)
 	defer ticker.Stop()
 
 	for {

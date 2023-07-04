@@ -11,4 +11,7 @@ const (
 	UploadMetaData
 	VerifySign
 	TeePublicKey
+	GetMinerFileHash
+	MinerHashZero
+	RewardUser
 )

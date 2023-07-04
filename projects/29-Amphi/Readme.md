@@ -16,7 +16,8 @@ Project Initiation Date (Year-Month):2022.7
 
     - Lack of a reliable quality evaluation platform: There is a lack of a credible and trustworthy platform for evaluating the quality of language services, making it challenging for users to accurately assess the service providers. While there are existing evaluation platforms, the data is free and mutable which reference value is questionable.
 
-  - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/9b292452-42f2-433c-9bf4-266e9a79af46)
+
+  - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/9b292452-42f2-433c-9bf4-266e9a79af46){:width="300px" height="200px"}
 
 
 

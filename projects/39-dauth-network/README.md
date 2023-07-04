@@ -35,22 +35,45 @@ https://drive.google.com/file/d/1syAYeVKHZoyiQ4g4zOrmjAJUKaftFIwg/view?usp=drive
 
 - The first commit
 
+
 ## Tasks to be Completed
 
 **Contract**
 
-- [ ] Node register (`fn node_register`)
-- [ ] Get node list with public keys (`fn get_nodes`)
+- [x] Node register (`fn node_register`)
+- [x] Get node list with public keys (`fn get_nodes`)
 
 **Web SDK**
 
-- [ ] Onchain Verifiable 2FA
-  - [ ] Google OAuth
-  - [ ] Email 2FA
-  - [ ] Support Email templete with privacy relayer in enclave
+- [x] Onchain Verifiable 2FA
+  - [x] Google OAuth
+  - [x] Apple ID Login
+  - [x] Email 2FA
+  - [x] Support Email templete with privacy relayer in enclave
 
 ## Tasks Completed
 
+**Contract**
+
+- [x] Node register (`fn node_register`)
+- [x] Get node list with public keys (`fn get_nodes`)
+
+**Web SDK**
+
+- [x] Onchain Verifiable 2FA
+  - [x] Google OAuth
+  - [x] Apple ID Login
+  - [x] Email 2FA
+
+**Code Structure**
+
+  - `src/contract` includes functions: node register and get node list with public keys
+  - `src/instant-proof/app` includes functions: web api and databaes persistence
+  - `src/instant-proof/enclave` includes functions: build secure session, send sms otp, send email opt, invoke google oauth, etc.
+  - `src/instant-proof/scripts` includes functions: generate random client id, set up binary structure
+
+**Demo Vedio**
+https://www.loom.com/share/f6bcd0e552dc47b38f60a1e1783eec76?sid=80a8760e-c0d9-482c-8f09-dc5ad94ed13d
 
 ## Team Members
 

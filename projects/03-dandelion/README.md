@@ -85,7 +85,7 @@ Dandelion 合约 && Substrate add Evm
 - 1.完成了平行链poa共识开发
 - 2.完成evm模块及相关智能合约开发（包括社区vetoken代币swap模块、自定义规则空投模块、用户活跃度模块等）
 - 3.完成前端基础ui界面的设计（包括空投项目进度展示模块，用户空投领取进度模块，社区代币质押模块）
-- 4.![后端](https://bafybeihdkzcccsmdvxitaxonp4ksqr7sbi2vpoozhoxtyu44q5hiquiznq.ipfs.w3s.link/%E5%90%8E%E7%AB%AF.png "后端合约模块")
+- 4.代码结构： ![后端](https://bafybeihdkzcccsmdvxitaxonp4ksqr7sbi2vpoozhoxtyu44q5hiquiznq.ipfs.w3s.link/%E5%90%8E%E7%AB%AF.png "后端合约模块")
 - 5.[https://dandelion-1lf.pages.dev/] 项目Demo
 - 6.[https://drive.google.com/file/d/1U-Zd05p05DcCgv4MlujFw-aUXQzB-uHZ/view?usp=sharing] 项目介绍文档
 

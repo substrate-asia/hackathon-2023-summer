@@ -178,7 +178,26 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [x] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
   - [x] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
   - [x] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.(see in spiral-front/README.md)
-  - [ ] 
+
+**DEMO **
+
+ - part1: Create a Promoter Group Page.
+   [Demo Video part1 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part1.mp4)
+  
+- part2: Crate a Promoter Group and participate in crowdfunding..
+  [Demo Video part2 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part2.mp4)
+  
+- create privacy contract(only show result)：
+  
+  - [online instance ](https://phat.phala.network/contracts/view/0x80ee4523e95eb2f8be5d3f43624ed0ca45cdffd1ddae450d108c0a5dad5619f4)
+  - [cryptospira contract  ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/cryptospiral.contract)
+  
+- part3: Initiate a promotional campaign/task.
+  [Demo Video part3 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part3.mp4)
+
+- online ruslut : the promter group that created.
+    - [online instance on common server ](http://52.186.16.105:8089/project.html?addr=&scid=11)
+    - [online instance on icp (my not work well now for https block) ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/project.html?addr=&scid=11)
 
 ## 队员信息
 
@@ -186,3 +205,5 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 | 姓名  | 角色         | GitHub 帐号 | 微信账号   |
 |-----| ----------- | -- |--------|
 | anthony | 区块链后端  |  web3pionner  | .. |
+| 张凯 | UI  |  -  | .. |
+| 李乙平 | UI  |  -  | .. |

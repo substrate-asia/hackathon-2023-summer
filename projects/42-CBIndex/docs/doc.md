@@ -21,6 +21,7 @@ https://app.cbindex.finance/ is CBIndex App (mainly built on the centralized ser
 
 ## Build & Test
 
+### Blockchain
 **Build a contract with `make`:**
 
 ```bash
@@ -45,6 +46,27 @@ Test transactions:
 3. Invest some token to any address with `Message -> Invest.`
 4. go to your mailbox to check your message.
 
+### DApp Frontend
+
+**Running locally in development mode**
+
+To get started, clone the repository and run `npm install && npm run dev`:
+
+    git clone xxx
+    npm install
+    npm run dev
+
+**Building and deploying in production**
+
+If you want to run this site in production, you should install modules, then build the site with `npm run build` and run it with `npm start`:
+
+    npm install
+    npm run build
+    npm start
+
+You should run `npm run build` again whenever you make site changes.
+
+** npm install 
 
 
 ## Intraction

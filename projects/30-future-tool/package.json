@@ -8,13 +8,18 @@
   "author": "icerdesign (liangshuang@sutu.tech)",
   "license": "MIT",
   "scripts": {
-    "build:board": "bash ./scripts/compile.sh src/circuits/BoardEligibility && cp src/circuits/BoardEligibility_obj/verifier.sol src/contracts/BoardEligibilityVerifier.sol",
-    "build:attack": "bash ./scripts/compile.sh src/circuits/RevealAttack && cp src/circuits/RevealAttack_obj/verifier.sol src/contracts/RevealAttackVerifier.sol",
+    "build:board": "bash ./scripts/compile.sh src/circuits/BoardEligibility && bash ./scripts/cpcircuit.sh src/circuits/BoardEligibility",
+    "build:attack": "bash ./scripts/compile.sh src/circuits/RevealAttack && bash ./scripts/cpcircuit.sh src/circuits/RevealAttack",
     "build:circuits": "npm run build:board && npm run build:attack",
+    "build:contracts": "typechain --target ethers-v6 --out-dir ui/src/contracts out/**/*.json",
     "setup:ptau": "wget -O pot_final.ptau https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_15.ptau",
+    "deploy:contracts": "bash ./scripts/deploy.sh",
     "build": "npm run build:circuits"
   },
   "devDependencies": {
-    "circomlib": "^2.0.3"
+    "@typechain/ethers-v6": "^0.4.0",
+    "bignumber.js": "^9.1.1",
+    "circomlib": "^2.0.3",
+    "typechain": "^8.2.0"
   }
 }

@@ -4,9 +4,8 @@ FULL_PATH=$1
 DIR_PATH=$(dirname $FULL_PATH)
 CIRCUIT_NAME=$(basename $FULL_PATH)
 CIRCUIT_NAME=${CIRCUIT_NAME:=test}
-FUNCTION=$2
 TAU_PATH=$(realpath pot_final.ptau)
-PROTOCOL=$3
+PROTOCOL=$2
 PROTOCOL=${PROTOCOL:=groth16} # plonk/groth16
 
 cd $DIR_PATH
@@ -22,14 +21,6 @@ circom ../$CIRCUIT_NAME.circom --r1cs --wasm --sym
 
 if [ ! -f $CIRCUIT_NAME.r1cs ]; then
     exit
-fi
-
-
-if [ "$FUNCTION" == "info" ]; then
-    set -x # for verbose printing
-    snarkjs r1cs info $CIRCUIT_NAME.r1cs
-    snarkjs r1cs print $CIRCUIT_NAME.r1cs $CIRCUIT_NAME.sym
-    set +x
 fi
 
 snarkjs r1cs export json $CIRCUIT_NAME.r1cs $CIRCUIT_NAME.r1cs.json
@@ -48,12 +39,5 @@ cd ..
     snarkjs $PROTOCOL prove ${CIRCUIT_NAME}_final.zkey witness.wtns proof.json public.json
     snarkjs zkey export solidityverifier ${CIRCUIT_NAME}_final.zkey verifier.sol
     snarkjs zkey export soliditycalldata public.json proof.json
+    sed -i -e "s/Verifier/"${CIRCUIT_NAME}Verifier"/g" verifier.sol
 )
-
-# cat public.json
-
-if [ "$FUNCTION" == "verify" ]; then
-    set -x
-    snarkjs $PROTOCOL verify verification_key.json public.json proof.json
-    set +x
-fi

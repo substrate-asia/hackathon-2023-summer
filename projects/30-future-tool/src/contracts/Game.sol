@@ -47,7 +47,7 @@ contract Game is IGame {
         uint256[2][2] memory b,
         uint256[2] memory c
     ) external {
-        require(BoardEligibilityVerifier.verifyProof(a, b, c, [_boardHash]), "Invalid ship configuration!");
+        require(boardEligibilityVerifier.verifyProof(a, b, c, [_boardHash]), "Invalid ship configuration!");
 
         games[gameIndex].participants[0] = msg.sender;
         games[gameIndex].boards[0] = _boardHash;
@@ -67,7 +67,7 @@ contract Game is IGame {
         Game storage game = games[_gameId];
 
         require(game.participants[1] == address(0), "Game already full!");
-        require(BoardEligibilityVerifier.verifyProof(a, b, c, [_boardHash]), "Invalid ship configuration!");
+        require(boardEligibilityVerifier.verifyProof(a, b, c, [_boardHash]), "Invalid ship configuration!");
 
         game.participants[1] = msg.sender;
         game.boards[1] = _boardHash;
@@ -108,7 +108,7 @@ contract Game is IGame {
         require(game.winner == address(0), "Game already over!");
         require(_turnShotIndex < 100, "Next shot coordinates invalid!");
         require(game.turn - 1 == game.shots[_prevTurnShotIndex + prevPlayerIndex * 100], "Incorrect shot for previous turn provided!");
-        require(RevealAttackVerifier.verifyProof(a, b, c, [_hitShipId, game.boards[currPlayerIndex], _prevTurnShotIndex]), "Invalid proof!");
+        require(revealAttackVerifier.verifyProof(a, b, c, [_hitShipId, game.boards[currPlayerIndex], _prevTurnShotIndex]), "Invalid proof!");
 
         if (_hitShipId != 0) {
             game.hits[prevPlayerIndex]++;

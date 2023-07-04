@@ -144,17 +144,24 @@
 
 <script setup lang="ts">
 import { computed, ref, Ref } from 'vue';
-import { Todo, Meta } from './models';
+// import { Todo, Meta } from './models';
+import { useMetaMaskWallet } from 'vue-connect-wallet';
+import { ethers, JsonRpcSigner } from 'ethers';
+import { BrowserProvider, parseUnits } from 'ethers';
+import { Game__factory } from 'src/contracts';
+import BigNumber from 'bignumber.js';
+// import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
+// import { JsonRpcSigner, Web3Provider } from 'ethers';
 
-interface Props {
-  title: string;
-  todos?: Todo[];
-  meta: Meta;
-  active: boolean;
-}
-const props = withDefaults(defineProps<Props>(), {
-  todos: () => [],
-});
+// interface Props {
+//   title: string;
+//   todos?: Todo[];
+//   meta: Meta;
+//   active: boolean;
+// }
+// const props = withDefaults(defineProps<Props>(), {
+//   todos: () => [],
+// });
 
 const ships = [
   {
@@ -231,10 +238,6 @@ function remove(id: string | undefined) {
   ship.z = -1;
 }
 
-function submit() {
-  //
-}
-
 const selFleetShip = computed(() => {
   return Object.entries(fleet.value)
     .filter((pair) => pair[1].x == selX.value && pair[1].y == selY.value)
@@ -264,6 +267,146 @@ const selZ = computed({
     fleet.value[sfs].z = newValue ? 1 : 0;
   },
 });
+
+const proofResult = ref('');
+
+async function submit() {
+  console.log('submit');
+  const { proof, publicSignals } = await window.snarkjs.groth16.fullProve(
+    {
+      ships: [
+        ['0', '0', '1'],
+        ['1', '0', '1'],
+        ['2', '0', '1'],
+        ['3', '0', '1'],
+        ['4', '0', '1'],
+      ],
+      trapdoor: '123121',
+    },
+
+    'circuits/BoardEligibility.wasm',
+    'circuits/BoardEligibility_final.zkey'
+  );
+
+  proofResult.value = JSON.stringify(proof, null, 1);
+  // console.log('proved', proof, publicSignals, proofResult);
+
+  // const vkey = await fetch('circuits/BoardEligibility_vkey.json').then(
+  //   function (res) {
+  //     return res.json();
+  //   }
+  // );
+
+  // const res = await window.snarkjs.groth16.verify(vkey, publicSignals, proof);
+  // console.log(res);
+  // const wallet = useMetaMaskWallet();
+  // console.log(wallet);
+
+  let signer: JsonRpcSigner | null = null;
+
+  let provider;
+  if (window.ethereum == null) {
+    // // If MetaMask is not installed, we use the default provider,
+    // // which is backed by a variety of third-party services (such
+    // // as INFURA). They do not have private keys installed so are
+    // // only have read-only access
+    // console.log('MetaMask not installed; using read-only defaults');
+    // // provider = ethers.getDefaultProvider();
+    // provider = (ethers as any).getDefaultProvider();
+    console.log('nothing');
+  } else {
+    // Connect to the MetaMask EIP-1193 object. This is a standard
+    // protocol that allows Ethers access to make all read-only
+    // requests through MetaMask.
+    provider = new ethers.BrowserProvider(window.ethereum, 1287);
+    // const RPC_HOST = 'https://moonbase-alpha.public.blastapi.io/';
+    // provider = new ethers.JsonRpcProvider(RPC_HOST);
+    // provider = new Web3Provider(window.ethereum);
+
+    // It also provides an opportunity to request access to write
+    // operations, which will be performed by the private key
+    // that MetaMask manages for the user.
+    signer = await provider.getSigner();
+    console.log('get signer', provider, signer);
+
+    const g = Game__factory.connect(
+      '0x0327BdBc3cE56723B5319D90E106685755f42A8f',
+      signer
+    );
+    // console.log('get game index');
+    const gi = await g.gameIndex();
+    console.log('index', gi);
+
+    console.log(
+      '0x' + new BigNumber(publicSignals[0]).toString(16),
+      ',',
+      JSON.stringify(
+        proof.pi_a
+          .slice(0, 2)
+          .map((_: any) => '0x' + new BigNumber(_).toString(16))
+      ).replaceAll('"', ''),
+      ',',
+      JSON.stringify(
+        proof.pi_b
+          .slice(0, 2)
+          .map((bb: any) =>
+            bb.map((_: any) => '0x' + new BigNumber(_).toString(16))
+          )
+      ).replaceAll('"', ''),
+      ',',
+      JSON.stringify(
+        proof.pi_c
+          .slice(0, 2)
+          .map((_: any) => '0x' + new BigNumber(_).toString(16))
+      ).replaceAll('"', '')
+    );
+    console.log(
+      publicSignals[0],
+      ',',
+      JSON.stringify(proof.pi_a.slice(0, 2)),
+      ',',
+      JSON.stringify(proof.pi_b.slice(0, 2)),
+      ',',
+      JSON.stringify(proof.pi_c.slice(0, 2))
+    );
+    console.log('get game');
+    const t = await g.startGame(
+      publicSignals[0],
+      proof.pi_a.slice(0, 2),
+      proof.pi_b.slice(0, 2),
+      proof.pi_c.slice(0, 2)
+    );
+    console.log('start game');
+    await t.wait();
+    console.log('waiting');
+  }
+
+  //   // The contract ABI (fragments we care about)
+  // const abi = [
+  //   "function decimals() view returns (uint8)",
+  //   "function symbol() view returns (string)",
+  //   "function balanceOf(address a) view returns (uint)"
+  // ]
+
+  // // Create a contract; connected to a Provider, so it may
+  // // only access read-only methods (like view and pure)
+  // contract = new Contract("dai.tokens.ethers.eth", abi, provider)
+
+  // // The symbol name for the token
+  // sym = await contract.symbol()
+  // // 'DAI'
+
+  // // The number of decimals the token uses
+  // decimals = await contract.decimals()
+  // // 18n
+
+  // // Read the token balance for an account
+  // balance = await contract.balanceOf("ethers.eth")
+  // // 201469770000000000000000n
+
+  // // Format the balance for humans, such as in a UI
+  // formatUnits(balance, decimals)
+}
 </script>
 
 <style lang="scss" scoped>

@@ -35,3 +35,7 @@ yarn-error.log*
 
 # local .env files
 .env.local*
+
+
+public/snarkjs.min.js
+public/circuits

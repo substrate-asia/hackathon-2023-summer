@@ -5,3 +5,4 @@ node_modules/
 *_obj/
 .env-secret
 !.env
+src/contracts/artifacts/

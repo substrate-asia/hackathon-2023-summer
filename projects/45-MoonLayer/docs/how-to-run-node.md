@@ -6,11 +6,7 @@
 
 ### Installation
 
-Clone this repository to your computer, either through the Github site or using the command line:
-
-```
-git clone https://github.com/moonlayer/moonlayer.git
-```
+Clone this repository to your computer.
 
 In the downloaded folder, install all the needed NPM packages:
 

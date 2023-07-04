@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
-
 import { Logo } from "../../assets";
 import { NavLinks } from "../../constants";
 import { NavLink, useLocation } from "react-router-dom";
 import LaunchButton from "components/Button";
 import Wallet from "pages/airDropList/Wallet";
+import { forwardRef } from "react";
 
-const NavBar = () => {
+const NavBar = forwardRef<HTMLDivElement>((props, ref) => {
   const location = useLocation();
-  const [active, setActive] = useState(location.pathname);
-  useEffect(() => {
-    setActive(location.pathname);
-  }, [location.pathname]);
   return (
-    <nav
-      className={`w-full flex py-6 sm:px-20 px-6 justify-between items-center bg-blue-950 `}
+    <div
+      className={`w-full  flex py-6 sm:px-20 px-6 justify-between items-center bg-blue-950 z-50 bg-transparent`}
+      ref={ref}
     >
       <div className="flex items-center">
         <img src={Logo} alt="dandelion" className="w-[60px] h-[60px]" />
@@ -25,11 +21,15 @@ const NavBar = () => {
           <li
             key={nav.id}
             className={`font-poppins  cursor-pointer text-[20px]   text-white  hover:text-space-cyan-light ${
-              active === nav.path ? "font-extrabold" : ""
-            } ${index === NavLinks.length - 1 ? "mr-0" : "mr-10"}`}
-            onClick={() => setActive(nav.path)}
+              index === NavLinks.length - 1 ? "mr-0" : "mr-10"
+            }`}
           >
-            <NavLink to={`${nav.path}`}>{nav.title}</NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "font-extrabold" : "")}
+              to={`${nav.path}`}
+            >
+              {nav.title}
+            </NavLink>
           </li>
         ))}
       </ul>
@@ -40,8 +40,8 @@ const NavBar = () => {
           <Wallet />
         )}
       </div>
-    </nav>
+    </div>
   );
-};
+});
 
 export default NavBar;

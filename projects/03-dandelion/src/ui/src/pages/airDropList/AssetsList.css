@@ -58,3 +58,13 @@ img:hover + .tooltip-text {
 .scrollbar-hide::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
+/* TODO: 自定义样式 */
+.custom-tip > .ant-message-notice-content {
+  background: #112769 !important;
+  margin-top: 10vh;
+}
+/* TOOD: 最好使用style-component */
+.tree-card-bg {
+  background: #f7f7f808;
+  box-shadow: 0 0 24px 5px #00000026;
+}

@@ -9,7 +9,7 @@ These resources are posted as links
 
 ## Demo Video
 
-- [x] [Demo Video](https://www.youtube.com/@OriginofCivilization/featured)
+- [x] [Demo Video](https://youtu.be/7RrrCQJ6FxE)
 
 ## PPT
 - [x] [PPT-Origin-of-Civilization](https://docs.google.com/presentation/d/11D6USSH5paKggtuiIDVeaeqiYxI5C8yV/edit?usp=sharing&ouid=114997050562255425399&rtpof=true&sd=true)

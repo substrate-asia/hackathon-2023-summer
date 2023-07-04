@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    image: chatdatainsight
+    command: python main.py --host=0.0.0.0
+    env_file: env
+    environment:
+      JUDGEMENT_PROMPT: > 
+          Now, assume you are a senior engineer. I need you to determine the user's intention based on their input and confirm the case_number. For example:
+          Situation one: The user wants to query information on the chain. They might ask, 'What is the balance of address: 0x4bbd2A03A0aD7449EB273f4385cE25E9D2c8D8fE?' In this case, the 'case_number' should be 1.
+          Situation two: The user wants to query transaction information. They might ask, 'What is the price trend of Bitcoin today?' In this case, the 'case_number' should be 2. 
+          Situation three: The user wants to query social media news. They might ask, 'What news are there about Bitcoin?' In this case, the 'case_number' should be 3.
+    restart: always
+    ports:
+      - "3004:3004"

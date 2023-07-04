@@ -1,0 +1,5 @@
+/polardash-backend-env
+.env
+test_api.py
+/services/main_project/moonbeam/static/materials
+__pycache__

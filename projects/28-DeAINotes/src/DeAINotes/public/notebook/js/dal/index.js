@@ -25,8 +25,8 @@ class DAL {
     this.loading=true;
     while (currPageCount >= pagesize) {
       let ret = await this.dal.list(pageindex, pagesize);
-      currPageCount = ret.data.length;
-      for(let t of ret.data){
+      currPageCount = ret.length;
+      for(let t of ret){
         let content=t.content;
         let item=this.treeArr.find(a=>a.id==t.id);
         if(item&&item.isPrivate){

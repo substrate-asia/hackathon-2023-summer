@@ -62,25 +62,29 @@
 
 ### **`Project Demo`**
 
-- `Website: TBD`
+- `Website: [Dynamo](https://18.142.121.254/)`
 - `Project Logo:`
-
-![logo (4).png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/14ae662a-6925-4669-abaa-6fc793a107ec/logo_(4).png)
+- 
+    ![logo.png](./logo.png)
 
 ### **`Planned Accomplishments During the Hackathon`**
 
-- [ ]  Website to manage AI bots and customized knowledge datastore.
-- [ ]  Slack bot, which can be integrated into the Slack channel.
-- [ ]  Bubble widget,  embedding into ordinary websites with just one simple script.
+- [ ]  Customized knowledge datastore with UI.
+
+- [ ]  Website to view and manage AI bots. 
+
+- [ ]  Substrate Pallet for AI Channel and XCM registration and sending.
+
+- [ ]  Off-chain worker receiving AI message (unfinished).
 
 ### **`Team Information`**
 
-**`Github:** https://github.com/DynamoTTM`
+**`Github:`** https://github.com/DynamoTTM
 
 **`Members:`**
 
 - `Jennie - Product Lead`
-- `Minqi - Technical Lead`
-- `Yunjian - AI Developer`
+- `Michael - Technical Lead`
+- `Jack - AI Developer`
 - `Cedric - Marketing & Operation`
 - `Jamie - Marketing & Operation`

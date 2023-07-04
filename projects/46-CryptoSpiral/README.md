@@ -184,7 +184,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
  - part1: Create a Promoter Group Page.
    [Demo Video part1 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part1.mp4)
   
-- part1: Crate a Promoter Group and participate in crowdfunding..
+- part2: Crate a Promoter Group and participate in crowdfunding..
   [Demo Video part2 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part2.mp4)
   
 - create privacy contract(only show result)：
@@ -192,8 +192,12 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   - [online instance ](https://phat.phala.network/contracts/view/0x80ee4523e95eb2f8be5d3f43624ed0ca45cdffd1ddae450d108c0a5dad5619f4)
   - [cryptospira contract  ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/cryptospiral.contract)
   
-- part1: Initiate a promotional campaign/task.
+- part3: Initiate a promotional campaign/task.
   [Demo Video part3 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part3.mp4)
+
+- online ruslut : the promter group that created.
+    - [online instance on common server ](http://52.186.16.105:8089/project.html?addr=&scid=11)
+    - [online instance on icp-not work well now for https block ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/project.html?addr=&scid=11)
 
 ## 队员信息
 

@@ -197,7 +197,7 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 
 - online ruslut : the promter group that created.
     - [online instance on common server ](http://52.186.16.105:8089/project.html?addr=&scid=11)
-    - [online instance on icp-not work well now for https block ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/project.html?addr=&scid=11)
+    - [online instance on icp (my not work well now for https block) ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/project.html?addr=&scid=11)
 
 ## 队员信息
 
@@ -205,3 +205,4 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 | 姓名  | 角色         | GitHub 帐号 | 微信账号   |
 |-----| ----------- | -- |--------|
 | anthony | 区块链后端  |  web3pionner  | .. |
+| 张凯 | UI  |  -  | .. |

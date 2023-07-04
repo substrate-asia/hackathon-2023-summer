@@ -24,7 +24,7 @@ export default function AirDropDetail() {
 
   return (
     <>
-      <div className=" flex flex-row  items-center px-10 pt-5 text-grey ">
+      <div className=" flex flex-row  items-center px-10 pt-5 text-grey">
         <span className="ml-2 text-grey cursor-pointer" onClick={clickBack}>
           {"< 返回空投列表页"}
         </span>
@@ -82,11 +82,11 @@ function AirDropProgress({
   const percentage = percent(startblock, endblock, data).toFixed(0);
   return (
     <div className="flex flex-col items-center mt-5">
-      <span className="text-[24px text-white]">空头进度：{percentage}%</span>
+      <span className="text-[24px text-white]">空投进度：{percentage}%</span>
       <Progress
         percent={percent(startblock, endblock, data)}
         trailColor="#fff"
-        className="text-center w-[120px]"
+        className="text-center w-[120px] m-0"
         showInfo={false}
       />
     </div>
@@ -94,10 +94,14 @@ function AirDropProgress({
 }
 
 function percent(start: number, end: number, current?: number): number {
-  if (!current || current < start) {
+  if (!current) {
     return 0;
   }
-  return (current - start) / (end - start);
+  if (current > end) return 100;
+  if (current < start) {
+    return 0;
+  }
+  return ((current - start) / (end - start)) * 100;
 }
 
 function StakeOrApproveButton({ stakeToken }: { stakeToken: Address }) {

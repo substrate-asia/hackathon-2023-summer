@@ -54,7 +54,7 @@ DTIM正在集成波卡生态DAPP，寻找DAPP在办公领域应用方案。
  - 区块链项目地址： [https://github.com/DAOent/chain/tree/hackathon-2023-summer](https://github.com/DAOent/chain/tree/hackathon-2023-summer)
  - flutter-rust兼容层：[https://github.com/DAOent/rust-sdk](https://github.com/DAOent/rust-sdk)
  - flutter-js兼容层：[https://github.com/DAOent/js-sdk/tree/hackathon-2023-summer](https://github.com/DAOent/js-sdk/tree/hackathon-2023-summer)
- - 区块链浏览器: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer)
+ - 区块链浏览器：[https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer)
 
 
 ### 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。

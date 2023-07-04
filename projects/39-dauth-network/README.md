@@ -75,6 +75,9 @@ https://drive.google.com/file/d/1syAYeVKHZoyiQ4g4zOrmjAJUKaftFIwg/view?usp=drive
 **Demo Vedio**
 https://www.loom.com/share/f6bcd0e552dc47b38f60a1e1783eec76?sid=80a8760e-c0d9-482c-8f09-dc5ad94ed13d
 
+**Documents**
+[SDK Document](https://github.com/DAuth-Network/dauth/tree/main/packages/core)
+
 ## Team Members
 
 1. Dean

@@ -1,7 +1,7 @@
 <img src="./docs/logo_01.png" />
 
 <p align="center">
-<a href="zh_readme.md">Zh_Readme </a>  ·  <a href="docs/Demo.md">Demo </a>  · <a href="https://www.youtube.com/watch?v=2hYBYKUGsW4">Video </a>  ·  <a href="docs/MatrixAI%20-%20demo.pptx">Slides </a>  ·  <a href="docs/litepaper_v0.1.pdf">Litepaper </a>
+<a href="zh_readme.md">Zh_Readme </a>  ·  <a href="docs/Demo.md">Demo </a>  · <a href="https://www.youtube.com/watch?v=KW5pfcClfuM">Video </a>  ·  <a href="docs/MatrixAI%20-%20demo.pptx">Slides </a>  ·  <a href="docs/litepaper_v0.1.pdf">Litepaper </a>
 </p>
 
 # Table of Contents
@@ -26,7 +26,11 @@
 
 ### Background
 
-In the past five years, many significant advancements in deep learning have been achieved through the increasing computational power for training advanced models . Such large-scale training is accomplished by utilizing dedicated accelerators with high internal chip communication bandwidth, such as Google TPUs, NVIDIA A100 and H100 GPUs, or AMD MI250 GPUs, using hundreds or thousands of them simultaneously for weeks or months to compute thousands or millions of gradient updates. Consequently, the immense resource requirements for building these foundational models present significant barriers to access, and without a means of sharing resources while capturing value, it can lead to stagnation in AI progress. The current solutions for providing computational resources are either monopolistic and expensive or unfeasible due to the complex computations required for large-scale AI. Meeting the growing demands necessitates a cost-effective way of leveraging all available computing resources. The current challenge lies in the limitations of microprocessor performance advancements, coupled with chip shortages due to supply chain and geopolitical factors. On the other hand, the average utilization of global cloud computing data centers remains relatively low, indicating a significant amount of idle computing resources. Additionally, as the computational capabilities of consumer-grade devices continue to rise, idle computing resources from personal and enterprise devices like personal computers, servers, and mobile devices can also be potential sources. Furthermore, decentralized data transmission and storage infrastructure, such as IPFS, Filecoin, and Storj, are continuously improving.
+In the past five years, many significant advancements in deep learning have been achieved through the increasing computational power for training advanced models . Such large-scale training is accomplished by utilizing dedicated accelerators with high internal chip communication bandwidth, such as Google TPUs, NVIDIA A100 and H100 GPUs, or AMD MI250 GPUs, using hundreds or thousands of them simultaneously for weeks or months to compute thousands or millions of gradient updates. Consequently, the immense resource requirements for building these foundational models present significant barriers to access, and without a means of sharing resources while capturing value, it can lead to stagnation in AI progress.
+
+The current solutions for providing computational resources are either monopolistic and expensive or unfeasible due to the complex computations required for large-scale AI. Meeting the growing demands necessitates a cost-effective way of leveraging all available computing resources. The current challenge lies in the limitations of microprocessor performance advancements, coupled with chip shortages due to supply chain and geopolitical factors. 
+
+On the other hand, the average utilization of global cloud computing data centers remains relatively low, indicating a significant amount of idle computing resources. Additionally, as the computational capabilities of consumer-grade devices continue to rise, idle computing resources from personal and enterprise devices like personal computers, servers, and mobile devices can also be potential sources. Furthermore, decentralized data transmission and storage infrastructure, such as IPFS, Filecoin, and Storj, are continuously improving.
 
 ### Motivation
 

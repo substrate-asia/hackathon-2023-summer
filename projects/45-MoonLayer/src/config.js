@@ -17,7 +17,7 @@ export default {
     ROLLUP_ADDRESS: "0x029B93211e7793759534452BDB1A74b58De22C9c",
     
     // Sync config
-    START_SYNC: 4662179,
+    START_SYNC: 4662845,
 
     // RPC server config
     RPC_PORT: 3000,

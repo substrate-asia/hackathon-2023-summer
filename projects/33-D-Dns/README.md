@@ -33,8 +33,8 @@ Technically, D-DNS combines blockchain technology with a distributed network of 
 ### Technology Architecture
 ![D-DNS](./resource/ddns_process.jpg)
 ### Details
-- [Pitch Deck](https://drive.google.com)
-- [Demo Video](https://drive.google.com)
+- [Pitch Deck](https://gamma.app/docs/ynpgezzrhvxhavp?token=&following_id=63f5rxvtqbap3c2&follow_on_start=true)
+- [Demo Video](https://drive.google.com/file/d/1JDzpXk62PA8G3tzeKbwdsu6t6bhy_q7N/view)
 
 My apologies for the misunderstanding. Let's revise and continue the plan:
 

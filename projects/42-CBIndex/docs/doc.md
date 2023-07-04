@@ -66,8 +66,6 @@ If you want to run this site in production, you should install modules, then bui
 
 You should run `npm run build` again whenever you make site changes.
 
-** npm install 
-
 
 ## Intraction
 

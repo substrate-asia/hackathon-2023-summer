@@ -1,7 +1,7 @@
 <img src="./docs/logo_01.png" />
 
 <p align="center">
-<a href="zh_readme.md">Zh_Readme </a>  ·  <a href="docs/Demo.md">Demo </a>  · <a href="https://www.youtube.com/watch?v=2hYBYKUGsW4">Video </a>  ·  <a href="docs/MatrixAI%20-%20demo.pptx">Slides </a>  ·  <a href="docs/litepaper_v0.1.pdf">Litepaper </a>
+<a href="zh_readme.md">Zh_Readme </a>  ·  <a href="docs/Demo.md">Demo </a>  · <a href="https://www.youtube.com/watch?v=KW5pfcClfuM">Video </a>  ·  <a href="docs/MatrixAI%20-%20demo.pptx">Slides </a>  ·  <a href="docs/litepaper_v0.1.pdf">Litepaper </a>
 </p>
 
 # Table of Contents

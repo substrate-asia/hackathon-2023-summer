@@ -1,0 +1,206 @@
+// .authincation{
+//     height: 100%;
+
+// }
+
+.authincation-content{
+    background: $white;
+    box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+    border-radius: 5px;
+    @at-root [data-theme-version="dark"] & {
+        background: $dark-card;
+        box-shadow: none;
+    }
+
+}
+
+.welcome-content{
+    background: url('./../images/1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    padding: 75px 50px;
+    position: relative;
+    z-index: 1;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    &::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: $primary;
+        opacity: 0.75;
+        z-index: -1;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    .welcome-title{
+        font-weight: 500;
+        font-size: 20px;
+    }
+    p{
+        color: $white;
+    }
+
+    .brand-logo{
+        a{
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: $white;
+            font-size: 20px;
+        img{
+            width: 100px;
+        }
+        }
+    }
+
+    .intro-social{
+        position: absolute;
+        bottom: 75px;
+        ul{
+            margin-bottom: 0;
+            li{
+                display: inline-block;
+                a{
+                    color: $white;
+                    font-size: 14px;
+                    padding: 0px 7px;
+                }
+            }
+        }
+    }
+}
+
+.auth-form{
+    padding: 50px 50px;
+	@include respond('phone') {
+		padding: 30px;
+	}
+    .btn{
+        height: 50px;
+        font-weight: 700;
+    }
+    .page-back{
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    
+}
+
+
+
+
+/*  Login 2 */
+.login-style2{
+	position: relative;
+	min-height: 100vh;
+	padding-bottom: 100px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.login-style2 .section-full{
+	width: 100%;
+}
+.login-style2 .logo{
+	margin-bottom: 30px;
+	width: 180px;
+	
+}
+.login-2 p,
+.login-2 .site-button-link{
+	font-family: roboto;
+}
+.login-2 .site-button-link i{
+	margin: 0;
+}
+.login-2 {
+    background-color: #fff;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
+    width: 400px;
+    float: right;
+    margin: 0;
+    border-radius: 3px;
+	@include respond ('tab-port'){
+		width:100%;
+	}
+}
+.login-2 label{
+    color: #333;
+	font-weight:600;
+}
+.login-style2 .max-w400 {
+    max-width: 400px;
+	@include respond ('tab-port'){
+		max-width:100%;
+	}
+	@include respond ('phone-land'){
+		
+		padding: 30px 0;
+	}
+}
+
+.login-footer .container{
+	border-top: 1px solid rgba(255,255,255,0.3);
+	padding: 20px 0;
+}
+.login-footer{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+.login-bx{
+	padding-bottom: 0;
+}
+.login-form-bx .box-skew,
+.login-form-bx .box-skew1{
+	height:100vh;
+	min-height:100vh;
+	position:relative;
+}
+.login-form-bx .box-skew1:after{
+	content: "";
+	background-image: url(../images/bg6.jpg);
+	height: 100%;
+	position: absolute;
+	width: 120%;
+	left: -30px;
+	top: 0;
+	background-size: cover;
+	z-index: -1;
+	transform: skew(-5deg);
+}
+.login-form-bx .box-skew1{
+	z-index:1;
+	background-color:#fff;
+}
+.login-form-bx .box-skew .login-2 {
+    box-shadow: none;
+    position: absolute;
+    z-index: 1;
+    right: 20px;
+}
+.login-form-bx .box-skew .login-2:after{
+	box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
+	background-color:#fff;
+	content:"";
+	height:100%;
+	width:200%;
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:-1;
+}
+.login-form-bx .login-footer .container{
+    z-index: 99;
+	position: relative;
+	border: 0;
+}
+.login-form-bx{
+	padding-bottom: 0;
+}

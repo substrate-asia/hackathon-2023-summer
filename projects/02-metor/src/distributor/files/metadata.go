@@ -1,12 +1,10 @@
 package files
 
-type Block struct {
-	Hash  string
-	Miner string
-}
 type Metadata struct {
-	Blocks                   []Block
-	Ext                      string
-	Size                     int64
+	Miners []string
+	Hashes []string
+	Ext    string
+	Size   int64
+	//BlockSize                int64
 	DataShards, ParityShards int
 }

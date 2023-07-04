@@ -1,20 +1,18 @@
-{
-    "vdx": {
-        "chainName": "VDX",
-        "rpc": "http://vdxchain-dev-rpc.xlipfs.com:8083",
-        "ws": "ws://192.168.7.195:9944",
-        "explorer": "http://vdxchain-dev-blockscout.xlipfs.com:8083/",
-        "chainId": 1281,
-        "iconUrl": "https://www.subdev.studio/icon/eth.svg",
-        "chainColor": "#627EEA",
-        "shortName": "vdx",
-        "nativeCurrencyName": "VDX",
-        "nativeCurrencySymbol": "VDX",
+[
+    {
+        "chainName": "Moonbase-alphanet",
+        "rpc": "https://moonbeam-alpha.api.onfinality.io/public",
+        "ws": "",
+        "explorer": "https://moonbase.moonscan.io",
+        "chainId": 1287,
+        "iconUrl": "https://www.subdev.studio/icon/White_Icon.svg",
+        "chainColor": "#2bbdf7",
+        "shortName": "dev",
+        "nativeCurrencyName": "Dev",
+        "nativeCurrencySymbol": "DEV",
         "nativeCurrencyDecimals": 18,
-        "isTest": true
-    },
-    
-    "mumbai": {
+        "isTest": false
+    },{
         "chainName": "Mumbai",
         "rpc": "https://rpc-mumbai.maticvigil.com/v1/b8ad974a05bb017a5da09dc548e6a75a837648db",
         "ws": "wss://ws-mumbai.maticvigil.com",
@@ -28,4 +26,4 @@
         "nativeCurrencyDecimals": 18,
         "isTest": true
     }
-}
+]

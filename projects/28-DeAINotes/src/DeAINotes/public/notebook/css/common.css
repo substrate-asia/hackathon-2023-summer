@@ -1,0 +1,130 @@
+body{
+    margin:10px;
+    background-color: #fff;
+}
+iframe{
+    webkitOverflowScrolling:touch;
+}
+.float-right{
+    float:right;
+}
+.no-record{
+    color:#999;
+    text-align: center;
+}
+input,select{vertical-align:middle;}
+body .layui-table td,body .layui-table th {
+    padding: 9px 6px !important;
+}
+body .layui-table th .sort-on{
+    border-top-color: #000!important;
+    border-bottom-color: #000!important;
+}
+.div-table{
+    display: block;
+    clear: both;
+    overflow: hidden;
+}
+.div-table div{
+    width:100%;
+    display: block;
+    overflow: hidden;
+    clear: both;
+    height:35px;
+    line-height:35px;
+    border-bottom:1px solid #ddd;
+}
+.div-table .l{
+    width:200px;
+    float: left;
+    display: block;
+    float: left;
+    text-align: right;
+}
+.div-table .r{
+    width:300px;
+    float: left;
+    display: block;
+    float: left;
+    margin-left:10px;
+    color:green;
+}
+.comment-score-box{
+    padding:20px;
+    display: block;
+    overflow: hidden;
+    background-color: #fff;
+}
+.comment-score{
+    clear: both;
+    width:300px;
+    height:36px;
+    line-height:36px;
+}
+.comment-score .score-txt{
+    width:70px;
+    height:36px;
+    line-height:36px;
+    display: block;
+    overflow: hidden;
+    float: left;
+    text-align: right;
+}
+.score-xing{
+    width:189px;
+    position: relative;
+    background-color: #c1c1c1;
+}
+.score-xing,.score-xing span{
+    height:36px;
+    line-height:36px;
+    display: block;
+    overflow: hidden;
+    float: left;
+}
+.score-xing span:first-child{
+    background-color: orangered;
+}
+.score-xing-1{width:29px;}
+.score-xing-2{width:41px;}
+.score-xing-3{width:62px;}
+.score-xing-4{width:74px;}
+.score-xing-5{width:95px;}
+.score-xing-6{width:107px;}
+.score-xing-7{width:128px;}
+.score-xing-8{width:140px;}
+.score-xing-9{width:161px;}
+.score-xing-10{width:173px;}
+.score-xing span:last-child{
+    width:189px;
+    background-image: url(../images/xingxing.png);
+    position: absolute;
+    left:0px;
+    top:0px;
+    z-index: 99;
+}
+#toploading{
+    width:100%;
+    display: block;
+    overflow: hidden;
+    position: fixed;
+    z-index: 9999;
+    background-color: #fff;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+#toploading span{
+    width:60px;
+    height:50px;
+    line-height:24px;
+    display: block;
+    overflow: hidden;
+    margin:100px auto;
+    text-align: center;
+}
+#toploading span label{
+    font-size:12px;
+    color:green;
+}

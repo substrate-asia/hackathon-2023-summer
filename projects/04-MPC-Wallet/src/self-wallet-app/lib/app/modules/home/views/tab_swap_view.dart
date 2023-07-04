@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
-import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/modules/home/controllers/swap_controller.dart';
 import 'package:sunrise/app/modules/home/widgets/swap_token.dart';
 import 'package:sunrise/app/widgets/image_widget.dart';
 import 'package:sunrise/core/utils/common.dart';
-import 'package:web3dart/web3dart.dart';
-
-import '../widgets/token_select.dart';
 
 class TabSwapView extends StatelessWidget {
   TabSwapView({Key? key}) : super(key: key);
@@ -72,7 +67,7 @@ class TabSwapView extends StatelessWidget {
                                       children: [
                                         controller.enterAccount != null
                                             ? _swapButton(
-                                                controller.enterAccount!, false,
+                                                controller.enterAccount!, true,
                                                 onTap: (account, isEnter) {
                                                 controller.selectToken(
                                                     account, isEnter);
@@ -81,10 +76,12 @@ class TabSwapView extends StatelessWidget {
                                                 status: 1)
                                             : const SizedBox(),
                                         const Expanded(child: SizedBox()),
-                                        // TextField 输出金额
+                                        // TextField 输入金额
                                         SizedBox(
                                           width: 162.5.w,
                                           child: TextField(
+                                              readOnly: !controller.isSwapPage,
+                                              autofocus: false,
                                               controller:
                                                   controller.enterController,
                                               keyboardType: const TextInputType
@@ -162,7 +159,8 @@ class TabSwapView extends StatelessWidget {
                                       children: [
                                         controller.outputAccount != null
                                             ? _swapButton(
-                                                controller.outputAccount!, true,
+                                                controller.outputAccount!,
+                                                false,
                                                 onTap: (account, isEnter) {
                                                 controller.selectToken(
                                                     account, isEnter);
@@ -171,10 +169,12 @@ class TabSwapView extends StatelessWidget {
                                                 status: 1)
                                             : const SizedBox(),
                                         const Expanded(child: SizedBox()),
-                                        // TextField 输入金额
+                                        // TextField 输出金额
                                         SizedBox(
                                           width: 162.5.w,
                                           child: TextField(
+                                              readOnly: !controller.isSwapPage,
+                                              autofocus: false,
                                               controller:
                                                   controller.outputController,
                                               keyboardType: const TextInputType
@@ -290,7 +290,7 @@ class TabSwapView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "设置滑点",
+                                    "当前滑点",
                                     style: TextStyle(
                                         fontSize: 12.sp, color: Colors.white70),
                                   ),
@@ -323,14 +323,14 @@ class TabSwapView extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "1%",
+                                          "${controller.slippage * 100}%",
                                           style: TextStyle(
                                               fontSize: 12.sp,
                                               color: Colors.white),
                                         ),
-                                        SizedBox(width: 4.w),
-                                        Icon(Icons.arrow_forward_ios_rounded,
-                                            color: Colors.white, size: 12.sp)
+                                        // SizedBox(width: 4.w),
+                                        // Icon(Icons.arrow_forward_ios_rounded,
+                                        //     color: Colors.white, size: 12.sp)
                                       ],
                                     ),
                                   )
@@ -369,7 +369,7 @@ class TabSwapView extends StatelessWidget {
                                   ),
                                   const Expanded(child: SizedBox()),
                                   Text(
-                                    "3%",
+                                    "${controller.swapFee * 100}%",
                                     style: TextStyle(
                                         fontSize: 12.sp, color: Colors.white),
                                   )

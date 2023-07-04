@@ -1,0 +1,239 @@
+.App {
+  text-align: center;
+}
+
+.btn-bg {
+  background-color: rgb(164, 203, 41);
+}
+
+.btn-bg:hover {
+  background-color: rgb(126, 158, 18);
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-box {
+  padding: 30px;
+
+  .big-title {
+    font-family: 'Montserrat Bold', 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 72px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .con-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 100px;
+  }
+
+  .login-line {
+    width: 90%;
+    padding: 10px 20px;
+    display: flex;
+    overflow: hidden;
+    margin: 20px auto;
+    background-color: #000000;
+    color: rgba(148, 214, 226, 1);
+    font-size: 16px;
+    line-height: 37px;
+    cursor: pointer;
+    border: 1px solid rgba(148, 214, 226, 1);
+    border-radius: 4px;
+  }
+
+  .login-line img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .login-line span {
+    width: 50%;
+    text-align: center;
+  }
+
+  .login-line label {
+    width: 30%;
+    text-align: center;
+    background: #92d5e1;
+    float: right;
+    color: #000;
+  }
+}
+
+.mymodal {
+  width: 80%;
+  display: block;
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  padding: 80px;
+  position: fixed;
+  top: 80px;
+  left: 10%;
+  z-index: 9999;
+  background-color: #000;
+  color: #fff;
+
+  .btn-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .mymodal-title {
+    font-family: 'Montserrat Bold', 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 72px;
+    color: #FFFFFF;
+    text-align: center;
+  }
+
+  .mymodal-body {
+    display: block;
+
+    .detail-table {
+      width: 80%;
+    }
+  }
+
+  .btn-row {
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .btn {
+      height: 50px;
+      line-height: 50px;
+      padding: 0 42px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .btn-primay {
+      background-color: #61dafb;
+      color: #000;
+    }
+  }
+}
+
+.detail-table {
+  border: 1px solid #fff;
+  border-bottom: none;
+  margin: 45px auto;
+
+  .detail-row {
+    display: flex;
+    border-bottom: 1px solid #fff;
+    flex-direction: row;
+    padding: 0 10px;
+    height: 52px;
+    line-height: 52px;
+    font-size: 14px;
+
+    .detail-row-left {
+      width: 34%;
+      text-align: right;
+      margin-right: 6%;
+      font-weight: bold;
+    }
+
+    .detail-row-right {
+      width: 60%;
+    }
+  }
+}
+
+.myform {
+  width: 50%;
+
+  .form-row {
+    margin: 10px 0;
+
+    .row-txt {
+      font-family: 'Montserrat Bold', 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: 14px;
+      color: #FFFFFF;
+      line-height: 44px;
+    }
+
+    .drow {
+      display: block;
+
+      .num {
+        padding: 0 10px;
+        font-size: 30px;
+      }
+    }
+
+    .my-input {
+      height: 50px;
+      line-height: 50px;
+      width: 90%;
+      border: 1px solid #fff;
+    }
+
+    .my-select {
+      height: 50px;
+      line-height: 50px;
+      border: 1px solid #fff;
+      background-color: #000;
+      border-radius: 6px;
+    }
+
+    .right-link {
+      float: right;
+      margin-right: 10%;
+      color: #fff;
+    }
+  }
+}

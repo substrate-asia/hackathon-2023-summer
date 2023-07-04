@@ -1,9 +1,65 @@
 defmodule EvmscanApi do
   @moduledoc """
-  EvmscanApi keeps the contexts that define your domain
-  and business logic.
+  The entrypoint for defining your web interface, such
+  as controllers, components, channels, and so on.
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
+  This can be used in your application as:
+
+      use EvmscanApi, :controller
+      use EvmscanApi, :html
+
+  The definitions below will be executed for every controller,
+  component, etc, so keep them short and clean, focused
+  on imports, uses and aliases.
+
+  Do NOT define functions inside the quoted expressions
+  below. Instead, define additional modules and import
+  those modules here.
   """
+
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
+  def router do
+    quote do
+      use Phoenix.Router, helpers: false
+
+      # Import common connection and controller functions to use in pipelines
+      import Plug.Conn
+      import Phoenix.Controller
+    end
+  end
+
+  def channel do
+    quote do
+      use Phoenix.Channel
+    end
+  end
+
+  def controller do
+    quote do
+      use Phoenix.Controller,
+        formats: [:html, :json],
+        layouts: [html: EvmscanApi.Layouts]
+
+      import Plug.Conn
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: EvmscanApi.Endpoint,
+        router: EvmscanApi.Router,
+        statics: EvmscanApi.static_paths()
+    end
+  end
+
+  @doc """
+  When used, dispatch to the appropriate controller/view/etc.
+  """
+  defmacro __using__(which) when is_atom(which) do
+    apply(__MODULE__, which, [])
+  end
 end

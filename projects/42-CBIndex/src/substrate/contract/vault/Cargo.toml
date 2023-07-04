@@ -1,0 +1,29 @@
+[package]
+name = "vault"
+version.workspace = true
+edition.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+gmeta.workspace = true
+gstd.workspace = true
+scale-info.workspace = true
+parity-scale-codec.workspace = true
+vault-io.workspace = true
+storage-io.workspace = true
+entry-io.workspace = true
+primitive-types.workspace = true
+light_sr25519.workspace = true
+hashbrown.workspace = true
+hex = { version = "0.4", default-features = false, features = ["alloc"] }
+
+[dev-dependencies]
+gtest.workspace = true
+tokio.workspace = true
+
+[build-dependencies]
+gmeta.workspace = true
+gear-wasm-builder.workspace = true
+vault-io.workspace = true

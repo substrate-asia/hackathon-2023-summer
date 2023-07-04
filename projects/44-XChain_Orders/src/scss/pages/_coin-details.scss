@@ -1,0 +1,91 @@
+.coin-tabs{
+	.nav-tabs{
+		border:0;
+		.nav-link{
+			border:0;
+			border-bottom:2px solid var(--rgba-primary-2);
+			font-size:16px;
+			font-weight:400;
+			color:#342E59;
+			display: flex;
+			align-items: center;
+			padding: 12px 18px;
+			svg{
+				margin-right:10px;
+			}
+			&.active{
+				border-color:var(--primary);
+				border-bottom:4px solid var(--primary);
+			}
+		}
+	}
+}
+.about-coin{
+	.title{
+		font-size:24px;
+		@include respond ('phone'){
+			font-size:16px;
+		}
+	}
+	.sub-title{
+		font-size:14px;
+		@include respond ('phone'){
+			font-size:12px;
+		}	
+	}
+	
+	@include respond ('phone'){
+		img{
+			width:60px;
+		}
+		.sub-title{
+			margin-bottom:0;
+		}
+	}
+	span{
+		font-size:14px;
+		@include respond ('phone'){
+			font-size:12px;
+		}
+	}
+}
+.detault-daterange{
+	width: auto;
+	border:1px solid $border-color;
+    border-radius: $radius;
+	overflow: hidden;
+	.form-control{
+		border:0;
+		height: 50px;
+		font-weight: 500;
+		color:var(--primary);
+	}
+	.input-group-text{
+		background:transparent;
+		padding-right: 0;
+		color:$primary;
+		border-radius: 0;
+		i{
+			font-size:28px;
+		}
+	}
+	@include respond ('laptop'){
+		.form-control,.input-group-text{
+			height:40px;
+		}
+	}	
+}
+.default-select{
+	&.style-1{
+		width: auto !important;
+		border-radius:45;
+		left: 0;
+		top: 0;
+		height: auto!important;
+		border:1px solid $border-color;
+		font-size:14px;
+		font-weight:500;
+		padding:12px 22px;
+		padding-right: 35px;
+	}
+}	

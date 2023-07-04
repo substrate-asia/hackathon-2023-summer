@@ -18,7 +18,6 @@ Project Initiation Date (Year-Month):2022.7
 
 
   - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/9b292452-42f2-433c-9bf4-266e9a79af46)
-  -![Image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/9b292452-42f2-433c-9bf4-266e9a79af46){:width="300px" height="200px"}
 
 
 
@@ -27,7 +26,7 @@ Project Initiation Date (Year-Month):2022.7
   - Amphi is a Web3 + AI language service marketplace that offers not only online translation services but also offline proxy services such as cross-border e-commerce, media translation, and international proxy consulting. We aim to make language services more convenient to get by leveraging cutting-edge technology to address the high costs and information asymmetry between translators and clients. Our platform serves as a one-stop Web3 language service marketplace, setting new standards in the language service industry and providing a seamless entry point for Web2 users to access Web3.
 
 
-  - The traditional language service industry will have a turnover of US$60.1 billion in 2021 and is expected to reach US$82.2 billion by 2025 with a compound annual growth rate of 8.1%.
+  - The traditional language service industry will have a turnover of **US$60.1 billion** in 2021 and is expected to reach US$82.2 billion by 2025 with a **compound annual growth rate of 8.1%**.
 
   - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/676f6158-e33d-46ac-adb1-a4873f26c55c)
 

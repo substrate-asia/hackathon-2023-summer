@@ -5,13 +5,13 @@
 
 MoonLayer is a layer 3 Rollup with EVM integration on Polkadot / a layer 2 rollup with EVM integration built on top of Moonbeam.
 
-🧷 [How to run nodes]()
+🧷 [How to run nodes](./docs/how-to-run-node.md)
 
-🧷 [RPC documentation]()
+🧷 [RPC documentation](./docs/RPC.md)
 
-🧷 [Demo link]()
+🧷 [Demo](./docs/try-it-out.md)
 
-🧷 [Demo video]()
+🧷 [Demo video](https://youtu.be/GgLpw9y1GFI)
 
 
 # Project background
@@ -44,13 +44,13 @@ MoonLayer's upgradability is user-driven, not controlled by centralized entities
 
 # Project Demo
 
-🧷 [How to run nodes]()
+🧷 [How to run nodes](./docs/how-to-run-node.md)
 
-🧷 [RPC documentation]()
+🧷 [RPC documentation](./docs/RPC.md)
 
-🧷 [Demo]()
+🧷 [Demo](./docs/try-it-out.md)
 
-🧷 [Demo testing video]()
+🧷 [Demo video](https://youtu.be/GgLpw9y1GFI)
 
 
 # Technology Architecture

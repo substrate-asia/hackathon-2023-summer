@@ -206,3 +206,4 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 |-----| ----------- | -- |--------|
 | anthony | 区块链后端  |  web3pionner  | .. |
 | 张凯 | UI  |  -  | .. |
+| 李乙平 | UI  |  -  | .. |

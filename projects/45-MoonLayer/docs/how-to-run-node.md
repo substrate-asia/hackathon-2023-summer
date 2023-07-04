@@ -6,11 +6,7 @@
 
 ### Installation
 
-Clone this repository to your computer, either through the Github site or using the command line:
-
-```
-git clone https://github.com/moonlayer/moonlayer.git
-```
+Clone this repository to your computer.
 
 In the downloaded folder, install all the needed NPM packages:
 
@@ -40,7 +36,7 @@ export default {
     // We recommend using this key for testing because currently all tokens are minted to this account
     PRIVKEY: "0x3f1c78a7c6c46e3d8a45b1bc29048719bff0903375cd066ccb7675ce4c77752e",
     
-    // Enable sequencer or not, leave false if you don't want to
+    // Enable to become sequencer node, leave false if you use user node only
     SEQUENCER_MODE: true,
     // Address to be paid in (gas fees from transactions you sequenced will bet transferred to this address)
     // This is also the address generated from the private key above
@@ -51,7 +47,7 @@ export default {
     
     // Original Moonbeam Alpha block height to start syncing from, this also should not be changed
     // Although, as mentioned in the tutorial, you can change it as a way to reset the chain
-    START_SYNC: 4661850,
+    START_SYNC: 4663060,
 
     // RPC server config, you can set it to whatever you like, but you should just leave it 3000 cause our tests use it.
     RPC_PORT: 3000,
@@ -96,10 +92,10 @@ For dapps and tools to interact with the MoonLayer client, the client exposes JS
 
 ### Testing
 
-To test it out yourself, go to [`try-it-out.md`](./try-it-out.md);
+To test it out yourself, go to [`try-it-out.md`](./try-it-out.md).
 
 ### Reset the chain
 
 If you want to reset the chain, you can change the START_SYNC configuration to the current block height, delete the old database folders and re-run the node. What this does it that it will start off with an entirely new state, ignoring all transactions done in the past, therefore making an entirely new chain.
 
-This is alos mentioned again in `try-it-out.md`.
+This is also mentioned again in `try-it-out.md`.

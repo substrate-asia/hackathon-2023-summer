@@ -1,0 +1,1329 @@
+存在问题及方案
+
+问题：
+
+数据碎片化。
+
+分散的身份与传统的身份不同，它是在没有中央控制或监督的情况下生成和管理的，使用区块链作为无权限、分布式和透明的数据库。随着web3的不断发展，将会产生更多的分散身份数据，并存储在区块链上，但这些数据是分散的，存在于不同的网络和区块链上，使其难以管理和整合。
+
+Web3服务的数据短缺。
+
+人们目前不愿意在区块链上进行个人身份识别，导致可用于创建web3产品和服务的身份数据缺乏。
+
+解决方案：
+
+Litentry允许用户从分散的个人身份转换到聚合身份。聚合身份通过创建身份拥有者的帐户关系图，来创建更全面的身份档案。该聚合身份遵循W3C DID标准，可以解决许多技术公司面临的孤立ID注册系统的问题。
+
+1.Litentry的去中心化身份模块提供了一种安全和私密的方式来链接不同的Web3钱包和Web2帐户。这使用户可以增强他们的Web3档案，创建一个更有形和可信的数字身份。
+
+2.Litentry的可信执行环境（TEE）基础架构在原始区块链数据和与dApp共享的数据之间添加了一个隐私保护层。它还为敏感的身份图提供安全存储。
+
+3.Litentry的身份中心可以实现身份管理，个人数据分析以及授予细粒度的访问权限，以控制哪些数据与第三方共享。
+
+Previous
+
+Litentry介绍
+
+Next
+
+基础设施概述
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+问题：
+
+解决方案：
+
+基础设施概述
+
+本页为Litentry基础设施的概述。
+
+三层去中心化身份数据计算架构：Litentry利用数据从无序、分散状态到结构化状态的基础设施。Litentry身份计算网络由三个核心层次组成，可以创建可验证的隐私增强身份计算过程：
+
+1.源数据层。该层从区块链和其他网络（如Etherscan、The Graph、Onfinality等数据提供商）获取和索引原始数据。
+
+2.地址分析层。该层主要用于提供详细的数据分析或分数和标签，如Nansen、Chainalysis和TDFLabs。
+
+3.身份聚合层。Litentry允许用户以安全的方式将与单个主题相关的地址关系存储为身份图。这是通过加密数据并使用可信执行环境（TEE）进行计算来实现的。受身份图的鼓舞，我们从地址分析层获得相应的地址分析结果，并执行加权计算或生成可验证的凭据。
+
+Litentry协议功能的三个阶段：
+
+1.连接身份：Litentry协议从聚合身份的创建开始。在身份中心，用户可以证明他们的各种账户的所有权。这些账户之间的关系以可信执行环境（TEE）中的身份图的形式存储。这个TEE是一个硬件黑盒，其中存储、管理和计算敏感的账户关系。它不能被篡改，只有根用户可见。
+
+2.生成分数和标签：当从特定用户的身份图请求身份分数时，将实时获取必要的web2和web3数据。该分数或标签在TEE中计算，并以可验证的凭据的形式发布，而不暴露任何根账户或元数据。可验证的凭据只是陈述一个真理。它以加密的形式存储在Litentry的parachains上以用于验证目的，并发送到用户的本地存储中。
+
+3.发行可验证的凭据：Litentry使用W3C可验证凭据标准作为在身份中心之外共享身份分数或标签的格式。这样可以根据自主身份框架以隐私保护的方式有选择地披露身份数据。
+
+Previous
+
+存在问题及方案
+
+Next
+
+使用场景
+
+Last modified 2mo ago
+
+Copy link
+
+使用场景
+
+Litentry的身份聚合和私有可验证凭据可以应用在多种场景。
+
+空投白名单。
+
+目前，项目基于唯一地址而不是唯一身份来向其用户分发空投，但验证和贡献过程是集中的，引发了有关透明度、代币认领费用和一次性分发的问题。立足的身份验证系统允许加密项目识别和过滤掉空投中的低质量参与。
+
+受众选择和社区分析。去中心化身份允许社区和项目更好地了解其受众，并因共享其匿名身份数据而给予奖励。通过请求关于用户的特定、缩小的细节，项目可以尊重其理想用户的隐私。
+
+灵魂绑定代币或NFT。立足的协议允许项目和用户以私密和安全的方式将匿名身份数据注入NFT、dApp和其他应用程序中。 NFT可以开始包含基于社区参与度的各种度量标准的个人“社区参与度分数”。
+
+Web3原生劳动力市场。匿名或假名可验证凭据为人才招聘、猎头和用户研究提供了一个市场，其中具有丰富经验的社区成员可以参与。由于隐私程度提高，参与者可以根据其相关技能而不是基于个人特征进行评判。
+
+信用评分。通过提供用户交易历史、资产价值和借贷行为的完整而详尽的图片，我们可以提供信用评分。这提高了无抵押贷款和其他基于声 誉的好处的资格，或为合作伙伴提供风险洞察力。
+
+跨平台声誉。立足的身份聚合使得从Web2到Web3再到Web2的跨平台声誉和状态度量变得可能。
+
+Previous
+
+基础设施概述
+
+Next - 平行链
+
+平行链介绍
+
+Last modified 2mo ago
+
+Copy link
+
+Litentry
+
+介绍Litentry是一个去中心化的跨链身份聚合器，可以在隐私保护的背景下帮助用户链接他们的身份。我们的目标是让用户完全控制自己的个人数据，并使他们从中获得社会和经济价值。我们的协议可以应用于上链声誉、治理、DeFi和定制数据服务。
+
+我们的使命 
+
+Litentry以私密和安全的方式解锁可验证的个人数据，为基于身份的社会和经济创新铺平道路。指南按照我们的便捷指南，可以快速学习基础知识。 
+
+Litentry平行链是我们在Kusama和Polkadot生态系统上的区块链。 
+
+Identity Hub 身份中心是Litentry协议的前端界面，允许用户与平行链进行交互。存在问题及方案基础设施概述使用场景
+
+Next
+
+存在问题及方案
+
+Last modified 2mo ago
+
+Copy link
+
+平行链介绍
+
+平行链（Parachain）是一种特定应用的数据结构，它可以由中继链（Relaychain）的验证者全局一致且可验证。它们从并行链的概念中得名，这些链并行运行于中继链。通常，平行链会采用区块链的形式，但它们不一定非得是实际的区块链。
+
+基本上，平行链是连接到中继链（例如Polkadot或Kusama）的第1层区块链。中继链验证连接的平行链的状态转换，在整个生态系统中提供共享状态。由于中继链上的验证者集预计将具有安全性，并且投入大量资金以支持它，因此平行链有利于从这种共享安全性中受益。
+
+此外，通过使用异构分片，每个平行链可以通过substrate框架轻松定制，使其针对特定用例进行优化，而不是在所有分片上运行相同的内容。
+
+为了提供Litentry产品的基础平台，实现透明和去中心化的用户体验，我们推出了两个具有定制功能的平行链：
+
+​Litmus在Kusama上（2022年2月20日上线）
+
+​Litentry平行链在Polkadot上（2022年7月4日上线）
+
+平行链源代码：https://github.com/litentry/litentry-parachain
+
+​Previous
+
+使用场景
+
+Next - 平行链
+
+链基本信息
+
+Last modified 2mo ago
+
+Copy link
+
+链基本信息
+
+Litmus Network（Kusama  ）
+
+平行链ID：2106
+
+上线日期：2022年2月20日
+
+租赁期：48周
+
+Polkadot-js端点：https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.litmus-parachain.litentry.io#/explorer​
+
+区块链浏览器：subscan，statescan​​
+
+Litentry 网络（Polkadot）
+
+链 ID：2013
+
+上线日期：2022 年 7 月 4 日
+
+租赁期：96 周
+
+Polkadot-js 端点：https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc.litentry-parachain.litentry.io#/explorer​
+
+区块链浏览器：statescan​
+
+平行链 - Previous
+
+平行链介绍
+
+Next - 平行链
+
+Litmus平行链
+
+Last modified 2mo ago
+
+Copy link
+
+Litmus Collator
+
+Litmus平行链CollatorCollator的功能Litmus Collator 保留了所有必要的信息以整理和执行交易，以创建一个未封印的块，并将其与状态转换的证明一起提供给一个或多个中继链验证者，负责提议平行链块。
+
+Collator还将观察BABE中块生成和共识协议的进展，并建立在他们认为将被最终确认的最新中继链块上。Collator不直接参与中继链的共识，因此永远不会抵押DOT。
+
+要成为Collator并开始撰写块，必须拥有有效的会话密钥，该密钥可以在初始基因配置中设置为invulnerables，或者通过cumulus collator-selection pallet进行选择。
+
+Litmus Collator模型
+
+为了简化并专注于产品开发，我们目前正在使用自己的节点为Litmus运行碎片化器。但是，当我们认为时机成熟时，我们不排除邀请第三方或社区加入我们的Collator集的可能性。
+
+如果您想运行一个完整的节点，请参阅完整节点指南。
+
+平行链 - Previous
+
+Litmus平行链
+
+Next
+
+Litmus全节点
+
+Last modified 2mo ago
+
+Copy link
+
+Litmus全节点
+
+Litmus平行链全节点
+
+Litmus RPC节点
+
+默认情况下，Litmus有几个自托管的负载平衡RPC节点，提供公共服务。与collators不同，RPC节点不会生成块，而只会同步链状态并向用户提供RPC/Websocket服务。
+
+您可以在polkadot-js 这里找到Litmus RPC入口。
+
+使用该服务，最终用户可以查询链状态，检查常量和存储，并执行外部特征。
+
+运行您的全节点
+
+使用docker（首选）
+
+1.创建一个本地目录来存储链数据库：
+
+mkdir /var/lib/litentry
+# 如果您没有权限，则使用sudo
+sudo mkdir /var/lib/litentry
+
+2.确保本地目录的权限和所有权正确设置：
+
+sudo chown -R $(id -u):$(id -g) /var/lib/litentry
+
+3.运行以下docker命令，您可以用自己的节点名称替换--name="litmus-node"：
+
+docker run -d --network=host -v /var/lib/litentry:/data \ 
+-u $(id -u):$(id -g) \    
+litentry/litentry-parachain:v0.9.11  \    
+--base-path=/data \    
+--name="litmus-node" \    
+--chain=litmus \    
+--state-pruning=archive \    
+--state-cache-size 0 \    
+--ws-external \    
+--rpc-external \    
+--rpc-cors=all \    
+--execution=wasm \    
+-- \    
+--execution=wasm \    
+--chain kusama
+
+litentry/litentry-parachain:v0.9.11 仅用作示例，请检查GitHub发布页面以获取最新发布版本。
+
+该命令将在后台运行docker容器，容器ID将在控制台中打印出来。使用docker logs -f <container-id>，您应该能够看到节点开始同步。
+
+等待同步完成，根据硬件和网络状况，完全同步parachain和relaychain数  据库可能需要几天时间。
+
+完全同步后，您应该能够通过polkadot-js中的本地ws端点访问链：https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer​
+
+使用二进制文件
+
+使用原始二进制文件运行完整节点与上面的docker设置非常相似，只是命令行参数有所不同。因此，替换步骤1-3，运行：
+
+./target/release/litentry-collator \    
+--name="litmus-node" \    
+--chain=litmus \    
+--state-pruning=archive \    
+--state-cache-size 0 \    
+--ws-external \    
+--rpc-external \    
+--rpc-cors=all \    
+--execution=wasm \    
+-- \    
+--execution=wasm \    
+--chain kusama
+
+默认情况下，数据库存储在~/.local/share/，您可以通过使用--base-path=<your-path>来覆盖它。
+
+下载二进制文件，您可以直接从Litentry的Github发布页面（仅限Linux x86-64）下载，或者从源代码构建它。
+
+Previous
+
+Litmus Collator
+
+Next - 平行链
+
+Litentry平行链
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+Litmus RPC节点运行您的全节点使用docker（首选）使用二进制文件
+
+Litmus平行链
+
+Litmus是Litentry的金丝雀伴随网络，此平行链连接到Kusama生  态系统。Litmus是一个更加快速变化、集成实验性创新技术的实验场。在产品最终登陆Litentry平行链之前，可以在其中尝试新的想法和测试。我们不会在Litmus上发行新的代币。相反，我们将提供一种代币迁移机制，允许用户在以太坊（ERC20）和Litmus之间转移LIT代币。​
+
+平行链 - Previous
+
+链基本信息
+
+Next
+
+Litmus Collator
+
+Last modified 2mo ago
+
+Copy link
+
+Litentry发布计划
+
+Litentry平行链的发布计划
+
+阶段0 - 使用Litentry创世纪发布
+
+在2022年4月25日赢得Polkadot平行链槽位之后，Litentry 平行链于2022年6月4日使用创世纪Wasm发布。最初的发布仅包括最小可行功能以保持链的运行。这意味着：
+
+平行链正在超级用户（sudo pallet）的保护下运行。
+
+其他大多数功能栈（Pallet）被禁用，包括治理，余额转移和所有其他功能模块。
+
+用户在此阶段的活动非常有限。
+
+用户可以做什么
+
+用户将能够通过浏览器（例如polkadot-js endpoint）观察块生产和完成，并执行只读RPC查询以访问链状态和存储。
+
+阶段1 - 技术验证和Crowdloan分配
+
+Litentry上线后，我们将开始跟踪链状态并验证一切正常，包括块授权和完成，Collator状态，外部测试和运行时升级等。Litmus的大多数功能都可以在Litentry上使用，我们将在未来不断为新功能进行运行时升级，在Litmus确认它们完全测试和稳健之后。
+
+在我们确认平行链处于稳定状态并正常运行之后，我们将以每块线性解锁的方式开始以LIT分发众筹奖励。
+
+用户可以做什么
+
+用户可以开始认领他们的众筹奖励。您可以通过这个教程页面来阅读如何认领它。请注意，余额转移仍然禁用，这意味着将众筹奖励转移到另一个帐户仍然是不可行的。
+
+阶段2 - 令牌迁移和XCM
+
+将激活一种令牌迁移机制及相应的功能栈，允许用户将ERC20 LIT令牌转移到Litentry Parachain。
+
+用户可以做什么
+
+用户可以将他们的ERC20 LIT令牌迁移到Litentry平行链，或从Litentry平行链转移到ERC20。您可以根据这个指南页面转移。
+
+基于XCM与其他Parachain的跨链机制将被激活。这些处理DEX功能的Parachain将使LIT的二级市场交易可用。
+
+阶段3 - Collator质押
+
+与Litmus不同，Litentry将具有基于Polkadot的Proof-of-Stake模型以及委托功能的延伸抵押机制，使其成为委托证明的权益（DPoS）设置。
+
+Collator目前有9位，其中4位由Litentry团队维护，5位由社区参与者运行。通过质押发出委托请求，用户可以参与块奖励过程。
+
+请参阅Litentry Collator模型了解更多信息
+
+阶段4 - Sudo移除
+
+在我们确认前几个阶段已经成功完成之后，我们将在此阶段开始激活与治理相关的 功能栈，随后移除sudo。从这一点开始，Litentry Parachain将完全由民主治理，之前需要sudo的所有链上状态转换现在都必须通过民主方式进行。
+
+用户可以做什么
+
+用户将能够观察到sudo密钥完全从Litentry Parachain中移除，治理功能被激活，包括委员会，技术委员会和全民公决。LIT令牌持有者现在可以参与链上治理活动。
+
+阶段5 - 激活余额转移
+
+通过民主运行时升级，将在此阶段启用余额转移。
+
+用户可以做什么
+
+用 户将能够自由地在帐户之间转移资金。
+
+请注意，余额转移和XCM是独立的两种机制。因此，在未启用余额转移的情况下，用户仍然可以自由使用XCM功能。
+
+阶段6 - 功能栈上线
+
+随着Litentry产品的不断推出，更多的功能栈将逐步上线。它们与LIT代币的使用场景有关，为用户带来了一体化的服务体验。
+
+预计功能栈将包括但不限于：
+
+众筹分配（线性锁定解锁）
+
+ERC20 LIT代币和Litentry平行链之间的双向代币桥接（首先是单 向，然后扩展到双向）
+
+XCM与可用的Defi-hub（例如Moonbeam / Acala）合作，将LIT液化并投资其金融产品
+
+Litmus和Litentry之间的XCM支持（此工作取决于官方Polkadot <> Kusama桥接）
+
+PoS归集和归集者相关抵押的激活（请注意，这仅适用于Litentry Parachain，而不适用于Litmus）
+
+与PNS（Polkadot Name Systems）的合作
+
+LIT用例：链上治理和小费/奖励计划
+
+LIT用例：使用Identity Hub的隐私保护身份聚合服务
+
+LIT用例：使用Identity Hub的隐私保护空投分发和认领服务
+
+隐私保护反欺诈分数计算服务
+
+...
+
+用户可以做什么
+
+用户将能够亲自参与各种产品和服务，并发现多样化的LIT代币用例。
+
+根据开发进度，一些功能栈可能比计划更早地体验，以内部/公共测试的形式。​​
+
+平行链 - Previous
+
+Litentry平行链
+
+Next
+
+Litentry Collator
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+阶段0 - 使用Litentry创世纪发布
+
+阶段1 - 技术验证和Crowdloan分配
+
+阶段2 - 令牌迁移和XCM
+
+阶段3 - Collator质押
+
+阶段4 - Sudo移除
+
+阶段5 - 激活余额转移
+
+阶段6 - 功能栈上线
+
+Litentry Collator
+
+Litentry平行链Collator
+
+Litentry 的Collator（https://wiki.polkadot.network/docs/learn-collator）保存了所有必要的信息，以便对交易进行整理并执行，以创建未封装的区块，并将其与状态转换的证明一起提供给一个或多个负责提议Parachain区块的中继链验证者。
+
+Collator还将观察BABE中区块生成和共识协议的进展，并建立在他们认为将会被最终确定的最新中继链区块上。碼表不直接参与中继链的共识，因此永远不会抵押DOT。
+
+要成为碼表并开始撰写区块，必须拥有有效的会话密钥，该密钥可以在初始基因配置中设置为invulnerables，或者通过Parachain-Staking Pallet选择。
+
+Litentry Collator模型
+
+Litentry 使用委托证明的权益证明（DPoS）Collator模型，用户可以投票并选出代表来撰写下一个区块。使用DPoS，您可以通过将代币抵押给特定的代表来投票，而不是运行碼表以获得奖励。当所选的代表成功生成区块时，您也将分享区块生产奖励。
+
+Litentry 采取了一种分阶段的方法来展开Collator设置。基本上说，有5个阶段：
+
+1.迁移Collator选择机制和Collator碼表（用Parachain-Staking Pallet替换Collator-Selection Pallet）
+
+2.初始Collator集扩展：开放一些额外的Collator槽并观察区块生产
+
+3.调整代币经济模型以准备抵押功能
+
+4.启用抵押委托
+
+5.扩大Collator集大小（根据网络状态为16或32个Collator）
+
+您可以在此Github问题中跟踪展开进度。
+
+区块生产奖励
+
+为了与Collator抵押模型协调，我们重新设计了代币经济模型，以允许Collator及其后援用户分享区块生产奖励。
+
+简要介绍：
+
+在启用抵押功能后的1,296,000个区块（约为6个月）中，将目标设置为每年1.5%的通货膨胀率，其中0.5%用于激励Collator，1％用於抵押LIT代币的用户
+
+在区块1,296,001之後，将应用2.5％的年通胀率，其中0.5％用于激励Collator，2％用于抵押LIT代币的用户
+
+每季将从生态系统钱包中烧毁568,750 LIT，并持续八個季度（两年）
+
+新的代币经济模型在Litmus上进行了讨论和投票，因为Litentry还没有启用治理，但结果将在Litentry上手动实施。
+
+运行Collator的要求
+
+硬件要求
+
+与Polkadot验证器参考硬件相同
+
+绑定要求
+
+加入收集器候选池并有资格被选中以作者区块时，有一个最低（自我）绑定。目前设置为5000 LIT，您将在通过parachainStaking.joinCandidates加入候选池时必须指定绑定金额。
+
+白名单
+
+在我们完全激活DPoS模型之前，Collator集由Litentry团队的白名单管理。这意味着您需要将Collator帐户添加到白名单中，才能加入候选池。有关更多详细信息，请参阅Litentry Collator模型。
+
+如何运行Collator
+
+使用docker（首选）
+
+1.创建一个本地目录来存储链数据库：
+
+mkdir /var/lib/litentry
+# 如果没有权限，则使用sudo
+sudo mkdir /var/lib/litentry
+
+2.确保本地目录的权限和所有权正确设置：
+
+sudo chown -R $(id -u):$(id -g) /var/lib/litentry
+
+3.运行以下docker命令，您可以用自己的节点名称替换--name="litentry-collator"：
+
+docker run -d --network=host -v /var/lib/litentry:/data \    
+-u $(id -u):$(id -g) \    
+litentry/litentry-parachain:v0.9.11  \    
+--base-path=/data \    
+--chain=litentry \    
+--name="litentry-collator" \    
+--collator \    
+--execution wasm \    
+--state-cache-size 0 \    
+-- \    
+--execution wasm \    
+--chain polkadot
+
+litentry/litentry-parachain:v0.9.11用作示例，请查看github发布页面以获取最新发布版本。
+
+该命令将在后台运行docker容器，容器ID将在控制台中打印出来。使用docker logs -f <container-id>，您应该能够看到节点开始同步：
+
+等待同步完成，根据硬件和网络状态，完全同步parachain和relaychain数据库可能需要几天时间。
+
+4.用author_rotateKeys方法向parachain的http端点发送RPC调用来生成会话密钥：
+
+curl http://127.0.0.1:9933 -H \
+"Content-Type:application/json;charset=utf-8" -d \  
+'{    
+"jsonrpc":"2.0",    
+"id":1,    
+"method":"author_rotateKeys",    
+"params": []  
+}'
+
+如下是结果示例：
+
+{"jsonrpc":"2.0","result":"0x56066a71efc51e4a6f0f838cac959a08b238e22d478bd5dc0cdc2ac5b40d2e66","id":1}
+
+记下结果，这是您的会话密钥。在本例中，会话密钥为
+
+0x56066a71efc51e4a6f0f838cac959a08b238e22d478bd5dc0cdc2ac5b40d2e66。
+
+另外，您也可以使用author_insertKey来插入预先生成的会话密钥。litentry-parachain的会话密钥是一个sr25519 aura密钥。
+
+5.将您的collator帐户绑定到生成的会话密钥，包括：
+
+准备一个litentry-parachain帐户。此帐户将被注册以接收块生产奖励。
+
+通过提交外部session.setKeys从collator帐户将此帐户绑定到步骤4生成的会话密钥：
+
+参数：
+密钥： 步骤4中的十六进制字符串密钥
+证明：0x
+
+6.通过提交外部parachainStaking.joinCandidates从collator帐户请求加入collator候选人：
+
+要能够成功加入collator候选人，您必须：
+
+质押最低保证金
+
+由管理员添加到候选人白名单（一旦DPoS完全激活，白名单将被删除，请参阅Litentry collator model）
+
+7.检查您的节点实际上是否开始汇集
+
+一旦外部没有错误地发送，请等待下一个回合开始，您应该能够看到您的节点开始生成块：
+
+您应该看到您的节点根据发出的事件不时被选中来撰写块：如果Collator在很长时间（约12小时  ）后仍然没有生成块，而您认为一切都正确设置，请尝试重新启动节点。
+
+恭喜！您已经成功运行了一个collator节点，开始为litentry parachain生成块！​
+
+使用二进制文件
+
+使用原始二进制文件运行collator节点与上面的docker设置非常相似，只是命令行参数有所不同。因此，替换使用docker（首选）中的步骤1-3，运行：
+
+./target/release/litentry-collator \    
+--chain=litentry \    
+--name="litentry-collator" \    
+--collator \    
+--execution wasm \    
+--state-cache-size 0 \    
+-- \    
+--execution wasm \    
+--chain polkadot
+
+默认情况下，数据库存储在~/.local/share/中，您可以通过使用--base-path=<your-path>来覆盖它。
+
+要获取二进制文件，您可以直接从Litentry的Github发布页面（仅限Linux x86-64）下载，或者从  源代码构建它。​
+
+配置会话密钥和加入汇集的其余步骤与docker方法相同，因此不在此重复。
+
+如何更新客户端
+
+Litentry不断努力改进parachain客户端并跟随上游变化。因此，更新客户端以获得最新功能和安全补丁并不罕见。更新客户端很简单：
+
+如果使用docker：
+
+1.docker container stop <container-id>
+
+2.在使用docker（首选）中的步骤3中运行docker命令，使用所需的docker镜像版本
+
+如果使用二进制文件：
+
+1.停止/杀死litentry-collator进程
+
+2.下载所需的二进制文件
+
+3.使用使用二进制文件中的命令启动新的二进制文件
+
+Previous
+
+Litentry发布计划
+
+Next
+
+Litentry全节点
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+Litentry Collator模型运行Collator的要求如何运行Collator如何更新客户端
+
+Litentry全节点
+
+Litentry平行链全节点
+
+请参考Litmus全节点页面的内容。
+
+启动Litentry全节点与Litmus非常相似，您只需要将平行链类型替换为“litentry”，将中继链类型替换为“polkadot”。以下是命令的参考：
+
+使用docker
+
+docker run -d --network=host -v /var/lib/litentry:/data \    
+-u $(id -u):$(id -g) \    
+litentry/litentry-parachain:v0.9.11  \    
+--base-path=/data \    
+--name="litentry-node" \    
+--chain=litentry \    
+--state-pruning=archive \    
+--state-cache-size 0 \    
+--ws-external \    
+--rpc-external \    
+--rpc-cors=all \    
+--execution=wasm \    
+-- \    
+--execution=wasm \    
+--chain polkadot
+
+使用二进制
+
+./target/release/litentry-collator \    
+--name="litentry-node" \    
+--chain=litentry \    
+--state-pruning=archive \    
+--state-cache-size 0 \    
+--ws-external \    
+--rpc-external \    
+--rpc-cors=all \    
+--execution=wasm \    
+-- \    
+--execution=wasm \    
+--chain polkadot
+
+Previous
+
+Litentry Collator
+
+Next - 平行链
+
+功能栈与模块
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+使用docker使用二进制
+
+Litentry平行链
+
+Litentry是一个连接Polkadot生态系统的平行链。与Litmus相比 ，Litentry平行链会更稳定，具有更长的迭代周期。Litentry上不会发行新的代币。相反，我们将提供一种代币迁移机制，允许用户在以太坊（ERC20）和Litentry之间转移LIT代币。
+
+Previous
+
+Litmus全节点
+
+Next
+
+Litentry发布计划
+
+Last modified 2mo ago
+
+Copy link
+
+代币经济模型重新审视
+
+LIT 代币是Litentry网络的本地加密货币，由Litentry基金会发行。LIT代币将成为去中心化身份（DID）生态系统中流通的推动力。LIT目前以ERC-20代币和BEP-20代币的形式发行。Binance关于Litentry的项目研究描述了LIT的代币经济模型和分配。
+
+在Litentry在Kusama网络上启动一个平行链（Litmus）之后，Litmus将本地拥有LIT，与Ethereum区块链上的其他代币一起，这意味着将执行部分LIT代币迁移。​
+
+我们希望重新审视LIT的特权经济学：
+
+Litentry的经济模型和初始供应将保留（100,000,000 LIT）。
+
+Litentry计划烧毁部分ERC-20 LIT，并在平行链上发行相同数量的本地LIT，以保持初始供应不变。
+
+Litentry将在ERC-20 LIT和Litmus LIT之间启动一个代币桥接，ERC-20 LIT持有者可以决定是否将代币
+
+迁移到Litmus。迁移比例应为1 ERC-20 LIT = 1 Litmus LIT。
+
+Previous
+
+跨链桥
+
+Next
+
+底层模型
+
+Last modified 2mo ago
+
+Copy link
+
+底层模型
+
+自2021年初LIT代币已经作为ERC-20代币和BEP-20代币发行以来，需要一个跨链桥来在不同的链之间转移LIT代币：在这种情况下是介于以太坊和Litmus平行链之间。
+
+为了实现这一点，Litmus采用了ChainBridge解决方案，这是由ChainSafe构建的模块化双向区块链桥接，旨在与多个网络（包括以太坊，以太坊经典和基于Substrate的链）交互。
+
+跨链桥的工作流程如下图所示：
+
+在上面的图表中，
+
+ChainBridge relayer包含一个由官方Litentry团队在以太坊网络上部署的桥接智能合约。
+
+Bridge pallet是在Litmus运行时配置的功能栈。它将验证来自中继器的消息，并在需要时铸造代币。
+
+想象Alice想要将LIT代币从以太坊上的ERC20转移到Litmus parachain：
+
+Alice调用ChainBridge中继器中的智能合约，提供她的Litmus parachain地址和要转移的LIT代币数量。
+
+Alice将所需数量的LIT代币转移到指定的智能合约地址
+
+在上述交易成功验证后，ChainBridge Relayer向Litmus parachain上的Bridge-Pallet发出确认，并将所有所需信息作为参数。
+
+Bridge-pallet收到批准消息，并将相同数量的LIT代币铸造到Alice提供的平行链地址。
+
+稍后将添加更多技术细节。
+
+这里有一个步骤指南，帮助用 户实现整个过程。​
+
+Previous
+
+代币经济模型重新审视
+
+Next
+
+跨链桥接代币佣金费用
+
+Last modified 2mo ago
+
+Copy link
+
+跨链桥接代币佣金费用
+
+为了让我们的用户了解它的工作原理，本文解 释了Litentry跨链桥接代币佣金费用。
+
+介绍
+
+跨链桥接作为一个中立区域，可以让用户无论是哪个区块链网络，都可以快速轻松地部署资产。它还通过允许通过同一个网络访问多个区块链来减少操作困难。
+
+Litentry开发了一个跨链桥接，它的工作原理相同，所有组件都以标准化的方式构建，以帮助解锁DOTSAMA生态系统的优越流动性。跨链桥接允许用户在Polkadot和Kusama（Parachain LIT）以及以太网络（ERC-20 LIT）之间无缝地发送和接收LIT代币。
+
+为了实现这一目标，Litentry使用基于交易方向（LIT ⇌ ERC-20 LIT）调用智能合约功能的ChainBridge中继器模型，并允许Bridge Pallet为适当的交易进行铸造或烧毁LIT。
+
+桥接转移费用计算（Parachain LIT→Erc20-LIT）
+
+在Litentry协议中发生的每一次桥接交易，都有三个ChainBridge中继器负责批准或拒绝交易。
+
+我们使用3个中继服务器来提交和执行智能合约的提案，提案需要获得2/3的投票才能被执行。其原因是为了防止单点故障并最大限度地减少黑客攻击和恶意攻击的风险。
+
+因此，从Parachain（Litmus和Litentry）到ERC20-LIT的跨链交易将在以太坊上产生6笔交易，这就是手续费的来源。对于每笔交易，中继器必须成功执行以下两个触发器（共4次执行），才能批准交易：
+
+投票提案
+
+执行提案
+
+而失败交易的情况则相反。
+
+剩下的两个触发器（共6次执行）是：
+
+投票提案失败
+
+执行提案失败
+
+重要的是要注意，智能合约对中继器执行的每个触发器收取不同的费用，如下所示：
+
+类别
+
+费用
+
+执行状态
+
+初始以太坊手续费
+
+17 Gwei​
+
+投票提案成功费用
+
+0.002552 ETH
+
+2次
+
+投票提案失败费用
+
+0.0005425 ETH
+
+1次
+
+执行提案成功费用
+
+0.00123 ETH
+
+1次
+
+执行提案失败费用
+
+0.000559ETH
+
+2次
+
+LIT/ETH 比例
+
+0.000773 LIT/ETH
+
+​​​​以LIT为单位计算的费用
+
+10.34253 LIT​
+
+该佣金费用根据以下方法计算：
+
+CommissionFee = (SucessVoteProposalFee x 2 + FailedVoteProposalFee + SucessExecuteProposalFee x 2 + FailedExecuteProposalFee)/( LIT/ETH Ratio)
+
+智能合约收取的总费用按照Binance提供的LIT/ETH比率分配，跨链桥交易费用大约为10 LIT。​
+
+Previous
+
+底层模型
+
+Next
+
+TEE（可信执行环境）
+
+Last modified 2mo ago
+
+Copy link
+
+跨链桥概览
+
+Litentry团队部署了跨链桥，以允许在以太坊（ERC20代币）和 Litmus/Litentry 平行链之间传输LIT代币。
+
+平行链 - Previous
+
+功能栈与模块
+
+Next
+
+代币经济模型重新审视
+
+Last modified 2mo ago
+
+Copy link
+
+背景在安全和保护隐私的方式下，为了实现来自各种提供商的账户链 接以及聚合 DID 解决方案，TEE 被用于包裹核心计算服务。
+
+TEE（可信执行环境）是主处理器的一个安全区域，可以保证加载到其中的代码和数据在保密性和完整性方面受到保护。在 Litentry 中，TEE 也代表了 parachain 中数据保护的整个解决方案，以及 side chain 中的加密数据处理和所有 Dapps。
+
+其中最重要的技术栈包括：​
+
+Intel SGX（软件保护扩展），自2015年秋季  起，Skylake Intel CPUs 中的新指令集。side chain 中的每个节点都必须支持 SGX​
+
+Rust SDK，TEE 设备是裸机，因此 SDK 与基于 OS 的 SDK 不同，它提供诸如系统级库、文件系统等服务。Rust 社区提供了专用的 Rust SDK，现在它是开源的，并成为 Apache 孵化项目。​Substrate，下一代区块链创新框架。
+
+Substrate 采用模块化的方法进行区块链开发，并定义了丰富的原语，使开发人员可以利用强大的、熟悉的编程习惯。​
+
+Integritee，用于安全处理敏感业务或个人数据的最可扩展的公共区块链解决方案。利用可信执行环境的速度和保密性，结合分散网络的信任。
+
+在下一章中，我们将介绍 Litentry 解决方案的整体架构和工作流程。
+
+Previous
+
+TEE（可信执行环境）
+
+Next
+
+基层设施图谱
+
+Last modified 2mo ago
+
+Copy link
+
+基层设施图谱
+
+在图表中，有三层区块链，每层都有不同的职责：
+
+第0层 - 中继链的主网，例如Kusama或Polkadot。它负责为整个中继链和平行链网络提供共享安全，并作为XCM消息的路由器。
+
+第1层 - Litmus或Litentry平行链。在这种情况下，它充当应用特定的区块链，通过将 自身放入p平行链插槽与中继链连接。中继链将验证其区块并处理XCM消息。
+
+第2层 - 由Integritee支持的侧链。它为SGX（安全运行环境）中执行的运行时提供环境。它与第1层平行链不同，因为每个状态和外部都是公开和已知的。
+
+架构中最巧妙的部分是所有三层区块链都基于Substrate框架。通过适应不同的运行时配置和执行逻辑，定制的区块链可以扮演不同的角色。
+
+SGX运行时有5个主要的软件组件：sgx runtime、teerex pallet、特定于应用程序的pallets或sgx pallets，worker client和worker server。它们的交互如下所示：
+
+Previous
+
+背景
+
+Next
+
+主要组件
+
+Last modified 2mo ago
+
+Copy link
+
+主要组件
+
+本章详细阐述了前面图表中的所有主要组件，以及我们迄今 为止实施的功能：​
+
+平行链功能栈
+
+​​SGX runtime​​
+
+Worker客户端
+
+​​Worker服务端
+
+​​平行链功能栈
+
+Teerex功能栈
+
+为了与侧链进行通信，平行链必须包含此功能栈。 Teerex有两个重要的接口。
+
+1.验证Intel的SGX节点，如果验证完成，则接受注册。
+
+2.获取调用SGX运行时中某个外部的请求。调用sgx-runtime外部包括一个参数，类型是Call，可以是任何用pallet id，外部索引和SGX运行时参数编码的字节码。
+
+注意：在开发环境中，我们可以通过编译功能跳过验证：
+
+cargo build --features skip-ias-check
+
+信用分数功能栈
+
+Litentry提供计算客户信用分数的服务，该分数基于关联的帐户和与这些帐户相关的数据。所有帐户都存储在SGX中，数据抓取和分数计算发生在SGX中，以避免信息泄漏。此板负责从SGX侧链获取分数，结果可以由客户的公钥加密，或根据Litentry SDK由Dapp使用。
+
+SGX Runtime
+
+我们在此存储库中定义在SGX中执行的运行时。 SGX运行时类似于Substrate运行时，由板组成。该运行时可以编译为WASM blob或二进制文件。不同之处在于SGX运行时取决于前面提到的tee-sgx-sdk。
+
+对于Substrate运行时执行，我们需要两个包。第一个是sp-externalities，提供执行环境。另一个是sp-io，用于运行时访问数据库，文件系统，区块链状态等。由于SGX运行时在SGX中执行，因此Substrate的两个包在SGX中不适用。
+
+SGX运行时repo中有两个包，分别是sgx-runtime/sp-io和sgx-runtime/sp-externalities，名称相同，sp-io和sp-externalities。它们使得在SGX中执行的运行时成为可能。
+
+SGX功能栈
+
+如果板包含需要存储在SGX节点中的隐私数据，我们应该将其放入SGX运行时中。例如，Litentry的第一个板帐户链接器，用户可以通过link-eth和link-btc外部链接他们的以太坊或比特币地址。如果我们将帐户链接器放入平行链中，可能会暴露所有这些隐私数据。
+
+因此，我们现在将帐户链接器板放入SGX运行时中，代码没有改变。然后，所有外部参数和链接地址将在parachain中加密，只有SGX节点知道私钥，在SGX中解密数据，并将调用分派到SGX运行时。
+
+将来，我们将把更多的板从平行链迁移到侧链。
+
+Worker客户端
+
+客户端通过RPC/WSS连接与平行链和侧链进行交互。根据目的，我们有不同的调用类型。
+
+1.不可信调用：客户端与平行链节点交互，类似于JS客户端。客户端包括一些默认的功能栈，如Teerex，我们可以使用不可信调用来发送交易或某些查询。例如，用户可以通过客户端调用余额转移，这是一个不可信调用。 
+
+2.可信调用：客户端与工作服务器交互，该服务器是平行链节点的对应物。服务器还提供RPC服务。例如，用户可以调用link_eth，这是SGX帐户链接器功能栈的一个外部特征，它是SGX运行时的一部分。或查询SGX中的加密数据。 
+
+3.直接调用：客户端可以调用SGX运行时定义的外部特征。与可信调用的相同用例。
+
+4.间接调用：客户端包装SGX运行时调用，然后将其发送到平行链中的Teerex功能栈。工作节点从平行链同步块，然后识别特定的call_work外部特征，从参数解析调用并将其分派到SGX运行时。详细信息可以在Litentry解决方案部分的图表中找到。
+
+Worker服务器
+
+服务器是整个解决方案中最复杂的部分，主要功能如下： 
+
+1.从Intel验证服务获取验证报告并将其注册到平行链
+
+2.为受信节点中的SGX运行时提供执行环境
+
+3.从平行链同步块，解密和解析call_work中的数据 4.4.生成侧链的块，在节点之间同步和共识
+
+4.提供RPC和WSS服务 6.6.通过外部特征将响应发送到平行链
+
+由于软件运行的角度，服务器在受信任和不受信任的部分之间有一个边界。受信任的代码在SGX中执行。不受信任的代码包括启动进程，RPC服务器，初始化保护等等。
+
+从侧链设计开始就支 持分片（Sharding）。服务器节点加入一个分片，每个调用（直接和间接）都有一个默认的分片标识参数。服务器节点只执行与其加入的相同分片的调用。分片的好处如下：
+
+不同分片的状态是隔离的，不同分片节点不能看到彼此的私有数据
+
+分片节点可以跳过来自另一个分片的调用，这样可以节省资源，使块中的外部执行更快
+
+分片使我们的解决方案可以在大规模使用，同时保护数据。​
+
+Previous
+
+基层设施图谱
+
+Next - 平行链
+
+用户指南
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+平行链功能栈Teerex功能栈信用分数功能栈SGX RuntimeSGX功能栈Worker客户端Worker服务器
+
+TEE（可信执行环境）
+
+TEE（可信执行环境）是一种用于执行代码的环境 ，执行代码的人可以对该周围环境的资产管理具有很高的信任度，因为它可以忽略来自设备“未知”其余部分的威胁。
+
+在TEE中运行的受信任的应用程序可以访问设备主处理器和内存的全部功能，而硬件隔离可以保护这些组件免受用户在主操作系统中安装的应用程序的影响。 TEE内部的软件和加密隔离可以保护不同的包含受信任的应用程序彼此之间的安全性。
+
+为了实现身份聚合，Litentry需要存储敏感用户数据，如用户的以太坊帐户和计算出的信用评分。 TEE已被选为保证数据存储和数据处理安全性的基本方法。 Litentry构建了一个侧链，由多个TEE节点组成，以确保以分布式方式存储和处理数据，而不暴露用户的私人数据。
+
+本章节：
+
+介绍TEE的背景知识
+
+通过图表解释Litentry解决方案的架构
+
+描述涉及架构的核心组件
+
+提供构建和执行代码示例的指南（进行中）
+
+Previous
+
+跨链桥接代币佣金费用
+
+Next
+
+背景
+
+Last modified 2mo ago
+
+Copy link
+
+功能栈与模块
+
+本章详细描述在平行链中使用的功能栈（Pallet）与模块 （Module）。
+
+Previous
+
+Litentry全节点
+
+Next
+
+跨链桥
+
+Last modified 2mo ago
+
+Copy link
+
+获取卡槽拍卖众筹奖励
+
+Litmus众筹奖励获取功能现在已经上线。请参照 本指南来获取您的LIT权益。
+
+使用Polkadot{js}插件
+
+1.打开PolkadotJS网站。使用Polkadot{js}插件登录参与众筹活动的相同帐户，并按照提示完成流程。
+
+2.选择在众筹中使用的帐户，并检查已获得的LIT。
+
+3.在帐户右侧点击三点标记，然后点击Unlock vested amount（解锁封存金额）按钮。
+
+4.输入您的密码并签署交易。请注意，您需要支付一小笔费用来启动交易，因此请确保您的账户中有足够的资金。
+
+5.检查Subscan上的交易历史中的vesting()。点击相应的Extrinsic ID。
+
+平行链 - Previous
+
+用户指南
+
+Next
+
+LIT从平行链转移到以太坊
+
+Last modified 2mo ago
+
+Copy link
+
+LIT从平行链转移到以太坊
+
+您可以通过访问https://apps.litentry.com/transfer来访问我们的跨链桥功能，从Litmus Network转移您的LIT代币到以太坊网络。
+
+跨链桥介绍
+
+请参考跨链桥页面。
+
+步骤
+
+本指南以Litmus => Ethereum parachain为例，也适用于Litentry => Ethereum 平行链跨链桥的使用。您只需在webapp中切换到相应的网络即可。
+
+恭喜！您已成功将LIT代币从Litmus转移到Ethereum。
+
+您可以通过检查Etherscan和statescan区块链浏览器来检查交易是否成功。
+
+请注意：
+
+1.目前，佣金设定为10 LIT。它是根据以太坊的平均燃气费和以太坊交易所需的令牌桥转移数量计算的。它可以通过polkadot-js中的chainBridge.bridgeFee查询。令牌桥佣金页面有更多关于如何计算费用的信息。
+
+2.等待时间取决于以太坊网络的流量状况。
+
+Previous
+
+获取卡槽拍卖众筹奖励
+
+Next
+
+质押LIT到Litentry平行链
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+跨链桥介绍步骤
+
+如何质押
+
+1. Web3Go（推荐）
+
+参与LIT抵押的最简单方法是通过Web3Go的Litentry质押看板。
+
+连接您的Polkadot钱包后，您可以比较可用Collator的信息，并根据需要委托资产。
+
+一旦您委托了资产，您可以通过单击Web3Go看板上的“My Stake（我的质押）”选项卡查看当前的质押情况和奖励历史。
+
+请参阅Web3Go的官方网站，了解更多质押看板功能。
+
+​2. Polkadot.js
+
+第二个选择是使用Polkadot.js。
+
+如果您想执行任何潜在的Litentry 平行链功能，PolkadotJS仍然是正确的调用点。
+
+对于首次使用者，希望执行委托质押的，您将通过parachainStaking.delegate路由。
+
+然而，如果您是现有用户并打算执行更多的委托质押，您需要使用parachainStaking.delegatorBondMore方法。
+
+parachainStaking.delegate 和 parachainStaking.delegatorBondMore 都会把你的目标Collator账户地址和你的目标质押金额（以 10^12 的形式）作为输入。（例如，如果你的输入金额是 100 0000 0000 0000，那么意味着你想抵押 100 LIT）。
+
+Previous
+
+质押LIT到Litentry平行链
+
+Next
+
+取消质押
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+1. Web3Go（推荐）2. Polkadot.js
+
+取消质押
+
+1. Web3Go
+
+​Web3Go看板也支持与取消质押相关的功能。要取消质押，请单击您现有委托旁边的unstake按钮。
+
+点击unstake按钮后，将显示委托LIT的冷却期，您可以继续执行或取消取消委托操作。
+
+2. PolkadotJS
+
+您也可以使用Polkadot.js进行任何取消质押/无质押操作，具有更多的技术灵活性。
+
+您可以随时取消质押/取消委托您的LIT。但是，您的资金需要7天才能变成可转移的。但是，由于中继链上出现的问题导致更长的区块时间，取消抵押比7天要长一点。
+
+作为希望取消质押资产的用户，您需要安排取消质押/无质押命令，并在冷却期结束后执行它以获取您的资金。以下是取消质押资产的不同情况。
+
+1.一次性撤销所有的Collator委托
+
+parachainStaking.scheduleLeaveDelegators() - 这允许您计划一个请求，以离开一组委托人并撤销所有正在进行的委托。 计划请求不会自动执行它。
+
+parachainStaking.executeLeaveDelegators(delegator) -执行executeLeaveDelegators外部调用之前，必须等待退出延迟。
+
+2.调整现有委托而非完全撤销
+
+parachainStaking.scheduleDelegatorBondLess(candidate, less) - 这允许您计划一个委托人对特定候选人的质押减少的请求。此外，调度请求不会像前面提到的
+
+parachainStaking.executeLeaveDelegators那样自动执行。parachainStaking.executeDelegationRequest(delegator, candidate) - 此命令可以帮助执行任何到期的委托请求，只要提供委托人和候选人的地址。
+
+3. 撤销您现有的单一委托
+
+parachainStaking.scheduleRevokeDelegation （collator）- 这允许您根据收集器的地址安排撤销委托的请求。调度请求不会自动执行它。在通过executeDelegationRequest extrinsic执行之前有一个等待期。
+
+parachainStaking.executeDelegationRequest(delegator, candidate)- 此命令可以帮助执行任何到期的委托请求，只要提供委托人和候选人的地址。
+
+如果你想要取消抵押，需要注意：
+
+如果你从抵押者取消抵押你的LIT代币，剩余抵押的代币必须至少有50 LIT。否则，你必须取消对该抵押者的全部抵押量。
+
+如果你后悔取消质押
+
+你的代币在取消质押期间不会获得奖励。你可以在7天内随时取消质押。以下方法用于取消未执行的命令：
+
+parachainStaking.cancelLeaveDelegators() 用于条件1 - 使用此命令，您可以取消待处理的离开委托人集合的请求。
+
+parachainStaking.cancelDelegationRequest(candidate) 用于条件2，3 - 此命令有助于取消所有委托的委托请求。​
+
+Previous
+
+如何质押
+
+Next
+
+自动复合质押
+
+Last modified 2mo ago
+
+Copy link
+
+On this page
+
+1. Web3Go
+
+2. PolkadotJS如果你后悔取消质押
+
+自动复合质押
+
+用户通过通过Parachain Staking Pallet委托Collators来帮助维护Litentry网络。按设计，抵押奖励将自动存入用户的钱包，存入的代币可根据用户的自由决定使用。
+
+然而，Litentry作为一个倾向于提高资本效率和更好地利用资产的协议，最近推出了自动复合抵押功能。
+
+通过此功能，用户获得的抵押奖励可以在点击一个按钮后自动返回抵押Pallet，以便用户可以继续获得更多奖励。用户确定奖励的总金额（百分比）被重新抵押到相应的奖励生成的抵押位置。
+
+您可以按照以下指南探索自动复合抵押功能。
+
+Polkadot.JS
+
+目前，自动复合抵押功能仅在Polkadot.JS上可用。
+
+要开始，将鼠标悬停在页面顶部的开发者按钮上，并从下拉选项中选择“Extrinsics”：
+
+从“Submit the following Extrinsics”下拉选项中选择ParachainStaking，如下图所示。
+
+按方法，从“添加候选人白名单”下拉选项中选择setAutoCompound，如2所示。重要的是要注意，委托人在每个Collator上的质押位置是独立的。因此，你应该在对应现有的位置继续，如3所示。最后，在质押功能栈中设置您希望重新委托给Collator的奖励百分比，如4所示，并提交交易。
+
+根据下面external extrinsic中提供的信息，用户（委托人）在Collator 1上的自动复合设置将是他奖励的50％。它将立即在下一次奖励分配过程中生效，并且奖励的一半将自动重新质押。
+
+您也可以直接质押新的位置，如果没有相应的Collator上的现有位置，您可以指定自动复合质押设置。在“添加候选人白名单”下选择的方法是delegateWithAutoCompound。之后，选择您所需的自动复合百分比，并提交交易。这将为您打开一个新的质押位置，就像传统的delegate方法一样，但具有自动复合质押设置。
+
+Web3Go
+
+正如前面提到的，自动复合抵押设置仅在Polkadot.JS上可用，目前Web3Go尚不支持。一旦该选项可用，我们将更新此文档。
+
+Previous
+
+取消质押
+
+Last modified 2mo ago
+
+Copy link
+
+质押LIT到Litentry平行链
+
+概览
+
+Litentry使用委托证明的权益共识机制，允许LIT持有者抵押资产，通过其抵押平台抵押他们所需的收集器。抵押平台旨在允许委托人和收集器共享风险和回报。
+
+Previous
+
+LIT从平行链转移到以太坊
+
+Next
+
+如何质押
+
+Last modified 2mo ago
+
+Copy link
+
+用户指南
+
+Here are the articles in this section:
+
+获取卡槽拍卖众筹奖励
+
+LIT从平行链转移到以太坊
+
+质押LIT到Litentry平行链
+
+Previous
+
+主要组件
+
+Next
+
+获取卡槽拍卖众筹奖励
+
+Last modified 2mo ago
+
+Copy link

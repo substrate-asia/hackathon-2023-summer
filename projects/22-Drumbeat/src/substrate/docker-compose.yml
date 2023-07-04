@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+  dev:
+    container_name: node-admeta
+    image: paritytech/ci-linux:production
+    working_dir: /var/www/node-admeta
+    ports:
+      - "9944:9944"
+    environment:
+      - CARGO_HOME=/var/www/node-admeta/.cargo
+    volumes:
+      - .:/var/www/node-admeta
+      - type: bind
+        source: ./.local
+        target: /root/.local
+    command: bash -c "cargo build --release && cargo test && ./target/release/admeta --dev --ws-external"

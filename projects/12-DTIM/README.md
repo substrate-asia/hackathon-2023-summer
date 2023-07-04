@@ -8,7 +8,7 @@
 
 项目简介
 
-DTIM is a distributed instant messaging software based on the matrix communication protocol, it represents a decentralized team (Decentralize team). Our goal is to provide a secure, efficient and transparent working communication environment. The main functions include real-time communication and collaboration, integrating chat, voice / video conference and other functions, allowing interaction, sharing ideas and effective communication at any time.
+DTIM is a distributed instant messaging software based on the matrix communication protocol, DT is short for Decentralize team. Our goal is to provide a secure, efficient and transparent working communication environment. The main functions include real-time communication and collaboration, integrating chat, voice / video conference and other functions, allowing interaction, sharing ideas and effective communication at any time.
 
 DTIM provides a decentralized governance mechanism based on substrate to ensure the sustainable development and community participation of the platform. Users can participate in the decision-making process through voting, proposals and other means, and promote the development of the project.
 
@@ -16,7 +16,7 @@ At the same time, the task management driven by smart contracts enables the crea
 
 DTIM is striving to integrate the Polkadot ecology DAPP, seeking DAPP application solutions in the office field. 
 
-DTIM是一款基于matrix通信协议的分布式即时通讯软件，它代表着分布式团队（Decentralize team）。我们旨在提供安全、高效和透明的工作沟通环境。主要功能包括实时沟通与协作，集成了聊天、语音/视频会议等功能，可以随时进行交流、分享想法以及有效地沟通。
+DTIM是一款基于matrix通信协议的分布式即时通讯软件，DT是Decentralize team的缩写。我们旨在提供安全、高效和透明的工作沟通环境。主要功能包括实时沟通与协作，集成了聊天、语音/视频会议等功能，可以随时进行交流、分享想法以及有效地沟通。
 
 <img width="600" src="https://wetee.app/icons/shot/im.png"/>
 
@@ -54,7 +54,7 @@ DTIM正在集成波卡生态DAPP，寻找DAPP在办公领域应用方案。
  - 区块链项目地址： [https://github.com/DAOent/chain/tree/hackathon-2023-summer](https://github.com/DAOent/chain/tree/hackathon-2023-summer)
  - flutter-rust兼容层：[https://github.com/DAOent/rust-sdk](https://github.com/DAOent/rust-sdk)
  - flutter-js兼容层：[https://github.com/DAOent/js-sdk/tree/hackathon-2023-summer](https://github.com/DAOent/js-sdk/tree/hackathon-2023-summer)
- - 区块链浏览器: [https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer)
+ - 区块链浏览器：[https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fchain-api.tc.asyou.me#/explorer)
 
 
 ### 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
@@ -79,7 +79,6 @@ DTIM正在集成波卡生态DAPP，寻找DAPP在办公领域应用方案。
 
 - flutter desktop
   - [x] 用户信息展示
-  - [x] 使用 zkSBT 或 zkBAB 为软件提供 KYC 功能
   - [x] 完成P2P通话功能
   - [x] 完成P2P在线会议
   - [ ] NFT铸币
@@ -96,7 +95,7 @@ DTIM正在集成波卡生态DAPP，寻找DAPP在办公领域应用方案。
   - [x] 用户信息展示
   - [x] 完成P2P通话功能 
   - [x] 完成P2P在线会议 
-  - [x] Manta nnetwork zkBAB 接入 ==> [https://github.com/DAOent/DTIM-zkBAB/tree/hackathon-2023-summer](https://github.com/DAOent/DTIM-zkBAB/tree/hackathon-2023-summer)
+  - [x] Manta network zkBAB 接入 ==> [https://github.com/DAOent/DTIM-zkBAB/tree/hackathon-2023-summer](https://github.com/DAOent/DTIM-zkBAB/tree/hackathon-2023-summer)
   - [x] DAPP 应用中心
   - [x] 去中心化治理 DAPP
   - [x] Kanban DAPP

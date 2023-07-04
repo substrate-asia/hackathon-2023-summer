@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "internal-dev-ai-webApp",
+      "max_memory_restart": "1024M",
+      "node_args": "--max-old-space-size=1024",
+      "exec_mode": "cluster",
+      "instances": 1,
+      "script": "./node_modules/next/dist/bin/next",
+      "cwd": "",
+      "args": "start",
+      "env": {}
+    }
+  ]
+}
+

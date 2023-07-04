@@ -8,9 +8,8 @@ Project Launched Date: June 2023
 
 [Operation Manual](./docs/OperationManual.md)
 
-[Demo Video]()
+[Demo Video](https://youtu.be/bOKwpGb-208)
 
-[PPT]()
 
 ## Overall Project Description
 

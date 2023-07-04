@@ -105,7 +105,7 @@ function percent(start: number, end: number, current?: number): number {
 }
 
 function StakeOrApproveButton({ stakeToken }: { stakeToken: Address }) {
-  const input: string = "2"; // TODO
+  const input: string = "1000"; // TODO
   const amount = parseEther(input);
 
   const { address } = useAccount();

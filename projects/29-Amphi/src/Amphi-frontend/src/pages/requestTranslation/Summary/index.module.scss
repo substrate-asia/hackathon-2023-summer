@@ -1,0 +1,16 @@
+.summary-list {
+    li {
+        @include layout();
+        justify-content: space-between;
+
+        span {
+            @include font($size: 14px, $color: #64666b, $lineH: 22px, $weight: normal);
+        }
+    }
+
+    p {
+        text-align: right;
+
+        @include font($size: 12px, $color: #969aa0, $lineH: 18px, $weight: normal);
+    }
+}

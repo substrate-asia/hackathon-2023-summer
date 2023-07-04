@@ -1,0 +1,35 @@
+.total-cost-list {
+    li {
+        @include layout();
+        justify-content: space-between;
+        margin: 8px;
+
+        span {
+            @include font($size: 14px, $color: #64666b, $weight: normal, $lineH: 22px);
+        }
+
+        strong {
+            @include font(
+                $family: 'Barlow',
+                $size: 16px,
+                $color: #323335,
+                $weight: 600,
+                $lineH: 24px
+            );
+        }
+
+        &:last-of-type {
+            padding-top: 8px;
+            border-top: 2px solid #dfe0e2;
+
+            span {
+                color: #323335;
+                font-weight: 600;
+            }
+
+            strong {
+                color: #0049ff;
+            }
+        }
+    }
+}

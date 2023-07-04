@@ -1,0 +1,864 @@
+{
+    "serviceTypes": [
+        { "value": "0", "label": "Text translation" },
+        { "value": "1", "label": "Voice translation" },
+        { "value": "2", "label": "Subtitling" },
+        { "value": "3", "label": "Local errand" }
+    ],
+    "translationTypes": [
+        {
+            "value": "0",
+            "label": "Localization"
+        },
+        {
+            "value": "1",
+            "label": "Validation"
+        },
+        {
+            "value": "2",
+            "label": "Machine translation post editing"
+        },
+        {
+            "value": "3",
+            "label": "Subtitling with screen words"
+        },
+        {
+            "value": "4",
+            "label": "Subtiting without screen words"
+        },
+        {
+            "value": "5",
+            "label": "Interpreting"
+        }
+    ],
+    "translationState": [
+        {
+            "value": "0",
+            "label": "Pending agreement"
+        },
+        {
+            "value": "1",
+            "label": "In service"
+        },
+        {
+            "value": "2",
+            "label": "In service"
+        },
+        {
+            "value": "3",
+            "label": "In service"
+        },
+        {
+            "value": "5",
+            "label": "Order completed"
+        },
+        {
+            "value": "4",
+            "label": "cancel"
+        },
+        {
+            "value": "5",
+            "label": "cancel"
+        }
+    ],
+    "industry": [
+        {
+            "value": "1",
+            "label": "Accommodation & Food Services"
+        },
+        {
+            "value": "2",
+            "label": "Administration & Business Support Services"
+        },
+        {
+            "value": "3",
+            "label": "Agriculture, Forestry, Fishing & Hunting"
+        },
+        {
+            "value": "4",
+            "label": "Arts, Entertainment & Recreation"
+        },
+        {
+            "value": "5",
+            "label": "Construction"
+        },
+        {
+            "value": "6",
+            "label": "Finance & Insurance"
+        },
+        {
+            "value": "7",
+            "label": "Healthcare & Social Assistance"
+        },
+        {
+            "value": "8",
+            "label": "Information"
+        },
+        {
+            "value": "9",
+            "label": "Manufacturing"
+        },
+        {
+            "value": "10",
+            "label": "Mining"
+        },
+        {
+            "value": "11",
+            "label": "Personal Services"
+        },
+        {
+            "value": "12",
+            "label": "Professional, Scientific & Technical Services"
+        },
+        {
+            "value": "13",
+            "label": "Public Administration & Safety"
+        },
+        {
+            "value": "14",
+            "label": "Real Estate, Rental & Leasing"
+        },
+        {
+            "value": "15",
+            "label": "Retail Trade"
+        },
+        {
+            "value": "16",
+            "label": "Transportation & Warehousing"
+        },
+        {
+            "value": "17",
+            "label": "Thematic Reports"
+        },
+        {
+            "value": "18",
+            "label": "Utilities "
+        },
+        {
+            "value": "19",
+            "label": "Advisory & Financial Services"
+        },
+        {
+            "value": "20",
+            "label": "Business Franchises"
+        },
+        {
+            "value": "21",
+            "label": "Consumer Goods & Services"
+        },
+        {
+            "value": "22",
+            "label": "Industrial Machinery, Gas & Chemicals"
+        },
+        {
+            "value": "23",
+            "label": "Life Sciences"
+        },
+        {
+            "value": "24",
+            "label": "Online Retail"
+        },
+        {
+            "value": "25",
+            "label": "Retail Market"
+        },
+        {
+            "value": "26",
+            "label": "Specialist Engineering, Infrastructure & Contractors"
+        },
+        {
+            "value": "27",
+            "label": "Technology"
+        },
+        {
+            "value": "28",
+            "label": "Water Supply; Sewerage, Waste Management and Remediation Activities"
+        }
+    ],
+    "jobFunctions": [
+        {
+            "value": "1",
+            "label": "Information technology"
+        },
+        {
+            "value": "2",
+            "label": "Sales"
+        },
+        {
+            "value": "3",
+            "label": "Engineering"
+        },
+        {
+            "value": "4",
+            "label": "Business development"
+        },
+        {
+            "value": "5",
+            "label": "Management"
+        },
+        {
+            "value": "6",
+            "label": "Manufacturing"
+        },
+        {
+            "value": "7",
+            "label": "Marketing"
+        },
+        {
+            "value": "8",
+            "label": "Research"
+        },
+        {
+            "value": "9",
+            "label": "Other"
+        },
+        {
+            "value": "10",
+            "label": "Finance"
+        }
+    ],
+    "languages": [
+        {
+            "value": "1",
+            "label": "Afrikaans"
+        },
+        {
+            "value": "2",
+            "label": "Albanian"
+        },
+        {
+            "value": "3",
+            "label": "Amharic"
+        },
+        {
+            "value": "4",
+            "label": "Arabic"
+        },
+        {
+            "value": "5",
+            "label": "Armenian"
+        },
+        {
+            "value": "6",
+            "label": "Assamese"
+        },
+        {
+            "value": "7",
+            "label": "Aymara"
+        },
+        {
+            "value": "8",
+            "label": "Azerbaijani"
+        },
+        {
+            "value": "9",
+            "label": "Bambara"
+        },
+        {
+            "value": "10",
+            "label": "Basque"
+        },
+        {
+            "value": "11",
+            "label": "Belarusian"
+        },
+        {
+            "value": "12",
+            "label": "Bengali"
+        },
+        {
+            "value": "13",
+            "label": "Bhojpuri"
+        },
+        {
+            "value": "14",
+            "label": "Bosnian"
+        },
+        {
+            "value": "15",
+            "label": "Bulgarian"
+        },
+        {
+            "value": "16",
+            "label": "Catalan"
+        },
+        {
+            "value": "17",
+            "label": "Cebuano"
+        },
+        {
+            "value": "18",
+            "label": "Chichewa"
+        },
+        {
+            "value": "19",
+            "label": "Chinese (Simplified)"
+        },
+        {
+            "value": "20",
+            "label": "Chinese (Traditional)"
+        },
+        {
+            "value": "21",
+            "label": "Corsican"
+        },
+        {
+            "value": "22",
+            "label": "Croatian"
+        },
+        {
+            "value": "23",
+            "label": "Czech"
+        },
+        {
+            "value": "24",
+            "label": "Danish"
+        },
+        {
+            "value": "25",
+            "label": "Dhivehi"
+        },
+        {
+            "value": "26",
+            "label": "Dogri"
+        },
+        {
+            "value": "27",
+            "label": "Dutch"
+        },
+        {
+            "value": "28",
+            "label": "English"
+        },
+        {
+            "value": "29",
+            "label": "Esperanto"
+        },
+        {
+            "value": "30",
+            "label": "Estonian"
+        },
+        {
+            "value": "31",
+            "label": "Ewe"
+        },
+        {
+            "value": "32",
+            "label": "Filipino"
+        },
+        {
+            "value": "33",
+            "label": "Finnish"
+        },
+        {
+            "value": "34",
+            "label": "French"
+        },
+        {
+            "value": "35",
+            "label": "Frisian"
+        },
+        {
+            "value": "36",
+            "label": "Galician"
+        },
+        {
+            "value": "37",
+            "label": "Georgian"
+        },
+        {
+            "value": "38",
+            "label": "German"
+        },
+        {
+            "value": "39",
+            "label": "Greek"
+        },
+        {
+            "value": "40",
+            "label": "Guarani"
+        },
+        {
+            "value": "41",
+            "label": "Gujarati"
+        },
+        {
+            "value": "42",
+            "label": "Haitian Creole"
+        },
+        {
+            "value": "43",
+            "label": "Hausa"
+        },
+        {
+            "value": "44",
+            "label": "Hawaiian"
+        },
+        {
+            "value": "45",
+            "label": "Hebrew"
+        },
+        {
+            "value": "46",
+            "label": "Hindi"
+        },
+        {
+            "value": "47",
+            "label": "Hmong"
+        },
+        {
+            "value": "48",
+            "label": "Hungarian"
+        },
+        {
+            "value": "49",
+            "label": "Icelandic"
+        },
+        {
+            "value": "50",
+            "label": "Igbo"
+        },
+        {
+            "value": "51",
+            "label": "Ilocano"
+        },
+        {
+            "value": "52",
+            "label": "Indonesian"
+        },
+        {
+            "value": "53",
+            "label": "Irish"
+        },
+        {
+            "value": "54",
+            "label": "Italian"
+        },
+        {
+            "value": "55",
+            "label": "Japanese"
+        },
+        {
+            "value": "56",
+            "label": "Javanese"
+        },
+        {
+            "value": "57",
+            "label": "Kannada"
+        },
+        {
+            "value": "58",
+            "label": "Kazakh"
+        },
+        {
+            "value": "59",
+            "label": "Khmer"
+        },
+        {
+            "value": "60",
+            "label": "Kinyarwanda"
+        },
+        {
+            "value": "61",
+            "label": "Konkani"
+        },
+        {
+            "value": "62",
+            "label": "Korean"
+        },
+        {
+            "value": "63",
+            "label": "Krio"
+        },
+        {
+            "value": "64",
+            "label": "Kurdish (Kurmanji)"
+        },
+        {
+            "value": "65",
+            "label": "Kurdish (Sorani)"
+        },
+        {
+            "value": "66",
+            "label": "Kyrgyz"
+        },
+        {
+            "value": "67",
+            "label": "Lao"
+        },
+        {
+            "value": "68",
+            "label": "Latin"
+        },
+        {
+            "value": "69",
+            "label": "Latvian"
+        },
+        {
+            "value": "70",
+            "label": "Lingala"
+        },
+        {
+            "value": "71",
+            "label": "Lithuanian"
+        },
+        {
+            "value": "72",
+            "label": "Luganda"
+        },
+        {
+            "value": "73",
+            "label": "Luxembourgish"
+        },
+        {
+            "value": "74",
+            "label": "Macedonian"
+        },
+        {
+            "value": "75",
+            "label": "Maithili"
+        },
+        {
+            "value": "76",
+            "label": "Malagasy"
+        },
+        {
+            "value": "77",
+            "label": "Malay"
+        },
+        {
+            "value": "78",
+            "label": "Malayalam"
+        },
+        {
+            "value": "79",
+            "label": "Maltese"
+        },
+        {
+            "value": "80",
+            "label": "Maori"
+        },
+        {
+            "value": "81",
+            "label": "Marathi"
+        },
+        {
+            "value": "82",
+            "label": "Meiteilon (Manipuri)"
+        },
+        {
+            "value": "83",
+            "label": "Mizo"
+        },
+        {
+            "value": "84",
+            "label": "Mongolian"
+        },
+        {
+            "value": "85",
+            "label": "Myanmar (Burmese)"
+        },
+        {
+            "value": "86",
+            "label": "Nepali"
+        },
+        {
+            "value": "87",
+            "label": "Norwegian"
+        },
+        {
+            "value": "88",
+            "label": "Odia (Oriya)"
+        },
+        {
+            "value": "89",
+            "label": "Oromo"
+        },
+        {
+            "value": "90",
+            "label": "Pashto"
+        },
+        {
+            "value": "91",
+            "label": "Persian"
+        },
+        {
+            "value": "92",
+            "label": "Polish"
+        },
+        {
+            "value": "93",
+            "label": "Portuguese"
+        },
+        {
+            "value": "94",
+            "label": "Punjabi"
+        },
+        {
+            "value": "95",
+            "label": "Quechua"
+        },
+        {
+            "value": "96",
+            "label": "Romanian"
+        },
+        {
+            "value": "97",
+            "label": "Russian"
+        },
+        {
+            "value": "98",
+            "label": "Samoan"
+        },
+        {
+            "value": "99",
+            "label": "Sanskrit"
+        },
+        {
+            "value": "100",
+            "label": "Scots Gaelic"
+        },
+        {
+            "value": "101",
+            "label": "Sepedi"
+        },
+        {
+            "value": "102",
+            "label": "Serbian"
+        },
+        {
+            "value": "103",
+            "label": "Sesotho"
+        },
+        {
+            "value": "104",
+            "label": "Shona"
+        },
+        {
+            "value": "105",
+            "label": "Sindhi"
+        },
+        {
+            "value": "106",
+            "label": "Sinhala"
+        },
+        {
+            "value": "107",
+            "label": "Slovak"
+        },
+        {
+            "value": "108",
+            "label": "Slovenian"
+        },
+        {
+            "value": "109",
+            "label": "Somali"
+        },
+        {
+            "value": "110",
+            "label": "Spanish"
+        },
+        {
+            "value": "111",
+            "label": "Sundanese"
+        },
+        {
+            "value": "112",
+            "label": "Swahili"
+        },
+        {
+            "value": "113",
+            "label": "Swedish"
+        },
+        {
+            "value": "114",
+            "label": "Tajik"
+        },
+        {
+            "value": "115",
+            "label": "Tamil"
+        },
+        {
+            "value": "116",
+            "label": "Tatar"
+        },
+        {
+            "value": "117",
+            "label": "Telugu"
+        },
+        {
+            "value": "118",
+            "label": "Thai"
+        },
+        {
+            "value": "119",
+            "label": "Tigrinya"
+        },
+        {
+            "value": "120",
+            "label": "Tsonga"
+        },
+        {
+            "value": "121",
+            "label": "Turkish"
+        },
+        {
+            "value": "122",
+            "label": "Turkmen"
+        },
+        {
+            "value": "123",
+            "label": "Twi"
+        },
+        {
+            "value": "124",
+            "label": "Ukrainian"
+        },
+        {
+            "value": "125",
+            "label": "Urdu"
+        },
+        {
+            "value": "126",
+            "label": "Uyghur"
+        },
+        {
+            "value": "127",
+            "label": "Uzbek"
+        },
+        {
+            "value": "128",
+            "label": "Vietnamese"
+        },
+        {
+            "value": "129",
+            "label": "Welsh"
+        },
+        {
+            "value": "130",
+            "label": "Xhosa"
+        },
+        {
+            "value": "131",
+            "label": "Yiddish"
+        },
+        {
+            "value": "132",
+            "label": "Yoruba"
+        },
+        {
+            "value": "133",
+            "label": "Zulu"
+        }
+    ],
+    "certificationOptions": [
+        {
+            "label": "A1(CEFR)",
+            "value": "A1(CEFR)"
+        },
+        {
+            "label": "A2(CEFR)",
+            "value": "A2(CEFR)"
+        },
+        {
+            "label": "B1(CEFR)",
+            "value": "B1(CEFR)"
+        },
+        {
+            "label": "B2(CEFR)",
+            "value": "B2(CEFR)"
+        },
+        {
+            "label": "C1(CEFR)",
+            "value": "C1(CEFR)"
+        },
+        {
+            "label": "C2(CEFR)",
+            "value": "C2(CEFR)"
+        }
+    ],
+    "rejectReasons": [
+        {
+            "label": "Spelling, Grammar & Syntax Errors",
+            "value": "1"
+        },
+        {
+            "label": "Glossary & Terminology Inconsistencies",
+            "value": "2"
+        },
+        {
+            "label": "Omissions (text not translated)",
+            "value": "3"
+        },
+        {
+            "label": "Mistranslations",
+            "value": "4"
+        },
+        {
+            "label": "Style Guide Not Followed",
+            "value": "5"
+        }
+    ],
+    "socialMedia": [
+        {
+            "label": "1",
+            "value": "Email"
+        },
+        {
+            "label": "2",
+            "value": "Discord"
+        }
+    ],
+    "workLoadType": [
+        {
+            "value": 0,
+            "label": "Episodes"
+        },
+        {
+            "value": 1,
+            "label": "Minutes"
+        },
+        {
+            "value": 2,
+            "label": "Words"
+        },
+        {
+            "value": 3,
+            "label": "People"
+        }
+    ],
+    "currentLanguages": [
+        {
+            "value": "19",
+            "label": "Chinese (Simplified)"
+        },
+        {
+            "value": "20",
+            "label": "Chinese (Traditional)"
+        },
+        {
+            "value": "28",
+            "label": "English"
+        },
+        {
+            "value": "55",
+            "label": "Japanese"
+        },
+        {
+            "value": "62",
+            "label": "Korean"
+        },
+        {
+            "value": "97",
+            "label": "Russian"
+        },
+        {
+            "value": "118",
+            "label": "Thai"
+        },
+        {
+            "value": "127",
+            "label": "Uzbek"
+        }
+    ]
+}

@@ -1,0 +1,158 @@
+.cc_je {
+	color: #666;
+	font-size: 0.9375rem;
+	font-weight: bold;
+}
+
+.sr_detail {
+	border-radius: 0.5rem;
+	margin-top: 0.9375rem;
+}
+
+.sr_detail_body {
+	min-height: 7.8125rem;
+	background-color: white;
+}
+
+.sr_detail_list {
+	font-size: 12px;
+	color: #666666;
+}
+
+.sr_detail_list li {
+	border-bottom: #ddd 0.0625rem dotted;
+	/* padding: 0.625rem; */
+}
+
+.jezt {
+	padding: 0.75rem 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.jezt .detail_title{
+	height: 1.375rem;
+	opacity: 1;
+	color: rgba(21,42,74,1);
+	font-size: 14px;
+	font-weight: 700;
+	font-family: "PingFang SC";
+}
+.jezt .je span {
+	color: #152A4A;
+	font-weight: bold;
+}
+
+.jezt .zt {
+	color: #FF6600;
+}
+
+.jezt .zc {
+	color: #152A4A;
+	font-weight: bold;
+}
+.jezt .zr {
+	color: #0053D0;
+	font-weight: bold;
+}
+
+.jezt1 .zt {
+	color: #152A4A;
+}
+
+.jezt1 .zc {
+	color: #ED6E2F;
+	font-weight: bold;
+}
+
+.jydz {
+	margin-top: 0.75rem;
+	word-break: break-all;
+}
+.sr_detail_list .title{
+	height: 1.25rem;
+	color: rgba(126,142,152,1);
+}
+.sr_detail_list .info{
+	height: 1.25rem;
+	color: rgba(16,51,74,1);
+}
+
+.jysj {
+
+}
+
+.operation_area {
+	position: fixed;
+	display: flex;
+	/* flex-direction: row; */
+	justify-content: space-around;
+	left: 0;
+	bottom: 56px;
+	right: 0;
+	height: 2.375rem;
+	background-color: #f3f5f7;
+	height: 3.25rem;
+}
+.operation_area .bottom-button1{
+	height: 2.625rem!important;
+	border-radius: 4px;
+	opacity: 1;
+	background: rgba(0,83,208,1);
+	margin-left: 0.8125rem ;
+	margin-bottom: 0.625rem;
+}
+.operation_area .bottom-button2{
+	height: 2.625rem!important;
+	border-radius: 4px;
+	opacity: 1;
+	background: rgba(96,124,168,1);
+	margin-right: 0.8125rem;
+	margin-bottom: 0.625rem;
+}
+
+.operation_area div {
+	flex: 1;
+}
+
+.operation_area .ui-btn {
+	flex: 20;
+	height: 100%;
+}
+
+.zz_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 0.3125rem 0.5rem;
+	height: 2.75rem;
+	font-size: 1rem;
+	color: #333333;
+}
+
+#transferDiv .ic_qrcode {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background: url(../img/ic_qrcode.png) no-repeat center;
+	background-size: 60%;
+	width: 2.875rem;
+	height: 2.875rem;
+}
+#transferDiv .zz_input {
+	padding-left: 0.625rem;
+	/* width: 130%; */
+}
+
+#transferDiv footer {
+	margin: 0.3125rem;
+	color: red;
+}
+
+#transferDiv label {
+	font-size: 14px;
+}
+
+#transferDiv input {
+	font-size: 14px;
+}

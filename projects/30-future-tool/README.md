@@ -6,7 +6,7 @@
 
 ## 项目整体简介
 
-![](docs/logo.png)
+<img src="docs/logo.png" width="256"/>
 
 零知识证明将是未来Web3.0的基石，它利用神奇的密码学原理做到了保护隐私和压缩数据的能力，但其编程复杂，效率低，如何用好这一工具将是广大开发者的难题。
 
@@ -35,11 +35,16 @@ flowchart LR
     create["Create(UI)"]
     join["Join(UI)"]
 
-    game["Game(.sol)"]
-    board["BoardEligibility(.sol)"]
-
-    create --> game --> board
+    create --> game
     join --> game
+
+    subgraph moonbeam["Moonbase Alpha"]
+        game["Game(.sol)"]
+        board["BoardEligibility(.sol)"]
+        precompile["Precompiled"]
+
+        game --> board --> precompile
+    end
 ```
 
 游戏创建后，每个玩家依次进行轮回的游戏，直到有一方胜利为止
@@ -49,10 +54,18 @@ flowchart LR
     turn["Turn(UI)"]
 
     game["Game(.sol)"]
-    attack["RevealAttack(.sol)"]
 
-    turn --> game --> attack
+    turn --> game 
+    subgraph moonbeam["Moonbase Alpha"]
+        game["Game(.sol)"]
+        attack["RevealAttack(.sol)"]
+        precompile["Precompiled"]
+
+        game --> attack --> precompile
+    end
 ```
+
+由于可以利用上BN128的Precompiled合约，因此零知识证明的验证速度快，消耗的gas低。
 
 ## 程序部署说明
 

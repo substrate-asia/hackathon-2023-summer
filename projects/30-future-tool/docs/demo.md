@@ -1,5 +1,5 @@
 
-![](logo.png)
+<img src="logo.png" width="256"/>
 
 ## 初始化
 
@@ -13,6 +13,8 @@
 
 （以下是一种部署好的方案图）
 ![](2023-07-04-10-43-21.png)
+
+合约已经部署至moonbeam alpha[查看合约](https://moonbase.moonscan.io/address/0x0327bdbc3ce56723b5319d90e106685755f42a8f)
 
 ## 游戏过程
 

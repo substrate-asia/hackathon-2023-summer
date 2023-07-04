@@ -23,6 +23,7 @@
     "@0x/migrations": "^8.1.19",
     "@0x/protocol-utils": "^1.7.2",
     "@gear-js/api": "^0.31.2",
+    "@gear-js/react-hooks": "^0.5.20",
     "@gear-js/ui": "^0.5.19",
     "@metamask/detect-provider": "^2.0.0",
     "@nextui-org/react": "^1.0.0-beta.13",

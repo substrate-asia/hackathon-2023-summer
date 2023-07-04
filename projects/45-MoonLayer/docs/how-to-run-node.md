@@ -40,7 +40,7 @@ export default {
     // We recommend using this key for testing because currently all tokens are minted to this account
     PRIVKEY: "0x3f1c78a7c6c46e3d8a45b1bc29048719bff0903375cd066ccb7675ce4c77752e",
     
-    // Enable sequencer or not, leave false if you don't want to
+    // Enable to become sequencer node, leave false if you use user node only
     SEQUENCER_MODE: true,
     // Address to be paid in (gas fees from transactions you sequenced will bet transferred to this address)
     // This is also the address generated from the private key above

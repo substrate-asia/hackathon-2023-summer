@@ -50,6 +50,7 @@ pub trait WeightInfo {
 	fn submit_proof() -> Weight;
 	fn validate_proof() -> Weight;
 	fn do_reward() -> Weight;
+	fn set_reward_asset_id() -> Weight;
 }
 
 /// Weights for pallet_example_basic using the Substrate pivot and recommended hardware.
@@ -77,6 +78,10 @@ impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
 		Weight::from_parts(19_000_000 as u64, 0)
 			.saturating_add(RocksDbWeight::get().writes(1 as u64))
 	}
+	fn set_reward_asset_id() -> Weight {
+		Weight::from_parts(19_000_000 as u64, 0)
+			.saturating_add(RocksDbWeight::get().writes(1 as u64))
+	}
 }
 
 // For backwards compatibility and tests
@@ -100,6 +105,10 @@ impl WeightInfo for () {
 	}
 
 	fn do_reward() -> Weight {
+		Weight::from_parts(19_000_000 as u64, 0)
+			.saturating_add(RocksDbWeight::get().writes(1 as u64))
+	}
+	fn set_reward_asset_id() -> Weight {
 		Weight::from_parts(19_000_000 as u64, 0)
 			.saturating_add(RocksDbWeight::get().writes(1 as u64))
 	}

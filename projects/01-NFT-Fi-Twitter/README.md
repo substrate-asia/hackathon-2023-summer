@@ -24,9 +24,13 @@ NFT-Fi Twitter: A NFT powered WebExtension ([Chrome](https://developer.chrome.co
 ### 项目Demo
 
 项目为浏览器插件，但是插件还未发布到 chrome 的扩展市场。
+
 moonbean 链的交互 tx: <https://moonbase.moonscan.io/address/0xC6E58fb4aFFB6aB8A392b7CC23CD3feF74517F6C>
+
 项目的 PoC 的视频演示：<https://www.loom.com/share/794470ea454c4058a2bddf8a523fb0f5>
+
 项目 Deck： [Nft-Fi-Twitter_230704](./docs/Nft-Fi-Twitter_230704.pptx)
+
 ### 技术架构
 
 We use the [vitesse-webext](https://github.com/antfu/vitesse-webext) open-source code to init our chrome extension.

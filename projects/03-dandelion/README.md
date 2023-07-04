@@ -48,7 +48,7 @@ At present, the best launch method of blockchain projects is airdrop, because of
 - 项目Demo
     https://dandelion-1lf.pages.dev/
 - 技术架构
-    Substrate平行链 add Evm
+    Substrate平行链 + Evm + 智能合约
 - 项目 logo (如有)，这 logo 会印制在文宣，会场海报或贴子上。
     ![蒲公英](https://bafybeiep3ezg7u7igdfxhcle7tlllamt6jxouwhnounmessqwbyohibrke.ipfs.w3s.link/%E8%92%B2%E5%85%AC%E8%8B%B1.png "蒲公英logo")
     
@@ -57,10 +57,10 @@ At present, the best launch method of blockchain projects is airdrop, because of
   框架等，请给出说明。对于成熟项目可以是一个branch，要求在2023年5月12号之后生成，说明有哪些功能是已经有了的
 
 ## 黑客松期间计划完成的事项
-- 1.完成平行链基础功能开发（包括社区代币质押模块、自定义规则空投模块、用户账户画像模块等）
+- 1.完成平行链poa共识开发
+- 2.完成evm模块及相关智能合约开发（包括社区vetoken代币swap模块、自定义规则空投模块、用户活跃度模块等）
 - 2.完成前端基础ui界面的设计（包括空投项目进度展示模块，用户空投领取进度模块，社区代币质押模块）
 
-- 请团队在报名那一周 git clone 这个代码库并创建团队目录，在 readme 里列出黑客松期间内打算完成的代码功能点。并提交 PR 到本代码库。例子如下 (这只是一个 nft 项目的例子，请根据团队项目自身定义具体工作)：
 
 **区块链端**
 ![后端](https://bafybeieqsf426u42wr4q5nw7nrssxwpjiubxgijvwb5xvh4kubnfho4vfq.ipfs.w3s.link/%E5%90%8E%E7%AB%AF.png "后端合约模块")
@@ -70,7 +70,7 @@ Dandelion 合约 && Substrate add Evm
 2. 6月14日 社区活跃度（签到token），每三日一个周期。
 3. 6月17日 Substrate add Evm ,并能部署合约。
 4. 6月23日 Substrate 修改成 web3用户钱包体系。
-5. 6月30日 Substrate 修改成 POS 共识。
+5. 6月30日 Substrate 修改成 POA 共识。
 
 
 **客户端**
@@ -82,9 +82,9 @@ Dandelion 合约 && Substrate add Evm
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
-- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
+- 1.完成了平行链poa共识开发
+- 2.完成evm模块及相关智能合约开发（包括社区vetoken代币swap模块、自定义规则空投模块、用户活跃度模块等）
+- 2.完成前端基础ui界面的设计（包括空投项目进度展示模块，用户空投领取进度模块，社区代币质押模块）
 
 ## 队员信息
 

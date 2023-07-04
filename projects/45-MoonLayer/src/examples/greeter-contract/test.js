@@ -157,7 +157,7 @@ await (async () => {
     });
 })();
 
-setTimeout(() => {
+setTimeout(function emulateCall() {
     // We will use the "emulate_call" method to run the greeting's getter function
     axios.post("http://localhost:3000", 
         {
@@ -176,5 +176,6 @@ setTimeout(() => {
     })
     .catch(function (error) {
         // console.log(error);
+        setTimeout(emulateCall, 3000); // If the transaction is still not executed yet, wait for a little bit more and retry
     });
-}, 12000);
+}, 24000); // 24 secs because Moonbeam's block time is 12 secs, so 24 sec should be the reasonable wait time

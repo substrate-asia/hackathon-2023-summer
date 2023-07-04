@@ -366,14 +366,6 @@ Here are the main structure and functions of the contract:
 
 Inherits from ERC721 Contract: The DreamFactoryNFT contract inherits OpenZeppelin's ERC721 contract to implement the functionality of the ERC721 standard.
 
-Constructor: The constructor of the contract accepts three parameters, namely baseURI (used to set the base URI of the contract), _mainTable (the name of the main metadata table), and _attributesTable (the name of the attributes table).
-
-Public Variables: The contract defines several public variables, including baseURIString (to store a string representing the base URI), mainTable (the name of the main metadata table), attributesTable (the name of the attributes table), _tokenIdCounter (a counter for tracking NFT tokenIds), and _maxTokens (the maximum number of NFTs).
-
-_baseURI function: Overrides default implementation, returns the base URI of the contract.
-
-totalSupply function: Returns total number of existing NFTs.
-
 tokenURI function: Overrides default implementation, returns metadata URI for a given tokenId. It uses Tableland's query language to retrieve metadata corresponding to tokenId.
 
 mint function: Used for minting new NFTs. It checks if maximum number of NFTs has already been minted and securely mints a new NFT to caller's address.
@@ -381,7 +373,7 @@ mint function: Used for minting new NFTs. It checks if maximum number of NFTs ha
 
 
 
-Other Files:
+#### Other Files:
 Project Pitch Deck(ppt): 
 
 https://www.canva.com/design/DAFnmvFHlRg/_G_lNDGE48m69eQCYFzwJg/edit?utm_content=DAFnmvFHlRg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

@@ -337,45 +337,47 @@ async function submit() {
     const gi = await g.gameIndex();
     console.log('index', gi);
 
-    console.log(
-      '0x' + new BigNumber(publicSignals[0]).toString(16),
-      ',',
-      JSON.stringify(
-        proof.pi_a
-          .slice(0, 2)
-          .map((_: any) => '0x' + new BigNumber(_).toString(16))
-      ).replaceAll('"', ''),
-      ',',
-      JSON.stringify(
-        proof.pi_b
-          .slice(0, 2)
-          .map((bb: any) =>
-            bb.map((_: any) => '0x' + new BigNumber(_).toString(16))
-          )
-      ).replaceAll('"', ''),
-      ',',
-      JSON.stringify(
-        proof.pi_c
-          .slice(0, 2)
-          .map((_: any) => '0x' + new BigNumber(_).toString(16))
-      ).replaceAll('"', '')
+    const ep = await window.snarkjs.groth16.exportSolidityCallData(
+      proof,
+      publicSignals
     );
-    console.log(
-      publicSignals[0],
-      ',',
-      JSON.stringify(proof.pi_a.slice(0, 2)),
-      ',',
-      JSON.stringify(proof.pi_b.slice(0, 2)),
-      ',',
-      JSON.stringify(proof.pi_c.slice(0, 2))
-    );
+    const eep = JSON.parse('[' + ep + ']');
+    console.log('ep', eep);
+
+    // console.log(
+    //   '0x' + new BigNumber(publicSignals[0]).toString(16),
+    //   ',',
+    //   JSON.stringify(
+    //     proof.pi_a
+    //       .slice(0, 2)
+    //       .map((_: any) => '0x' + new BigNumber(_).toString(16))
+    //   ).replaceAll('"', ''),
+    //   ',',
+    //   JSON.stringify(
+    //     proof.pi_b
+    //       .slice(0, 2)
+    //       .map((bb: any) =>
+    //         bb.map((_: any) => '0x' + new BigNumber(_).toString(16))
+    //       )
+    //   ).replaceAll('"', ''),
+    //   ',',
+    //   JSON.stringify(
+    //     proof.pi_c
+    //       .slice(0, 2)
+    //       .map((_: any) => '0x' + new BigNumber(_).toString(16))
+    //   ).replaceAll('"', '')
+    // );
+    // console.log(
+    //   publicSignals[0],
+    //   ',',
+    //   JSON.stringify(proof.pi_a.slice(0, 2)),
+    //   ',',
+    //   JSON.stringify(proof.pi_b.slice(0, 2)),
+    //   ',',
+    //   JSON.stringify(proof.pi_c.slice(0, 2))
+    // );
     console.log('get game');
-    const t = await g.startGame(
-      publicSignals[0],
-      proof.pi_a.slice(0, 2),
-      proof.pi_b.slice(0, 2),
-      proof.pi_c.slice(0, 2)
-    );
+    const t = await g.startGame(eep[3][0], eep[0], eep[1], eep[2]);
     console.log('start game');
     await t.wait();
     console.log('waiting');

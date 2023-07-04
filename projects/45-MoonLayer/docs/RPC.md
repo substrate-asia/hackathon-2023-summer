@@ -59,7 +59,7 @@ Note: All methods are POST requests.
         * `senderAddress` (string): Sender address.
         * `data` (string): Call data.
         * `types` (array): Array of types of each parameter of the call.
-    * response (string): Raw transaction in hex.
+    * response (array): Returned values.
 
 * `get_storage_slot`:
     * Get value from a storage slot of an account from provided key.
@@ -76,7 +76,7 @@ Note: All methods are POST requests.
 
 * `get_config`:
     * Get storage keys of an account.
-    * response (object): Our configurations.
+    * response (object): The node's configurations.
 
 * `get_address_from_index`:
     * Get address from index.

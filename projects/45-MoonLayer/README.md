@@ -69,7 +69,7 @@ As a Layer 2 rollup network, MoonLayer transfers state data and computation off-
 
 ![](https://media.discordapp.net/attachments/911232853348597771/1125342989229756476/HowItWork1.png?width=960&height=540)
 
-Specifically, transactions in a rollup are collected by nodes called "sequencers". These sequencers package certain transactions into a "batch" or "rollup block" and upload the batch onto the MoonLayer blockchain through a transaction to MoonLayer with an amount of $GLMR for gas fees.  As a Sovereign Rollup, these MoonLayer transactions are not executed or verified on layer 1 like Optimistic and Zk rollup. Instead, all MoonLayer nodes will read and verify the transactions based on MoonLayer consensus rules, then execute them with their own independent state.
+Specifically, transactions in a rollup are collected by nodes called "sequencers". These sequencers package certain transactions into a "batch" or "rollup block" and upload the batch onto the Moonbeam blockchain through a transaction to Moonbeam with an amount of $GLMR for gas fees.  As a Sovereign Rollup, these MoonLayer transactions are not executed or verified on layer 1 like Optimistic and Zk rollup. Instead, all MoonLayer nodes will read and verify the transactions based on MoonLayer consensus rules, then execute them with their own independent state.
 
 This process effectively shards transaction execution and state storage from Layer 1 to Layer 2, reducing aggregation costs. Instead of paying for individual transactions on Layer 1, sequencers bundle transactions into batches and submit them on-chain.
 
@@ -83,14 +83,14 @@ MoonLayer currently employs two effective compression tricks:
 
 * First Trick: "Address Indexing" : Rather than storing the full address in each transaction, nodes keep an array of network addresses, allowing us to store just the the position or index of the address. This converts a 20-byte address into a 4-byte number within the EVM, saving 16 bytes per transaction.
 
-* Second Trick: "Gas Compression":  Standard EVM transactions use a 3-byte gas limit(representing the maximum amount of gas the transaction can consume) and a 7 or 8 bytes gas price(denoting the price per gas unit). Our method requires only 1 byte: 0.5 bytes for the gas limit and 0.5 bytes for the gas price. Inspired by Vitalik's “An Incomplete Guide to Rollups,” we use powers of two for gas values. Gas is represented by 2^n (n ranging from 9 to 24) and gas price by 2^m (m ranging from 25 to 40). While not pinpoint accurate, this method offers a wide range and is effective given that gas estimations are usually approximate. This trick reduces 10 bytes per transaction.
+* Second Trick: "Gas Compression":  Standard EVM transactions use a 3-byte gas limit (representing the maximum amount of gas the transaction can consume) and a 7 or 8 bytes gas price (denoting the price per gas unit). Our method requires only 1 byte: 0.5 bytes for the gas limit and 0.5 bytes for the gas price. Inspired by Vitalik's “An Incomplete Guide to Rollups,” we use powers of two for gas values. Gas is represented by 2^n (n ranging from 9 to 24) and gas price by 2^m (m ranging from 25 to 40). While not pinpoint accurate, this method offers a wide range and is effective given that gas estimations are usually approximate. This trick reduces 10 bytes per transaction.
 
 As mentioned in our roadmap, we plan to implement more compression tricks to enhance the efficiency of MoonLayer!
 
 
 ## The EVM
 
-MoonLayer employs the EVM as its core contract execution environment. It's fully compatible with Ethereum's native EVM and is constructed on an existing Ethereum client's EVM implementation (Ethereum js), integrating flawlessly with our rollup model. Transaction formats, address formats, signatures, and so on, are the same as those in Ethereum.
+MoonLayer employs the EVM as its core contract execution environment. It's fully compatible with Ethereum's native EVM and is constructed on an existing Ethereum client's EVM implementation (Ethereum.js), integrating flawlessly with our rollup model. Transaction formats, address formats, signatures, and so on, are the same as those in Ethereum.
 
 
 ## The Sovereign model
@@ -105,7 +105,7 @@ User nodes execute transactions after reading and verifying them from batches. I
 
 There's a common misconception that rollups must verify the batches (rollup blocks) on-chain. However, user nodes can fully validate them off-chain using Rollup’s consensus rules before submitting proofs. For instance, in Optimistic Rollups, nodes must be able to verify the transactions in batches first to know if they are faulty or not to send a fraud proof to the layer one.
 
-The only reason that Optimistic and zk Rollups require fraud or zk proofs since they partially rely on Layer 1 smart contracts, so only verifying by Rollup consensus rules would not work. Even though Rollup nodes know which transactions are valid, the bridge transferring assets from Layer 1 to Layer 2 needs proof to verify transactions. MoonLayer, like other Sovereign Rollups, has the same power as a layer one and uses an External Bridge instead of a Native Bridge, thus eliminating the need for sending proofs.
+Optimistic and zk Rollups require fraud or zk proofs since they partially rely on Layer 1 smart contracts, so only verifying by Rollup consensus rules would not work. Even though Rollup nodes know which transactions are valid, the bridge transferring assets from Layer 1 to Layer 2 needs proof to verify transactions. MoonLayer, like other Sovereign Rollups, has the same power as a layer one and uses an External Bridge instead of a Native Bridge, thus eliminating the need for sending proofs.
 
 **Advantages of the Sovereign model:**
 
@@ -140,11 +140,9 @@ MoonLayer upgrades like traditional Layer 1 networks through hard and soft forks
 
 ✅ Integrate transaction compression for lightweight and cost-effective transactions.
 
-✅ Develope the JSON-RPC server so that dapps can easily interact with the network, read state data, send transactions, etc.
+✅ Develop the JSON-RPC server so that dapps can easily interact with the network, read state data, send transactions, etc.
 
 ✅ Release documentation and specifications of MoonLayerr’s architecture and APIs.
-
-
 
 
 # Future milestones
@@ -166,4 +164,3 @@ With your recognition, we can accelerate MoonLayer development. In the next 3 mo
 |Nguyen Phu Minh|Project lead/Infrastructure dev|@nguyenphuminh|
 |Nguyen Phu Quan|Smart contract dev/Fullstack dev|@GinFdev|
 |Minh Duc|Infrastructure dev|@itsfcl|
-

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div v-if="gameMode == 'Setup'" class="row">
       <div class="col">
         <q-card class="q-ma-lg">
           <q-card-section class="bg-primary text-white">
@@ -135,6 +135,80 @@
               push
               @click="submit()"
             />
+            <q-input v-model="gameId" label="Game ID" type="number">
+              <template v-slot:after>
+                <q-btn color="primary" push icon="send" @click="join()"
+                  >JOIN</q-btn
+                >
+              </template>
+            </q-input>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+    <div v-if="gameMode == 'Attack'" class="row">
+      <div class="col">
+        <q-card class="q-ma-lg">
+          <q-card-section class="bg-negative text-white">
+            <div class="text-h6">Opponent's fleet</div>
+          </q-card-section>
+
+          <q-separator />
+          <q-card-section>
+            <div class="map">
+              <div class="row" v-for="y of 10" :key="'y-' + y">
+                <div
+                  class="cell hoverable"
+                  v-for="x of 10"
+                  :key="x + '|' + y"
+                  @click="attack(x, y)"
+                >
+                  <img
+                    v-if="opTurns[x + '|' + y]"
+                    :src="'/images/' + opTurns[x + '|' + y] + '.svg'"
+                    class="overlay-bomb"
+                  />
+                </div>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col">
+        <q-card class="q-ma-lg">
+          <q-card-section class="bg-secondary text-white">
+            <div class="text-h6">Your fleet</div>
+          </q-card-section>
+
+          <q-separator />
+          <q-card-section>
+            <div class="map">
+              <div class="row" v-for="y of 10" :key="'y-' + y">
+                <div class="cell hoverable" v-for="x of 10" :key="x + '|' + y">
+                  <template v-for="(ship, id) of fleet" :key="id">
+                    <img
+                      v-if="myTurns[x + '|' + y]"
+                      :src="'/images/' + myTurns[x + '|' + y] + '.svg'"
+                      class="overlay-bomb"
+                    />
+                    <div
+                      v-if="
+                        x == ship.x &&
+                        y == ship.y &&
+                        ships.filter((_) => _.id == id)[0]
+                      "
+                    >
+                      <img
+                        :src="'/images/' + id + '.svg'"
+                        :width="ships.filter((_) => _.id == id)[0].length * 32"
+                        class="overlay-ship"
+                        :class="{ rotate: ship.z == 1 }"
+                      />
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
           </q-card-section>
         </q-card>
       </div>
@@ -145,14 +219,13 @@
 <script setup lang="ts">
 import { computed, ref, Ref } from 'vue';
 // import { Todo, Meta } from './models';
-import { useMetaMaskWallet } from 'vue-connect-wallet';
 import { ethers, JsonRpcSigner } from 'ethers';
-import { BrowserProvider, parseUnits } from 'ethers';
 import { Game__factory } from 'src/contracts';
-import BigNumber from 'bignumber.js';
 // import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 // import { JsonRpcSigner, Web3Provider } from 'ethers';
+import { useQuasar } from 'quasar';
 
+const $q = useQuasar();
 // interface Props {
 //   title: string;
 //   todos?: Todo[];
@@ -162,6 +235,14 @@ import BigNumber from 'bignumber.js';
 // const props = withDefaults(defineProps<Props>(), {
 //   todos: () => [],
 // });
+
+const gameId = ref(1);
+
+const gameMode: Ref<'Setup' | 'Attack'> = ref('Setup');
+
+function join() {
+  gameMode.value = 'Attack';
+}
 
 const ships = [
   {
@@ -191,6 +272,26 @@ const ships = [
   },
 ];
 //console.log(await ships[0].image)
+function attack(x: number, y: number) {
+  $q.dialog({
+    title: 'Confirm',
+    message: `Attack (${x}, ${y}), confirm?`,
+    cancel: true,
+    persistent: true,
+  })
+    .onOk(() => {
+      // console.log('>>>> OK')
+    })
+    .onOk(() => {
+      // console.log('>>>> second OK catcher')
+    })
+    .onCancel(() => {
+      // console.log('>>>> Cancel')
+    })
+    .onDismiss(() => {
+      // console.log('I am triggered on both OK and Cancel')
+    });
+}
 
 const fleet: Ref<{ [key: string]: { x: number; y: number; z: -1 | 0 | 1 } }> =
   ref({
@@ -208,6 +309,30 @@ const fleet: Ref<{ [key: string]: { x: number; y: number; z: -1 | 0 | 1 } }> =
 
 const selX = ref(-1);
 const selY = ref(-1);
+
+type Turn = {
+  [key: string]: 'miss' | 'hit';
+};
+
+const opTurns: Turn = {
+  '1|1': 'miss',
+  '4|5': 'miss',
+  '5|6': 'miss',
+  '6|5': 'hit',
+  '6|6': 'hit',
+  '6|7': 'hit',
+  '6|8': 'miss',
+};
+
+const myTurns: Turn = {
+  '1|2': 'miss',
+  '7|5': 'miss',
+  '8|6': 'miss',
+  '5|2': 'hit',
+  '5|3': 'hit',
+  '5|4': 'hit',
+  '7|9': 'miss',
+};
 
 function clickOnMapEmpty() {
   console.log('clickOnMapEmpty');
@@ -436,6 +561,14 @@ async function submit() {
       transform-origin: 0% 100%;
       top: -34px;
     }
+  }
+  .overlay-bomb {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 24px;
+    width: 24px;
+    z-index: 110;
   }
 }
 </style>

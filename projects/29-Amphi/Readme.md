@@ -8,14 +8,23 @@ Project Initiation Date (Year-Month):2022.7
 
 - Project Background/Rationale/Problem to be Solved (If there are additional attachments, please place them in the "docs" directory. Submit in English).
 Price is an important concern for customers who buy language services. especially the high cost of translating into less commonly spoken languages
-Information asymmetry and low efficiency. 
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/913a20f3-bb56-4d29-999d-44d36cabb310)
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/a1aa4264-d3be-4a7c-9cec-f249b1342b1b)
+Information asymmetry and low efficiency.
+
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/9b292452-42f2-433c-9bf4-266e9a79af46)
+
+
+The traditional language service industry will have a turnover of US$60.1 billion in 2021 and is expected to reach US$82.2 billion by 2025 with a compound annual growth rate of 8.1%.
+
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/676f6158-e33d-46ac-adb1-a4873f26c55c)
+
 
 - Project Introduction
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/65b5e86a-a272-438f-9256-437abe5b8b69)
+Amphi is a Web3 + AI language service marketplace that offers not only online translation services but also offline proxy services such as cross-border e-commerce, media translation, and international proxy consulting. We aim to revolutionize the traditional language service industry by leveraging cutting-edge technology to address the high costs and information asymmetry between translators and clients. Our platform serves as a one-stop Web3 language service marketplace, setting new standards in the language service industry and providing a seamless entry point for Web2 users to access Web3.
 
-<img width="1037" alt="image" src="https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/2970a0c3-a437-4875-bc85-c0bcbc5ef82f">
+
+
+
+![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/5e59365d-8291-499d-a7fc-697d8c4794f1)
 
 - Project Demo
 

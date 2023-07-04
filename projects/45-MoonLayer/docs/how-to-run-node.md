@@ -92,7 +92,7 @@ For dapps and tools to interact with the MoonLayer client, the client exposes JS
 
 ### Testing
 
-To test it out yourself, go to [`try-it-out.md`](./try-it-out.md);
+To test it out yourself, go to [`try-it-out.md`](./try-it-out.md).
 
 ### Reset the chain
 

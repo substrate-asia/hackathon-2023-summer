@@ -339,13 +339,14 @@
               <el-button
                 v-if="chatgpt.outputFinished"
                 type="text"
-                @click="copyChatgptResult">
+                @click.stop="copyChatgptResult">
                 复制
               </el-button>
               <el-button
                 v-else
+                key="cancel-btn"
                 type="text"
-                @click="chatgpt.stop()">
+                @click.stop="chatgpt.stop()">
                 取消
               </el-button>
             </div>

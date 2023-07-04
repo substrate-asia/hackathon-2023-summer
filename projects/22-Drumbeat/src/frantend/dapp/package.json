@@ -1,0 +1,35 @@
+{
+  "name": "dapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@polkadot/api": "^10.9.1",
+    "@polkadot/extension-dapp": "^0.46.5",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
+    "@types/recharts": "^1.8.24",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "bn.js": "^5.2.1",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.6",
+    "idb-keyval": "^6.2.1",
+    "manta-extension-connect": "^1.2.4",
+    "manta-extension-sdk": "^1.1.0",
+    "next": "13.4.6",
+    "postcss": "8.4.24",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-jazzicon": "^1.0.4",
+    "recharts": "^2.7.2",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.3"
+  }
+}

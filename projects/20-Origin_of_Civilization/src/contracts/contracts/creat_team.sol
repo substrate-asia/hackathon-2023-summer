@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 import "./Register_novice_package.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract CreateCiviTeam {
+contract CreateCiviTeam is Ownable{
     address public creator; // 势力创建者的地址
+    address addressRegistContract;
 
     struct CiviTeam {
         string name;
@@ -12,16 +14,20 @@ contract CreateCiviTeam {
         mapping (address => bool) isMember;
         uint256 totalMembers;
     }
-    RegistContract reg = RegistContract(0x5eA4f6EBD22241e0605eB093DA55136Ad622eB9a);
 
     mapping(address => CiviTeam) public CiviTeams; // 势力映射
     uint256 totalCiviGroups;
     mapping(address => bool) public joinedGroup; // 玩家是否已经加入势力.
     mapping(address => address) public whichGroup; // 玩家加入了哪个势力.
 
+    function setRegistContract(address _ContractAddress) public onlyOwner {
+        addressRegistContract = _ContractAddress;
+    }
 
 
-    function createGroup(string memory _name, string memory _description, address[] memory _members) public {
+    function createGroup(string memory _name, string memory _description) public {
+        RegistContract reg = RegistContract(addressRegistContract);
+
         require(!CiviTeams[msg.sender].isMember[msg.sender], "You are already a member of a group");
         // 创建Group前需要注册.
         require(reg.isRegisted(msg.sender) == true, "You are not registed.");
@@ -29,13 +35,6 @@ contract CreateCiviTeam {
         CiviTeam storage newCiviMember = CiviTeams[msg.sender];
         newCiviMember.name = _name;
         newCiviMember.description = _description;
-        for (uint i = 0; i < _members.length; i++) {
-            newCiviMember.members.push(_members[i]);
-            newCiviMember.isMember[_members[i]] = true;
-            newCiviMember.totalMembers += 1;
-            joinedGroup[_members[i]] = true;
-            whichGroup[_members[i]] = msg.sender;
-        }
         newCiviMember.members.push(msg.sender);
         newCiviMember.isMember[msg.sender] = true;
         joinedGroup[msg.sender] = true;
@@ -45,6 +44,8 @@ contract CreateCiviTeam {
     }
 
     function joinGroup(address _groupOwner) public {
+        RegistContract reg = RegistContract(addressRegistContract);
+
         // 加入Group前需要注册.
         require(reg.isRegisted(msg.sender) == true, "You are not registed.");
         require(!CiviTeams[msg.sender].isMember[msg.sender], "You are already a member of a group");

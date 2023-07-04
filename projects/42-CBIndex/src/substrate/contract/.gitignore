@@ -1,0 +1,6 @@
+target
+Cargo.lock
+.metahash
+.binpath
+contract.meta.txt
+.vscode

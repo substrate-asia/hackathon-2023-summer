@@ -32,7 +32,7 @@ make build
 make test
 ```
 
-**deploy contracts to test-net**
+**Deploy contracts to test-net**
 
 Use `gear-js` api upload program or use `https://idea.gear-tech.io/` to upload with `meta.txt`. Steps as follow:
 1. Upload storage.wasm or storage.opt.wasm to test-net. and get program hash for next step.

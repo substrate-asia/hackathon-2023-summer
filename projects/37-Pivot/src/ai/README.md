@@ -1,21 +1,21 @@
 # 第一步：执行模型考试任务，生成对应的CSV文件。
 # 第二步：验证节点，重新执行一遍考试任务，保持seed随机数不变，验证结果是否一致
 # 第三步：验证结果通过，计算压缩率。
-!pip install openai
-!pip install langchain
+pip install openai
+pip install langchain
 from langchain.llms import OpenAI
-openai_api_key="YOUR_OPENAI_API_KEY" # Your openai API key
+openai_api_key="YOUR_OPENAI_API_KEY" 
 import locale
 def getpreferredencoding(do_setlocale = True):
     return "UTF-8"
 locale.getpreferredencoding = getpreferredencoding
-!git clone https://github.com/imClumsyPanda/langchain-ChatGLM.git /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM/ #save the langchain-ChatGLM repository to your Google Drive
+git clone https://github.com/imClumsyPanda/langchain-ChatGLM.git /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM/ #save the langchain-ChatGLM repository to your Google Drive
 
 ## Install the necessary dependencies
-%cd /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM
-%pip install -r requirements.txt
-!pip install --upgrade protobuf
-!sudo apt install iputils-ping
+cd /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM
+pip install -r requirements.txt
+pip install --upgrade protobuf
+sudo apt install iputils-ping
 
 ## Initiate chatGLM model
 from transformers import AutoTokenizer, AutoModel
@@ -30,7 +30,7 @@ set_seed(42)
 
 ## Upload test data
 import pandas as pd
-file_path = "/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/SAT_testv2.csv" # Change your excel file path
+file_path = "/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/SAT_testv2.csv" 
 
 try:
     df = pd.read_csv(file_path)
@@ -121,7 +121,7 @@ df_GLM_verified["model_parameters"] = 6500000000
 df_GLM_verified["training_set"] = 1099511627776
 df_GLM_verified.head(15)
 
-#Save the dataframe
+##Save the dataframe
 from google.colab import files
 df_GLM_verified.to_csv("/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/GLM_model_verified.csv", index=False)
 

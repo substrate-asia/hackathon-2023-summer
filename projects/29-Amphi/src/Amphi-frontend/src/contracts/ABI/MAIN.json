@@ -1,0 +1,1272 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_passAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_utilsAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_serviceAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_otherAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_ercAddress",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "ErrorValue",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "ParameterException",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "Permissions",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_fileIndex",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "acceptForTranslator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_fileIndex",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "acceptForVerifer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_amphiAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addAmphiAddress",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "closeFileState",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "closeTask",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "endTransAccept",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "endTransVf",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAmphiFee",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getFileState",
+        "outputs": [
+            {
+                "internalType": "enum LibProject.FileState",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "getIsTransferState",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "getPay",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getReturnRecord",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "toAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "returnFile",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "illustrate",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct LibProject.ReturnRecord",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getTaskInfo",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "components": [
+                            {
+                                "internalType": "address",
+                                "name": "buyer",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "releaseTime",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "introduce",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "need",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "deadline",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "sourceLanguage",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "goalLanguage",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256[]",
+                                "name": "preferList",
+                                "type": "uint256[]"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "translationType",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "workLoad",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "workLoadType",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "isNonDisclosure",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "isCustomize",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "bounty",
+                                "type": "uint256"
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "components": [
+                                            {
+                                                "internalType": "string",
+                                                "name": "name",
+                                                "type": "string"
+                                            },
+                                            {
+                                                "internalType": "uint256",
+                                                "name": "size",
+                                                "type": "uint256"
+                                            },
+                                            {
+                                                "internalType": "uint256",
+                                                "name": "videoLength",
+                                                "type": "uint256"
+                                            },
+                                            {
+                                                "internalType": "uint256",
+                                                "name": "Page",
+                                                "type": "uint256"
+                                            },
+                                            {
+                                                "internalType": "uint256",
+                                                "name": "words",
+                                                "type": "uint256"
+                                            },
+                                            {
+                                                "internalType": "uint256",
+                                                "name": "fileType",
+                                                "type": "uint256"
+                                            },
+                                            {
+                                                "internalType": "string",
+                                                "name": "path",
+                                                "type": "string"
+                                            }
+                                        ],
+                                        "internalType": "struct LibProject.FileInfo",
+                                        "name": "file",
+                                        "type": "tuple"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "bounty",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "info",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "enum LibProject.FileState",
+                                        "name": "state",
+                                        "type": "uint8"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "lastUpload",
+                                        "type": "uint256"
+                                    }
+                                ],
+                                "internalType": "struct LibProject.TaskInfo[]",
+                                "name": "tasks",
+                                "type": "tuple[]"
+                            },
+                            {
+                                "internalType": "address[]",
+                                "name": "translators",
+                                "type": "address[]"
+                            },
+                            {
+                                "internalType": "address[]",
+                                "name": "verifiers",
+                                "type": "address[]"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "maxT",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "maxV",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "numberT",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "numberV",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "isTransActive",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "isVerActive",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "enum LibProject.ProjectState",
+                                "name": "state",
+                                "type": "uint8"
+                            }
+                        ],
+                        "internalType": "struct LibProject.TranslationPro",
+                        "name": "pro",
+                        "type": "tuple"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "address",
+                                "name": "taskerAddress",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "uint256[]",
+                                "name": "taskIndex",
+                                "type": "uint256[]"
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "internalType": "enum LibProject.TaskerState",
+                                        "name": "state",
+                                        "type": "uint8"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "file",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "bool",
+                                        "name": "isUsed",
+                                        "type": "bool"
+                                    }
+                                ],
+                                "internalType": "struct LibProject.FileIndexInfo[]",
+                                "name": "taskerinfo",
+                                "type": "tuple[]"
+                            }
+                        ],
+                        "internalType": "struct LibProject.ReturnTasker[]",
+                        "name": "transInfo",
+                        "type": "tuple[]"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "address",
+                                "name": "taskerAddress",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "uint256[]",
+                                "name": "taskIndex",
+                                "type": "uint256[]"
+                            },
+                            {
+                                "components": [
+                                    {
+                                        "internalType": "enum LibProject.TaskerState",
+                                        "name": "state",
+                                        "type": "uint8"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "file",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "bool",
+                                        "name": "isUsed",
+                                        "type": "bool"
+                                    }
+                                ],
+                                "internalType": "struct LibProject.FileIndexInfo[]",
+                                "name": "taskerinfo",
+                                "type": "tuple[]"
+                            }
+                        ],
+                        "internalType": "struct LibProject.ReturnTasker[]",
+                        "name": "vfInfo",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct LibProject.ReturnTask",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getTaskState",
+        "outputs": [
+            {
+                "internalType": "enum LibProject.ProjectState",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_info",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "isAccepted",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "newAmphiFee",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "newAmphiPass",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "newAmphiTrans",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "newCalculateUtils",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "newErc20Address",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_tasker",
+                "type": "address"
+            }
+        ],
+        "name": "overTimeTrans",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_tasker",
+                "type": "address"
+            }
+        ],
+        "name": "overTimeVf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            }
+        ],
+        "name": "payFine",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "releaseTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "introduce",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "need",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "deadline",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "sourceLanguage",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "goalLanguage",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "preferList",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "translationType",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "workLoad",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "workLoadType",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isNonDisclosure",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isCustomize",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "bounty",
+                        "type": "uint256"
+                    },
+                    {
+                        "components": [
+                            {
+                                "components": [
+                                    {
+                                        "internalType": "string",
+                                        "name": "name",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "size",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "videoLength",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "Page",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "words",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "fileType",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "path",
+                                        "type": "string"
+                                    }
+                                ],
+                                "internalType": "struct LibProject.FileInfo",
+                                "name": "file",
+                                "type": "tuple"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "bounty",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "info",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "enum LibProject.FileState",
+                                "name": "state",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "lastUpload",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct LibProject.TaskInfo[]",
+                        "name": "tasks",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct LibProject.ProParm",
+                "name": "_t",
+                "type": "tuple"
+            }
+        ],
+        "name": "postTask",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_taskerIndex",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "_isPass",
+                "type": "bool"
+            },
+            {
+                "internalType": "string",
+                "name": "_file",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_illustrate",
+                "type": "string"
+            }
+        ],
+        "name": "receiveTask",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_file",
+                "type": "string"
+            }
+        ],
+        "name": "sumbitTaskTrans",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_file",
+                "type": "string"
+            }
+        ],
+        "name": "sumbitVf",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_newAddress",
+                "type": "address"
+            }
+        ],
+        "name": "updateOther",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "releaseTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "introduce",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "need",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "deadline",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "sourceLanguage",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "goalLanguage",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "preferList",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "translationType",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "workLoad",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "workLoadType",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isNonDisclosure",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "isCustomize",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "bounty",
+                        "type": "uint256"
+                    },
+                    {
+                        "components": [
+                            {
+                                "components": [
+                                    {
+                                        "internalType": "string",
+                                        "name": "name",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "size",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "videoLength",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "Page",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "words",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "uint256",
+                                        "name": "fileType",
+                                        "type": "uint256"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "path",
+                                        "type": "string"
+                                    }
+                                ],
+                                "internalType": "struct LibProject.FileInfo",
+                                "name": "file",
+                                "type": "tuple"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "bounty",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "info",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "enum LibProject.FileState",
+                                "name": "state",
+                                "type": "uint8"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "lastUpload",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct LibProject.TaskInfo[]",
+                        "name": "tasks",
+                        "type": "tuple[]"
+                    }
+                ],
+                "internalType": "struct LibProject.ProParm",
+                "name": "_t",
+                "type": "tuple"
+            }
+        ],
+        "name": "updateTask",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_trans",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_fileIndex",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "_isPass",
+                "type": "bool"
+            },
+            {
+                "internalType": "string",
+                "name": "_file",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_illustrate",
+                "type": "string"
+            }
+        ],
+        "name": "validate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

@@ -1,0 +1,35 @@
+[
+    {
+        "chainId": 3141,
+        "chainName": "Filecoin Hyperspace Testnet",
+        "nativeCurrency": {
+            "name": "tFil",
+            "symbol": "tFil",
+            "decimals": 18
+        },
+        "rpcUrls": ["https://api.hyperspace.node.glif.io/rpc/v1"],
+        "blockExplorerUrls": ["https://hyperspace.filfox.info/en"]
+    },
+    {
+        "chainId": 1287,
+        "chainName": "Moonbase Alpha",
+        "nativeCurrency": {
+            "name": "GRMT",
+            "symbol": "DEV",
+            "decimals": 18
+        },
+        "rpcUrls": ["https://rpc.api.moonbase.moonbeam.network"],
+        "blockExplorerUrls": ["https://moonbase.moonscan.io/"]
+    },
+    {
+        "chainId": 80001,
+        "chainName": "Mumbai",
+        "nativeCurrency": {
+            "name": "MATIC",
+            "symbol": "MATIC",
+            "decimals": 18
+        },
+        "rpcUrls": ["https://rpc-mumbai.maticvigil.com"],
+        "blockExplorerUrls": ["https://mumbai.polygonscan.com/"]
+    }
+]

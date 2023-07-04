@@ -1,0 +1,19 @@
+.request-trans-card {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 24px;
+    background: rgb(255 255 255 / 50%);
+    border-radius: 12px;
+    backdrop-filter: blur(28px);
+
+    .request-trans-card-title {
+        @include layout();
+        justify-content: space-between;
+
+        h6 {
+            margin-bottom: 16px;
+
+            @include font($size: 16px, $color: #323335, $weight: 500, $lineH: 24px);
+        }
+    }
+}

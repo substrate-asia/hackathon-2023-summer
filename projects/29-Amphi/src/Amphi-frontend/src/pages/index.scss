@@ -1,0 +1,116 @@
+.home-banner {
+    @include layout();
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 150px 0 50px;
+    color: #fff;
+    line-height: 1.2;
+    text-align: center;
+    background: url('@/assets/images/banner.png') no-repeat center center / cover;
+
+    > * {
+        @include contentMaxWidth;
+    }
+
+    h3 {
+        line-height: 2;
+    }
+
+    button.dark-btn {
+        margin-top: 50px;
+        padding-right: 60px;
+        padding-left: 60px;
+        border: none;
+    }
+}
+
+.home-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    background-color: #fff;
+
+    > * {
+        @include contentMaxWidth;
+    }
+
+    .home-section-title {
+        padding-bottom: 50px;
+    }
+}
+
+.home-bounties {
+    .home-section-title {
+        padding-bottom: 0;
+    }
+
+    .ranking-name {
+        @include layout(normal, center);
+
+        .rank-index {
+            width: 30px;
+        }
+
+        .rank-icon {
+            width: 35px;
+            height: auto;
+            margin-right: 10px;
+        }
+    }
+
+    .light-tabs .light-tabs-tab-btn,
+    .dark-tabs .dark-tabs-tab-btn {
+        font-size: 30px;
+    }
+
+    .light-table-wrapper .light-table-thead > tr > th,
+    .dark-table-wrapper .dark-table-thead > tr > th {
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    .light-table-wrapper .light-table-tbody > tr > td,
+    .dark-table-wrapper .dark-table-tbody > tr > td {
+        font-weight: 400;
+        font-size: 20px;
+
+        button {
+            font-weight: 700;
+        }
+    }
+}
+
+.home-translators {
+    background: url('@/assets/images/bg-translators.png') no-repeat center center / cover;
+
+    .light-badge .light-badge-status-dot,
+    .dark-badge .dark-badge-status-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .light-card-meta-description,
+    .dark-card-meta-description {
+        color: var(--color-text);
+    }
+}
+
+.home-prof-translation {
+    label {
+        font-size: 30px !important;
+    }
+}
+
+.home-aboutus {
+    position: relative;
+}
+
+.home-aboutus::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('@/assets/images/bg-translators.png') no-repeat center center / cover;
+    transform: rotateY(180deg);
+    content: '';
+}

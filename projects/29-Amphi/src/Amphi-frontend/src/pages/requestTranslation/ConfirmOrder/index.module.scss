@@ -1,0 +1,34 @@
+.confirme-order-box {
+    h6 {
+        @include font($size: 16px, $color: #323335, $weight: 500, $lineH: 24px);
+    }
+
+    ul {
+        margin-bottom: 18px;
+
+        li {
+            margin-left: 20px;
+            list-style: disc;
+
+            @include font($size: 14px, $color: #64666b, $weight: normal, $lineH: 18px);
+        }
+    }
+
+    .confirm-btn {
+        width: 100%;
+        padding: 20px 32px;
+        background-color: #0049ff;
+        border-radius: 8px;
+
+        @include layout();
+
+        span {
+            @include font($size: 16px, $color: #ffffff, $weight: 500, $lineH: 24px);
+            letter-spacing: 2px;
+        }
+
+        &:hover {
+            background-color: #296dff;
+        }
+    }
+}

@@ -52,13 +52,15 @@ We shall use Substrate to build the blockchain because we want complete control 
 - 一个 dApp 用于演示一种使用场景（AIGC + NFT）
   - 演示视频：https://youtu.be/_6F8YvPHwDI
   - Demo 站点：https://www.cybros.network/imaginator
-    - 合约部署在 Polygon 主网，需要有 Metamask 钱包和少量 Matic 才能发送 Prompt
+    - 合约部署在 Polygon 主网，需要有 Metamask 钱包（不需要波卡钱包）和少量 Matic 才能发送 Prompt
     - 测试网浏览器：https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Fnode-rpc.cybros.network#/explorer
+      - 实现了一个 ETH 钱包映射到波卡账号的机制，可以导出 ETH 私钥，用 ECDSA 方式导入到波卡 app，便能够用这个账号管理在 Polygon 创建的 jobs
     - 生成成功会铸造 NFT，可在 OpenSea 浏览和销售 https://opensea.io/collection/cybrosnft
     - NFT 的 metadata 中包含了对 Prompt 发明权的证明（精心配置的 SD 能够做到确定性生成），参考 [metadata](https://arweave.net/JNKtIUZXPSQTe6l2vVjhhvSC5TWzL3P6Lz1BmOD2taI)
     - 参考 prompt：`closeup portrait of nkoctst cat in a misty field, dream landscape, simulation, physical particles, translucence, cinematic lighting, iridescence, digital painting --neg blurry, artifacts, duplicate, mutilated, mutation, deformed, ugly, blurry, bad anatomy, lowres, bad anatomy, text, error, cropped, worst quality, low quality, normal quality, jpeg, signature, username, blurry, artist name, longhair, clothes, too many ears, border, --steps 20`
       - 支持 `--neg` 反向 prompt
       - 支持 `--steps` 采样次数
+      - 支持 `--seed` 随机种子
       - 锁定了使用 `https://civitai.com/models/8123/nekothecat` 模型避免产生 NSFW 内容
     - 运行 AIGC 任务的是一块低功耗单板机，存在生成失败的可能性
 

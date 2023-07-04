@@ -27,11 +27,11 @@ http://trypto.club/
 
 ### 技术架构
 
-![](./docs/架构.png)
+![](架构.png)
 
 ### 项目 logo
 
-![](./docs/logo.png)
+![](logo.png)
 
 ### 项目的启始的 commit
 

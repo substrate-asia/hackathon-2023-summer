@@ -34,24 +34,11 @@ function getItem(
 const items: MenuItem[] = [
   getItem("Info", "info", <DesktopOutlined rev={undefined} />),
   getItem("Cloud", "cloud", <PieChartOutlined rev={undefined} />),
-  getItem("Option 3", "3", <ContainerOutlined rev={undefined} />),
-
-  getItem("Navigation One", "sub1", <MailOutlined rev={undefined} />, [
-    getItem("Option 5", "5"),
-    getItem("Option 6", "6"),
-    getItem("Option 7", "7"),
-    getItem("Option 8", "8"),
-  ]),
-
-  getItem("Navigation Two", "sub2", <AppstoreOutlined rev={undefined} />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-
-    getItem("Submenu", "sub3", null, [
-      getItem("Option 11", "11"),
-      getItem("Option 12", "12"),
-    ]),
-  ]),
+  getItem(
+    "MessageBoard",
+    "messageBoard",
+    <ContainerOutlined rev={undefined} />
+  ),
 ];
 
 const SliderBar: React.FC = () => {
@@ -112,6 +99,12 @@ function switchPage(key: string) {
         ? localStorage.setItem("upload", "[]")
         : "";
       return <CloudOSS />;
+    case "messageBoard":
+      localStorage.getItem("upload") === null
+        ? localStorage.setItem("upload", "[]")
+        : "";
+      return <CloudOSS />;
+
     default:
       return <CloudOSS />;
   }

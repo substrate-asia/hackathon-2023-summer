@@ -21,7 +21,33 @@ https://app.cbindex.finance/ is CBIndex App (mainly built on the centralized ser
 
 ## Build & Test
 
+**Build a contract with `make`:**
+
+```bash
+make build
+```
+**Run tests:**
+
+```bash
+make test
+```
+
+**Deploy contracts to test-net**
+
+Use `gear-js` api upload program or use `https://idea.gear-tech.io/` to upload with `meta.txt`. Steps as follow:
+1. Upload storage.wasm or storage.opt.wasm to test-net. and get program hash for next step.
+2. Upload `vault.wasm`, fill `storage_code_hash` and `share_code_hash` with storage program hash we got in step 1. get vault program hash for net step.
+3. Upload `entry.wasm`, fill  fill `storage_code_hash` and `share_code_hash` with storage program hash in step 1, fill `ft_logic_code_hash` we got in step2. 
+
+Test transactions:
+1. Mint some tokens with `Message -> Mint.`
+2. Follow this contract with `Message -> Follow,` and you will get a message if any `Invest` event happens.
+3. Invest some token to any address with `Message -> Invest.`
+4. go to your mailbox to check your message.
+
+
 
 ## Intraction
 
-The linked videos show how to interact with CBIndex App and DApp.
+The linked videos show how to interact with CBIndex App. 
+- Demo video: https://www.youtube.com/watch?v=m_v9qnvWXXg

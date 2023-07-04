@@ -1,0 +1,16 @@
+{
+  "name": "cybros-imaginator-evm-bridge",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.1",
+    "@nomicfoundation/hardhat-ethers": "^3.0.3",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^4.9.2",
+    "ethers": "^6.6.2",
+    "hardhat": "^2.16.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "minimist": "^1.2.8"
+  }
+}

@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F1F1F1;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  min-width: 1440px;
+  background-color: var(--background);
+}
+
+.cb-modal .ant-modal-content, .cb-modal .ant-modal-content .ant-modal-header {
+  border-radius: 28px;
+}
+
+@layer components {
+  .cb-border-h {
+    @apply shadow-cb hover:shadow-hv transition-shadow duration-100
+  }
+  .cb-hover-border {
+    @apply hover:shadow-hv transition-shadow duration-100
+  }
+}

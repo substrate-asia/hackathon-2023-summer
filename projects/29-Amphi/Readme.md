@@ -64,6 +64,7 @@ Project Initiation Date (Year-Month):2022.7
 - [ ] Preference page design and implement
 - [ ] Portfolio page design and implement
 - [ ] My orders page design and implement
+- [ ] Accept task page design and implement
 
 ## Team Information
 

@@ -1,0 +1,76 @@
+.order-tabs-content {
+    @include contentMaxWidth;
+    margin-top: 16px;
+    margin-bottom: 50px;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 12px;
+
+    .light-table-content .light-btn-sm,
+    .dark-table-content .dark-btn-sm {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .translator-cell {
+        display: flex;
+        align-items: center;
+    }
+
+    .address-head-tips {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        height: 24px;
+        line-height: 24px;
+        background-color: var(--bg-color);
+        border-radius: 12px;
+
+        .paper {
+            position: relative;
+            left: 1px;
+        }
+
+        .address {
+            display: inline-block;
+            padding-right: 10px;
+            padding-left: 5px;
+            line-height: 22px;
+        }
+    }
+}
+
+.filter-content {
+    margin-bottom: 24px;
+
+    .light-form-item,
+    .dark-form-item {
+        position: relative;
+    }
+
+    .light-form-item-label,
+    .dark-form-item-label {
+        position: absolute;
+        left: 10px;
+        z-index: 2;
+
+        label {
+            color: var(--text-sub-color);
+        }
+    }
+
+    .filter-type .light-select-selector,
+    .filter-type .dark-select-selector {
+        padding-left: 110px;
+    }
+
+    .filter-create-time .light-select-selector,
+    .filter-create-time .dark-select-selector {
+        padding-left: 95px;
+    }
+
+    .filter-type .light-select-selection-placeholder,
+    .filter-type .dark-select-selector-placeholder {
+        padding-left: 100px;
+    }
+}

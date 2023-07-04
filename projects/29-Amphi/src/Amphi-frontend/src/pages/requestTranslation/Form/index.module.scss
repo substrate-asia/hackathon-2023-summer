@@ -1,0 +1,41 @@
+.request-trans-form {
+  max-width: 100%;
+  min-width: 500px;
+
+  .label-title {
+    @include font($size: 16px, $color: #323335, $weight: 500, $lineH: 24px);
+  }
+
+  .label-tip-message {
+    @include font($color: #64666b, $lineH: 24px);
+    margin-left: 10px;
+  }
+
+  .submit-div {
+    width: 320px;
+    position: absolute;
+    top: 645px;
+    right: 120px;
+  }
+
+  // .confirm-btn {
+  //     // width: 100%;
+  //     @include layout();
+  //     position: fixed;
+  //     right: 190px;
+  //     bottom: 200px;
+  //     z-index: 10000;
+  //     padding: 20px 32px;
+  //     background-color: #0049ff;
+  //     border-radius: 8px;
+
+  //     span {
+  //         @include font($size: 16px, $color: #ffffff, $weight: 500, $lineH: 24px);
+  //         letter-spacing: 2px;
+  //     }
+
+  //     &:hover {
+  //         background-color: #296dff;
+  //     }
+  // }
+}

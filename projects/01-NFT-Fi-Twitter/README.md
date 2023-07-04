@@ -21,20 +21,15 @@ We will build a Chrome Extension to provide a web3 way of payment platform with 
 
 NFT-Fi Twitter: A NFT powered WebExtension ([Chrome](https://developer.chrome.com/docs/extensions/reference/), [FireFox](https://addons.mozilla.org/en-US/developers/), etc.) that provide the Finance solution for Twitter Web.
 
-### 项目更新
-
-* [05/20](https://github.com/parity-asia/hackathon-2023-summer/pull/4/commits) 项目代码初始化, 添加项目说明
-* [05/24](https://github.com/parity-asia/hackathon-2023-summer/pull/7/commits) 新增 RWA 钱包的基本 layout 设计 UI 代码（无逻辑）
-* [05/30](https://github.com/parity-asia/hackathon-2023-summer/pull/11/commits) 新增 RWA 钱包登录页面 UI
-* [06/03](https://github.com/parity-asia/hackathon-2023-summer/pull/18/commits) RWA 钱包的新用户 onboard 模块的 UI/UX 几近完成！
-* [06/04](https://github.com/parity-asia/hackathon-2023-summer/pull/23/commits) 完成了最核心的助记词的安全缓存逻辑！
-* [06/23](https://github.com/parity-asia/hackathon-2023-summer/pull/76) 项目迁移到新的 repo 并添加更多支持性的分包代码
-  * RWA 钱包代码: <https://github.com/Web3Hacker-World/web3-rwa-wallet>
-  * RWA-JS-SDK 代码：<https://github.com/Web3Hacker-World/RWA-JS-SDK> （在 RWA 钱包项目中依赖此代码库），此代码库未来作为 RWA 的通用库发展
-
 ### 项目Demo
 
-TBD
+项目为浏览器插件，但是插件还未发布到 chrome 的扩展市场。
+
+moonbean 链的交互 tx: <https://moonbase.moonscan.io/address/0xC6E58fb4aFFB6aB8A392b7CC23CD3feF74517F6C>
+
+项目的 PoC 的视频演示：<https://www.loom.com/share/794470ea454c4058a2bddf8a523fb0f5>
+
+项目 Deck： [Nft-Fi-Twitter_230704](./docs/Nft-Fi-Twitter_230704.pptx)
 
 ### 技术架构
 
@@ -63,6 +58,11 @@ We use the [vitesse-webext](https://github.com/antfu/vitesse-webext) open-source
 起始 commit 是这个： https://github.com/NftTopBest/NFT-Fi-Twitter
 这是基于 [vitesse-webext](https://github.com/antfu/vitesse-webext) 开源代码基础上加了一些 ReadMe 说明，还未开始开发功能代码的状态下。
 
+我们在 06-27 日之后，启用了分库模式：
+
+1. 钱包代码在： <https://github.com/Web3Hacker-World/web3-rwa-wallet/tree/0627-0704>
+2. 同时新创建了 RWA-JS-SDK, 钱包代码依赖此库，同时未来作为对其他开发者可用的 JS-SDK： <https://github.com/Web3Hacker-World/RWA-JS-SDK>
+
 ## 黑客松期间计划完成的事项
 
 - [ ] User can post new twitter with encrypted content
@@ -72,11 +72,20 @@ We use the [vitesse-webext](https://github.com/antfu/vitesse-webext) open-source
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
-TBD
+- [x] moonbeam alpha deploy history: https://moonbase.moonscan.io/address/0xC6E58fb4aFFB6aB8A392b7CC23CD3feF74517F6C
+- [x] User can post new twitter with encrypted content
+- [x] User can comment on other user's twitter with encrypted content
+- [x] User can pay with ERC20 Token to mint NFT that attach to any twitter content
+- [x] User can unlock encrypted content while they have the relative NFT
+
 
 ## 队员信息
 
-Name: Bruce
+### Bruce
 Role: Full Stack Developer
 Github: NftTopBest
 Wx: Web3Hacker
+
+### Lisa
+Role: Marketing & Operation
+Wx: mujinhk1820

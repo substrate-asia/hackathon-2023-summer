@@ -364,5 +364,12 @@ pub mod pallet {
             }
             Ok(())
         }
+
+        #[pallet::call_index(4)]
+        pub fn set_reward_asset_id(origin: OriginFor<T>, asset_id: T::AssetId) -> DispatchResult {
+            ensure_root(origin)?;
+            <RewardAssetId<T>>::put(asset_id);
+            Ok(())
+        }
     }
 }

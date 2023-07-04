@@ -1,0 +1,39 @@
+.amphi-footer {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 436px;
+    padding: 0;
+    background: linear-gradient(
+        234.93deg,
+        rgb(30 187 239 / 50%) 0%,
+        rgb(35 186 237 / 50%) 0%,
+        rgb(230 132 177 / 50%) 87.46%
+    );
+
+    .copyright {
+        position: absolute;
+        top: 77px;
+        left: 93px;
+
+        p {
+            @include font($weight: 400, $size: 26px, $color: #fff);
+            margin-top: 19px;
+        }
+    }
+
+    .shares {
+        position: absolute;
+        top: 50%;
+        margin-left: 810px;
+        transform: translateY(-50%);
+
+        a {
+            margin-right: 22px;
+
+            :last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+}

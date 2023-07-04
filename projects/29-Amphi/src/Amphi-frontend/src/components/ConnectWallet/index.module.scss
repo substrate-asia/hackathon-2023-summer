@@ -1,0 +1,28 @@
+.wallet-btn {
+  padding: 10px 22px;
+  background-color: #0049ff;
+  border-radius: 8px;
+
+  @include font($size: 14px, $color: #fff, $weight: 400);
+  cursor: pointer;
+}
+
+.wrong {
+  background-color: #e34949;
+}
+
+.connected-btn {
+  @include font($size: 12px, $weight: 400, $lineH: 20px);
+  background-color: transparent;
+  cursor: pointer;
+
+  & + img {
+    cursor: pointer;
+  }
+}
+
+.home-person-menu {
+  text-align: center;
+
+  @include font($size: 16px, $weight: 700);
+}

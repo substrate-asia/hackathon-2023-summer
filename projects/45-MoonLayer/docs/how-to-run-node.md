@@ -47,7 +47,7 @@ export default {
     
     // Original Moonbeam Alpha block height to start syncing from, this also should not be changed
     // Although, as mentioned in the tutorial, you can change it as a way to reset the chain
-    START_SYNC: 4661850,
+    START_SYNC: 4663060,
 
     // RPC server config, you can set it to whatever you like, but you should just leave it 3000 cause our tests use it.
     RPC_PORT: 3000,

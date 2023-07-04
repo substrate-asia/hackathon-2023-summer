@@ -76,8 +76,8 @@ For P.I.V.O.T. protocol, please check the notion document: https://metalanguage.
 | --- | --- | --- | --- |
 | Zaki |  队长 | Gitverse-Web3 | Gitverse |
 | John | 架构师 | XHBLX | ma-gic |
-| 枫叶闲庭 | AI工程师 | MonicaArnaud | soulandyvip |
-| 蒹葭苍苍 | AI工程师 | warindark | ouahiba0804 |
+| 枫叶闲庭 | AI工程师 | lizhanyang505 | soulandyvip |
+| 蒹葭苍苍 | AI工程师 | MonicaArnaud | ouahiba0804 |
 | lix | 区块链工程师 | ciconia11 | cryptolix |
 
 

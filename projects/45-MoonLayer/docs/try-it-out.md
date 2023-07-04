@@ -1,4 +1,4 @@
-Demo link: 
+**Demo video**: https://youtu.be/GgLpw9y1GFI
 
 ## Run the client
 

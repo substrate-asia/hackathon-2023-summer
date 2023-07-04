@@ -91,10 +91,10 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 - `pallet\spiral-dao`
 
 
-  - [ ] promoter-dao, Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
-  - [ ] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
-  - [ ] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)
-  - [ ] promoter-dao, Close one action the action have been Verified & reward in private contract. (`fn union_task_action_finish()`)
+  - [x] promoter-dao, Creating DAO and launching crowdfunding simultaneously.  (`fn union_dao_create()`)
+  - [x] promoter-dao, Participating in crowdfunding. (`fn union_dao_mint()`)
+  - [x] promoter-dao, Extensive action types to reach, acquire, convert, and retain your users. (`fn union_task_action_pay()`)
+  - [x] promoter-dao, Close one action the action have been Verified & reward in private contract. (`fn union_task_action_finish()`)
   
 
 - `pallet\spiral-collective` : Enhancing the collective module to support multiple collectives.
@@ -103,12 +103,12 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 **隐私合约**
 
 - `sprial-contract/src/lib.rs`
-  - [ ] PRIVTE-CONTRACT Creation and data structure definition, generating privacy accounts. (`fn new()`)
-  - [ ] PRIVTE-CONTRACT Seal the account  of S3 storage and others. (`fn seal_credentials()`)
-  - [ ] PRIVTE-CONTRACT Seal action of task  (`fn seal_actions()`)
-  - [ ] PRIVTE-CONTRACT Generating hierarchical propagation relationships. (`fn invite_from()`)
-  - [ ] PRIVTE-CONTRACT Verified & reward  the action of user taken(will call pallet) (`fn do_task_action()`)
-  - [ ] PRIVTE-CONTRACT Draw the reward for promoter (`fn reward_draw()`)
+  - [x] PRIVTE-CONTRACT Creation and data structure definition, generating privacy accounts. (`fn new()`)
+  - [x] PRIVTE-CONTRACT Seal the account  of S3 storage and others. (`fn seal_credentials()`)
+  - [x] PRIVTE-CONTRACT Seal action of task  (`fn seal_actions()`)
+  - [x] PRIVTE-CONTRACT Generating hierarchical propagation relationships. (`fn invite_from()`)
+  - [x] PRIVTE-CONTRACT Verified & reward  the action of user taken(will call pallet) (`fn do_task_action()`)
+  - [x] PRIVTE-CONTRACT Draw the reward for promoter (`fn reward_draw()`)
 
 
 **数据索引**
@@ -119,20 +119,18 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
 **客户端**
 
 - web 端
-  - [ ] Creating an advertising landing page
-  - [ ] Creating a promotion DAO.
-  - [ ] Participating in crowdfunding.
-  - [ ] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
-  - [ ] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
-  - [ ] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.(see in spiral-front/README.md)
+  - [x] Creating an advertising landing page
+  - [x] Creating a promotion DAO.
+  - [x] Participating in crowdfunding.
+  - [x] Translation: Initiating a task (including providing the privacy contract address, prepayment, etc.).
+  - [x] Displaying advertisements that can be clicked to redirect to third-party applications/websites.
+  - [x] Providing API documentation: Actions performed within the third-party application/website as part of the promotional task, invoking the privacy contract to validate the actions and reward accordingly.(see in spiral-front/README.md)
 
 
 
 ## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
 
-- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
+
 
 ## 队员信息
 

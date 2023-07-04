@@ -188,8 +188,9 @@ data index(subquery)  start from  commit：https://github.com/subquery/nodle-sub
   [Demo Video part2 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part2.mp4)
   
 - create privacy contract(only show result)：
-  https://phat.phala.network/contracts/view/0x80ee4523e95eb2f8be5d3f43624ed0ca45cdffd1ddae450d108c0a5dad5619f4
-  [Demo Video part2 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/cryptospiral.contract)
+  
+  - [online instance ](https://phat.phala.network/contracts/view/0x80ee4523e95eb2f8be5d3f43624ed0ca45cdffd1ddae450d108c0a5dad5619f4)
+  - [cryptospira contract  ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/cryptospiral.contract)
   
 - part1: Initiate a promotional campaign/task.
   [Demo Video part3 ](https://ppxnb-7iaaa-aaaai-qkita-cai.raw.ic0.app/img/part3.mp4)

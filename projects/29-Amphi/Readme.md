@@ -27,18 +27,18 @@ Project Initiation Date (Year-Month):2022.7
 
   - The traditional language service industry will have a turnover of US$60.1 billion in 2021 and is expected to reach US$82.2 billion by 2025 with a compound annual growth rate of 8.1%.
 
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/676f6158-e33d-46ac-adb1-a4873f26c55c)
+  - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/676f6158-e33d-46ac-adb1-a4873f26c55c)
 
 
 
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/5e59365d-8291-499d-a7fc-697d8c4794f1)
+  - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/5e59365d-8291-499d-a7fc-697d8c4794f1)
 
 
 - Project Demo
 
 - Technical Architecture
   
-![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/cae6c21b-76b4-41a9-8d62-92dc0b4b54c3)
+  - ![image](https://github.com/Amphi-lab/hackathon-2023-summer/assets/102245046/cae6c21b-76b4-41a9-8d62-92dc0b4b54c3)
 
 
 

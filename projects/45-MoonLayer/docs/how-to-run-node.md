@@ -98,4 +98,4 @@ To test it out yourself, go to [`try-it-out.md`](./try-it-out.md);
 
 If you want to reset the chain, you can change the START_SYNC configuration to the current block height, delete the old database folders and re-run the node. What this does it that it will start off with an entirely new state, ignoring all transactions done in the past, therefore making an entirely new chain.
 
-This is alos mentioned again in `try-it-out.md`.
+This is also mentioned again in `try-it-out.md`.

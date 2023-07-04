@@ -1,0 +1,31 @@
+@mixin font(
+    $family: 'Public Sans, Microsoft Yahei',
+    $style: normal,
+    $weight: normal,
+    $size: 14px,
+    $color: #323335,
+    $lineH: 14px
+) {
+    color: $color;
+    font-weight: $weight;
+    font-size: $size;
+    font-family: $family;
+    font-style: $style;
+    line-height: $lineH;
+}
+
+@mixin contentMaxWidth() {
+    /*
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    */
+    margin: 0 120px;
+}
+
+@mixin layout($horizontal: center, $vertical: center, $direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $vertical;
+    justify-content: $horizontal;
+}

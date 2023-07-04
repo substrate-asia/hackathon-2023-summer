@@ -1,0 +1,9 @@
+{
+    "borderRadius": 4,
+    "borderRadiusSM": 2,
+    "borderRadiusLG": 8,
+    "colorBgContainer": "#F2F2FB",
+    "colorBgContainerDisabled": "#F8F8F9",
+    "colorIcon": "#969AA0",
+    "colorBorder": "#F2F2FB"
+}

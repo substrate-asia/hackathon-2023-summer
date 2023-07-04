@@ -1,23 +1,28 @@
 # 第一步：执行模型考试任务，生成对应的CSV文件。
 # 第二步：验证节点，重新执行一遍考试任务，保持seed随机数不变，验证结果是否一致
 # 第三步：验证结果通过，计算压缩率。
-pip install openai
-pip install langchain
+```shell script
+!pip install openai
+!pip install langchain
 from langchain.llms import OpenAI
 openai_api_key="YOUR_OPENAI_API_KEY" 
 import locale
 def getpreferredencoding(do_setlocale = True):
     return "UTF-8"
 locale.getpreferredencoding = getpreferredencoding
-git clone https://github.com/imClumsyPanda/langchain-ChatGLM.git /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM/ #save the langchain-ChatGLM repository to your Google Drive
+!git clone https://github.com/imClumsyPanda/langchain-ChatGLM.git /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM/ #save the langchain-ChatGLM repository to your Google Drive
+```
 
 ## Install the necessary dependencies
-cd /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM
-pip install -r requirements.txt
-pip install --upgrade protobuf
-sudo apt install iputils-ping
+```shell script
+%cd /content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/langchain_ChatGLM
+!pip install -r requirements.txt
+!pip install --upgrade protobuf
+!sudo apt install iputils-ping
+```
 
 ## Initiate chatGLM model
+```shell script
 from transformers import AutoTokenizer, AutoModel
 tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b-int4-qe", trust_remote_code=True)
 model = AutoModel.from_pretrained("THUDM/chatglm-6b-int4-qe", trust_remote_code=True).half().cuda()
@@ -25,10 +30,13 @@ model = model.eval()
 response, history = model.chat(tokenizer, "你好", history=[])
 print(response)
 
+
 from transformers import set_seed # Set the random seed to 42
 set_seed(42)
+```
 
 ## Upload test data
+```shell script
 import pandas as pd
 file_path = "/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/SAT_testv2.csv" 
 
@@ -40,8 +48,10 @@ except UnicodeDecodeError:
     except Exception as e:
         print("Error: ", e)
 df.head()
+```
 
 ## Start the inference and save the response in the dataframe
+```shell script
 GLM_responses = []
 for idx, row in df.iterrows():
     # If the background is not empty
@@ -62,7 +72,10 @@ df['GLM_Response'] = GLM_responses  # add responses to dataframe as a new column
 df_GLM_verified = df.copy()
 df_GLM_verified.head(33)
 
+```
+
 ## Formate the response in the dataframe using openAI
+```shell script
 import openai
 import pandas as pd
 
@@ -114,7 +127,10 @@ df_GLM_verified["Formatted_response_y"] = df_GLM_verified.apply(format_response,
 #Print each iteration
 for index, row in df_GLM_verified.iterrows():
     print(f"Iteration {index}: {row['Formatted_response_y']}")
-    
+
+```
+
+```shell script
 ##Add three columns to the dataframe
 df_GLM_verified["model_id"] = 1
 df_GLM_verified["model_parameters"] = 6500000000
@@ -128,7 +144,7 @@ df_GLM_verified.to_csv("/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_
 # AI 验证和压缩率计算
 first_file = "/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/GLM_model.csv"
 second_file = "/content/drive/MyDrive/工作效率神器OpenAI/ChatGLM_personalKhowledge/GLM_model_verified.csv"
-
+```
 
 ## 1.安装依赖
 ```shell script

@@ -245,11 +245,13 @@ In other words, you can recreate a table's state by replaying all of the events 
 **blockcain**
 
 - `dynamic nft smartcontract`
-- 
-`Deployment of dynamic NFT contract`
-`Update dynamic NFT metadata`
+- `Deployment of dynamic NFT contract`,`Update dynamic NFT metadata`
   
+**Backend and Frontend**
 
+- `Open source contribution data acquisition`
+
+- `SVG rendering`
 
   
 
@@ -275,11 +277,11 @@ Smart Contracts (and related)
 Blockchain Products and Tools
 
 ### Project demonstration
-#### Videos: 
+
 
 #### Show how demo works:
 
-1. First, obtain user contribution data through the GitHub API.
+1. First, obtain user open source contribution data through the GitHub API.
 
 https://github.com/OpenSource-DreamFactory/rectianjh
 

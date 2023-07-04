@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sunrise/app/data/models/account_colletction.dart';
-import 'package:sunrise/app/data/models/wallet_account.dart';
 import 'package:sunrise/app/widgets/image_widget.dart';
 import 'package:sunrise/core/utils/common.dart';
 
@@ -52,7 +49,10 @@ class _TokenSelectWidgetState extends State<TokenSelectWidget> {
     } else if (widget.status == 1) {
       return list.where((element) => element.isProxy == false).toList();
     } else {
-      return list.where((element) => element.isProxy == true).toList();
+      return list
+          .where((element) =>
+              element.isProxy == true && element.isContract == true)
+          .toList();
     }
   }
 

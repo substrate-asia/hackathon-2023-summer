@@ -21,6 +21,10 @@ The Blockchain should help manage off-chain job executor nodes, job queues, job 
 
 We shall use Substrate to build the blockchain because we want complete control of low-level components to ensure scalability.
 
+## Logo
+
+![Cybros Network logo](./docs/logo.png)
+
 ## 黑客松期间计划完成的事项
 
 **区块链端**
@@ -35,20 +39,24 @@ We shall use Substrate to build the blockchain because we want complete control 
 - [ ] 实现链下作业的处理程序
 - [ ] 基于网页可演示的 UI
 
-## 黑客松期间所完成的事项 (2023年7月4日上午11:59初审前提交)
+## 黑客松期间所完成的事项
 
-- 2023年7月4日上午11:59前，在本栏列出黑客松期间最终完成的功能点。
-- 把相关代码放在 `src` 目录里，并在本栏列出在黑客松期间完成的开发工作及代码结构。我们将对这些目录/档案作重点技术评审。
-- Demo 视频，ppt等大文件不要提交。可以在readme中存放它们的链接地址
-
-## 队员信息
+- 完整可用于演示的区块链程序
+  - 受 Hackathon 赛期限制，部分功能（如调度器）采用了初步的简单实现
+  - 所有实现的功能都是真实可用的，没有 mock 伪造的
+- 完整可用于演示的 Job executor
+  - 受 Hackathon 赛期限制，整体架构以快速实现为主
+  - 包含了 Demo 需要的所有代码
+  - 所有实现的功能都是真实可用的，没有 mock 伪造的
+- 用于技术评审的参考文档参见 [./docs/README.md](./docs/README.md)
+- 一个 dApp 用于演示一种使用场景（AIGC + NFT）
 
 ## 队员信息
 
 | 姓名        | 角色         | GitHub 帐号  | 微信账号     |
 | ----------- | ----------- | ----------- | ----------- |
-| 姜军        | 技术负责人  | jasl   | jasl123   |
-| 王喆        | 项目经理   | -   | skysummerice  |
-| 张嘉承       | 产品经理   | krhougs  | - |
-| 吴崧       | 开发        | - | -   |
-| 潘昭鸣       | 开发        | - | -   |
+| Jun Jiang      | 技术负责人  | jasl   | jasl123   |
+| Zhe Wang       | 项目经理   | skysummerice | skysummerice  |
+| Jiacheng Zhang | 产品经理   | krhougs  | - |
+| Song Wu        | 开发        | wsof401 | -   |
+| Zhaoming Pan   | 开发        | RandyPen | -   |

@@ -1,0 +1,9 @@
+bootstrap:
+    - /ip4/127.0.0.1/tcp/8911/p2p/12D3KooWNh9ArR9MmVaizrjRPi2VBo3SRrKkEbYt1JUFGvUc1cqr
+cache_store: cachestore
+chain_rpc: 127.0.0.1:8921
+cpu_num: 8
+data_store: datastore
+p2p_host:
+    - /ip4/0.0.0.0/tcp/0
+sdk_host: 127.0.0.1:8902

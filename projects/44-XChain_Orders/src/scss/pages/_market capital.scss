@@ -1,0 +1,76 @@
+.rank-ic{
+	height: 63px;
+    width: 63px;
+    line-height: 63px;
+    display: block;
+    border-radius: 63px;
+    text-align: center;
+	@include respond ('phone'){
+		height: 50px;
+		width: 50px;
+		line-height:50px;
+		font-size: 16px!important;
+	}
+}
+.card-table{
+	overflow:hidden;
+	tbody{
+		tr{
+			td{
+				span{
+					svg{
+						@include respond ('phone'){
+							width:40px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+table.dataTable{
+	width: 100%;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+	&.market-tbl{
+		border-collapse: separate;
+		tr{
+			td{
+				&:first-child{
+					border-left:10px solid $white;
+				}
+				&:last-child{
+					border-right:10px solid $white;
+				}
+				border-top:5px solid $white!important;
+				border-bottom:5px solid $white;
+			}
+			th{
+				border:0;
+			}
+		}
+		.market-trbg{
+			td{
+				background:#EEEEEE!important;
+				padding: 8px 8px;
+				&:first-child{
+					border-radius:4rem 0 0 4rem;
+				}
+				&:last-child{
+					border-radius:0 4rem 4rem 0px;
+				}
+			}
+		}
+	}
+}
+
+.wspace-no{
+	white-space:nowrap;
+	svg{
+		@include respond ('phone'){
+			width:25px;
+		}
+	}
+}

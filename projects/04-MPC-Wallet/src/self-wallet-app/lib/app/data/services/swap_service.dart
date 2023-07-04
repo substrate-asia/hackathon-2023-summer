@@ -90,8 +90,8 @@ class SwapService {
 
   static Future<void> initContract() async {
     final httpClient = Client();
-    ethClient =
-        Web3Client('https://rpc.api.moonbase.moonbeam.network', httpClient);
+    ethClient = Web3Client(
+        'https://moonbeam-alpha.api.onfinality.io/public', httpClient);
     factoryContract = DeployedContract(
         ContractAbi.fromJson(jsonEncode(_swapV2FactoryAbi), 'UniswapV2Factory'),
         EthereumAddress.fromHex(factoryAddress));
@@ -201,7 +201,7 @@ class SwapService {
     return result;
   }
 
-  static Future<List<Uint8List>?> swapExactTokensForTokensData(
+  static Future<Uint8List?> swapExactTokenApprove(
       {required BigInt amountIn,
       required BigInt amountOutMin,
       required List<EthereumAddress> path,
@@ -226,6 +226,34 @@ class SwapService {
         ]);
     print(HEX.encode(approveTx.data!));
 
+    return approveTx.data;
+  }
+
+  static Future<Uint8List?> swapExactTokensForTokensData(
+      {required BigInt amountIn,
+      required BigInt amountOutMin,
+      required List<EthereumAddress> path,
+      required EthereumAddress to,
+      required BigInt deadline}) async {
+    if (ethClient == null) {
+      await initContract();
+    }
+
+    // 创建一个token合约
+    // final tokenContract = DeployedContract(
+    //     ContractAbi.fromJson(jsonEncode(_tokenAbi), 'TOKEN'), path[0]);
+
+    // ContractFunction approveFun = tokenContract.function('approve');
+
+    // Transaction approveTx = Transaction.callContract(
+    //     contract: tokenContract,
+    //     function: approveFun,
+    //     parameters: [
+    //       EthereumAddress.fromHex(routerAddress),
+    //       amountIn * BigInt.from(10)
+    //     ]);
+    // print(HEX.encode(approveTx.data!));
+
     ContractFunction swapExactTokensForTokensFun =
         routerContract!.function('swapExactTokensForTokens');
     Transaction swapTx = Transaction.callContract(
@@ -239,6 +267,6 @@ class SwapService {
         data: swapTx.data,
         chainId: 1287);
     print("gasLimit $gasLimit");
-    return [approveTx.data!, swapTx.data!];
+    return swapTx.data;
   }
 }

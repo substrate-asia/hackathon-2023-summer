@@ -95,4 +95,7 @@ For P.I.V.O.T. protocol, please check the notion document: https://metalanguage.
 
 
 # 演示视频
+## substrate part
 https://youtu.be/uKGzB8fPKI8   or  https://v.douyin.com/ijSYTV5/
+## AGI model part
+https://youtu.be/DXvTyVpHwrg

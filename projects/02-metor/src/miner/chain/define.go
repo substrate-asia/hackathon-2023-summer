@@ -361,7 +361,7 @@ const (
       "type": "function"
     }
   ]`
-	PledgeContractAddress = `0xC299Db0Fa879C5Ffd970E09CA5a3503d26d02B38`
+	PledgeContractAddress = `0x2e9D575b2D1AE9e76Aff4702D2093b4e58A20538`
 	PledgeContractAbi     = `[
     {
       "inputs": [

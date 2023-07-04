@@ -1,4 +1,6 @@
-For all reference, please check the notion document: https://metalanguage.notion.site/AGI-603626d442ac48aa8ca035b20976565e
+For all general reference, please check the notion document: https://metalanguage.notion.site/AGI-603626d442ac48aa8ca035b20976565e
+
+For P.I.V.O.T. protocol, please check the notion document: https://metalanguage.notion.site/P-I-V-O-T-Protocol-for-Information-Valuation-with-Open-source-Traceability-e45c0a6112c244589a70853826341d67?pvs=4
 
 # Basic information
  Project name：PIVOT
@@ -74,8 +76,8 @@ For all reference, please check the notion document: https://metalanguage.notion
 | --- | --- | --- | --- |
 | Zaki |  队长 | Gitverse-Web3 | Gitverse |
 | John | 架构师 | XHBLX | ma-gic |
-| 枫叶闲庭 | AI工程师 | MonicaArnaud | soulandyvip |
-| 蒹葭苍苍 | AI工程师 | warindark | ouahiba0804 |
+| 枫叶闲庭 | AI工程师 | lizhanyang505 | soulandyvip |
+| 蒹葭苍苍 | AI工程师 | MonicaArnaud | ouahiba0804 |
 | lix | 区块链工程师 | ciconia11 | cryptolix |
 
 

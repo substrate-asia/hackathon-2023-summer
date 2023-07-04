@@ -1,0 +1,53 @@
+enclave {
+    from "sgx_tstd.edl" import *;
+    from "sgx_stdio.edl" import *;
+    from "sgx_backtrace.edl" import *;
+    from "sgx_tstdc.edl" import *;
+    from "sgx_net.edl" import *;
+    from "sgx_pipe.edl" import *;
+    from "sgx_file.edl" import *;
+
+    trusted {
+		 
+		public sgx_status_t ec_key_exchange(
+            [in, size=64]uint8_t* user_pub_key, 
+			[out, size=64]uint8_t* tee_pub_key,
+            [out, size=32]uint8_t* session_id 
+        );
+
+		public sgx_status_t ec_set_conf(
+            [in, size=8192]uint8_t* config_b, 
+            int config_b_size
+        );
+
+        public sgx_status_t ec_send_otp(
+            [in, size=otp_req_size]uint8_t* otp_req,
+            int otp_req_size,
+            [out] uint8_t* error_code            
+        );
+
+        public sgx_status_t ec_auth_in_one(
+            [in, size=auth_req_size]uint8_t* auth_req,
+            int auth_req_size,
+            int max_len,
+            [out, size=max_len]uint8_t* account_b,
+            [out] uint32_t* account_b_size,
+            [out, size=max_len]uint8_t* cipher_dauth,
+            [out] uint32_t* cipher_dauth_size,
+            [out] uint8_t* error_code
+        );
+
+
+        public sgx_status_t ec_get_sign_pub_key(
+            [out, size=2048]uint8_t* pub_key,
+            [out] uint32_t* pub_key_size
+        );
+
+        public sgx_status_t ec_test();
+        
+    };
+
+	untrusted {
+        void oc_log(int level, [in, size=msg_len]uint8_t* msg, int msg_len);
+	};
+};

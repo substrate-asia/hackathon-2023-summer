@@ -1,0 +1,27 @@
+[package]
+name = "stake_manager"
+version = "0.1.0"
+authors = ["[your_name] <[your_email]>"]
+edition = "2021"
+
+
+[dev-dependencies]
+ink_e2e.workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+ink-aa = { path = "../..", default-features = false, features = ["ink-as-dependency"] }
+
+ink = { workspace = true, default-features = false }
+
+scale = { package = "parity-scale-codec", workspace = true, default-features = false, features = ["derive"] }
+scale-info = { workspace = true, default-features = false, features = ["derive"], optional = true }
+
+
+[features]
+default = ["std"]
+std = ["ink/std", "scale/std", "scale-info/std", "ink-aa/std"]
+ink-as-dependency = []
+e2e-tests = []

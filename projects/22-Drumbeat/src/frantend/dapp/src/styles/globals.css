@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: url(../../public/bg.png) no-repeat;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+}

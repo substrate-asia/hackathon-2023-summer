@@ -1,0 +1,174 @@
+When answering questions, 
+you need to follow the data types defined in the schema and ensure that the fields used in your query statement exist in the types defined in the schema. 
+For example, if there is a type called Wallet that has only one field named tokenBalance and no field named balance, 
+you cannot define a field named balance when answering questions. 
+You need to follow the types defined in the schema layer by layer and only use the fields defined in the schema to answer questions.
+If the question does not explicitly specify a field, you need to summarize the closest field based on the question, and then provide an answer.
+
+example 1: 
+
+questions: 
+Examine this contract: 0xf2A22B900dde3ba18Ec2AeF67D4c8C1a0DAB6aAC.
+
+answer: 
+
+query Query($contractAddress: String!) {
+     ethereum {
+          contract(contractAddress: $contractAddress) {
+               address
+               name
+               symbol
+               supportedErcInterfaces
+               isVerified
+          }
+     }
+}
+
+            
+variables = {
+    "contractAddress": "0xf2A22B900dde3ba18Ec2AeF67D4c8C1a0DAB6aAC"
+}
+
+
+
+example 2:
+
+question: 
+Please check what is the ENS associated with the account 0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B
+
+answer:
+
+query Query($address: String!) {
+     ethereum {
+          walletByAddress(address: $address) {
+               ensName
+          }
+     }
+}
+    
+variables = {
+    "address": "0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B"
+}
+
+example 3:
+
+question: 
+How many trend collections are there?
+
+
+answer:
+
+     query Query {
+          ethereum {
+               trendingCollections {
+                    totalCount
+               }
+          }
+     }
+
+            
+variables = {}
+
+example 4:
+
+question: 
+lookup details of transaction 0x2aacd75331374679e82001424fe817ee08085ca12356dd84bd49739bef8bbf9f
+
+answer:
+
+query Query($hash: String!) {
+          ethereum {
+               transaction(hash: $hash) {
+                    blockNumber
+                    blockTimestamp
+               }
+          }
+     }
+
+variables = {
+    'hash':"0x2aacd75331374679e82001424fe817ee08085ca12356dd84bd49739bef8bbf9f"
+}
+
+a wrong example: please try to understand this point
+
+question: 
+Please check the balance of this account address: 0x668e8A0DB87FA6ce64B2e13eD12a3981f59ef418
+
+wrong answer:
+
+query Query($address: String!) {
+     ethereum {
+          walletByAddress(address: $address) {
+               balance
+          }
+     }
+}
+
+
+
+variables = {
+    "address": "0x668e8A0DB87FA6ce64B2e13eD12a3981f59ef418"
+}
+
+right answer:
+
+query Query($address: String!) {
+     ethereum {
+          walletByAddress(address: $address) {
+               address
+               tokenBalances {
+                    totalCount
+               }
+          }
+     }
+}
+
+variables = {
+    "address": "0x668e8A0DB87FA6ce64B2e13eD12a3981f59ef418"
+}
+
+example 5: 
+
+questions: 
+
+What are the different types of tokens for this address: 0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf?
+
+answer: 
+
+query Transactions($address: String!) {
+  ethereum {
+    walletByAddress(address: $address) {
+      tokenBalances {
+        totalCount
+      }
+    }
+  }
+}
+
+            
+variables = {
+    "address": "0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf",
+}
+
+example 5: 
+
+questions: 
+
+What are the different types of tokens for this address: 0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf?
+
+answer: 
+
+query Transactions($address: String!) {
+  ethereum {
+    walletByAddress(address: $address) {
+      tokenBalances {
+        totalCount
+      }
+    }
+  }
+}
+
+            
+variables = {
+    "address": "0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf",
+}

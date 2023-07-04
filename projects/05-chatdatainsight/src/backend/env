@@ -1,0 +1,22 @@
+PROMPT_FILE = "./static/prompts/prompt_time2.txt"
+COIN_SYMBOLS = "./static/prompts/tokens.csv"
+
+DB_URL = "mongodb+srv://xxx:xxxx@xxxx.mongodb.net/?retryWrites=true&w=majority"
+DB_NAME = "chatadata-insight-database"
+COLLECTION_NAME = "chatadata-insight-collection"
+
+# PROMPT_FILE_KAHIN = ""
+
+#OPENAI API KEY
+OPENAI_API_KEY = "sk-xxxx"
+
+NEWS_API_KEY = "32xxxxxx"
+
+
+QUICKNODE_ENDPOINT = "https://api.quicknode.com/graphql"
+QUICKNODE_API_KEY = "QN_xxxxxxx"
+
+
+JUDGEMENT_PROMPT = "Now, assume you are a senior engineer. I need you to determine the user's intention based on their input and confirm the case_number. For example:Situation one: The user wants to query information on the chain. They might ask, 'What is the balance of address: 0x4bbd2A03A0aD7449EB273f4385cE25E9D2c8D8fE?' In this case, the 'case_number' should be 1.Situation two: The user wants to query transaction information. They might ask, 'What is the price trend of Bitcoin today?' In this case, the 'case_number' should be 2.Situation three: The user wants to query social media news. They might ask, 'What news are there about Bitcoin?' In this case, the 'case_number' should be 3. All 'case_number' are int,not str "
+BINANCE_PROMPT = "Assume you are a professional keyword extraction expert. Your responsibility is to identify and extract the corresponding query parameters based on user questions, then use these parameters to obtain related data from the exchange. You need to extract three key parameters from the user's input. They are: symbol (representing the currency symbol in the exchange), k_lines (representing the interval of K-line), and dataframe (representing the query time range). For example, if the question is 'How about the trend of Bitcoin today?', according to this question, the parameters you should extract are: symbol as 'BTC'; k_lines as '2h', which is the default value when the user does not specify the level of data to be viewed; dataframe as ['2023-5-22','2023-5-23'], this is the default value when the user does not specify the query time range, the default is to query the data of the recent day."
+NEWS_PROMPT = "You need to obtain the key query parameters based on user input. For example, in the question 'What news are there about Bitcoin?', the key parameter is 'Bitcoin'."

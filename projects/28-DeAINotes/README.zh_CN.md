@@ -9,9 +9,8 @@
 
 [操作手册](./docs/OperationManual.md)
 
-[演示视频]()
+[演示视频](https://youtu.be/bOKwpGb-208)
 
-[PPT]()
 
 ## 项目整体简介
 

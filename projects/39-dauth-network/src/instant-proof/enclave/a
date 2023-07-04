@@ -1,0 +1,139 @@
+enclave v1.0.0 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/samplecode/ks-wallet-backend/enclave)
+├── http_req v0.7.2 (https://github.com/mesalock-linux/http_req-sgx#5d0f7474)
+│   ├── rustls v0.19.0 (https://github.com/mesalock-linux/rustls?branch=mesalock_sgx#95b5e79d)
+│   │   ├── base64 v0.13.0 (https://github.com/mesalock-linux/rust-base64-sgx#dc7389e1)
+│   │   │   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd)
+│   │   │       ├── hashbrown_tstd v0.12.0 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd/hashbrown)
+│   │   │       ├── sgx_alloc v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_alloc)
+│   │   │       ├── sgx_backtrace_sys v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_backtrace_sys)
+│   │   │       │   └── sgx_libc v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_libc)
+│   │   │       │       └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+│   │   │       │   [build-dependencies]
+│   │   │       │   ├── cc v1.0.78
+│   │   │       │   └── sgx_build_helper v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_build_helper)
+│   │   │       ├── sgx_demangle v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_demangle)
+│   │   │       ├── sgx_libc v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_libc) (*)
+│   │   │       ├── sgx_tprotected_fs v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tprotected_fs)
+│   │   │       │   ├── sgx_trts v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_trts)
+│   │   │       │   │   ├── sgx_libc v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_libc) (*)
+│   │   │       │   │   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+│   │   │       │   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+│   │   │       ├── sgx_trts v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_trts) (*)
+│   │   │       ├── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+│   │   │       └── sgx_unwind v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_unwind)
+│   │   │           [build-dependencies]
+│   │   │           └── sgx_build_helper v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_build_helper)
+│   │   ├── log v0.4.14 (https://github.com/mesalock-linux/log-sgx#2ca9039a)
+│   │   │   ├── cfg-if v1.0.0
+│   │   │   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │   ├── ring v0.16.19 (https://github.com/mesalock-linux/ring-sgx?tag=v0.16.5#844efe27)
+│   │   │   ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │   │   ├── spin v0.5.2
+│   │   │   └── untrusted v0.7.1
+│   │   │   [build-dependencies]
+│   │   │   └── cc v1.0.78
+│   │   ├── sct v0.6.0 (https://github.com/mesalock-linux/sct.rs?branch=mesalock_sgx#c4d859cc)
+│   │   │   ├── ring v0.16.19 (https://github.com/mesalock-linux/ring-sgx?tag=v0.16.5#844efe27) (*)
+│   │   │   ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │   │   └── untrusted v0.7.1
+│   │   ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │   └── webpki v0.21.4 (https://github.com/mesalock-linux/webpki?branch=mesalock_sgx#8dbe6fbe)
+│   │       ├── ring v0.16.19 (https://github.com/mesalock-linux/ring-sgx?tag=v0.16.5#844efe27) (*)
+│   │       ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │       └── untrusted v0.7.1
+│   ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   ├── unicase v2.6.0 (https://github.com/mesalock-linux/unicase-sgx#0b051934)
+│   │   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   │   [build-dependencies]
+│   │   └── version_check v0.9.4
+│   ├── webpki v0.21.4 (https://github.com/mesalock-linux/webpki?branch=mesalock_sgx#8dbe6fbe) (*)
+│   └── webpki-roots v0.21.0 (https://github.com/mesalock-linux/webpki-roots?branch=mesalock_sgx#6ff3be54)
+│       ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│       └── webpki v0.21.4 (https://github.com/mesalock-linux/webpki?branch=mesalock_sgx#8dbe6fbe) (*)
+├── libsecp256k1 v0.7.1
+│   ├── arrayref v0.3.6
+│   ├── base64 v0.13.1
+│   ├── digest v0.9.0
+│   │   └── generic-array v0.14.6
+│   │       └── typenum v1.16.0
+│   │       [build-dependencies]
+│   │       └── version_check v0.9.4
+│   ├── hmac-drbg v0.3.0
+│   │   ├── digest v0.9.0 (*)
+│   │   ├── generic-array v0.14.6 (*)
+│   │   └── hmac v0.8.1
+│   │       ├── crypto-mac v0.8.0
+│   │       │   ├── generic-array v0.14.6 (*)
+│   │       │   └── subtle v2.4.1
+│   │       └── digest v0.9.0 (*)
+│   ├── libsecp256k1-core v0.3.0
+│   │   ├── crunchy v0.2.2
+│   │   ├── digest v0.9.0 (*)
+│   │   └── subtle v2.4.1
+│   ├── rand v0.8.5
+│   │   ├── libc v0.2.139
+│   │   ├── rand_chacha v0.3.1
+│   │   │   ├── ppv-lite86 v0.2.17
+│   │   │   └── rand_core v0.6.4
+│   │   │       └── getrandom v0.2.8
+│   │   │           ├── cfg-if v1.0.0
+│   │   │           └── libc v0.2.139
+│   │   └── rand_core v0.6.4 (*)
+│   ├── serde v1.0.147
+│   │   └── serde_derive v1.0.147 (proc-macro)
+│   │       ├── proc-macro2 v1.0.32
+│   │       │   └── unicode-xid v0.2.4
+│   │       ├── quote v1.0.10
+│   │       │   └── proc-macro2 v1.0.32 (*)
+│   │       └── syn v1.0.94
+│   │           ├── proc-macro2 v1.0.32 (*)
+│   │           ├── quote v1.0.10 (*)
+│   │           └── unicode-xid v0.2.4
+│   ├── sha2 v0.9.9
+│   │   ├── block-buffer v0.9.0
+│   │   │   └── generic-array v0.14.6 (*)
+│   │   ├── cfg-if v1.0.0
+│   │   ├── cpufeatures v0.2.5
+│   │   ├── digest v0.9.0 (*)
+│   │   └── opaque-debug v0.3.0
+│   └── typenum v1.16.0
+│   [build-dependencies]
+│   ├── libsecp256k1-gen-ecmult v0.3.0
+│   │   └── libsecp256k1-core v0.3.0 (*)
+│   └── libsecp256k1-gen-genmult v0.3.0
+│       └── libsecp256k1-core v0.3.0 (*)
+├── proc-macro2 v1.0.32 (*)
+├── quote v1.0.10 (*)
+├── serde v1.0.118 (https://github.com/mesalock-linux/serde-sgx.git#db0226f1)
+│   ├── serde_derive v1.0.118 (proc-macro) (https://github.com/mesalock-linux/serde-sgx.git#db0226f1)
+│   │   ├── proc-macro2 v1.0.32 (*)
+│   │   ├── quote v1.0.10 (*)
+│   │   └── syn v1.0.94 (*)
+│   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+├── serde_cbor v0.11.1 (https://github.com/mesalock-linux/cbor-sgx#64211d5d)
+│   ├── half v1.8.2
+│   ├── serde v1.0.118 (https://github.com/mesalock-linux/serde-sgx.git#db0226f1) (*)
+│   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+├── serde_json v1.0.60 (https://github.com/mesalock-linux/serde-json-sgx#38089381)
+│   ├── itoa v0.4.5 (https://github.com/mesalock-linux/itoa-sgx#295ee451)
+│   │   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   ├── ryu v1.0.12
+│   ├── serde v1.0.118 (https://github.com/mesalock-linux/serde-sgx.git#db0226f1) (*)
+│   └── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+├── sgx_rand v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_rand)
+│   ├── sgx_trts v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_trts) (*)
+│   ├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+│   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+├── sgx_tcrypto v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tcrypto)
+│   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+├── sgx_trts v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_trts) (*)
+├── sgx_tseal v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tseal)
+│   ├── sgx_tcrypto v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tcrypto) (*)
+│   ├── sgx_trts v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_trts) (*)
+│   ├── sgx_tse v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tse)
+│   │   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+│   └── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+├── sgx_tstd v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_tstd) (*)
+├── sgx_types v1.1.6 (/home/rustdev/workspace/incubator-teaclave-sgx-sdk/sgx_types)
+└── tiny-keccak v2.0.2
+    └── crunchy v0.2.2

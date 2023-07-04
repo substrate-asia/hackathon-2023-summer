@@ -50,8 +50,7 @@ In addition, the Distributed Business Collaboration System also has typical dece
 
 - 项目Demo
 -
-Ctt DC web wallet: http://www.d2business.net/#/explorer
-Android Download：[](https://www.aigoshop.net/upload/jianfa_wallet.apk)
+Ctt DC web wallet: http://www.d2business.net/#/explorer Android Download：
 
 - 技术架构
 - 
@@ -75,6 +74,7 @@ We believe that commodity (service) trading is the most efficient in a centraliz
 **Blockchain**
 
 Development completed
+https://github.com/CTT-block-chain
 
 **Client**
 

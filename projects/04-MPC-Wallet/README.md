@@ -1,6 +1,8 @@
 ## 基本资料
 
-项目名称：SubDev (全称: SubStrate Developer)
+项目名称：Self Wallet
+
+团队名称：SubDev (全称: SubStrate Developer)
 
 项目立项日期 ：2023/5/20
 

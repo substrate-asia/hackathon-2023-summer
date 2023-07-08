@@ -12,7 +12,7 @@ CN 项目介绍
 
 - 项目背景: 当前 web3 用户使用钱包，不紧消耗gas费，助记词有丢失和遗忘风险。所以基于Eip-4337 合约钱包本项目应运而生。
 
-- 项目介绍: 使用web3 协议的 mpc wallet 钱包，基于 eip-4337 的抽象帐户创建的钱包，用户在合约转账中，不需要购买gas费，就可以完成转账功能。让用户更加方便的使用区块链钱包功能。利用Eip-4337全约,独特的抽象帐户，用户可以使用多种方式登录钱包。省去了购买gas 费问题和钱包丢失问题。
+- 项目介绍: 使用web3 协议的 Self wallet 钱包，基于 eip-4337 的抽象帐户创建的钱包，用户在合约转账中，不需要购买gas费，就可以完成转账功能。让用户更加方便的使用区块链钱包功能。利用Eip-4337全约,独特的抽象帐户，用户可以使用多种方式登录钱包。省去了购买gas 费问题和钱包丢失问题。
 
 - 技术架构: 钱包登陆-》邮箱验证登录-》钱包地址-》提交转账信息-》后台系统批量添加捆绑交易信息。-》执行 Eip-4337合约-》完成转账.
 ```
@@ -21,7 +21,7 @@ Introduction to EN Project
 
 - Project background: Currently, web3 users are using wallets and do not consume gas fees. There is a risk of loss and forgetting mnemonics. So based on the Eip-4337 contract wallet, this project emerged as the times require.
 
-- Project introduction: MPC wallet using web3 protocol, created based on abstract account of EIP-4337, allows users to complete the transfer function without purchasing gas fees during contract transfer. Make it more convenient for users to use the blockchain wallet function. With the Eip-4337 full contract and unique abstract account, users can log in to their wallet in multiple ways. Eliminated the issue of gas purchase fees and wallet loss.
+- Project introduction: Self wallet using web3 protocol, created based on abstract account of EIP-4337, allows users to complete the transfer function without purchasing gas fees during contract transfer. Make it more convenient for users to use the blockchain wallet function. With the Eip-4337 full contract and unique abstract account, users can log in to their wallet in multiple ways. Eliminated the issue of gas purchase fees and wallet loss.
 
 - Technical architecture: Wallet login ->Email verification login ->Wallet address ->Submit transfer information ->Batch add bundled transaction information to the backend system Execute the Eip-4337 contract to complete the transfer
 ```
